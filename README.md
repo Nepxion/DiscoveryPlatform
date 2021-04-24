@@ -65,8 +65,8 @@
 - [指南Github原镜像](https://github.com/polaris-paas/polaris-guide)
 
 ④ Polaris【北极星】企业级云原生微服务框架指南示例说明
-- Spring Cloud旧版本，参考[1.x.x指南示例](https://github.com/polaris-paas/polaris-sdk/tree/1.x.x/polaris-sdk)，分支为1.x.x
-- Spring Cloud新版本，参考[2.x.x指南示例](https://github.com/polaris-paas/polaris-sdk/tree/master/polaris-sdk)，分支为master
+- Spring Cloud旧版本，参考[1.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/1.x.x)，分支为1.x.x
+- Spring Cloud新版本，参考[2.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/master)，分支为master
 
 ![](http://nepxion.gitee.io/docs/icon-doc/Logo64.png) Discovery【探索】和Polaris【北极星】架构体系
 

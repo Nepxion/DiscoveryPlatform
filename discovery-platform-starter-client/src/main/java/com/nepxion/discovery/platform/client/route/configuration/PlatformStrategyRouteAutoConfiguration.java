@@ -17,28 +17,28 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import com.nepxion.discovery.platform.client.route.processor.GatewayStrategyRouteProcessor;
-import com.nepxion.discovery.platform.client.route.processor.ZuulStrategyRouteProcessor;
+import com.nepxion.discovery.platform.client.route.processor.PlatformGatewayStrategyRouteProcessor;
+import com.nepxion.discovery.platform.client.route.processor.PlatformStrategyRouteProcessor;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 @Configuration
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
-public class StrategyRouteAutoConfiguration {
+public class PlatformStrategyRouteAutoConfiguration {
     @ConditionalOnBean(GatewayStrategyRoute.class)
     protected static class GatewayStrategyRouteEndpointConfiguration {
         @Bean
         @ConditionalOnProperty(value = "spring.cloud.gateway.discovery.locator.enabled", havingValue = "false", matchIfMissing = true)
-        public GatewayStrategyRouteProcessor gatewayStrategyRouteProcessor() {
-            return new GatewayStrategyRouteProcessor();
+        public PlatformGatewayStrategyRouteProcessor platformGatewayStrategyRouteProcessor() {
+            return new PlatformGatewayStrategyRouteProcessor();
         }
     }
 
     @ConditionalOnBean(ZuulStrategyRoute.class)
     protected static class ZuulStrategyRouteEndpointConfiguration {
         @Bean
-        public ZuulStrategyRouteProcessor zuulStrategyRouteProcessor() {
-            return new ZuulStrategyRouteProcessor();
+        public PlatformStrategyRouteProcessor platformStrategyRouteProcessor() {
+            return new PlatformStrategyRouteProcessor();
         }
     }
 }

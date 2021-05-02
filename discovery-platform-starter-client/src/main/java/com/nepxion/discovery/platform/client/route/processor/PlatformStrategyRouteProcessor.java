@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nepxion.discovery.plugin.strategy.zuul.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
-public class ZuulStrategyRouteProcessor {
+public class PlatformStrategyRouteProcessor {
     @Autowired
     private ZuulStrategyRoute zuulStrategyRoute;
 

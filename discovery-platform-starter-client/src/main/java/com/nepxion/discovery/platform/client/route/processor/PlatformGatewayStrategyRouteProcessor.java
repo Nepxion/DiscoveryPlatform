@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nepxion.discovery.plugin.strategy.gateway.entity.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 
-public class GatewayStrategyRouteProcessor {
+public class PlatformGatewayStrategyRouteProcessor {
     @Autowired
     private GatewayStrategyRoute gatewayStrategyRoute;
 

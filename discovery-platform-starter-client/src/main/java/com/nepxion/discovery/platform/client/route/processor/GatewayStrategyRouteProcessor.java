@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.client.route;
+package com.nepxion.discovery.platform.client.route.processor;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -14,15 +14,18 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.nepxion.discovery.plugin.strategy.gateway.entity.GatewayStrategyRouteEntity;
-import com.nepxion.discovery.plugin.strategy.gateway.route.AbstractGatewayStrategyRoute;
+import org.springframework.beans.factory.annotation.Autowired;
 
-// 只给数据库存储用
-public class PlatformGatewayStrategyRoute extends AbstractGatewayStrategyRoute {
+import com.nepxion.discovery.plugin.strategy.gateway.entity.GatewayStrategyRouteEntity;
+import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
+
+public class GatewayStrategyRouteProcessor {
+    @Autowired
+    private GatewayStrategyRoute gatewayStrategyRoute;
+
     @PostConstruct
     public void initialize() {
-        // 从数据库里获取动态路由列表
         List<GatewayStrategyRouteEntity> gatewayStrategyRouteEntityList = new ArrayList<>();
-        updateAll(gatewayStrategyRouteEntityList);
+        gatewayStrategyRoute.updateAll(gatewayStrategyRouteEntityList);
     }
 }

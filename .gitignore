@@ -1,41 +1,34 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
-### STS ###
-.apt_generated
+# Compiled class file
+*.class
 .classpath
-.factorypath
-.project
-.settings
 .springBeans
-.sts4-cache
+.factorypath
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+*.class
+*.classpath
+*.project
+*.springBeans
+bin/
+log/
+test-output/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.swp
 *.log
-*.lck
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+*.ctxt
+# nodejs local modules
+.tags*
+.idea/
 *.iml
-*.ipr
-*.iml
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-
-### VS Code ###
-.vscode/
-/mvnw.cmd
-/mvnw
-/.mvn/wrapper/
-
-### log ###
-/src/
-/logs/
+.gradle/
+.settings/
+target/
+hs_err_pid*

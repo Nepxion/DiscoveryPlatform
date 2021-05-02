@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform</artifactId>
     <name>Nepxion Discovery Platform</name>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
-    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection</description>
+    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and
+        gray release orchestration, modelling, flow inspection
+    </description>
     <url>http://www.nepxion.com</url>
 
-    <properties>
-        <discovery.version>6.10.0</discovery.version>
+    <modules>
+        <module>discovery-platform-starter-server</module>
+        <module>discovery-platform-application</module>
+        <module>discovery-platform-starter-client</module>
+    </modules>
 
+    <properties>
+        <discovery.version>6.11.0-SNAPSHOT</discovery.version>
+        <springboot.version>2.4.5</springboot.version>
+        <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+        <mysql-connector-java.version>8.0.24</mysql-connector-java.version>
+        <HikariCP.version>4.0.3</HikariCP.version>
+        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <shiro.version>1.7.1</shiro.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -20,84 +33,85 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.nepxion</groupId>
-                <artifactId>discovery</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-starter-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
                 <version>${discovery.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
+                <version>${discovery.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${HikariCP.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <!-- 1.控制台 -->
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-console-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-console-starter-apollo</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-redis</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-zookeeper</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-consul</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
-        </dependency>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
-        <!-- 2.注册中心 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <!-- <groupId>org.springframework.cloud</groupId> -->
-            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
-        </dependency>
-    </dependencies>
+    <scm>
+        <url>https://github.com/Nepxion/Discovery</url>
+        <connection>scm:git:https://github.com/Nepxion/Discovery.git</connection>
+        <developerConnection>scm:git:https://github.com/Nepxion/Discovery.git</developerConnection>
+        <tag>v${project.version}</tag>
+    </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <layout>JAR</layout>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <attach>false</attach>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <organization>
+        <name>Nepxion</name>
+        <url>http://www.nepxion.com</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Ning Zhang</name>
+            <email>349409664@qq.com</email>
+            <url>http://www.nepxion.com</url>
+        </developer>
+    </developers>
 </project>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform-application</artifactId>
     <name>Nepxion Discovery Platform Application</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
-    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection</description>
+    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and
+        gray release orchestration, modelling, flow inspection
+    </description>
     <url>http://www.nepxion.com</url>
 
     <properties>
@@ -43,6 +45,35 @@
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- 4. 数据库模式需添加 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- 4. 数据库模式需添加 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <!-- 4. 数据库模式需添加 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 5. ldap需添加 -->
+<!--        <dependency>-->
+        <!--            <groupId>org.springframework.security</groupId>-->
+        <!--            <artifactId>spring-security-ldap</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>

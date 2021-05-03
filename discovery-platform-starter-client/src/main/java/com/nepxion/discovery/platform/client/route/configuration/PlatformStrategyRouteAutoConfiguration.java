@@ -5,22 +5,21 @@ package com.nepxion.discovery.platform.client.route.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- * @author Haojun Ren
+ *
  * @author Ning Zhang
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.client.route.processor.PlatformGatewayStrategyRouteProcessor;
+import com.nepxion.discovery.platform.client.route.processor.PlatformStrategyRouteProcessor;
+import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
+import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-
-import com.nepxion.discovery.platform.client.route.processor.PlatformGatewayStrategyRouteProcessor;
-import com.nepxion.discovery.platform.client.route.processor.PlatformStrategyRouteProcessor;
-import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
-import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 @Configuration
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)

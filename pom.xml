@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform</artifactId>
     <name>Nepxion Discovery Platform</name>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0-SNAPSHOT</version>
-    <description>Nepxion Discovery is a solution for Spring Cloud with blue green, gray, weight, limitation, circuit breaker, degrade, isolation, monitor, tracing, dye, failover, async agent</description>
+    <description>Nepxion Discovery is a solution for Spring Cloud with blue green, gray, weight, limitation, circuit
+        breaker, degrade, isolation, monitor, tracing, dye, failover, async agent
+    </description>
     <url>http://www.nepxion.com</url>
 
     <modules>
         <module>discovery-platform-starter-server</module>
         <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
+        <module>discovery-platform-tool</module>
     </modules>
 
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
         <mysql.connector.version>8.0.24</mysql.connector.version>
         <hikaricp.version>4.0.3</hikaricp.version>
-        <mybatis.plus.version>3.4.2</mybatis.plus.version>
+        <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
         <shiro.version>1.7.1</shiro.version>
+        <unirest-java.version>3.11.11</unirest-java.version>
+        <hutool-all.version>5.6.4</hutool-all.version>
+        <HikariCP.version>4.0.3</HikariCP.version>
+        <druid-spring-boot-starter.version>1.2.6</druid-spring-boot-starter.version>
+        <swagger-annotations.version>1.6.2</swagger-annotations.version>
+        <lombok.version>1.18.20</lombok.version>
+        <fastjson.version>1.2.76</fastjson.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <reflections.version>0.9.12</reflections.version>
+        <guava.version>30.1.1-jre</guava.version>
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -41,6 +56,20 @@
             </dependency>
 
             <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-tool</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery</artifactId>
+                <version>${discovery.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.version}</version>
@@ -55,7 +84,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis.plus.version}</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
 
             <dependency>
@@ -77,11 +106,63 @@
             </dependency>
 
             <dependency>
-                <groupId>com.nepxion</groupId>
-                <artifactId>discovery</artifactId>
-                <version>${discovery.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>com.konghq</groupId>
+                <artifactId>unirest-java</artifactId>
+                <version>${unirest-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${HikariCP.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

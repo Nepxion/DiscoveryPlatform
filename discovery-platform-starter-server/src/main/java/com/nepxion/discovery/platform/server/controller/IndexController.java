@@ -10,9 +10,9 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
+import com.nepxion.discovery.common.entity.vo.Admin;
+import com.nepxion.discovery.common.interfaces.AdminService;
 import com.nepxion.discovery.platform.server.common.Tool;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.ineterfaces.AdminService;
 import com.nepxion.discovery.platform.tool.exception.ExceptionTool;
 import com.nepxion.discovery.platform.tool.web.Result;
 import org.apache.shiro.SecurityUtils;
@@ -83,7 +83,7 @@ public class IndexController {
     public Result<?> repwd(final Admin admin,
                            @RequestParam(name = "oldPassword") final String oldPassword,
                            @RequestParam(name = "password") final String newPassword) throws Exception {
-        this.adminService.changePassword(admin.getId(), oldPassword, newPassword);
+        this.adminService.changePassword(admin.getId(), Tool.hash(oldPassword), Tool.hash(newPassword));
         return Result.ok();
     }
 

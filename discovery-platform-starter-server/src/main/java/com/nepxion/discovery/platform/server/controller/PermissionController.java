@@ -11,12 +11,12 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPermission;
-import com.nepxion.discovery.platform.server.entity.vo.Permission;
-import com.nepxion.discovery.platform.server.ineterfaces.PageService;
-import com.nepxion.discovery.platform.server.ineterfaces.PermissionService;
-import com.nepxion.discovery.platform.server.ineterfaces.RoleService;
+import com.nepxion.discovery.common.entity.dto.SysPage;
+import com.nepxion.discovery.common.entity.dto.SysPermission;
+import com.nepxion.discovery.common.entity.vo.Permission;
+import com.nepxion.discovery.common.interfaces.PageService;
+import com.nepxion.discovery.common.interfaces.PermissionService;
+import com.nepxion.discovery.common.interfaces.RoleService;
 import com.nepxion.discovery.platform.tool.common.CommonTool;
 import com.nepxion.discovery.platform.tool.web.Result;
 import org.springframework.stereotype.Controller;
@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class PermissionController {
     @GetMapping("tolist")
     public String toList(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.getNotSuperAdmin());
-        model.addAttribute("pages", this.pageService.listEmptyUrlPages());
+        model.addAttribute("pages", this.pageService.listNotEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "list");
     }
 
@@ -60,7 +61,7 @@ public class PermissionController {
     @PostMapping("getPages")
     @ResponseBody
     public Result<List<SysPage>> getPages(@RequestParam(value = "sysRoleId") final Long sysRoleId) throws Exception {
-        final List<SysPage> allPages = this.pageService.listAll();
+        final List<SysPage> allPages = this.pageService.list();
         final List<SysPage> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
         allPages.removeAll(pages);
         return Result.ok(allPages.stream().filter(p -> !ObjectUtils.isEmpty(p.getUrl())).collect(Collectors.toList()));
@@ -126,7 +127,7 @@ public class PermissionController {
     @ResponseBody
     public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.permissionService.removeByIds(idList);
+        this.permissionService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 }

@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.shiro;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.ineterfaces.PageService;
+import com.nepxion.discovery.common.entity.vo.Admin;
+import com.nepxion.discovery.common.interfaces.PageService;
 import com.nepxion.discovery.platform.tool.exception.ExceptionTool;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

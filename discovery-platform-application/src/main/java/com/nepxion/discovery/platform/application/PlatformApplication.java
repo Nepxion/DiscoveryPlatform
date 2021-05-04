@@ -10,14 +10,14 @@ package com.nepxion.discovery.platform.application;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.configuration.EnablePlatformUI;
+import com.nepxion.discovery.platform.server.configuration.EnablePlatformServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnablePlatformUI
+@EnablePlatformServer
 public class PlatformApplication {
     public static void main(String[] args) {
         SpringApplication.run(PlatformApplication.class, args);

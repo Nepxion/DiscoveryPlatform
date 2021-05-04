@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.resolver;
  * @version 1.0
  */
 
+import com.nepxion.discovery.common.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebArgumentResolver;
 import org.springframework.web.context.request.NativeWebRequest;

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.nepxion.discovery.platform.client.route.configuration.PlatformStrategyRouteAutoConfiguration
+com.nepxion.discovery.platform.client.configuration.PlatformAutoConfiguration

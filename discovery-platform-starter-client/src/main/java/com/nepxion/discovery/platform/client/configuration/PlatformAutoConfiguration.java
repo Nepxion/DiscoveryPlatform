@@ -23,6 +23,10 @@ import com.nepxion.discovery.common.etcd.proccessor.EtcdProcessor;
 import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 import com.nepxion.discovery.common.redis.proccessor.RedisProcessor;
 import com.nepxion.discovery.common.zookeeper.proccessor.ZookeeperProcessor;
+import com.nepxion.discovery.platform.client.event.PlatformAlarmEventSubscriber;
+import com.nepxion.discovery.platform.client.event.PlatformGatewayRouteEventSubscriber;
+import com.nepxion.discovery.platform.client.event.PlatformRuleEventSubscriber;
+import com.nepxion.discovery.platform.client.event.PlatformZuulRouteEventSubscriber;
 import com.nepxion.discovery.platform.client.route.PlatformGatewayRouteApolloProcessor;
 import com.nepxion.discovery.platform.client.route.PlatformGatewayRouteConsulProcessor;
 import com.nepxion.discovery.platform.client.route.PlatformGatewayRouteEtcdProcessor;
@@ -152,6 +156,35 @@ public class PlatformAutoConfiguration {
         @Bean
         public EtcdProcessor etcdProcessor() {
             return new PlatformZuulRouteEtcdProcessor();
+        }
+    }
+
+    protected static class PlatformConfiguration {
+        @Bean
+        public PlatformRuleEventSubscriber platformRuleEventSubscriber() {
+            return new PlatformRuleEventSubscriber();
+        }
+
+        @Bean
+        public PlatformAlarmEventSubscriber platformAlarmEventSubscriber() {
+            return new PlatformAlarmEventSubscriber();
+        }
+    }
+
+    @ConditionalOnBean(GatewayStrategyRoute.class)
+    protected static class PlatformGatewayRouteEventConfiguration {
+        @Bean
+        @ConditionalOnProperty(value = "spring.cloud.gateway.discovery.locator.enabled", havingValue = "false", matchIfMissing = true)
+        public PlatformGatewayRouteEventSubscriber platformGatewayRouteEventSubscriber() {
+            return new PlatformGatewayRouteEventSubscriber();
+        }
+    }
+
+    @ConditionalOnBean(ZuulStrategyRoute.class)
+    protected static class PlatformZuulRouteEventConfiguration {
+        @Bean
+        public PlatformZuulRouteEventSubscriber platformZuulRouteEventSubscriber() {
+            return new PlatformZuulRouteEventSubscriber();
         }
     }
 }

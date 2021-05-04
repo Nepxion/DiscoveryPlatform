@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS `sys_admin`
     UNIQUE INDEX `idx_sys_admin_username` (`username`),
     INDEX `idx_sys_admin_sys_role_id` (`sys_role_id`)
 ) COMMENT ='管理员信息';
-INSERT IGNORE INTO `sys_admin`(`id`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `remark`)
-VALUES (1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@sjb.com', '超级管理员');
+INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `remark`)
+VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'zhangningkid@163.com', '超级管理员');
 
 
 

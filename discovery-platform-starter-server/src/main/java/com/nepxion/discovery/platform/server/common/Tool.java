@@ -16,19 +16,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONValidator;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.nepxion.discovery.common.entity.vo.TimeRange;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.vo.TimeRange;
 import com.nepxion.discovery.platform.tool.db.DataSourceTool;
-import com.nepxion.discovery.platform.tool.exception.ExceptionTool;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public final class Tool {
@@ -59,38 +55,6 @@ public final class Tool {
             }
         }
         return ip;
-    }
-
-    public static <T> T toVo(final Object source,
-                             final Class<T> target) {
-        if (null == source) {
-            return null;
-        }
-        try {
-            final T result = target.newInstance();
-            BeanUtils.copyProperties(source, result);
-            return result;
-        } catch (final Exception e) {
-            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
-            return null;
-        }
-    }
-
-    public static <T> List<T> toVoList(final List<?> source,
-                                       final Class<T> target) {
-        if (null == source) {
-            return null;
-        }
-        try {
-            final List<T> result = new ArrayList<>(source.size());
-            for (final Object o : source) {
-                result.add(toVo(o, target));
-            }
-            return result;
-        } catch (final Exception e) {
-            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
-            return null;
-        }
     }
 
     public static String hash(final String value) {

@@ -11,10 +11,10 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysAdmin;
-import com.nepxion.discovery.platform.server.entity.dto.SysRole;
-import com.nepxion.discovery.platform.server.ineterfaces.AdminService;
-import com.nepxion.discovery.platform.server.ineterfaces.RoleService;
+import com.nepxion.discovery.common.entity.dto.SysAdmin;
+import com.nepxion.discovery.common.entity.dto.SysRole;
+import com.nepxion.discovery.common.interfaces.AdminService;
+import com.nepxion.discovery.common.interfaces.RoleService;
 import com.nepxion.discovery.platform.tool.common.CommonTool;
 import com.nepxion.discovery.platform.tool.web.Result;
 import org.springframework.stereotype.Controller;
@@ -97,7 +97,7 @@ public class RoleController {
             }
             idSet.add(id);
         }
-        this.roleService.removeById(idSet);
+        this.roleService.removeByIds(idSet);
         return Result.ok();
     }
 }

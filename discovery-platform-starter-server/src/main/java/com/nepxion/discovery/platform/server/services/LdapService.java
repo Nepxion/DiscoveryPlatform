@@ -1,7 +1,17 @@
 package com.nepxion.discovery.platform.server.services;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
+import com.nepxion.discovery.common.entity.vo.LdapUser;
 import com.nepxion.discovery.platform.server.configuration.properties.PlatformLdapProperties;
-import com.nepxion.discovery.platform.server.entity.vo.LdapUser;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ldap.core.AttributesMapper;
@@ -19,14 +29,6 @@ import java.util.stream.Collectors;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
-/**
- * The service for ldap
- * <p>
- * *****************************************************************
- * Name               Action            Time          Description  *
- * Ning.Zhang       Initialize       02/14/2021       Initialize   *
- * *****************************************************************
- */
 public class LdapService {
     private static final String MEMBER_OF_ATTR_NAME = "memberOf";
     private static final String MEMBER_UID_ATTR_NAME = "memberUid";
@@ -89,8 +91,12 @@ public class LdapService {
      * @return return user information which match the keyword
      */
     public List<LdapUser> search(final String keyword,
-                                 final int offset,
-                                 final int limit) {
+                                 final Integer pageNum,
+                                 final Integer pageSize) {
+
+        final int offset = (Math.max(pageNum, 1) - 1) * pageSize;
+        final int limit = pageSize;
+
         final ContainerCriteria criteria = ldapQueryCriteria().and
                 (
                         query().where(this.platformLdapProperties.getLoginIdAttrName()).like("*" + keyword + "*")

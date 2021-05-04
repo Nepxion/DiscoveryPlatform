@@ -11,15 +11,16 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPage;
-import com.nepxion.discovery.platform.server.entity.vo.Page;
-import com.nepxion.discovery.platform.server.ineterfaces.PageService;
+import com.nepxion.discovery.common.entity.dto.SysPage;
+import com.nepxion.discovery.common.entity.vo.Page;
+import com.nepxion.discovery.common.interfaces.PageService;
 import com.nepxion.discovery.platform.tool.common.CommonTool;
 import com.nepxion.discovery.platform.tool.web.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -102,7 +103,7 @@ public class PageController {
     @ResponseBody
     public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.pageService.removeByIds(idList);
+        this.pageService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 }

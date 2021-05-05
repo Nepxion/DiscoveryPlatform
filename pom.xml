@@ -77,6 +77,24 @@
 
             <dependency>
                 <groupId>com.nepxion</groupId>
+                <artifactId>discovery-plugin-admin-center-starter</artifactId>
+                <version>${discovery.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
+                <version>${discovery.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+                <version>${discovery.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
                 <artifactId>discovery</artifactId>
                 <version>${discovery.version}</version>
                 <type>pom</type>

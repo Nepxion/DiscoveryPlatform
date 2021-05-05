@@ -54,6 +54,7 @@ public class PlatformPropertiesInitializer implements EnvironmentPostProcessor, 
         this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.request-context-attribute", "request");
         this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.auto_import", "common/spring.ftl as spring");
         this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.number_format", "0.##");
+        this.addDefaultConfig(configurableEnvironment, properties, "spring.main.allow-bean-definition-overriding", true);
 
         if (!properties.isEmpty()) {
             configurableEnvironment.getPropertySources().addFirst(new PropertiesPropertySource("springCloudApplicationProperties", properties));

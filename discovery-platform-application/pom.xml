@@ -30,7 +30,7 @@
             <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
         </dependency>
 
-        <!-- 2.控制台注册中心 -->
+        <!-- 2.注册中心 -->
         <dependency>
             <!-- <groupId>com.alibaba.cloud</groupId> -->
             <!-- <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId> -->
@@ -40,11 +40,13 @@
             <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
         </dependency>
 
-        <!-- 3.控制台服务 -->
+        <!-- 3.注册中心 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-starter-server</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
+            <!-- <artifactId>discovery-plugin-strategy-starter-zuul</artifactId> -->
         </dependency>
+
 
         <!-- 4.mysql模式 -->
         <dependency>
@@ -52,16 +54,27 @@
             <artifactId>discovery-platform-mysql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
         <!-- 5. ldap需添加 -->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.security</groupId>-->
         <!--            <artifactId>spring-security-ldap</artifactId>-->
         <!--        </dependency>-->
+
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-admin-center-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-platform-starter-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

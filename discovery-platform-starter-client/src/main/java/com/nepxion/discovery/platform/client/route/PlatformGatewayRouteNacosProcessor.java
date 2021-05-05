@@ -15,9 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 import com.nepxion.discovery.platform.client.constant.PlatformConstant;
+import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 
 public class PlatformGatewayRouteNacosProcessor extends NacosProcessor {
+    @Value("${" + StrategyConstant.SPRING_APPLICATION_STRATEGY_DYNAMIC_ROUTE_GROUP + ":" + DiscoveryConstant.NEPXION + "}")
+    private String group;
+
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
 
@@ -26,7 +30,7 @@ public class PlatformGatewayRouteNacosProcessor extends NacosProcessor {
 
     @Override
     public String getGroup() {
-        return PlatformConstant.GROUP;
+        return group;
     }
 
     @Override

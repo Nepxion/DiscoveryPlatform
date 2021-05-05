@@ -15,9 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.redis.proccessor.RedisProcessor;
 import com.nepxion.discovery.platform.client.constant.PlatformConstant;
+import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 public class PlatformZuulRouteRedisProcessor extends RedisProcessor {
+    @Value("${" + StrategyConstant.SPRING_APPLICATION_STRATEGY_DYNAMIC_ROUTE_GROUP + ":" + DiscoveryConstant.NEPXION + "}")
+    private String group;
+
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
 
@@ -26,7 +30,7 @@ public class PlatformZuulRouteRedisProcessor extends RedisProcessor {
 
     @Override
     public String getGroup() {
-        return PlatformConstant.GROUP;
+        return group;
     }
 
     @Override

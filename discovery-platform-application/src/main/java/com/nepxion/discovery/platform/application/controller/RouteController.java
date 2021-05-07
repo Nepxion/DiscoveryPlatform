@@ -1,13 +1,10 @@
 package com.nepxion.discovery.platform.application.controller;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.nepxion.discovery.console.endpoint.ConsoleEndpoint;
-import com.nepxion.discovery.platform.tool.common.CommonTool;
-import com.nepxion.discovery.platform.tool.web.Result;
+import com.nepxion.discovery.platform.server.ui.tool.common.CommonTool;
+import com.nepxion.discovery.platform.server.ui.tool.web.Result;
 import com.nepxion.discovery.plugin.admincenter.endpoint.GatewayStrategyRouteEndpoint;
 import com.nepxion.discovery.plugin.admincenter.endpoint.ZuulStrategyRouteEndpoint;
-import com.nepxion.discovery.plugin.strategy.gateway.entity.GatewayStrategyRouteEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,7 +55,7 @@ public class RouteController {
 
     @PostMapping("listGateway")
     @ResponseBody
-    public Result<List<GatewayStrategyRouteEntity>> listGateway(@RequestParam(value = "page") final Integer pageNum,
+    public Result<List<?>> listGateway(@RequestParam(value = "page") final Integer pageNum,
                                                                 @RequestParam(value = "limit") final Integer pageSize,
                                                                 @RequestParam(value = "description", required = false) final String description) {
         final ResponseEntity<?> responseEntity = gatewayStrategyRouteEndpoint.viewAll(); //TODO 应该是从配置中心拿
@@ -68,7 +65,7 @@ public class RouteController {
 
     @PostMapping("listWorking")
     @ResponseBody
-    public Result<List<GatewayStrategyRouteEntity>> listWorking() {
+    public Result<List<?>> listWorking() {
         final ResponseEntity<?> responseEntity = this.gatewayStrategyRouteEndpoint.viewAll();
         Object body = responseEntity.getBody();
         return Result.ok(null);
@@ -84,14 +81,14 @@ public class RouteController {
                                 @RequestParam(value = "metadata") final String metadata,
                                 @RequestParam(value = "enabled") final Boolean enabled,
                                 @RequestParam(value = "description") final String description) {
-        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
-        gatewayStrategyRouteEntity.setId(id);
-        gatewayStrategyRouteEntity.setUri(uri);
-        gatewayStrategyRouteEntity.setPredicates(Lists.newArrayList());
-        gatewayStrategyRouteEntity.setFilters(Lists.newArrayList());
-        gatewayStrategyRouteEntity.setOrder(order);
-        gatewayStrategyRouteEntity.setMetadata(Maps.newHashMap());
-        this.gatewayStrategyRouteEndpoint.add(gatewayStrategyRouteEntity);
+//        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
+//        gatewayStrategyRouteEntity.setId(id);
+//        gatewayStrategyRouteEntity.setUri(uri);
+//        gatewayStrategyRouteEntity.setPredicates(Lists.newArrayList());
+//        gatewayStrategyRouteEntity.setFilters(Lists.newArrayList());
+//        gatewayStrategyRouteEntity.setOrder(order);
+//        gatewayStrategyRouteEntity.setMetadata(Maps.newHashMap());
+//        this.gatewayStrategyRouteEndpoint.add(gatewayStrategyRouteEntity);
         return Result.ok();
     }
 
@@ -105,14 +102,14 @@ public class RouteController {
                           @RequestParam(value = "metadata") final String metadata,
                           @RequestParam(value = "enabled") final Boolean enabled,
                           @RequestParam(value = "description") final String description) {
-        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
-        gatewayStrategyRouteEntity.setId(id);
-        gatewayStrategyRouteEntity.setUri(uri);
-        gatewayStrategyRouteEntity.setPredicates(Lists.newArrayList());
-        gatewayStrategyRouteEntity.setFilters(Lists.newArrayList());
-        gatewayStrategyRouteEntity.setOrder(order);
-        gatewayStrategyRouteEntity.setMetadata(Maps.newHashMap());
-        this.gatewayStrategyRouteEndpoint.modify(gatewayStrategyRouteEntity);
+//        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
+//        gatewayStrategyRouteEntity.setId(id);
+//        gatewayStrategyRouteEntity.setUri(uri);
+//        gatewayStrategyRouteEntity.setPredicates(Lists.newArrayList());
+//        gatewayStrategyRouteEntity.setFilters(Lists.newArrayList());
+//        gatewayStrategyRouteEntity.setOrder(order);
+//        gatewayStrategyRouteEntity.setMetadata(Maps.newHashMap());
+//        this.gatewayStrategyRouteEndpoint.modify(gatewayStrategyRouteEntity);
         return Result.ok();
     }
 
@@ -129,8 +126,8 @@ public class RouteController {
     @PostMapping("enable")
     @ResponseBody
     public Result<?> enable(@RequestParam(value = "id") final String id) {
-        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
-        this.gatewayStrategyRouteEndpoint.add(gatewayStrategyRouteEntity);
+//        final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
+//        this.gatewayStrategyRouteEndpoint.add(gatewayStrategyRouteEntity);
         return Result.ok();
     }
 

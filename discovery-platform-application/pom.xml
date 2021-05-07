@@ -40,35 +40,21 @@
             <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
         </dependency>
 
-        <!-- 3.注册中心 -->
+        <!-- 3.数据库模式 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
-            <!-- <artifactId>discovery-plugin-strategy-starter-zuul</artifactId> -->
+            <artifactId>discovery-platform-starter-mysql</artifactId>
         </dependency>
 
-
-        <!-- 4.mysql模式 -->
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-mysql</artifactId>
-        </dependency>
-
-        <!-- 5. ldap需添加 -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.security</groupId>-->
-        <!--            <artifactId>spring-security-ldap</artifactId>-->
-        <!--        </dependency>-->
-
+        <!-- 4. ldap需添加 -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.security</groupId> -->
+        <!--     <artifactId>spring-security-ldap</artifactId> -->
+        <!-- </dependency> -->
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-admin-center-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-starter-server</artifactId>
         </dependency>
 
         <dependency>

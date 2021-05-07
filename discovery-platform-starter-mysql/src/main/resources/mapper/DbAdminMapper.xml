@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nepxion.discovery.platform.mysql.mapper.DbAdminMapper">
+
+    <select id="list" resultType="com.nepxion.discovery.platform.server.ui.entity.vo.Admin">
+        SELECT `admin`.`id` AS `id`,
+        `admin`.`login_mode`,
+        `admin`.`username`,
+        `admin`.`name`,
+        `admin`.`phone_number`,
+        `admin`.`email`,
+        `admin`.`remark`,
+        `admin`.`row_create_time`,
+        `role`.`id` AS `sys_role_id`,
+        `role`.`name` AS `role_name`
+        FROM `sys_admin` `admin`
+        LEFT OUTER JOIN `sys_role` `role` ON `admin`.`sys_role_id` = `role`.`id`
+        <where>
+            <if test="mode != null">
+                AND `admin`.`login_mode` = #{mode}
+            </if>
+            <if test="name != null and name!=''">
+                AND `admin`.`name` LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY `admin`.`username` ASC
+    </select>
+</mapper>

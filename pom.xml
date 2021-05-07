@@ -13,12 +13,10 @@
     <url>http://www.nepxion.com</url>
 
     <modules>
-        <module>discovery-platform-starter-server</module>
-        <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
-        <module>discovery-platform-tool</module>
-        <module>discovery-platform-common</module>
-        <module>discovery-platform-mysql</module>
+        <module>discovery-platform-server-ui</module>
+        <module>discovery-platform-starter-client</module>
+        <module>discovery-platform-starter-mysql</module>
     </modules>
 
     <properties>
@@ -31,10 +29,8 @@
         <hutool-all.version>5.6.4</hutool-all.version>
         <HikariCP.version>4.0.3</HikariCP.version>
         <druid-spring-boot-starter.version>1.2.6</druid-spring-boot-starter.version>
-        <swagger-annotations.version>1.6.2</swagger-annotations.version>
         <lombok.version>1.18.20</lombok.version>
-        <fastjson.version>1.2.76</fastjson.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-codec.version>1.15</commons-codec.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <reflections.version>0.9.12</reflections.version>
         <guava.version>30.1.1-jre</guava.version>
@@ -46,8 +42,20 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-starter-mysql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-starter-mysql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server</artifactId>
+                <artifactId>discovery-platform-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -59,37 +67,13 @@
 
             <dependency>
                 <groupId>com.nepxion</groupId>
-                <artifactId>discovery-platform-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-tool</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.nepxion</groupId>
-                <artifactId>discovery-platform-mysql</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.nepxion</groupId>
                 <artifactId>discovery-plugin-admin-center-starter</artifactId>
                 <version>${discovery.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.nepxion</groupId>
-                <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
-                <version>${discovery.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.nepxion</groupId>
-                <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+                <artifactId>discovery-console-starter</artifactId>
                 <version>${discovery.version}</version>
             </dependency>
 
@@ -168,21 +152,9 @@
             </dependency>
 
             <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger-annotations.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
 
             <dependency>

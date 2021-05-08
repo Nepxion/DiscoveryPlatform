@@ -19,14 +19,14 @@
 
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
+
         <mysql.connector.version>8.0.24</mysql.connector.version>
+        <mybatis.plus.boot.version>3.4.2</mybatis.plus.boot.version>
         <hikaricp.version>4.0.3</hikaricp.version>
-        <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
+        <druid.spring.boot.version>1.2.6</druid.spring.boot.version>
         <shiro.version>1.7.1</shiro.version>
-        <unirest-java.version>3.11.11</unirest-java.version>
-        <hutool-all.version>5.6.4</hutool-all.version>
-        <HikariCP.version>4.0.3</HikariCP.version>
-        <druid-spring-boot-starter.version>1.2.6</druid-spring-boot-starter.version>
+        <unirest.version>3.11.11</unirest.version>
+        <hutool.version>5.6.4</hutool.version>
         <lombok.version>1.18.20</lombok.version>
         <commons-codec.version>1.15</commons-codec.version>
         <reflections.version>0.9.12</reflections.version>
@@ -70,21 +70,21 @@
             </dependency>
 
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.boot.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${hikaricp.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-annotation</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.spring.boot.version}</version>
             </dependency>
 
             <dependency>
@@ -108,25 +108,13 @@
             <dependency>
                 <groupId>com.konghq</groupId>
                 <artifactId>unirest-java</artifactId>
-                <version>${unirest-java.version}</version>
+                <version>${unirest.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>${hutool-all.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.zaxxer</groupId>
-                <artifactId>HikariCP</artifactId>
-                <version>${HikariCP.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-spring-boot-starter.version}</version>
+                <version>${hutool.version}</version>
             </dependency>
 
             <dependency>

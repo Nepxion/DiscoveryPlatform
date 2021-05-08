@@ -11,10 +11,12 @@
     <url>http://www.nepxion.com</url>
 
     <modules>
-        <module>discovery-platform-application</module>
-        <module>discovery-platform-server-ui</module>
+        <module>discovery-platform-starter-server</module>
+        <module>discovery-platform-starter-server-mysql</module>
+        <module>discovery-platform-starter-server-h2</module>
+        <module>discovery-platform-starter-server-ui</module>
         <module>discovery-platform-starter-client</module>
-        <module>discovery-platform-starter-mysql</module>
+        <module>discovery-platform-application</module>
     </modules>
 
     <properties>
@@ -47,13 +49,25 @@
 
             <dependency>
                 <groupId>com.nepxion</groupId>
-                <artifactId>discovery-platform-starter-mysql</artifactId>
+                <artifactId>discovery-platform-starter-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-starter-server-mysql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-starter-server-h2</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-server-ui</artifactId>
+                <artifactId>discovery-platform-starter-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

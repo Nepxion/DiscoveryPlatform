@@ -29,7 +29,6 @@
         <shiro.version>1.7.1</shiro.version>
         <unirest.version>3.11.11</unirest.version>
         <hutool.version>5.6.4</hutool.version>
-        <lombok.version>1.18.20</lombok.version>
         <commons-codec.version>1.15</commons-codec.version>
         <reflections.version>0.9.12</reflections.version>
 

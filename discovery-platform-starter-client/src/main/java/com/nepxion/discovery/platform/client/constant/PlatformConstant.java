@@ -10,6 +10,5 @@ package com.nepxion.discovery.platform.client.constant;
  */
 
 public class PlatformConstant {
-    public static final String GATEWAY_ROUTE_DESCRIPTION = "Gateway dynamic route";
-    public static final String ZUUL_ROUTE_DESCRIPTION = "Zuul dynamic route";
+
 }

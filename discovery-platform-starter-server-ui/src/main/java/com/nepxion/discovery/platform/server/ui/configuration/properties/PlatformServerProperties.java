@@ -11,7 +11,6 @@ package com.nepxion.discovery.platform.server.ui.configuration.properties;
  */
 
 import com.nepxion.discovery.platform.server.ui.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.ui.service.LdapService;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -60,8 +59,8 @@ public class PlatformServerProperties implements ApplicationContextAware {
     }
 
     public LoginMode getLoginMode() {
-        String[] beanNamesForType = this.applicationContext.getBeanNamesForType(LdapService.class);
-        if (beanNamesForType.length > 0) {
+        final boolean ldapServiceExisted = this.applicationContext.containsBean("ldapService");
+        if (ldapServiceExisted) {
             return LoginMode.LDAP;
         }
         return LoginMode.DB;

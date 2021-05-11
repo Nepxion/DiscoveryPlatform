@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.ui.shiro;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.ui.common.Tool;
 import com.nepxion.discovery.platform.server.ui.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.ui.interceptor.LoginInterceptor;
 import com.nepxion.discovery.platform.server.ui.interfaces.AdminService;
@@ -36,10 +35,15 @@ public class AuthRealm extends AuthorizingRealm {
         final String password = new String(usernamePasswordToken.getPassword());
         Admin admin;
         try {
-            if (!this.adminService.authenticate(username, Tool.hash(password))) {
+            if (!this.adminService.authenticate(username, password)) {
                 return null;
             }
             admin = this.adminService.getAdminByUserName(username);
+            if (adminService.isSuperAdmin(admin.getUsername())) {
+                admin.getSysRole().setSuperAdmin(true);
+            } else {
+                admin.getSysRole().setSuperAdmin(false);
+            }
         } catch (final Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;

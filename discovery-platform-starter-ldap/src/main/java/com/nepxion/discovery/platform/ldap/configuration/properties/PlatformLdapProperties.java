@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.ui.configuration.properties;
+package com.nepxion.discovery.platform.ldap.configuration.properties;
 
 /**
  * <p>Title: Nepxion Discovery</p>

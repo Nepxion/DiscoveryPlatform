@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform</artifactId>
     <name>Nepxion Discovery Platform</name>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0-SNAPSHOT</version>
-    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection</description>
+    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection
+    </description>
     <url>http://www.nepxion.com</url>
 
     <modules>
@@ -17,6 +18,7 @@
         <module>discovery-platform-starter-server-ui</module>
         <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
+        <module>discovery-platform-starter-ldap</module>
     </modules>
 
     <properties>
@@ -25,7 +27,6 @@
         <mysql.connector.version>8.0.24</mysql.connector.version>
         <mybatis.plus.boot.version>3.4.2</mybatis.plus.boot.version>
         <hikaricp.version>4.0.3</hikaricp.version>
-        <druid.spring.boot.version>1.2.6</druid.spring.boot.version>
         <shiro.version>1.7.1</shiro.version>
         <unirest.version>3.11.11</unirest.version>
         <hutool.version>5.6.4</hutool.version>
@@ -72,6 +73,12 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-starter-ldap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -92,12 +99,6 @@
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${hikaricp.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.spring.boot.version}</version>
             </dependency>
 
             <dependency>

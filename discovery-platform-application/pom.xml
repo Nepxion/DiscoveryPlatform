@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform-application</artifactId>
     <name>Nepxion Discovery Platform Application</name>
@@ -42,18 +42,13 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-mysql</artifactId>
+            <!-- <artifactId>discovery-platform-starter-server-h2</artifactId> -->
         </dependency>
-        
-        <!-- 4.内存模式 -->
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-starter-server-h2</artifactId>
-        </dependency>        
 
-        <!-- 5. ldap需添加 -->
+        <!-- 4. ldap需添加 -->
         <!-- <dependency> -->
-        <!--     <groupId>org.springframework.security</groupId> -->
-        <!--     <artifactId>spring-security-ldap</artifactId> -->
+        <!--     <groupId>com.nepxion</groupId> -->
+        <!--     <artifactId>discovery-platform-starter-ldap</artifactId> -->
         <!-- </dependency> -->
 
         <dependency>
@@ -74,49 +69,158 @@
         </dependencies>
     </dependencyManagement>
 
+
     <build>
+        <!-- 打包后的启动jar名称 -->
+        <finalName>${project.artifactId}</finalName>
+
+        <!-- 资源文件配置 -->
+        <resources>
+            <!-- 融合到启动jar包中的资源 -->
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>sql/**</include>
+                    <include>mapper/**</include>
+                    <include>static/**</include>
+                    <include>templates/**</include>
+                    <include>log4j.properties</include>
+                    <include>logback.xml</include>
+                    <include>rule.xml</include>
+                    <include>config.properties</include>
+                </includes>
+            </resource>
+
+            <!-- 输出到外部config目录的资源 -->
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <targetPath>config</targetPath>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application.properties</include>
+                    <include>bootstrap.properties</include>
+                </includes>
+            </resource>
+
+            <!-- 输出脚本文件到bin目录的资源 -->
+            <resource>
+                <directory>${basedir}/src/bin</directory>
+                <filtering>true</filtering>
+                <targetPath>bin</targetPath>
+                <includes>
+                    <include>*.bat</include>
+                    <include>*.sh</include>
+                </includes>
+            </resource>
+
+            <!-- 输出日志到logs目录的资源 -->
+            <resource>
+                <directory>${basedir}/src/logs</directory>
+                <targetPath>logs</targetPath>
+                <includes>
+                    <include>*.log</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <archive>
+                        <manifest>
+                            <!-- 项目启动类 -->
+                            <mainClass>com.nepxion.discovery.platform.application.PlatformApplication</mainClass>
+                            <!-- 依赖的jar的目录前缀 -->
+                            <classpathPrefix>../lib</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                    <!-- 项目启动jar包排除目录 -->
+                    <excludes>
+                        <exclude>bin/**</exclude>
+                        <exclude>config/**</exclude>
+                        <exclude>logs/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <layout>JAR</layout>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
+                    <layout>ZIP</layout>
+                    <includes>
+                        <!-- 项目启动jar包中排除依赖包 -->
+                        <include>
+                            <groupId>non-exists</groupId>
+                            <artifactId>non-exists</artifactId>
+                        </include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <includeScope>compile</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- 打包时跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>${basedir}/src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>repackage</goal>
+                            <goal>single</goal>
                         </goals>
-                        <configuration>
-                            <attach>false</attach>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -157,4 +157,28 @@ public final class CommonTool {
         }
         throw new RuntimeException(String.format("%s type not supported", queryParamsObject.getClass()));
     }
+
+    public static <T> List<T> split(final String value,
+                                    final String separator,
+                                    final Class<T> clazz) {
+        if (!ObjectUtils.isEmpty(value)) {
+            List<T> result = new ArrayList<>();
+            final String[] array = value.split(separator);
+            for (final String item : array) {
+                if (item == null) {
+                    continue;
+                } else if (ObjectUtils.isEmpty(item.trim())) {
+                    continue;
+                }
+                result.add((T) ConvertUtils.convert(item, clazz));
+            }
+            return result;
+        }
+        return null;
+    }
+
+    public static List<String> split(final String value,
+                                     final String separator) {
+        return split(value, separator, String.class);
+    }
 }

@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.ui.service;
+package com.nepxion.discovery.platform.ldap.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.ui.service;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.ui.configuration.properties.PlatformLdapProperties;
+import com.nepxion.discovery.platform.ldap.configuration.properties.PlatformLdapProperties;
 import com.nepxion.discovery.platform.server.ui.entity.vo.LdapUser;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;

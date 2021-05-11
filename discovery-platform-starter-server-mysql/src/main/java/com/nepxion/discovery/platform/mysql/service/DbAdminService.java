@@ -7,20 +7,26 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.mysql.mapper.DbAdminMapper;
+import com.nepxion.discovery.platform.server.ui.common.Tool;
+import com.nepxion.discovery.platform.server.ui.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.ui.entity.dto.SysAdmin;
 import com.nepxion.discovery.platform.server.ui.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.ui.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.ui.interfaces.AdminService;
+import com.nepxion.discovery.platform.server.ui.interfaces.DicService;
 import com.nepxion.discovery.platform.server.ui.interfaces.RoleService;
 import com.nepxion.discovery.platform.server.ui.tool.anno.TranRead;
 import com.nepxion.discovery.platform.server.ui.tool.anno.TranSave;
 import com.nepxion.discovery.platform.server.ui.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.ui.tool.exception.BusinessException;
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,14 +41,17 @@ import java.util.Set;
  */
 
 @Service
-public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> implements AdminService {
+public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> implements AdminService, InitializingBean {
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private DicService dicService;
+    private final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
 
     @TranRead
     @Override
     public boolean authenticate(final String username,
-                                final String password) throws Exception {
+                                final String password) {
         if (ObjectUtils.isEmpty(username) || ObjectUtils.isEmpty(password)) {
             return false;
         }
@@ -51,7 +60,7 @@ public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> impleme
             return false;
         }
 
-        return password.equals(sysAdmin.getPassword());
+        return Tool.hash(password).equals(sysAdmin.getPassword());
     }
 
     @TranRead
@@ -87,14 +96,14 @@ public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> impleme
             return false;
         }
 
-        if (!sysAdmin.getPassword().equals(oldPassword)) {
+        if (!sysAdmin.getPassword().equals(Tool.hash(oldPassword))) {
             throw new BusinessException("密码不匹配, 修改密码失败");
         }
 
         UpdateWrapper<SysAdmin> updateWrapper = new UpdateWrapper<>();
         updateWrapper.lambda()
                 .eq(SysAdmin::getId, id)
-                .set(SysAdmin::getPassword, newPassword);
+                .set(SysAdmin::getPassword, Tool.hash(newPassword));
         return this.update(updateWrapper);
     }
 
@@ -117,7 +126,7 @@ public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> impleme
         sysAdmin.setLoginMode(loginMode.getCode());
         sysAdmin.setSysRoleId(roleId);
         sysAdmin.setUsername(username);
-        sysAdmin.setPassword(password);
+        sysAdmin.setPassword(Tool.hash(password));
         sysAdmin.setName(name);
         sysAdmin.setPhoneNumber(phoneNumber);
         sysAdmin.setEmail(email);
@@ -201,5 +210,23 @@ public class DbAdminService extends ServiceImpl<DbAdminMapper, SysAdmin> impleme
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return super.removeByIds(idList);
+    }
+
+    @Override
+    public boolean isSuperAdmin(final String username) throws Exception {
+        boolean result = SUPER_ADMIN_USER_NAME_LIST.contains(username);
+        if (!result) {
+            result = getAdminByUserName(username).getSysRole().getSuperAdmin();
+        }
+        return result;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        final String value = dicService.getByName(PlatformConstant.SUER_ADMIN_NAME);
+        List<String> usernameList = CommonTool.split(value, ",");
+        if (!CollectionUtils.isEmpty(usernameList)) {
+            SUPER_ADMIN_USER_NAME_LIST.addAll(usernameList);
+        }
     }
 }

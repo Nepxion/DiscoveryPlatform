@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.ui.service;
+package com.nepxion.discovery.platform.ldap.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -16,18 +16,18 @@ import com.nepxion.discovery.platform.server.ui.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.ui.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.ui.entity.vo.LdapUser;
 import com.nepxion.discovery.platform.server.ui.interfaces.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class LdapAdminService implements AdminService {
+    private final LdapService ldapService;
     private final AdminService adminService;
-    @Autowired
-    private LdapService ldapService;
 
-    public LdapAdminService(final AdminService adminService) {
+    public LdapAdminService(final LdapService ldapService,
+                            final AdminService adminService) {
+        this.ldapService = ldapService;
         this.adminService = adminService;
     }
 
@@ -112,5 +112,10 @@ public class LdapAdminService implements AdminService {
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return this.adminService.removeByIds(idList);
+    }
+
+    @Override
+    public boolean isSuperAdmin(String username) throws Exception {
+        return this.adminService.isSuperAdmin(username);
     }
 }

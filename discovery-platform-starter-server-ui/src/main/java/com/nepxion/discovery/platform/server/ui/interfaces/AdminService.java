@@ -62,4 +62,6 @@ public interface AdminService {
     SysAdmin getById(final Long id);
 
     boolean removeByIds(@Param("idList") Set<Long> idList);
+
+    boolean isSuperAdmin(final String username) throws Exception;
 }

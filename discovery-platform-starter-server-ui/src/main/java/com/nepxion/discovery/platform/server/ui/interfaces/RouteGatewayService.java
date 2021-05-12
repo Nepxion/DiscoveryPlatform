@@ -1,13 +1,10 @@
 package com.nepxion.discovery.platform.server.ui.interfaces;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.ui.entity.dto.SysAdmin;
-import com.nepxion.discovery.platform.server.ui.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.ui.entity.vo.Admin;
-import org.apache.ibatis.annotations.Param;
+import com.nepxion.discovery.platform.server.ui.entity.dto.RouteGateway;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -21,4 +18,20 @@ import java.util.Set;
 
 public interface RouteGatewayService {
 
+    IPage<RouteGateway> page(final String description,
+                             final Integer pageNum,
+                             final Integer pageSize);
+
+    RouteGateway getById(final Long id);
+
+    void insert(final RouteGateway routeGateway);
+
+    void update(final RouteGateway routeGateway);
+
+    void delete(final Collection<Long> ids);
+
+    void enable(final Long id,
+                final boolean enabled);
+
+    List<RouteGateway> listEnabled();
 }

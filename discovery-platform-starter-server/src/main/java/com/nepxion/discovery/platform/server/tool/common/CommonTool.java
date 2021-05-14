@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.tool.common;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.db.DataSourceTool;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.slf4j.Logger;
@@ -25,7 +24,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public final class CommonTool {
-    private static final Logger LOG = LoggerFactory.getLogger(DataSourceTool.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
 
     private final static long KB_IN_BYTES = 1024;
     private final static long MB_IN_BYTES = 1024 * KB_IN_BYTES;

@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.db;
+package com.nepxion.discovery.platform.server.mysql.tool;
 
 /**
  * <p>Title: Nepxion Discovery</p>

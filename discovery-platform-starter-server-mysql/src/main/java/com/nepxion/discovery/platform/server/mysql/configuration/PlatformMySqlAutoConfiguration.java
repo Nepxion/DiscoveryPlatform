@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.db.DataSourceTool;
+import com.nepxion.discovery.platform.server.mysql.tool.DataSourceTool;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

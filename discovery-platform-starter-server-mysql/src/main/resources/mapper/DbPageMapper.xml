@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.nepxion.discovery.platform.mysql.mapper.DbPageMapper">
+<mapper namespace="com.nepxion.discovery.platform.starter.server.mysql.mapper.DbPageMapper">
 
-    <select id="list" resultType="com.nepxion.discovery.platform.server.ui.entity.vo.Page">
+    <select id="list" resultType="com.nepxion.discovery.platform.starter.server.entity.vo.Page">
         SELECT `p`.`id`,
         `p`.`name`,
         `p`.`url`,
@@ -31,7 +31,7 @@
         WHERE `parent_id` = #{parentId}
     </select>
 
-    <select id="listPermissionPages" resultType="com.nepxion.discovery.platform.server.ui.entity.vo.Page">
+    <select id="listPermissionPages" resultType="com.nepxion.discovery.platform.starter.server.entity.vo.Page">
         SELECT `page`.`id`,
                `page`.`name`,
                `page`.`url`,

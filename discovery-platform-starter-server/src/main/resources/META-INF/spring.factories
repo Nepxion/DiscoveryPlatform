@@ -1,0 +1,6 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.nepxion.discovery.platform.starter.server.context.PlatformApplicationContextInitializer
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.nepxion.discovery.platform.starter.server.configuration.PlatformAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.nepxion.discovery.platform.starter.server.configuration.PlatformPropertiesInitializer

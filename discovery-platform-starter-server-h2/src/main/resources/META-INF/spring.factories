@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.nepxion.discovery.platform.starter.server.h2.configuration.PlatformH2AutoConfiguration

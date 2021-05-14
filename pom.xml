@@ -18,7 +18,7 @@
         <module>discovery-platform-starter-server-ui</module>
         <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
-        <module>discovery-platform-starter-ldap</module>
+        <module>discovery-platform-starter-server-ldap</module>
     </modules>
 
     <properties>
@@ -73,7 +73,7 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-ldap</artifactId>
+                <artifactId>discovery-platform-starter-server-ldap</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

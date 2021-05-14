@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.application;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.ui.configuration.EnablePlatformServer;
+import com.nepxion.discovery.platform.starter.server.configuration.EnablePlatformServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

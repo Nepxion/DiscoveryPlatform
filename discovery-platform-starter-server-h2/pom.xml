@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.nepxion</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>discovery-platform-starter-server</artifactId>
         </dependency>
     </dependencies>

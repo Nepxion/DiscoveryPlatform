@@ -7,9 +7,7 @@
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0-SNAPSHOT</version>
-    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and
-        gray release orchestration, modelling, flow inspection
-    </description>
+    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection</description>
     <url>http://www.nepxion.com</url>
 
     <modules>

@@ -48,7 +48,7 @@
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-h2</artifactId>
-        </dependency> --> 
+        </dependency> -->
 
         <!-- 5. Ldap插件 -->
         <!-- <dependency>

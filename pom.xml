@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform</artifactId>
     <name>Nepxion Discovery Platform</name>
@@ -15,10 +15,10 @@
         <module>discovery-platform-starter-server</module>
         <module>discovery-platform-starter-server-mysql</module>
         <module>discovery-platform-starter-server-h2</module>
+        <module>discovery-platform-starter-server-ldap</module>
         <module>discovery-platform-starter-server-ui</module>
         <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
-        <module>discovery-platform-starter-server-ldap</module>
     </modules>
 
     <properties>
@@ -31,7 +31,6 @@
         <unirest.version>3.11.11</unirest.version>
         <hutool.version>5.6.4</hutool.version>
         <commons-codec.version>1.15</commons-codec.version>
-        <reflections.version>0.9.12</reflections.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,32 +47,32 @@
             </dependency>
 
             <dependency>
-                <groupId>com.nepxion</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.nepxion</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-mysql</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.nepxion</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-h2</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-ui</artifactId>
+                <artifactId>discovery-platform-starter-server-ldap</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-ldap</artifactId>
+                <artifactId>discovery-platform-starter-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -135,12 +134,6 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${reflections.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

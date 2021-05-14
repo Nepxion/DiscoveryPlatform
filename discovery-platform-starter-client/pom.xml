@@ -16,13 +16,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.nepxion</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.nepxion</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
             <scope>provided</scope>
         </dependency>

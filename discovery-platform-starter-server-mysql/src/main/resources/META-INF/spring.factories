@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.nepxion.discovery.platform.starter.server.mysql.configuration.PlatformMySqlAutoConfiguration
+com.nepxion.discovery.platform.server.mysql.configuration.PlatformMySqlAutoConfiguration

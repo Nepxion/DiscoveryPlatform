@@ -22,17 +22,17 @@ public class PlatformServerProperties implements ApplicationContextAware {
     /**
      * 标题
      */
-    private String title = "";
+    private String title = "Discovery Platform";
 
     /**
      * 应用全名称
      */
-    private String fullName = "";
+    private String fullName = "Discovery Platform";
 
     /**
      * 应用简称
      */
-    private String shortName = "";
+    private String shortName = "Discovery Platform";
 
     public String getTitle() {
         return title;

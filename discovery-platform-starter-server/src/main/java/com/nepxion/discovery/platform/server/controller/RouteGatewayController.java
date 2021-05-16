@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.controller;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.reflect.TypeToken;
 import com.nepxion.discovery.common.entity.ResultEntity;

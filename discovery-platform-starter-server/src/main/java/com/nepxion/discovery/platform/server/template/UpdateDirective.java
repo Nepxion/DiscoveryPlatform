@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class UpdateDirective extends AuthDirective implements TemplateDirectiveModel {
-
     @Override
     public void execute(final Environment env,
                         final Map params,

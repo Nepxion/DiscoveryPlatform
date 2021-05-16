@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class NoSelectDirective extends AuthDirective implements TemplateDirectiveModel {
-
     @Override
     public void execute(final Environment env,
                         final Map params,
@@ -30,5 +29,4 @@ public class NoSelectDirective extends AuthDirective implements TemplateDirectiv
             body.render(env.getOut());
         }
     }
-
 }

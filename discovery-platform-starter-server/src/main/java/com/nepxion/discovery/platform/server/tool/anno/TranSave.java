@@ -19,4 +19,5 @@ import java.lang.annotation.*;
 @Inherited
 @Transactional(rollbackFor = Exception.class, timeout = 30)
 public @interface TranSave {
+
 }

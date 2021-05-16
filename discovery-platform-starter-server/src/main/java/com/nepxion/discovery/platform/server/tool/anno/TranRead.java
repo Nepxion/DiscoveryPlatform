@@ -19,4 +19,5 @@ import java.lang.annotation.*;
 @Inherited
 @Transactional(readOnly = true, timeout = 30)
 public @interface TranRead {
+
 }

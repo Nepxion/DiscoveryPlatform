@@ -81,5 +81,4 @@ public class PlatformMySqlAutoConfiguration {
     public MySqlRouteZuulService mysqlRouteZuulService() {
         return new MySqlRouteZuulService();
     }
-
 }

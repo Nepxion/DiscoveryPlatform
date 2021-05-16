@@ -21,7 +21,6 @@ import java.util.List;
 
 @Mapper
 public interface MySqlPageMapper extends BaseMapper<SysPageDto> {
-
     IPage<PageVo> list(IPage<PageVo> result,
                        @Param("name") String name);
 

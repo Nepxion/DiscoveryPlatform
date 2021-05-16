@@ -28,7 +28,6 @@ public final class CommonTool {
     private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
     private final static String SALT = "PEgASuS";
 
-
     public static String getVersion() {
         return System.getProperty("version", PlatformConstant.PLATFORM_VERSION);
     }
@@ -68,7 +67,6 @@ public final class CommonTool {
             return null;
         }
     }
-
 
     public static <T> List<T> parseList(final String value,
                                         final String separate,

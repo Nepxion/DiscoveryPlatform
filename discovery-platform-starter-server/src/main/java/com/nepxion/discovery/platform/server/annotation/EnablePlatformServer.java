@@ -26,4 +26,5 @@ import java.lang.annotation.*;
 @EnableDiscoveryClient
 @Import(WebConfiguration.class)
 public @interface EnablePlatformServer {
+
 }

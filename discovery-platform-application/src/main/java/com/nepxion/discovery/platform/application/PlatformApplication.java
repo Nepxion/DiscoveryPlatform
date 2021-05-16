@@ -7,16 +7,14 @@ package com.nepxion.discovery.platform.application;
  * <p>Company: Nepxion</p>
  *
  * @author Ning Zhang
+ * @author Haojun Ren
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.configuration.EnablePlatformServer;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
-@EnableDiscoveryClient
+import com.nepxion.discovery.platform.server.configuration.EnablePlatformServer;
+
 @EnablePlatformServer
 public class PlatformApplication {
     public static void main(String[] args) {

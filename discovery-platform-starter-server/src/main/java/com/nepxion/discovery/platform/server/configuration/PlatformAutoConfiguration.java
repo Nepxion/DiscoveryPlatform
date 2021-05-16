@@ -7,15 +7,30 @@ package com.nepxion.discovery.platform.server.configuration;
  * <p>Company: Nepxion</p>
  *
  * @author Ning Zhang
+ * @author Haojun Ren
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.configuration.properties.PlatformServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableConfigurationProperties({PlatformServerProperties.class})
-public class PlatformAutoConfiguration {
+import com.nepxion.discovery.platform.server.configuration.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.event.PlatformPublisher;
+import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
+import com.nepxion.eventbus.annotation.EnableEventBus;
 
+@Configuration
+@EnableEventBus
+@EnableConfigurationProperties({ PlatformServerProperties.class })
+public class PlatformAutoConfiguration {
+    @Bean
+    public PlatformPublisher platformPublisher() {
+        return new PlatformPublisher();
+    }
+
+    @Bean
+    public PlatformSubscriber latformSubscriber() {
+        return new PlatformSubscriber();
+    }
 }

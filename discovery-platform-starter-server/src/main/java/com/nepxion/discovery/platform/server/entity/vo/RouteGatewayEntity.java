@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GatewayStrategyRouteEntity implements Serializable {
+public class RouteGatewayEntity implements Serializable {
     private static final long serialVersionUID = 8552414941889295453L;
 
     private String id;

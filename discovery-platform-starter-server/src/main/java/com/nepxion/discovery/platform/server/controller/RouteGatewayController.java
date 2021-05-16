@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.controller;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
@@ -9,7 +19,7 @@ import com.nepxion.discovery.console.resource.RouteResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGateway;
-import com.nepxion.discovery.platform.server.entity.vo.GatewayStrategyRouteEntity;
+import com.nepxion.discovery.platform.server.entity.vo.RouteGatewayEntity;
 import com.nepxion.discovery.platform.server.interfaces.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
@@ -148,23 +158,23 @@ public class RouteGatewayController {
     public Result<?> publish() throws Exception {
         final List<String> gatewayNames = this.serviceResource.getGateways();
         final List<RouteGateway> routeGatewayList = this.routeGatewayService.listEnabled();
-        final List<GatewayStrategyRouteEntity> gatewayStrategyRouteEntityList = new ArrayList<>(routeGatewayList.size());
+        final List<RouteGatewayEntity> routeGatewayEntityList = new ArrayList<>(routeGatewayList.size());
 
         for (final RouteGateway routeGateway : routeGatewayList) {
-            final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
-            gatewayStrategyRouteEntity.setId(routeGateway.getRouteId());
-            gatewayStrategyRouteEntity.setUri(routeGateway.getUri());
-            gatewayStrategyRouteEntity.setPredicates(Arrays.asList(routeGateway.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
-            gatewayStrategyRouteEntity.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
-            gatewayStrategyRouteEntity.setOrder(routeGateway.getOrder());
-            gatewayStrategyRouteEntity.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
-            gatewayStrategyRouteEntityList.add(gatewayStrategyRouteEntity);
+            final RouteGatewayEntity routeGatewayEntity = new RouteGatewayEntity();
+            routeGatewayEntity.setId(routeGateway.getRouteId());
+            routeGatewayEntity.setUri(routeGateway.getUri());
+            routeGatewayEntity.setPredicates(Arrays.asList(routeGateway.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
+            routeGatewayEntity.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
+            routeGatewayEntity.setOrder(routeGateway.getOrder());
+            routeGatewayEntity.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+            routeGatewayEntityList.add(routeGatewayEntity);
         }
 
         for (final String gatewayName : gatewayNames) {
             final String group = this.serviceResource.getGroup(gatewayName);
             final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-            final String config = JsonUtil.toJson(gatewayStrategyRouteEntityList);
+            final String config = JsonUtil.toJson(routeGatewayEntityList);
             this.configResource.updateRemoteConfig(group, serviceId, CommonTool.prettyFormat(config));
         }
 

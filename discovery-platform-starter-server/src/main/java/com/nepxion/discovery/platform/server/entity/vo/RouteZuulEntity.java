@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class ZuulStrategyRouteEntity implements Serializable {
+public class RouteZuulEntity implements Serializable {
     private static final long serialVersionUID = 7174491697992085482L;
 
     private String id;

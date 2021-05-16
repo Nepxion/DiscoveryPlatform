@@ -10,33 +10,32 @@ package com.nepxion.discovery.platform.server.tool.common;
  * @version 1.0
  */
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class CommonTool {
     private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
+    private final static String SALT = "PEgASuS";
 
-    private final static long KB_IN_BYTES = 1024;
-    private final static long MB_IN_BYTES = 1024 * KB_IN_BYTES;
-    private final static long GB_IN_BYTES = 1024 * MB_IN_BYTES;
-    private final static long TB_IN_BYTES = 1024 * GB_IN_BYTES;
-    private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
-    private final static Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 
+    public static String getVersion() {
+        return System.getProperty("version", PlatformConstant.PLATFORM_VERSION);
+    }
+
+    public static String hash(final String value) {
+        return new Md5Hash(value, SALT).toString();
+    }
 
     public static <T> T toVo(final Object source,
                              final Class<T> target) {
@@ -70,9 +69,6 @@ public final class CommonTool {
         }
     }
 
-    public static Date getMinDate() {
-        return new Date(0);
-    }
 
     public static <T> List<T> parseList(final String value,
                                         final String separate,
@@ -86,81 +82,6 @@ public final class CommonTool {
             result.add((T) ConvertUtils.convert(item, tClass));
         }
         return result;
-    }
-
-    public static void sleep(final long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (Exception e) {
-            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
-        }
-    }
-
-    public static double toDouble(final String number) {
-        return toDouble(Double.valueOf(number));
-    }
-
-    public static double toDouble(final Double number) {
-        return Double.parseDouble(DECIMAL_FORMAT.format(number));
-    }
-
-    public static String convertSize(long byteNumber) {
-        if (byteNumber / TB_IN_BYTES > 0) {
-            return String.format("%sTB", DECIMAL_FORMAT.format((double) byteNumber / (double) TB_IN_BYTES));
-        } else if (byteNumber / GB_IN_BYTES > 0) {
-            return String.format("%sGB", DECIMAL_FORMAT.format((double) byteNumber / (double) GB_IN_BYTES));
-        } else if (byteNumber / MB_IN_BYTES > 0) {
-            return String.format("%sMB", DECIMAL_FORMAT.format((double) byteNumber / (double) MB_IN_BYTES));
-        } else if (byteNumber / KB_IN_BYTES > 0) {
-            return String.format("%sKB", DECIMAL_FORMAT.format((double) byteNumber / (double) KB_IN_BYTES));
-        } else {
-            return String.format("%sB", byteNumber);
-        }
-    }
-
-    public static String convertSize(String number) {
-        return convertSize(Math.round(toDouble(number)));
-    }
-
-    public static Map<String, Object> queryParamsToMap(final String queryParams) {
-        final Map<String, Object> result = new HashMap<>();
-        if (ObjectUtils.isEmpty(queryParams)) {
-            return result;
-        }
-        final String query;
-        try {
-            query = URLDecoder.decode(queryParams.trim(), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        final String[] pairs = query.split("&");
-        for (final String pair : pairs) {
-            final String[] kv = pair.split("=");
-            if (2 != kv.length) {
-                continue;
-            }
-            result.put(kv[0], kv[1]);
-        }
-        return result;
-    }
-
-    public static Map<String, Object> queryParamsToMap(final byte[] queryParamsByte) {
-        String queryParams = "";
-        if (null != queryParamsByte) {
-            queryParams = new String(queryParamsByte);
-        }
-        return queryParamsToMap(queryParams);
-    }
-
-    public static Map<String, Object> queryParamsToMap(final Object queryParamsObject) {
-        if (null == queryParamsObject) {
-            return new HashMap<>();
-        } else if (queryParamsObject instanceof byte[]) {
-            return queryParamsToMap((byte[]) queryParamsObject);
-        } else if (queryParamsObject instanceof String) {
-            return queryParamsToMap((String) queryParamsObject);
-        }
-        throw new RuntimeException(String.format("%s type not supported", queryParamsObject.getClass()));
     }
 
     public static <T> List<T> split(final String value,
@@ -185,10 +106,6 @@ public final class CommonTool {
     public static List<String> split(final String value,
                                      final String separator) {
         return split(value, separator, String.class);
-    }
-
-    public static String prettyFormat(String json) {
-        return GSON.toJson(JsonParser.parseString(json));
     }
 
     public static String formatTextarea(String value) {

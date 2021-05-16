@@ -74,161 +74,83 @@
         </dependencies>
     </dependencyManagement>
 
-
     <build>
-        <!-- 打包后的启动jar名称 -->
-        <finalName>${project.artifactId}</finalName>
-
-        <!-- 资源文件配置 -->
-        <resources>
-            <!-- 融合到启动jar包中的资源 -->
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>sql/**</include>
-                    <include>mapper/**</include>
-                    <include>static/**</include>
-                    <include>templates/**</include>
-                    <include>log4j.properties</include>
-                    <include>logback.xml</include>
-                    <include>rule.xml</include>
-                    <include>config.properties</include>
-                </includes>
-            </resource>
-
-            <!-- 输出到外部config目录的资源 -->
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-                <targetPath>config</targetPath>
-                <includes>
-                    <include>application.yml</include>
-                    <include>application.properties</include>
-                    <include>bootstrap.properties</include>
-                </includes>
-            </resource>
-
-            <!-- 输出脚本文件到bin目录的资源 -->
-            <resource>
-                <directory>${basedir}/src/bin</directory>
-                <filtering>true</filtering>
-                <targetPath>bin</targetPath>
-                <includes>
-                    <include>*.bat</include>
-                    <include>*.sh</include>
-                </includes>
-            </resource>
-
-            <!-- 输出日志到logs目录的资源 -->
-            <resource>
-                <directory>${basedir}/src/logs</directory>
-                <targetPath>logs</targetPath>
-                <includes>
-                    <include>*.log</include>
-                </includes>
-            </resource>
-        </resources>
-
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- 项目启动类 -->
-                            <mainClass>com.nepxion.discovery.platform.application.PlatformApplication</mainClass>
-                            <!-- 依赖的jar的目录前缀 -->
-                            <classpathPrefix>../lib</classpathPrefix>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                    <!-- 项目启动jar包排除目录 -->
-                    <excludes>
-                        <exclude>bin/**</exclude>
-                        <exclude>config/**</exclude>
-                        <exclude>logs/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <layout>ZIP</layout>
-                    <includes>
-                        <!-- 项目启动jar包中排除依赖包 -->
-                        <include>
-                            <groupId>non-exists</groupId>
-                            <artifactId>non-exists</artifactId>
-                        </include>
-                    </includes>
+                    <executable>true</executable>
+                    <mainClass>${MainClass}</mainClass>
+                    <!-- <mainClass>com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1</mainClass> -->
+                    <layout>JAR</layout>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <includeScope>compile</includeScope>
+                            <attach>false</attach>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <imageName>${ImageName}</imageName>
+                    <baseImage>openjdk:8-jre-alpine</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <exposes>
+                        <expose>${ExposePort}</expose>
+                    </exposes>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
-
-            <!-- 打包时跳过测试 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-
-            <!-- 打包插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>${basedir}/src/main/assembly/assembly.xml</descriptor>
-                    </descriptors>
-                </configuration>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>revision</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <dateFormat>yyyyMMdd</dateFormat>
+                    <!-- <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat> -->
+                </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.json</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.json</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
 </project>

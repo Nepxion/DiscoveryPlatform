@@ -9,24 +9,6 @@
     <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
          style="padding: 20px 30px 0 0;">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">路由描述</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" lay-verify="required" class="layui-input"
-                       style="width: 740px"
-                       placeholder="请输入该条路由的描述信息" autocomplete="off" value="${route.description}">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">服务名称</label>
-            <div class="layui-input-inline">
-                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
-                       style="width: 740px"
-                       placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off"
-                       value="${route.serviceName}">
-            </div>
-        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址</label>
@@ -44,9 +26,24 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">断言器</label>
+            <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off" placeholder="请输入断言字符串&#13;例如:&#13;Path=/a/**&#13;Header=type,1"
+                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
+                       style="width: 740px"
+                       placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off"
+                       value="${route.serviceName}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" title="帮助文档">
+                    断言器
+                </a>
+            </label>
+            <div class="layui-input-inline">
+                <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
+                          placeholder="请输入断言字符串(使用换行来分隔), 例如:&#13;Path=/a/**,/b/**&#13;Header=type,1&#13;Cookie=category,a"
                           style="width: 740px;height:120px;resize: none">${route.predicates}</textarea>
             </div>
         </div>
@@ -54,7 +51,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">过滤器</label>
             <div class="layui-input-inline">
-                <textarea id="filters" name="filters" class="layui-input" autocomplete="off" placeholder="请输入过滤字符串&#13;例如:&#13;StripPrefix=1&#13;PrefixPath=/a"
+                <textarea id="filters" name="filters" class="layui-input" autocomplete="off" placeholder="请输入过滤字符串(使用换行来分隔), 例如:&#13;StripPrefix=1&#13;PrefixPath=/a"
                           style="width: 740px;height:120px;resize: none">${route.filters}</textarea>
             </div>
         </div>
@@ -62,7 +59,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline">
-                <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off" placeholder="请输入元数据字符串&#13;例如:&#13;a=1&#13;b=2&#13;c=3"
+                <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off" placeholder="请输入元数据字符串(使用换行来分隔), 例如:&#13;a=1&#13;b=2&#13;c=3"
                           style="width: 740px;height:120px;resize: none">${route.metadata}</textarea>
             </div>
         </div>
@@ -80,6 +77,13 @@
             <div class="layui-input-block">
                 <input type="radio" name="enabled" value="true" title="启用" ${(route.enabled)?string('checked','')}>
                 <input type="radio" name="enabled" value="false" title="禁用" ${(route.enabled)?string('','checked')}>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">路由描述</label>
+            <div class="layui-input-inline">
+                <input type="text" id="description" name="description" class="layui-input" style="width: 740px" placeholder="请输入该条路由的描述信息" autocomplete="off" value="${route.description}">
             </div>
         </div>
 

@@ -12,7 +12,7 @@ package com.nepxion.discovery.platform.server.ldap.context;
 
 import com.nepxion.discovery.platform.server.ldap.service.LdapAdminService;
 import com.nepxion.discovery.platform.server.ldap.service.LdapService;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
+import com.nepxion.discovery.platform.server.service.AdminService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
 import org.springframework.context.ApplicationContextInitializer;

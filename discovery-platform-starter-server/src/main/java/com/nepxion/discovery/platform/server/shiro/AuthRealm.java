@@ -10,10 +10,10 @@ package com.nepxion.discovery.platform.server.shiro;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
+import com.nepxion.discovery.platform.server.service.AdminService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -33,7 +33,7 @@ public class AuthRealm extends AuthorizingRealm {
         final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
         final String username = usernamePasswordToken.getUsername();
         final String password = new String(usernamePasswordToken.getPassword());
-        Admin admin;
+        AdminVo admin;
         try {
             if (!this.adminService.authenticate(username, password)) {
                 return null;

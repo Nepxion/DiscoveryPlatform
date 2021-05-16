@@ -11,17 +11,17 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.configuration.properties.PlatformServerProperties;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.common.Tool;
+import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.dto.SysAdmin;
+import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
-import com.nepxion.discovery.platform.server.interfaces.RoleService;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.service.RoleService;
+import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.exception.BusinessException;
 import com.nepxion.discovery.platform.server.tool.web.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -34,19 +34,12 @@ import java.util.List;
 @RequestMapping(AdminController.PREFIX)
 public class AdminController {
     public static final String PREFIX = "admin";
-
-    private final PlatformServerProperties platformProperties;
-    private final AdminService adminService;
-    private final RoleService roleService;
-
-    public AdminController(final PlatformServerProperties platformProperties,
-                           final AdminService adminService,
-                           final RoleService roleService) {
-        this.platformProperties = platformProperties;
-        this.adminService = adminService;
-        this.roleService = roleService;
-    }
-
+    @Autowired
+    private PlatformServerProperties platformProperties;
+    @Autowired
+    private AdminService adminService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("tolist")
     public String toList() {
@@ -77,23 +70,23 @@ public class AdminController {
 
     @PostMapping("list")
     @ResponseBody
-    public Result<List<Admin>> list(@RequestParam(value = "name", required = false) final String name,
-                                    @RequestParam(value = "page") final Integer pageNum,
-                                    @RequestParam(value = "limit") final Integer pageSize) throws Exception {
-        final IPage<Admin> adminPage = this.adminService.list(this.platformProperties.getLoginMode(), name, pageNum, pageSize);
+    public Result<List<AdminVo>> list(@RequestParam(value = "name", required = false) final String name,
+                                      @RequestParam(value = "page") final Integer pageNum,
+                                      @RequestParam(value = "limit") final Integer pageSize) throws Exception {
+        final IPage<AdminVo> adminPage = this.adminService.list(this.platformProperties.getLoginMode(), name, pageNum, pageSize);
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
 
     @PostMapping("repwd")
     @ResponseBody
     public Result<?> repwd(@RequestParam(value = "id") final Long id) throws Exception {
-        final SysAdmin sysAdmin = this.adminService.getById(id);
+        final SysAdminDto sysAdmin = this.adminService.getById(id);
         if (null == sysAdmin) {
             return Result.error(String.format("用户[id=%s]不存在", id));
         }
         if (this.adminService.changePassword(id,
                 sysAdmin.getPassword(),
-                Tool.hash(PlatformConstant.DEFAULT_ADMIN_PASSWORD))) {
+                CommonTool.hash(PlatformConstant.DEFAULT_ADMIN_PASSWORD))) {
             return Result.ok();
         } else {
             return Result.error("密码修改失败");
@@ -136,7 +129,7 @@ public class AdminController {
 
     @PostMapping("search")
     @ResponseBody
-    public Result<List<Admin>> search(@RequestParam(value = "keyword", defaultValue = "") final String keyword) throws Exception {
+    public Result<List<AdminVo>> search(@RequestParam(value = "keyword", defaultValue = "") final String keyword) throws Exception {
         if (ObjectUtils.isEmpty(keyword.trim())) {
             return Result.ok();
         }

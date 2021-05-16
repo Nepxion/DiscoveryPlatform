@@ -1,7 +1,5 @@
 package com.nepxion.discovery.platform.server.tool.web;
 
-import org.springframework.util.StringUtils;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -12,6 +10,7 @@ import org.springframework.util.StringUtils;
  * @version 1.0
  */
 
+import org.springframework.util.StringUtils;
 
 public enum ResultCode {
     SUCCESS(200L, true, "SUCCESS"),

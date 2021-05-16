@@ -11,14 +11,15 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.interfaces.PermissionService;
-import com.nepxion.discovery.platform.server.entity.dto.SysPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPermission;
-import com.nepxion.discovery.platform.server.entity.vo.Permission;
-import com.nepxion.discovery.platform.server.interfaces.PageService;
-import com.nepxion.discovery.platform.server.interfaces.RoleService;
+import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
+import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
+import com.nepxion.discovery.platform.server.service.PageService;
+import com.nepxion.discovery.platform.server.service.PermissionService;
+import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -33,17 +34,12 @@ import java.util.stream.Collectors;
 public class PermissionController {
     public static final String PREFIX = "permission";
 
-    private final PermissionService permissionService;
-    private final RoleService roleService;
-    private final PageService pageService;
-
-    public PermissionController(final PermissionService permissionService,
-                                final RoleService roleService,
-                                final PageService pageService) {
-        this.permissionService = permissionService;
-        this.roleService = roleService;
-        this.pageService = pageService;
-    }
+    @Autowired
+    private PermissionService permissionService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PageService pageService;
 
     @GetMapping("tolist")
     public String toList(final Model model) throws Exception {
@@ -60,20 +56,20 @@ public class PermissionController {
 
     @PostMapping("getPages")
     @ResponseBody
-    public Result<List<SysPage>> getPages(@RequestParam(value = "sysRoleId") final Long sysRoleId) throws Exception {
-        final List<SysPage> allPages = this.pageService.list();
-        final List<SysPage> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
+    public Result<List<SysPageDto>> getPages(@RequestParam(value = "sysRoleId") final Long sysRoleId) throws Exception {
+        final List<SysPageDto> allPages = this.pageService.list();
+        final List<SysPageDto> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
         allPages.removeAll(pages);
         return Result.ok(allPages.stream().filter(p -> !ObjectUtils.isEmpty(p.getUrl())).collect(Collectors.toList()));
     }
 
     @PostMapping("list")
     @ResponseBody
-    public Result<List<Permission>> list(@RequestParam(value = "page") final Integer pageNum,
-                                         @RequestParam(value = "limit") final Integer pageSize,
-                                         @RequestParam(value = "sysRoleId", required = false) final Long sysRoleId,
-                                         @RequestParam(value = "sysPageId", required = false) final Long sysPageId) throws Exception {
-        final IPage<Permission> list = this.permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
+    public Result<List<PermissionVo>> list(@RequestParam(value = "page") final Integer pageNum,
+                                           @RequestParam(value = "limit") final Integer pageSize,
+                                           @RequestParam(value = "sysRoleId", required = false) final Long sysRoleId,
+                                           @RequestParam(value = "sysPageId", required = false) final Long sysPageId) throws Exception {
+        final IPage<PermissionVo> list = this.permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
@@ -86,7 +82,7 @@ public class PermissionController {
                          @RequestParam(value = "delete", defaultValue = "false") final Boolean delete,
                          @RequestParam(value = "update", defaultValue = "false") final Boolean update,
                          @RequestParam(value = "select", defaultValue = "false") final Boolean select) throws Exception {
-        final SysPermission authPermission = new SysPermission();
+        final SysPermissionDto authPermission = new SysPermissionDto();
         authPermission.setSysRoleId(sysRoleId);
         authPermission.setSysPageId(sysPageId);
         authPermission.setCanInsert(insert);
@@ -102,7 +98,7 @@ public class PermissionController {
     public Result<?> edit(@RequestParam(value = "id") final Long id,
                           @RequestParam(value = "type") final String type,
                           @RequestParam(value = "hasPermission") final Boolean hasPermission) throws Exception {
-        final SysPermission dbAdminPermission = this.permissionService.getById(id);
+        final SysPermissionDto dbAdminPermission = this.permissionService.getById(id);
         if (null != dbAdminPermission) {
             switch (type.toLowerCase()) {
                 case "insert":

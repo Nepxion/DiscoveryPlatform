@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.shiro;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.interfaces.PageService;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -28,7 +28,7 @@ public class CredentialsMatcher extends SimpleCredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(final AuthenticationToken token,
                                       final AuthenticationInfo info) {
-        final Admin admin = (Admin) info.getPrincipals().getPrimaryPrincipal();
+        final AdminVo admin = (AdminVo) info.getPrincipals().getPrimaryPrincipal();
         try {
             this.pageService.fillPages(admin);
         } catch (Exception e) {

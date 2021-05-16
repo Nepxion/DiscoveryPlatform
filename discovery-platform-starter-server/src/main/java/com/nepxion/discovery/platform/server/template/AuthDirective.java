@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.template;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.entity.vo.Page;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,11 +30,11 @@ public abstract class AuthDirective {
         String uri = request.getRequestURI();
         switch (operation) {
             case INSERT:
-                return checkPermission(uri, Page::getCanInsert);
+                return checkPermission(uri, PageVo::getCanInsert);
             case DELETE:
-                return checkPermission(uri, Page::getCanDelete);
+                return checkPermission(uri, PageVo::getCanDelete);
             case UPDATE:
-                return checkPermission(uri, Page::getCanUpdate);
+                return checkPermission(uri, PageVo::getCanUpdate);
             case SELECT:
                 return checkPermission(uri, (permission) ->
                         permission.getCanDelete() ||
@@ -47,7 +47,7 @@ public abstract class AuthDirective {
 
     private boolean checkPermission(String uri,
                                     final HandlePermission handlePermission) {
-        final Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+        final AdminVo admin = (AdminVo) SecurityUtils.getSubject().getPrincipal();
         if (null == admin) {
             return false;
         } else if (admin.getSysRole().getSuperAdmin()) {
@@ -58,16 +58,16 @@ public abstract class AuthDirective {
         if (null == uri) {
             uri = "";
         }
-        final Page page = getByUri(admin.getPermissions(), uri);
+        final PageVo page = getByUri(admin.getPermissions(), uri);
         if (null != page) {
             return handlePermission.check(page);
         }
         return false;
     }
 
-    private Page getByUri(final List<Page> pageVoList,
-                          final String uri) {
-        for (final Page page : pageVoList) {
+    private PageVo getByUri(final List<PageVo> pageVoList,
+                            final String uri) {
+        for (final PageVo page : pageVoList) {
             if (page.getUrl().equals(uri)) {
                 return page;
             } else if (null != page.getChildren() && !page.getChildren().isEmpty()) {
@@ -85,6 +85,6 @@ public abstract class AuthDirective {
     }
 
     private interface HandlePermission {
-        boolean check(final Page page);
+        boolean check(final PageVo page);
     }
 }

@@ -11,11 +11,12 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPage;
-import com.nepxion.discovery.platform.server.entity.vo.Page;
-import com.nepxion.discovery.platform.server.interfaces.PageService;
+import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +29,9 @@ import java.util.List;
 public class PageController {
     public static final String PREFIX = "page";
 
-    private final PageService pageService;
+    @Autowired
+    private PageService pageService;
 
-    public PageController(final PageService pageService) {
-        this.pageService = pageService;
-    }
 
     @GetMapping("tolist")
     public String toList() {
@@ -55,16 +54,16 @@ public class PageController {
 
     @PostMapping("list")
     @ResponseBody
-    public Result<List<Page>> list(@RequestParam(value = "page") final Integer pageNum,
-                                   @RequestParam(value = "limit") final Integer pageSize,
-                                   @RequestParam(value = "name", required = false) final String name) throws Exception {
-        final IPage<Page> page = this.pageService.list(name, pageNum, pageSize);
+    public Result<List<PageVo>> list(@RequestParam(value = "page") final Integer pageNum,
+                                     @RequestParam(value = "limit") final Integer pageSize,
+                                     @RequestParam(value = "name", required = false) final String name) throws Exception {
+        final IPage<PageVo> page = this.pageService.list(name, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
     @PostMapping("add")
     @ResponseBody
-    public Result<?> add(final SysPage sysPage) throws Exception {
+    public Result<?> add(final SysPageDto sysPage) throws Exception {
         if (null == sysPage.getIsDefault()) {
             sysPage.setIsDefault(false);
         }
@@ -82,8 +81,8 @@ public class PageController {
 
     @PostMapping("edit")
     @ResponseBody
-    public Result<?> edit(final SysPage sysPage) throws Exception {
-        final SysPage dbSysPage = this.pageService.getById(sysPage.getId());
+    public Result<?> edit(final SysPageDto sysPage) throws Exception {
+        final SysPageDto dbSysPage = this.pageService.getById(sysPage.getId());
         if (null != dbSysPage) {
             if (null == sysPage.getIsDefault()) {
                 sysPage.setIsDefault(false);

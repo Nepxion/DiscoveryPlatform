@@ -10,15 +10,16 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.common.Tool;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,30 +28,27 @@ import java.util.Calendar;
 
 @Controller
 public class IndexController {
-    private final AdminService adminService;
-
-    public IndexController(final AdminService adminService) {
-        this.adminService = adminService;
-    }
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping(value = {"/", "l"})
     public String toLogin(final Model model) {
-        model.addAttribute("version", Tool.getVersion());
+        model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
         return "login";
     }
 
     @RequestMapping(value = "index")
     public String toIndex(final Model model,
-                          final Admin admin) {
-        model.addAttribute("version", Tool.getVersion());
+                          final AdminVo admin) {
+        model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("admin", admin);
         return "index";
     }
 
     @GetMapping("toinfo")
     public String toInfo(final Model model,
-                         final Admin admin) throws Exception {
+                         final AdminVo admin) throws Exception {
         model.addAttribute("admin", this.adminService.getById(admin.getId()));
         return "info";
     }
@@ -80,16 +78,16 @@ public class IndexController {
 
     @PostMapping("repwd")
     @ResponseBody
-    public Result<?> repwd(final Admin admin,
+    public Result<?> repwd(final AdminVo admin,
                            @RequestParam(name = "oldPassword") final String oldPassword,
                            @RequestParam(name = "password") final String newPassword) throws Exception {
-        this.adminService.changePassword(admin.getId(), Tool.hash(oldPassword), Tool.hash(newPassword));
+        this.adminService.changePassword(admin.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
         return Result.ok();
     }
 
     @PostMapping("reinfo")
     @ResponseBody
-    public Result<?> reinfo(final Admin admin,
+    public Result<?> reinfo(final AdminVo admin,
                             @RequestParam(name = "name") final String name,
                             @RequestParam(name = "phoneNumber") final String phoneNumber,
                             @RequestParam(name = "email") final String email,

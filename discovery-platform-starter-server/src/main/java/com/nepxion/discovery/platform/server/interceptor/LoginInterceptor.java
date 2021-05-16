@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.interceptor;
  */
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
                              final Object handler) {
         if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
             try {
-                final Admin admin = (Admin) SecurityUtils.getSubject().getPrincipal();
+                final AdminVo admin = (AdminVo) SecurityUtils.getSubject().getPrincipal();
                 if (null != admin) {
                     request.setAttribute(PlatformConstant.CURRENT_ADMIN_LOGIN, admin);
                 }

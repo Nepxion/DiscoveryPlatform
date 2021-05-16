@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nepxion.discovery.platform.server.mysql.mapper.MySqlPermissionMapper">
+
+    <select id="listPermissionPagesByRoleId" resultType="com.nepxion.discovery.platform.server.entity.dto.SysPageDto">
+        SELECT `page`.*
+        FROM `sys_page` `page`
+                 LEFT OUTER JOIN `sys_permission` `p` ON `page`.`id` = `p`.`sys_page_id`
+        WHERE `p`.`sys_role_id` = #{sysRoleId}
+    </select>
+
+    <select id="list" resultType="com.nepxion.discovery.platform.server.entity.vo.PermissionVo">
+        SELECT
+        `p`.`id`,
+        `page`.`id` AS `page_id`,
+        `page`.`name` AS `page_name`,
+        `r`.`id` AS `role_id`,
+        `r`.`name` AS `role_name`,
+        `p`.`can_insert`,
+        `p`.`can_delete`,
+        `p`.`can_update`,
+        `p`.`can_select`
+        FROM `sys_permission` `p`
+        LEFT OUTER JOIN `sys_page` `page` ON `page`.`id` = `p`.`sys_page_id`
+        LEFT OUTER JOIN `sys_role` `r` ON `p`.`sys_role_id` = `r`.`id`
+        <where>
+            <if test="sysRoleId!=null">
+                AND `r`.`id` = #{sysRoleId}
+            </if>
+            <if test="sysPageId!=null">
+                AND `page`.`id` = #{sysPageId}
+            </if>
+        </where>
+    </select>
+</mapper>

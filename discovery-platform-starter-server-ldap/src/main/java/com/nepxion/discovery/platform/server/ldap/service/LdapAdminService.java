@@ -11,11 +11,12 @@ package com.nepxion.discovery.platform.server.ldap.service;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysAdmin;
+import com.nepxion.discovery.common.entity.UserEntity;
+import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.entity.vo.LdapUser;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
+import com.nepxion.discovery.platform.server.service.AdminService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +33,22 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public boolean authenticate(String username, String password) throws Exception {
+    public boolean authenticate(String username, String password) {
         return this.ldapService.authenticate(username, password);
     }
 
     @Override
-    public Admin getAdminByUserName(String username) throws Exception {
-        final LdapUser ldapUser = this.ldapService.getByUserName(username);
+    public boolean authenticate(UserEntity userEntity) {
+        return this.authenticate(userEntity.getUserId(), userEntity.getPassword());
+    }
+
+    @Override
+    public AdminVo getAdminByUserName(String username) throws Exception {
+        final LdapUserVo ldapUser = this.ldapService.getByUserName(username);
         if (null == ldapUser) {
             return null;
         }
-        SysAdmin sysAdmin = this.adminService.getByUserName(username);
+        SysAdminDto sysAdmin = this.adminService.getByUserName(username);
         if (null == sysAdmin) {
             this.adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUser.getName(), ldapUser.getPhoneNumber(), ldapUser.getEmail(), ldapUser.getRemark());
         } else {
@@ -52,14 +58,14 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public List<Admin> search(final String keyword,
-                              final Integer pageNum,
-                              final Integer pageSize) {
-        final List<Admin> result = new ArrayList<>();
-        final List<LdapUser> ldapUsersList = this.ldapService.search(keyword, pageNum, pageSize);
+    public List<AdminVo> search(final String keyword,
+                                final Integer pageNum,
+                                final Integer pageSize) {
+        final List<AdminVo> result = new ArrayList<>();
+        final List<LdapUserVo> ldapUsersList = this.ldapService.search(keyword, pageNum, pageSize);
 
-        for (final LdapUser ldapUser : ldapUsersList) {
-            final Admin admin = new Admin();
+        for (final LdapUserVo ldapUser : ldapUsersList) {
+            final AdminVo admin = new AdminVo();
             admin.setLoginMode(LoginMode.LDAP.getCode());
             admin.setUsername(ldapUser.getUsername());
             admin.setName(ldapUser.getName());
@@ -74,7 +80,7 @@ public class LdapAdminService implements AdminService {
 
 
     @Override
-    public SysAdmin getByUserName(String username) throws Exception {
+    public SysAdminDto getByUserName(String username) throws Exception {
         return this.adminService.getByUserName(username);
     }
 
@@ -94,18 +100,18 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public IPage<Admin> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) throws Exception {
+    public IPage<AdminVo> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) throws Exception {
         return this.adminService.list(loginMode, name, pageNum, pageSize);
     }
 
 
     @Override
-    public List<SysAdmin> getByRoleId(Long roleId) throws Exception {
+    public List<SysAdminDto> getByRoleId(Long roleId) throws Exception {
         return this.adminService.getByRoleId(roleId);
     }
 
     @Override
-    public SysAdmin getById(Long id) {
+    public SysAdminDto getById(Long id) {
         return this.adminService.getById(id);
     }
 

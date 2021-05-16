@@ -11,12 +11,13 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysAdmin;
-import com.nepxion.discovery.platform.server.entity.dto.SysRole;
-import com.nepxion.discovery.platform.server.interfaces.AdminService;
-import com.nepxion.discovery.platform.server.interfaces.RoleService;
+import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
+import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +30,10 @@ import java.util.Set;
 @RequestMapping(RoleController.PREFIX)
 public class RoleController {
     public static final String PREFIX = "role";
-
-    private final AdminService adminService;
-    private final RoleService roleService;
-
-    public RoleController(final AdminService adminService,
-                          final RoleService roleService) {
-        this.adminService = adminService;
-        this.roleService = roleService;
-    }
+    @Autowired
+    private AdminService adminService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("tolist")
     public String toList() {
@@ -58,10 +54,10 @@ public class RoleController {
 
     @PostMapping("list")
     @ResponseBody
-    public Result<List<SysRole>> list(@RequestParam(value = "name", required = false) final String name,
-                                      @RequestParam(value = "page") final Integer pageNum,
-                                      @RequestParam(value = "limit") final Integer pageSize) throws Exception {
-        final IPage<SysRole> sysAdmins = this.roleService.list(name, pageNum, pageSize);
+    public Result<List<SysRoleDto>> list(@RequestParam(value = "name", required = false) final String name,
+                                         @RequestParam(value = "page") final Integer pageNum,
+                                         @RequestParam(value = "limit") final Integer pageSize) throws Exception {
+        final IPage<SysRoleDto> sysAdmins = this.roleService.list(name, pageNum, pageSize);
         return Result.ok(sysAdmins.getRecords(), sysAdmins.getTotal());
     }
 
@@ -90,9 +86,9 @@ public class RoleController {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         final Set<Long> idSet = new HashSet<>();
         for (final Long id : idList) {
-            final List<SysAdmin> sysAdminList = this.adminService.getByRoleId(id);
+            final List<SysAdminDto> sysAdminList = this.adminService.getByRoleId(id);
             if (null != sysAdminList && !sysAdminList.isEmpty()) {
-                final SysRole sysRole = this.roleService.getById(id);
+                final SysRoleDto sysRole = this.roleService.getById(id);
                 return Result.error(String.format("角色[%s]有管理员正在使用,无法删除", sysRole.getName()));
             }
             idSet.add(id);

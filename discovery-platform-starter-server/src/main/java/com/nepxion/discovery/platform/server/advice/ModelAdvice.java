@@ -10,18 +10,16 @@ package com.nepxion.discovery.platform.server.advice;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.configuration.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
 public class ModelAdvice {
-    private final PlatformServerProperties platformProperties;
-
-    public ModelAdvice(final PlatformServerProperties platformProperties) {
-        this.platformProperties = platformProperties;
-    }
+    @Autowired
+    private PlatformServerProperties platformProperties;
 
     @ModelAttribute
     public void addAttributes(final Model model) {

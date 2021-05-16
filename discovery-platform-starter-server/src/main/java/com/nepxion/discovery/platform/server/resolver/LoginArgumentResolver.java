@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.resolver;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebArgumentResolver;
@@ -24,7 +24,7 @@ public class LoginArgumentResolver implements WebArgumentResolver {
                                   final NativeWebRequest nativeWebRequest) {
         final Class<?> parameterType = methodParameter.getParameterType();
         final HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        if (null != request && parameterType.equals(Admin.class)) {
+        if (null != request && parameterType.equals(AdminVo.class)) {
             return request.getAttribute(PlatformConstant.CURRENT_ADMIN_LOGIN);
         }
         return UNRESOLVED;

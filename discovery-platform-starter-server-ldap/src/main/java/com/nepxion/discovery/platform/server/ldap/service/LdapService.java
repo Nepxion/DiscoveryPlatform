@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.ldap.service;
  */
 
 import com.nepxion.discovery.platform.server.ldap.configuration.properties.PlatformLdapProperties;
-import com.nepxion.discovery.platform.server.entity.vo.LdapUser;
+import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ldap.core.AttributesMapper;
@@ -31,7 +31,6 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 public class LdapService {
     private static final String MEMBER_OF_ATTR_NAME = "memberOf";
-    private static final String MEMBER_UID_ATTR_NAME = "memberUid";
     private final LdapTemplate ldapTemplate;
     private final LdapProperties ldapProperties;
     private final PlatformLdapProperties platformLdapProperties;
@@ -64,14 +63,14 @@ public class LdapService {
      * @param username the login account
      * @return user information
      */
-    public LdapUser getByUserName(final String username) {
+    public LdapUserVo getByUserName(final String username) {
         try {
             return this.ldapTemplate.searchForObject(
                     this.ldapProperties.getBase(),
                     query().where(this.platformLdapProperties.getLoginIdAttrName()).is(username).filter().toString(),
                     ctx -> {
                         final DirContextAdapter contextAdapter = (DirContextAdapter) ctx;
-                        final LdapUser ldapUser = new LdapUser();
+                        final LdapUserVo ldapUser = new LdapUserVo();
                         ldapUser.setUsername(contextAdapter.getStringAttribute(this.platformLdapProperties.getLoginIdAttrName()));
                         ldapUser.setName(contextAdapter.getStringAttribute(this.platformLdapProperties.getNameAttrName()));
                         ldapUser.setPhoneNumber(contextAdapter.getStringAttribute(this.platformLdapProperties.getPhoneNumberAttrName()));
@@ -90,9 +89,9 @@ public class LdapService {
      * @param keyword keyword
      * @return return user information which match the keyword
      */
-    public List<LdapUser> search(final String keyword,
-                                 final Integer pageNum,
-                                 final Integer pageSize) {
+    public List<LdapUserVo> search(final String keyword,
+                                   final Integer pageNum,
+                                   final Integer pageSize) {
 
         final int offset = (Math.max(pageNum, 1) - 1) * pageSize;
         final int limit = pageSize;
@@ -102,8 +101,8 @@ public class LdapService {
                         query().where(this.platformLdapProperties.getLoginIdAttrName()).like("*" + keyword + "*")
                                 .or(this.platformLdapProperties.getNameAttrName()).like("*" + keyword + "*")
                 );
-        final List<LdapUser> result = ldapTemplate.search(this.ldapProperties.getBase(), criteria.filter().toString(), (AttributesMapper<LdapUser>) ctx -> {
-            final LdapUser ldapUser = new LdapUser();
+        final List<LdapUserVo> result = ldapTemplate.search(this.ldapProperties.getBase(), criteria.filter().toString(), (AttributesMapper<LdapUserVo>) ctx -> {
+            final LdapUserVo ldapUser = new LdapUserVo();
             if (null != ctx.get(this.platformLdapProperties.getLoginIdAttrName())) {
                 ldapUser.setUsername(ctx.get(this.platformLdapProperties.getLoginIdAttrName()).get().toString());
             }
@@ -122,7 +121,7 @@ public class LdapService {
             return ldapUser;
         });
 
-        return result.stream().sorted(Comparator.comparing(LdapUser::getUsername)).skip(offset).limit(limit).collect(Collectors.toList());
+        return result.stream().sorted(Comparator.comparing(LdapUserVo::getUsername)).skip(offset).limit(limit).collect(Collectors.toList());
     }
 
     private ContainerCriteria ldapQueryCriteria() {

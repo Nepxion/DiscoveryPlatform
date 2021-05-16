@@ -83,7 +83,6 @@
                 <configuration>
                     <executable>true</executable>
                     <mainClass>${MainClass}</mainClass>
-                    <!-- <mainClass>com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1</mainClass> -->
                     <layout>JAR</layout>
                 </configuration>
                 <executions>
@@ -97,60 +96,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <configuration>
-                    <imageName>${ImageName}</imageName>
-                    <baseImage>openjdk:8-jre-alpine</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-                    <exposes>
-                        <expose>${ExposePort}</expose>
-                    </exposes>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <dateFormat>yyyyMMdd</dateFormat>
-                    <!-- <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat> -->
-                </configuration>
-            </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
-
 </project>

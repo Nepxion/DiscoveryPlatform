@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.configuration;
+package com.nepxion.discovery.platform.server.context;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -23,8 +23,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.Properties;
 
-public class PlatformPropertiesInitializer implements EnvironmentPostProcessor, Ordered {
-    private static final Logger LOG = LoggerFactory.getLogger(PlatformPropertiesInitializer.class);
+public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
+    private static final Logger LOG = LoggerFactory.getLogger(PlatformEnvironmentPostProcessor.class);
 
     @Override
     public void postProcessEnvironment(final ConfigurableEnvironment configurableEnvironment,

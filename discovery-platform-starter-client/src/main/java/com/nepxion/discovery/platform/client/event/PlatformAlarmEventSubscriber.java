@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.client.event;
  */
 
 import com.google.common.eventbus.Subscribe;
-import com.nepxion.discovery.plugin.framework.event.AlarmEvent;
+import com.nepxion.discovery.common.event.AlarmEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus

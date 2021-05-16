@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.Subscribe;
+import com.nepxion.discovery.common.event.AlarmEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
@@ -21,13 +22,13 @@ public class PlatformSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(PlatformSubscriber.class);
 
     @Subscribe
-    public void onAlarm(PlatformAlarmEvent platformAlarmEvent) {
-        String alarmType = platformAlarmEvent.getAlarmType();
+    public void onAlarm(AlarmEvent alarmEvent) {
+        String alarmType = alarmEvent.getAlarmType();
 
-        LOG.info("Platform alarm event has been triggered, event type={}", alarmType);
+        LOG.info("Alarm event has been triggered, event type={}", alarmType);
 
         if (StringUtils.equals(alarmType, "RouteInconsistency")) {
-            System.out.println("::::: 推送告警信息给钉钉，告警类型=" + platformAlarmEvent.getAlarmType() + "，告警内容=" + platformAlarmEvent.getAlarmMap());
+            System.out.println("::::: 推送告警信息给钉钉，告警类型=" + alarmEvent.getAlarmType() + "，告警内容=" + alarmEvent.getAlarmMap());
         }
     }
 }

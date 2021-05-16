@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.configuration;
+package com.nepxion.discovery.platform.server.annocation;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -21,6 +21,8 @@ import java.lang.annotation.Target;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
+
+import com.nepxion.discovery.platform.server.configuration.ComponentRegister;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

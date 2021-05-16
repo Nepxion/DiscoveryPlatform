@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.ldap.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.ldap.configuration.properties.PlatformLdapProperties;
+import com.nepxion.discovery.platform.server.ldap.properties.PlatformLdapProperties;
 import com.nepxion.discovery.platform.server.ldap.service.LdapService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;

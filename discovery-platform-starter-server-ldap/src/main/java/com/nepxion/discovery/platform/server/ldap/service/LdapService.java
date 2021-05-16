@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.ldap.service;
  */
 
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
-import com.nepxion.discovery.platform.server.ldap.configuration.properties.PlatformLdapProperties;
+import com.nepxion.discovery.platform.server.ldap.properties.PlatformLdapProperties;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ldap.core.AttributesMapper;

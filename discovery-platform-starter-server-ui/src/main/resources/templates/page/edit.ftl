@@ -64,7 +64,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">排序号</label>
         <div class="layui-input-inline" style="width:250px">
-            <input value="${page.orderNum}" placeholder="请填写排序号(值越小,越靠前)" type="text" name="orderNum"
+            <input value="${page.order}" placeholder="请填写排序号(值越小,越靠前)" type="text" name="order"
                    lay-verify="required|number" autocomplete="off" class="layui-input">
         </div>
     </div>

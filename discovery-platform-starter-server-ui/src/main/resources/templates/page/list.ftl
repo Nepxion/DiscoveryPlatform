@@ -71,7 +71,7 @@
                 {field: 'name', title: '页面名称', width: 150},
                 {field: 'parentName', title: '父级菜单', width: 150},
                 {field: 'url', title: 'URL地址', width: 250},
-                {field: 'orderNum', title: '排序号', width: 150},
+                {field: 'order', title: '排序号', width: 150},
                 {
                     title: '菜单图标', width: 100, templet: function (d) {
                         return '<i class="layui-icon ' + d.iconClass + '" style="color: #1E9FFF;"></i>';

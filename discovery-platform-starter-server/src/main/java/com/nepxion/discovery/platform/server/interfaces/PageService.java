@@ -30,7 +30,7 @@ public interface PageService {
                      final Integer pageNum,
                      final Integer pageSize) throws Exception;
 
-    Long getMaxOrderNum(final Long parentId) throws Exception;
+    Long getMaxOrder(final Long parentId) throws Exception;
 
     List<SysPage> list();
 

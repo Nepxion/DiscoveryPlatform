@@ -67,8 +67,8 @@ public final class SysPage extends BaseEntity {
     /**
      * 顺序号(值越小, 排名越靠前)
      */
-    @TableField(value = "`order_num`")
-    private Long orderNum;
+    @TableField(value = "`order`")
+    private Long order;
 
     /**
      * 备注
@@ -132,12 +132,12 @@ public final class SysPage extends BaseEntity {
         this.parentId = parentId;
     }
 
-    public Long getOrderNum() {
-        return orderNum;
+    public Long getOrder() {
+        return order;
     }
 
-    public void setOrderNum(Long orderNum) {
-        this.orderNum = orderNum;
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
     public String getRemark() {

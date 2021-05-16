@@ -27,7 +27,7 @@ public final class SysAdmin extends BaseEntity {
     /**
      * 角色类型(1: DB 2: LDAP)
      */
-    @TableField(value = "login_mode")
+    @TableField(value = "`login_mode`")
     private Integer loginMode;
 
     /**

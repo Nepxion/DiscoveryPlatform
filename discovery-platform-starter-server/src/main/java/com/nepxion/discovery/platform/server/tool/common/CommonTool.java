@@ -10,6 +10,10 @@ package com.nepxion.discovery.platform.server.tool.common;
  * @version 1.0
  */
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.slf4j.Logger;
@@ -31,6 +35,8 @@ public final class CommonTool {
     private final static long GB_IN_BYTES = 1024 * MB_IN_BYTES;
     private final static long TB_IN_BYTES = 1024 * GB_IN_BYTES;
     private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
+    private final static Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+
 
     public static <T> T toVo(final Object source,
                              final Class<T> target) {
@@ -179,5 +185,37 @@ public final class CommonTool {
     public static List<String> split(final String value,
                                      final String separator) {
         return split(value, separator, String.class);
+    }
+
+    public static String prettyFormat(String json) {
+        return GSON.toJson(JsonParser.parseString(json));
+    }
+
+    public static String formatTextarea(String value) {
+        return value.replaceAll(PlatformConstant.ROW_SEPARATOR, "&#13;");
+    }
+
+    public static Map<String, Object> asMap(String metadata,
+                                            String rowSeparator) {
+        final Map<String, Object> result = new HashMap<>();
+
+        if (ObjectUtils.isEmpty(metadata) || ObjectUtils.isEmpty(rowSeparator)) {
+            return result;
+        }
+
+        final String[] all = metadata.split(rowSeparator);
+        for (final String item : all) {
+            if (ObjectUtils.isEmpty(item)) {
+                continue;
+            }
+            int firstEqualsIndex = item.indexOf('=');
+            if (firstEqualsIndex < 1) {
+                continue;
+            }
+            final String key = item.substring(0, firstEqualsIndex);
+            final String val = item.substring(firstEqualsIndex + 1);
+            result.put(key, val);
+        }
+        return result;
     }
 }

@@ -1,37 +1,27 @@
 package com.nepxion.discovery.platform.server.controller;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
+import com.nepxion.discovery.console.entity.GatewayType;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.RouteResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGateway;
+import com.nepxion.discovery.platform.server.entity.vo.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.platform.server.interfaces.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping(RouteGatewayController.PREFIX)
@@ -45,6 +35,7 @@ public class RouteGatewayController {
     private RouteResource routeResource;
     @Autowired
     private RouteGatewayService routeGatewayService;
+    private static final GatewayType GATEWAY_TYPE = GatewayType.SPRING_CLOUD_GATEWAY;
 
     @GetMapping("tolist")
     public String toList() {
@@ -52,7 +43,9 @@ public class RouteGatewayController {
     }
 
     @GetMapping("toworking")
-    public String toWorking() {
+    public String toWorking(final Model model) {
+        final List<String> gatewayNames = serviceResource.getGatewayList(GATEWAY_TYPE);
+        model.addAttribute("gatewayNames", gatewayNames);
         return String.format("%s/%s", PREFIX, "working");
     }
 
@@ -65,8 +58,13 @@ public class RouteGatewayController {
     @GetMapping("toedit")
     public String toEdit(final Model model,
                          @RequestParam(name = "id") final Long id) {
-        model.addAttribute("serviceNames", this.serviceResource.getServices());
-        model.addAttribute("route", this.routeGatewayService.getById(id));
+        final List<String> serviceNameList = this.serviceResource.getServices();
+        final RouteGateway routeGateway = this.routeGatewayService.getById(id);
+        routeGateway.setPredicates(CommonTool.formatTextarea(routeGateway.getPredicates()));
+        routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
+        routeGateway.setMetadata(CommonTool.formatTextarea(routeGateway.getMetadata()));
+        model.addAttribute("serviceNames", serviceNameList);
+        model.addAttribute("route", routeGateway);
         return String.format("%s/%s", PREFIX, "edit");
     }
 
@@ -76,6 +74,9 @@ public class RouteGatewayController {
                                            @RequestParam(value = "limit") final Integer pageSize,
                                            @RequestParam(value = "description", required = false) final String description) {
         final IPage<RouteGateway> page = this.routeGatewayService.page(description, pageNum, pageSize);
+        for (final RouteGateway record : page.getRecords()) {
+            record.setMetadata(record.getMetadata().replaceAll(PlatformConstant.ROW_SEPARATOR, ", "));
+        }
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
@@ -83,15 +84,12 @@ public class RouteGatewayController {
     @ResponseBody
     public Result<List<String>> listWorking(@RequestParam(value = "page") final Integer pageNum,
                                             @RequestParam(value = "limit") final Integer pageSize,
-                                            @RequestParam(value = "routeName", required = false) final String routeName) throws Exception {
-        List<String> gatewayNames = this.serviceResource.getGateways();
-
+                                            @RequestParam(value = "routeName", required = false) final String routeName) {
+        final List<String> gatewayNames = serviceResource.getGatewayList(GATEWAY_TYPE);
         for (final String gatewayName : gatewayNames) {
-            List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute("gateway", gatewayName);
+            List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(GATEWAY_TYPE, gatewayName);
             System.out.println(resultEntityList);
         }
-
-
         return Result.ok();
 //        final List<String> workingRouteList = this.gatewayRpcService.listWorkingRoutes();
 //        if (null == workingRouteList || workingRouteList.isEmpty()) {
@@ -150,33 +148,25 @@ public class RouteGatewayController {
     public Result<?> publish() throws Exception {
         final List<String> gatewayNames = this.serviceResource.getGateways();
         final List<RouteGateway> routeGatewayList = this.routeGatewayService.listEnabled();
+        final List<GatewayStrategyRouteEntity> gatewayStrategyRouteEntityList = new ArrayList<>(routeGatewayList.size());
 
-        for (final String gatewayName : gatewayNames) {
-            final List<ServiceInstance> instances = this.serviceResource.getInstances(gatewayName);
-
-            final Set<String> groupSet = new HashSet<>();
-            for (final ServiceInstance instance : instances) {
-                final String group = instance.getMetadata().get(DiscoveryConstant.GROUP);
-                if (ObjectUtils.isEmpty(group)) {
-                    continue;
-                }
-                groupSet.add(group);
-            }
-
-            for (final String group : groupSet) {
-                configResource.updateRemoteConfig(
-                        group,
-                        gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE),
-                        JsonUtil.toJson(routeGatewayList)
-                );
-            }
+        for (final RouteGateway routeGateway : routeGatewayList) {
+            final GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
+            gatewayStrategyRouteEntity.setId(routeGateway.getRouteId());
+            gatewayStrategyRouteEntity.setUri(routeGateway.getUri());
+            gatewayStrategyRouteEntity.setPredicates(Arrays.asList(routeGateway.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
+            gatewayStrategyRouteEntity.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
+            gatewayStrategyRouteEntity.setOrder(routeGateway.getOrder());
+            gatewayStrategyRouteEntity.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+            gatewayStrategyRouteEntityList.add(gatewayStrategyRouteEntity);
         }
 
-        // 不通过网关， 直接通过轮询调用网关的方式
-        // this.routeResource.updateAllRoute(
-        //         "gateway",
-        //         gatewayNames.get(0),
-        //         JsonUtil.toJson(routeGatewayList));
+        for (final String gatewayName : gatewayNames) {
+            final String group = this.serviceResource.getGroup(gatewayName);
+            final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
+            final String config = JsonUtil.toJson(gatewayStrategyRouteEntityList);
+            this.configResource.updateRemoteConfig(group, serviceId, CommonTool.prettyFormat(config));
+        }
 
         return Result.ok();
     }

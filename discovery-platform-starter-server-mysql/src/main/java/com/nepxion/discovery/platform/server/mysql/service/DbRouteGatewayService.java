@@ -83,7 +83,7 @@ public class DbRouteGatewayService extends ServiceImpl<DbRouteGatewayMapper, Rou
         final QueryWrapper<RouteGateway> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(RouteGateway::getEnabled, true)
-                .orderByAsc(RouteGateway::getOrderNum);
+                .orderByAsc(RouteGateway::getOrder);
         return this.list(queryWrapper);
     }
 }

@@ -60,7 +60,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">执行顺序</label>
             <div class="layui-input-inline">
-                <input type="number" name="orderNum" lay-verify="required" class="layui-input" style="width: 740px"
+                <input type="number" name="order" lay-verify="required" class="layui-input" style="width: 740px"
                        placeholder="请输入顺序号" autocomplete="off" value="0">
             </div>
         </div>

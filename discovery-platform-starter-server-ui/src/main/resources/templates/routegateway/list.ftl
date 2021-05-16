@@ -49,7 +49,7 @@
                             <button id="btnPublish"
                                     class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin"
                                     lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布路由
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布<b>Spring Cloud Gateway</b>路由
                                 <span id="spanStatus" class="layui-badge layui-bg-orange"
                                       style="display: none">有修改</span>
                             </button>
@@ -81,10 +81,15 @@
             let isUpdate = false;
             tableErrorHandler();
             form.on('submit(search)', function (data) {
+                if (isUpdate) {
+                    admin.error("系统提示", "已修改了路由信息,请先发布");
+                    return;
+                }
                 const field = data.field;
                 table.reload('grid', {page: {curr: 1}, where: field});
                 updateStatus(false);
             });
+
             table.render({
                 elem: '#grid',
                 url: 'list',
@@ -104,8 +109,9 @@
                     {field: 'description', title: '路由描述', width: 300},
                     {field: 'uri', title: '目标地址', width: 300},
                     {field: 'predicates', title: '断言器'},
-                    {field: 'filters', title: '过滤器'},
-                    {field: 'orderNum', title: '顺序号', align: 'center', width: 100},
+                    {field: 'filters', title: '过滤器', width: 150},
+                    {field: 'metadata', title: '元数据', width: 150},
+                    {field: 'order', title: '顺序号', align: 'center', width: 100},
                     {
                         title: '是否启用', width: 100, align: 'center', templet: function (d) {
                             return d.enabled ? '<span class="layui-badge layui-bg-green"><b>启用</b></span>' : '<span class="layui-badge"><b>禁用</b></span>'
@@ -121,9 +127,9 @@
                 if (obj.event === 'add') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增路由',
+                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增<b>Spring Cloud Gateway</b>路由',
                         content: 'toadd',
-                        area: ['920px', '700px'],
+                        area: ['920px', '790px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -145,7 +151,7 @@
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作路由',
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作<b>Spring Cloud Gateway</b>路由',
                         content: 'toworking',
                         shadeClose: true,
                         shade: 0.8,
@@ -182,9 +188,9 @@
                 if (obj.event === 'edit') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑路由',
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>Spring Cloud Gateway</b>路由',
                         content: 'toedit?id=' + data.id,
-                        area: ['920px', '700px'],
+                        area: ['920px', '790px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {

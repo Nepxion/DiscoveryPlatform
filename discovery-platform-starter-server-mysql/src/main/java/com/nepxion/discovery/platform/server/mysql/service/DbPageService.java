@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.nepxion.discovery.platform.server.mysql.mapper.DbPageMapper;
 import com.nepxion.discovery.platform.server.entity.dto.SysPage;
 import com.nepxion.discovery.platform.server.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.entity.vo.Page;
 import com.nepxion.discovery.platform.server.interfaces.PageService;
+import com.nepxion.discovery.platform.server.mysql.mapper.DbPageMapper;
 import com.nepxion.discovery.platform.server.tool.anno.TranRead;
 import com.nepxion.discovery.platform.server.tool.anno.TranSave;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
@@ -44,7 +44,7 @@ public class DbPageService extends ServiceImpl<DbPageMapper, SysPage> implements
         }
         admin.setPermissions(getPages(admin));
         if (null != admin.getPermissions()) {
-            admin.getPermissions().sort((o1, o2) -> (int) (o1.getOrderNum() - o2.getOrderNum()));
+            admin.getPermissions().sort((o1, o2) -> (int) (o1.getOrder() - o2.getOrder()));
         }
     }
 
@@ -78,8 +78,8 @@ public class DbPageService extends ServiceImpl<DbPageMapper, SysPage> implements
 
     @TranRead
     @Override
-    public Long getMaxOrderNum(final Long parentId) {
-        return this.baseMapper.getMaxOrderNum(parentId);
+    public Long getMaxOrder(final Long parentId) {
+        return this.baseMapper.getMaxOrder(parentId);
     }
 
     @TranSave
@@ -110,7 +110,7 @@ public class DbPageService extends ServiceImpl<DbPageMapper, SysPage> implements
         final QueryWrapper<SysPage> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(SysPage::getIsMenu, 1)
-                .orderByAsc(SysPage::getParentId, SysPage::getOrderNum);
+                .orderByAsc(SysPage::getParentId, SysPage::getOrder);
         return this.list(queryWrapper);
     }
 

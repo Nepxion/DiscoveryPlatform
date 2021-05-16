@@ -25,7 +25,7 @@ public interface DbPageMapper extends BaseMapper<SysPage> {
     IPage<Page> list(IPage<Page> result,
                      @Param("name") String name);
 
-    Long getMaxOrderNum(@Param("parentId") Long parentId);
+    Long getMaxOrder(@Param("parentId") Long parentId);
 
     List<Page> listPermissionPages(@Param("adminId") Long adminId);
 }

@@ -46,8 +46,8 @@ public final class Page extends BaseEntity {
     @TableField("`parent_name`")
     private String parentName;
 
-    @TableField("`order_num`")
-    private Long orderNum;
+    @TableField("`order`")
+    private Long order;
 
     @TableField("`remark`")
     private String remark;
@@ -131,12 +131,12 @@ public final class Page extends BaseEntity {
         this.parentName = parentName;
     }
 
-    public Long getOrderNum() {
-        return orderNum;
+    public Long getOrder() {
+        return order;
     }
 
-    public void setOrderNum(Long orderNum) {
-        this.orderNum = orderNum;
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
     public String getRemark() {

@@ -13,7 +13,7 @@
         `p`.`icon_class`,
         `p`.`parent_id`,
         `parent`.`name` AS `parent_name`,
-        `p`.`order_num`,
+        `p`.`order`,
         `p`.`remark`
         FROM `sys_page` `p`
         LEFT OUTER JOIN `sys_page` `parent` ON `p`.`parent_id` = `parent`.`id`
@@ -22,11 +22,11 @@
                 `p`.`name` LIKE CONCAT('%', #{name}, '%')
             </if>
         </where>
-        ORDER BY p.parent_id ASC, p.order_num ASC
+        ORDER BY `p`.`parent_id` ASC, `p`.`order` ASC
     </select>
 
-    <select id="getMaxOrderNum" resultType="java.lang.Long">
-        SELECT IFNULL(MAX(`order_num`), 0)
+    <select id="getMaxOrder" resultType="java.lang.Long">
+        SELECT IFNULL(MAX(`order`), 0)
         FROM `sys_page`
         WHERE `parent_id` = #{parentId}
     </select>
@@ -40,7 +40,7 @@
                `page`.`icon_class`,
                `page`.`parent_id`,
                `parent`.`name` AS `parent_name`,
-               `page`.`order_num`,
+               `page`.`order`,
                `page`.`remark`,
                `p`.`can_insert`,
                `p`.`can_delete`,

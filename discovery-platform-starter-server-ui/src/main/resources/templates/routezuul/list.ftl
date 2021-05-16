@@ -105,7 +105,7 @@
                     {field: 'uri', title: '目标地址', width: 300},
                     {field: 'predicates', title: '断言器'},
                     {field: 'filters', title: '过滤器'},
-                    {field: 'orderNum', title: '顺序号', align: 'center', width: 100},
+                    {field: 'order', title: '顺序号', align: 'center', width: 100},
                     {
                         title: '是否启用', width: 100, align: 'center', templet: function (d) {
                             return d.enabled ? '<span class="layui-badge layui-bg-green"><b>启用</b></span>' : '<span class="layui-badge"><b>禁用</b></span>'

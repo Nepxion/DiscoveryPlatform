@@ -23,28 +23,31 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public final class RouteGateway extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @TableField(value = "route_id")
+    @TableField(value = "`route_id`")
     private String routeId;
 
-    @TableField(value = "uri")
+    @TableField(value = "`uri`")
     private String uri;
 
-    @TableField(value = "predicates")
+    @TableField(value = "`predicates`")
     private String predicates;
 
-    @TableField(value = "filters")
+    @TableField(value = "`filters`")
     private String filters;
 
-    @TableField(value = "order_num")
-    private Integer orderNum;
+    @TableField(value = "`metadata`")
+    private String metadata;
 
-    @TableField(value = "service_name")
+    @TableField(value = "`order`")
+    private Integer order;
+
+    @TableField(value = "`service_name`")
     private String serviceName;
 
-    @TableField(value = "enabled")
+    @TableField(value = "`enabled`")
     private Boolean enabled;
 
-    @TableField(value = "description")
+    @TableField(value = "`description`")
     private String description;
 
     public String getRouteId() {
@@ -79,12 +82,20 @@ public final class RouteGateway extends BaseEntity {
         this.filters = filters;
     }
 
-    public Integer getOrderNum() {
-        return orderNum;
+    public String getMetadata() {
+        return metadata;
     }
 
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
     public String getServiceName() {

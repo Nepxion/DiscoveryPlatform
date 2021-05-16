@@ -8,6 +8,20 @@
 
     <div class="layui-fluid">
         <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
+                    <div class="layui-inline">网关列表</div>
+                    <div class="layui-inline" style="width:500px">
+                        <select name="uri1" lay-filter="uri1" autocomplete="off" lay-verify="required"
+                                class="layui-select" lay-search>
+                            <#list gatewayNames as gatewayName>
+                                <option value="${gatewayName}">${gatewayName}</option>
+                            </#list>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="layui-card-body">
                 <table id="grid" lay-filter="grid"></table>
                 <script type="text/html" id="grid-toolbar">

@@ -23,31 +23,31 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public final class RouteZuul extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @TableField(value = "route_id")
+    @TableField(value = "`route_id`")
     private String routeId;
 
-    @TableField(value = "service_id")
+    @TableField(value = "`service_id`")
     private String serviceId;
 
-    @TableField(value = "path")
+    @TableField(value = "`path`")
     private String path;
 
-    @TableField(value = "uri")
+    @TableField(value = "`uri`")
     private String uri;
 
-    @TableField(value = "strip_prefix")
+    @TableField(value = "`strip_prefix`")
     private Boolean stripPrefix;
 
-    @TableField(value = "retryable")
+    @TableField(value = "`retryable`")
     private Boolean retryable;
 
-    @TableField(value = "sensitive_headers")
+    @TableField(value = "`sensitive_headers`")
     private String sensitiveHeaders;
 
-    @TableField(value = "enabled")
+    @TableField(value = "`enabled`")
     private Boolean enabled;
 
-    @TableField(value = "description")
+    @TableField(value = "`description`")
     private String description;
 
     @Override

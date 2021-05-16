@@ -12,10 +12,10 @@ package com.nepxion.discovery.platform.server.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.SysPage;
+import com.nepxion.discovery.platform.server.entity.vo.Page;
 import com.nepxion.discovery.platform.server.interfaces.PageService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
-import com.nepxion.discovery.platform.server.entity.vo.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -74,8 +74,8 @@ public class PageController {
         if (null == sysPage.getIsBlank()) {
             sysPage.setIsBlank(false);
         }
-        final Long orderNum = this.pageService.getMaxOrderNum(sysPage.getParentId());
-        sysPage.setOrderNum(orderNum + 1);
+        final Long order = this.pageService.getMaxOrder(sysPage.getParentId());
+        sysPage.setOrder(order + 1);
         this.pageService.insert(sysPage);
         return Result.ok();
     }

@@ -26,7 +26,7 @@ public final class SysDic extends BaseEntity {
     /**
      * 属性名称
      */
-    @TableField(value = "name")
+    @TableField(value = "`name`")
     private String name;
 
     /**

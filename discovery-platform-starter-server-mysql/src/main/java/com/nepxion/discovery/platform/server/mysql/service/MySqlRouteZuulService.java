@@ -16,7 +16,6 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import org.springframework.stereotype.Service;
 
-@Service
 public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
 
 }

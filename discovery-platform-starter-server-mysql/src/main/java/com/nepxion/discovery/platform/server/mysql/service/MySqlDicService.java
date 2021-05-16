@@ -17,7 +17,6 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlDicMapper;
 import com.nepxion.discovery.platform.server.service.DicService;
 import org.springframework.stereotype.Service;
 
-@Service
 public class MySqlDicService extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
 
     @Override

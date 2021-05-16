@@ -18,4 +18,9 @@ public class PlatformConstant {
     public static final String GATEWAY_DYNAMIC_ROUTE = "dynamic-route";
     public static final String ROW_SEPARATOR = "\n";
     public static final String PLATFORM = "platform";
+
+    public static final String TITLE = "title";
+    public static final String FULL_NAME = "fullName";
+    public static final String SHORT_NAME = "shortName";
+
 }

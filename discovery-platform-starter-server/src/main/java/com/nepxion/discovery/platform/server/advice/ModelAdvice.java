@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.advice;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -23,8 +24,8 @@ public class ModelAdvice {
 
     @ModelAttribute
     public void addAttributes(final Model model) {
-        model.addAttribute("title", this.platformProperties.getTitle());
-        model.addAttribute("fullName", this.platformProperties.getFullName());
-        model.addAttribute("shortName", this.platformProperties.getShortName());
+        model.addAttribute(PlatformConstant.TITLE, this.platformProperties.getTitle());
+        model.addAttribute(PlatformConstant.FULL_NAME, this.platformProperties.getFullName());
+        model.addAttribute(PlatformConstant.SHORT_NAME, this.platformProperties.getShortName());
     }
 }

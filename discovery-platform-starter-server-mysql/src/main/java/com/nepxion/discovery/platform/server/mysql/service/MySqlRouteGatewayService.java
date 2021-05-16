@@ -26,7 +26,6 @@ import org.springframework.util.ObjectUtils;
 import java.util.Collection;
 import java.util.List;
 
-@Service
 public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
 
     @Override

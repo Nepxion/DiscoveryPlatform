@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.configuration;
 
 import com.nepxion.discovery.platform.server.template.*;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,8 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class FreeMarkerAutoConfiguration implements InitializingBean {
-    private final freemarker.template.Configuration freeMarkerConfiguration;
-
-    public FreeMarkerAutoConfiguration(final freemarker.template.Configuration freeMarkerConfiguration) {
-        this.freeMarkerConfiguration = freeMarkerConfiguration;
-    }
+    @Autowired
+    private freemarker.template.Configuration freeMarkerConfiguration;
 
     @Bean
     @Primary

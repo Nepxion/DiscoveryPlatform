@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @TableName(value = "`sys_permission`")
 public final class SysPermission extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1492837850971982832L;
 
     @TableField(value = "`sys_role_id`")
     private Long sysRoleId;
@@ -102,5 +102,4 @@ public final class SysPermission extends BaseEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
 }

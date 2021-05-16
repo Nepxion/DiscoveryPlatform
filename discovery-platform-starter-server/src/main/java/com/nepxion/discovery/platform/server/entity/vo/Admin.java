@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.List;
 
 public final class Admin extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6127678430528273318L;
 
     @TableField(value = "login_mode")
     private Integer loginMode;

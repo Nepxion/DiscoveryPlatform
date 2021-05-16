@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class BaseEntity implements Serializable {
+    private static final long serialVersionUID = -6126908183507715467L;
+
     /**
      * 自增主键
      */

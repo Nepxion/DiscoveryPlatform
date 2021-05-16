@@ -1,10 +1,5 @@
 package com.nepxion.discovery.platform.server.entity.vo;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -15,6 +10,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @version 1.0
  */
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class LdapUser {
     private String username;
@@ -86,5 +85,4 @@ public class LdapUser {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
 }

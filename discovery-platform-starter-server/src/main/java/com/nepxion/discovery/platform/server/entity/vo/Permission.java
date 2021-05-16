@@ -18,7 +18,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public final class Permission extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6016630948349129129L;
 
     @TableField("`page_id`")
     private Long pageId;
@@ -122,5 +122,4 @@ public final class Permission extends BaseEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
 }

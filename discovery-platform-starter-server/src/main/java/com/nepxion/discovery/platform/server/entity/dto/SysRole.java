@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @TableName(value = "`sys_role`")
 public final class SysRole extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8847633075670911868L;
 
     /**
      * 角色名称
@@ -78,5 +78,4 @@ public final class SysRole extends BaseEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
 }

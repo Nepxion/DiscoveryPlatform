@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.List;
 
 public final class Page extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4924651888194918771L;
 
     @TableField("`name`")
     private String name;

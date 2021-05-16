@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.entity.dto;
  * @version 1.0
  */
 
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
@@ -19,10 +18,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
 @TableName(value = "`sys_admin`")
 public final class SysAdmin extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5225540451759187539L;
 
     /**
      * 角色类型(1: DB 2: LDAP)

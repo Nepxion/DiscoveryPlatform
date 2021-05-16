@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @TableName(value = "`sys_page`")
 public final class SysPage extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3106165704196966179L;
 
     /**
      * 页面名称
@@ -162,5 +162,4 @@ public final class SysPage extends BaseEntity {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
 }

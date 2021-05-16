@@ -10,15 +10,11 @@ package com.nepxion.discovery.platform.server.h2.configuration;
  * @version 1.0
  */
 
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import com.nepxion.discovery.platform.server.h2.properties.PlatformH2Properties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 
-@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
-@ComponentScan("com.nepxion.discovery.platform.starter.server.h2.configuration")
 @EnableConfigurationProperties({PlatformH2Properties.class})
 public class PlatformH2AutoConfiguration {
 

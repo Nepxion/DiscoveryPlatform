@@ -1,12 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
-import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
-import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -17,6 +10,14 @@ import java.util.Set;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
+import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
+
+import java.util.List;
+import java.util.Set;
 
 public interface PermissionService {
     List<SysPageDto> listPermissionPagesByRoleId(final Long sysRoleId) throws Exception;

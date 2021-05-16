@@ -11,9 +11,9 @@ package com.nepxion.discovery.platform.server.shiro;
  */
 
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
 import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -33,22 +33,22 @@ public class AuthRealm extends AuthorizingRealm {
         final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
         final String username = usernamePasswordToken.getUsername();
         final String password = new String(usernamePasswordToken.getPassword());
-        AdminVo admin;
+        AdminVo adminVo;
         try {
             if (!this.adminService.authenticate(username, password)) {
                 return null;
             }
-            admin = this.adminService.getAdminByUserName(username);
-            if (adminService.isSuperAdmin(admin.getUsername())) {
-                admin.getSysRole().setSuperAdmin(true);
+            adminVo = this.adminService.getAdminByUserName(username);
+            if (this.adminService.isSuperAdmin(adminVo.getUsername())) {
+                adminVo.getSysRole().setSuperAdmin(true);
             } else {
-                admin.getSysRole().setSuperAdmin(false);
+                adminVo.getSysRole().setSuperAdmin(false);
             }
         } catch (final Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;
         }
-        return new SimpleAuthenticationInfo(admin, usernamePasswordToken.getPassword(), usernamePasswordToken.getUsername());
+        return new SimpleAuthenticationInfo(adminVo, usernamePasswordToken.getPassword(), usernamePasswordToken.getUsername());
     }
 
     @Override

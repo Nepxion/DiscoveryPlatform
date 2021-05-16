@@ -47,31 +47,31 @@ public abstract class AuthDirective {
 
     private boolean checkPermission(String uri,
                                     final HandlePermission handlePermission) {
-        final AdminVo admin = (AdminVo) SecurityUtils.getSubject().getPrincipal();
-        if (null == admin) {
+        final AdminVo adminVo = (AdminVo) SecurityUtils.getSubject().getPrincipal();
+        if (null == adminVo) {
             return false;
-        } else if (admin.getSysRole().getSuperAdmin()) {
+        } else if (adminVo.getSysRole().getSuperAdmin()) {
             return true;
-        } else if (admin.getPermissions() == null || admin.getPermissions().size() < 1) {
+        } else if (adminVo.getPermissions() == null || adminVo.getPermissions().size() < 1) {
             return false;
         }
         if (null == uri) {
             uri = "";
         }
-        final PageVo page = getByUri(admin.getPermissions(), uri);
-        if (null != page) {
-            return handlePermission.check(page);
+        final PageVo pageVo = getByUri(adminVo.getPermissions(), uri);
+        if (null != pageVo) {
+            return handlePermission.check(pageVo);
         }
         return false;
     }
 
     private PageVo getByUri(final List<PageVo> pageVoList,
                             final String uri) {
-        for (final PageVo page : pageVoList) {
-            if (page.getUrl().equals(uri)) {
-                return page;
-            } else if (null != page.getChildren() && !page.getChildren().isEmpty()) {
-                return getByUri(page.getChildren(), uri);
+        for (final PageVo pageVo : pageVoList) {
+            if (pageVo.getUrl().equals(uri)) {
+                return pageVo;
+            } else if (null != pageVo.getChildren() && !pageVo.getChildren().isEmpty()) {
+                return getByUri(pageVo.getChildren(), uri);
             }
         }
         return null;
@@ -85,6 +85,6 @@ public abstract class AuthDirective {
     }
 
     private interface HandlePermission {
-        boolean check(final PageVo page);
+        boolean check(final PageVo pageVo);
     }
 }

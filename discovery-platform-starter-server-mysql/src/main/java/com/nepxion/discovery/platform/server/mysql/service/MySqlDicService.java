@@ -1,12 +1,5 @@
 package com.nepxion.discovery.platform.server.mysql.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlDicMapper;
-import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
-import com.nepxion.discovery.platform.server.service.DicService;
-import org.springframework.stereotype.Service;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -16,6 +9,13 @@ import org.springframework.stereotype.Service;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
+import com.nepxion.discovery.platform.server.mysql.mapper.MySqlDicMapper;
+import com.nepxion.discovery.platform.server.service.DicService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MySqlDicService extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {

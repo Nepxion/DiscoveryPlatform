@@ -37,7 +37,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" title="帮助文档">
+                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
                     断言器
                 </a>
             </label>
@@ -49,7 +49,11 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">过滤器</label>
+            <label class="layui-form-label">
+                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
+                    过滤器
+                </a>
+            </label>
             <div class="layui-input-inline">
                 <textarea id="filters" name="filters" class="layui-input" autocomplete="off" placeholder="请输入过滤字符串(使用换行来分隔), 例如:&#13;StripPrefix=1&#13;PrefixPath=/a"
                           style="width: 740px;height:120px;resize: none">${route.filters}</textarea>

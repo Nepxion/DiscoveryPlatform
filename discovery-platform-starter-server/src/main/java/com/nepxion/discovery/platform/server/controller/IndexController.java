@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
@@ -31,7 +32,7 @@ public class IndexController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping(value = {"/", "l"})
+    @GetMapping(value = {"/", PlatformConstant.PLATFORM})
     public String toLogin(final Model model) {
         model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
@@ -40,16 +41,16 @@ public class IndexController {
 
     @RequestMapping(value = "index")
     public String toIndex(final Model model,
-                          final AdminVo admin) {
+                          final AdminVo adminVo) {
         model.addAttribute("version", CommonTool.getVersion());
-        model.addAttribute("admin", admin);
+        model.addAttribute("admin", adminVo);
         return "index";
     }
 
     @GetMapping("toinfo")
     public String toInfo(final Model model,
-                         final AdminVo admin) throws Exception {
-        model.addAttribute("admin", this.adminService.getById(admin.getId()));
+                         final AdminVo adminVo) {
+        model.addAttribute("admin", this.adminService.getById(adminVo.getId()));
         return "info";
     }
 
@@ -78,21 +79,21 @@ public class IndexController {
 
     @PostMapping("repwd")
     @ResponseBody
-    public Result<?> repwd(final AdminVo admin,
+    public Result<?> repwd(final AdminVo adminVo,
                            @RequestParam(name = "oldPassword") final String oldPassword,
                            @RequestParam(name = "password") final String newPassword) throws Exception {
-        this.adminService.changePassword(admin.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
+        this.adminService.changePassword(adminVo.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
         return Result.ok();
     }
 
     @PostMapping("reinfo")
     @ResponseBody
-    public Result<?> reinfo(final AdminVo admin,
+    public Result<?> reinfo(final AdminVo adminVo,
                             @RequestParam(name = "name") final String name,
                             @RequestParam(name = "phoneNumber") final String phoneNumber,
                             @RequestParam(name = "email") final String email,
                             @RequestParam(name = "remark") final String remark) throws Exception {
-        this.adminService.update(admin.getId(), null, null, name, phoneNumber, email, remark);
+        this.adminService.update(adminVo.getId(), null, null, name, phoneNumber, email, remark);
         return Result.ok();
     }
 

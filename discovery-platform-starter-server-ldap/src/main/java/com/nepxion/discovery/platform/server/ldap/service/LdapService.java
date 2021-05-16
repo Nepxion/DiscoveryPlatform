@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.ldap.service;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.ldap.configuration.properties.PlatformLdapProperties;
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
+import com.nepxion.discovery.platform.server.ldap.configuration.properties.PlatformLdapProperties;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ldap.core.AttributesMapper;
@@ -70,13 +70,13 @@ public class LdapService {
                     query().where(this.platformLdapProperties.getLoginIdAttrName()).is(username).filter().toString(),
                     ctx -> {
                         final DirContextAdapter contextAdapter = (DirContextAdapter) ctx;
-                        final LdapUserVo ldapUser = new LdapUserVo();
-                        ldapUser.setUsername(contextAdapter.getStringAttribute(this.platformLdapProperties.getLoginIdAttrName()));
-                        ldapUser.setName(contextAdapter.getStringAttribute(this.platformLdapProperties.getNameAttrName()));
-                        ldapUser.setPhoneNumber(contextAdapter.getStringAttribute(this.platformLdapProperties.getPhoneNumberAttrName()));
-                        ldapUser.setEmail(contextAdapter.getStringAttribute(this.platformLdapProperties.getMailAttrName()));
-                        ldapUser.setRemark(contextAdapter.getStringAttribute(this.platformLdapProperties.getTitleAttrName()));
-                        return ldapUser;
+                        final LdapUserVo ldapUserVo = new LdapUserVo();
+                        ldapUserVo.setUsername(contextAdapter.getStringAttribute(this.platformLdapProperties.getLoginIdAttrName()));
+                        ldapUserVo.setName(contextAdapter.getStringAttribute(this.platformLdapProperties.getNameAttrName()));
+                        ldapUserVo.setPhoneNumber(contextAdapter.getStringAttribute(this.platformLdapProperties.getPhoneNumberAttrName()));
+                        ldapUserVo.setEmail(contextAdapter.getStringAttribute(this.platformLdapProperties.getMailAttrName()));
+                        ldapUserVo.setRemark(contextAdapter.getStringAttribute(this.platformLdapProperties.getTitleAttrName()));
+                        return ldapUserVo;
                     });
         } catch (EmptyResultDataAccessException ignored) {
             return null;
@@ -102,23 +102,23 @@ public class LdapService {
                                 .or(this.platformLdapProperties.getNameAttrName()).like("*" + keyword + "*")
                 );
         final List<LdapUserVo> result = ldapTemplate.search(this.ldapProperties.getBase(), criteria.filter().toString(), (AttributesMapper<LdapUserVo>) ctx -> {
-            final LdapUserVo ldapUser = new LdapUserVo();
+            final LdapUserVo ldapUserVo = new LdapUserVo();
             if (null != ctx.get(this.platformLdapProperties.getLoginIdAttrName())) {
-                ldapUser.setUsername(ctx.get(this.platformLdapProperties.getLoginIdAttrName()).get().toString());
+                ldapUserVo.setUsername(ctx.get(this.platformLdapProperties.getLoginIdAttrName()).get().toString());
             }
             if (null != ctx.get(this.platformLdapProperties.getNameAttrName())) {
-                ldapUser.setName(ctx.get(this.platformLdapProperties.getNameAttrName()).get().toString());
+                ldapUserVo.setName(ctx.get(this.platformLdapProperties.getNameAttrName()).get().toString());
             }
             if (null != ctx.get(this.platformLdapProperties.getPhoneNumberAttrName())) {
-                ldapUser.setPhoneNumber(ctx.get(this.platformLdapProperties.getPhoneNumberAttrName()).get().toString());
+                ldapUserVo.setPhoneNumber(ctx.get(this.platformLdapProperties.getPhoneNumberAttrName()).get().toString());
             }
             if (null != ctx.get(this.platformLdapProperties.getMailAttrName())) {
-                ldapUser.setEmail(ctx.get(this.platformLdapProperties.getMailAttrName()).get().toString());
+                ldapUserVo.setEmail(ctx.get(this.platformLdapProperties.getMailAttrName()).get().toString());
             }
             if (null != ctx.get(this.platformLdapProperties.getTitleAttrName())) {
-                ldapUser.setRemark(ctx.get(this.platformLdapProperties.getTitleAttrName()).get().toString());
+                ldapUserVo.setRemark(ctx.get(this.platformLdapProperties.getTitleAttrName()).get().toString());
             }
-            return ldapUser;
+            return ldapUserVo;
         });
 
         return result.stream().sorted(Comparator.comparing(LdapUserVo::getUsername)).skip(offset).limit(limit).collect(Collectors.toList());

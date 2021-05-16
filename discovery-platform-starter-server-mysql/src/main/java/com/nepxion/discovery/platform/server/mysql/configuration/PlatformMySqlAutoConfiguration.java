@@ -10,23 +10,20 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
 import com.nepxion.discovery.platform.server.mysql.service.*;
 import com.nepxion.discovery.platform.server.mysql.tool.DataSourceTool;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.Ordered;
 
 import javax.sql.DataSource;
 
-@AutoConfigureOrder(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
-@MapperScan("com.nepxion.discovery.platform.server.mysql.mapper")
+@MapperScan(basePackageClasses = MySqlAdminMapper.class)
 @EnableConfigurationProperties({PlatformMySqlProperties.class})
 public class PlatformMySqlAutoConfiguration {
 
@@ -38,7 +35,6 @@ public class PlatformMySqlAutoConfiguration {
 
     @Bean
     @Primary
-    @ConditionalOnMissingBean
     public DataSource dataSource() {
         return DataSourceTool.createHikariDataSource(
                 this.platformMySqlProperties.getHost(),

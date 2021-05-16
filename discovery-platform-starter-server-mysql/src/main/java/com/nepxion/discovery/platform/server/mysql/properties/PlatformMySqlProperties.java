@@ -2,7 +2,7 @@ package com.nepxion.discovery.platform.server.mysql.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(value = "platform.db")
+@ConfigurationProperties(value = "platform.mysql")
 public class PlatformMySqlProperties {
     /**
      * 数据库地址

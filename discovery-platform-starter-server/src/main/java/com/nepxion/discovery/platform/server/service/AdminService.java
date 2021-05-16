@@ -1,14 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.console.resource.AuthenticationResource;
-import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
-import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -19,6 +10,16 @@ import java.util.Set;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.console.resource.AuthenticationResource;
+import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
+import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Set;
 
 public interface AdminService extends AuthenticationResource {
     boolean authenticate(final String username,

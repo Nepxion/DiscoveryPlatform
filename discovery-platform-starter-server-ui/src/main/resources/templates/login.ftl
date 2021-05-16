@@ -12,7 +12,7 @@
         <div class="layadmin-user-login-main">
             <div class="layadmin-user-login-box layadmin-user-login-header">
                 <h2>${fullName}</h2>
-                <p>Nepxion Discovery Spring Cloud Gateway</p>
+                <p>Nepxion Discovery Spring Cloud</p>
             </div>
             <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
                 <div class="layui-form-item">

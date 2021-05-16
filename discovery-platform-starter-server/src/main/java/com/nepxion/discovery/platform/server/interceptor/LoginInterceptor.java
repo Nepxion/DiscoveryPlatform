@@ -31,9 +31,9 @@ public class LoginInterceptor implements AsyncHandlerInterceptor {
                              final Object handler) {
         if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
             try {
-                final AdminVo admin = (AdminVo) SecurityUtils.getSubject().getPrincipal();
-                if (null != admin) {
-                    request.setAttribute(PlatformConstant.CURRENT_ADMIN_LOGIN, admin);
+                final AdminVo adminVo = (AdminVo) SecurityUtils.getSubject().getPrincipal();
+                if (null != adminVo) {
+                    request.setAttribute(PlatformConstant.CURRENT_ADMIN_LOGIN, adminVo);
                 }
             } catch (final Exception e) {
                 LOG.error(ExceptionTool.getRootCauseMessage(e), e);

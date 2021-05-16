@@ -1,10 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -15,6 +10,12 @@ import java.util.List;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface RouteGatewayService {
 

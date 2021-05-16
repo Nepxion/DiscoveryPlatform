@@ -1,12 +1,22 @@
 package com.nepxion.discovery.platform.server.mysql.service;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
+import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.anno.TranRead;
 import com.nepxion.discovery.platform.server.tool.anno.TranSave;
@@ -17,16 +27,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Set;
-
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
 
 @Service
 public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {

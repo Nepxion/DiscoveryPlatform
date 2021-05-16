@@ -1,23 +1,5 @@
 package com.nepxion.discovery.platform.server.mysql.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
-import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.entity.vo.PageVo;
-import com.nepxion.discovery.platform.server.service.PageService;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPageMapper;
-import com.nepxion.discovery.platform.server.tool.anno.TranRead;
-import com.nepxion.discovery.platform.server.tool.anno.TranSave;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -27,6 +9,24 @@ import java.util.*;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPageMapper;
+import com.nepxion.discovery.platform.server.service.PageService;
+import com.nepxion.discovery.platform.server.tool.anno.TranRead;
+import com.nepxion.discovery.platform.server.tool.anno.TranSave;
+import com.nepxion.discovery.platform.server.tool.common.CommonTool;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
@@ -38,13 +38,13 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
 
     @TranRead
     @Override
-    public void fillPages(final AdminVo admin) {
-        if (null == admin) {
+    public void fillPages(final AdminVo adminVo) {
+        if (null == adminVo) {
             return;
         }
-        admin.setPermissions(getPages(admin));
-        if (null != admin.getPermissions()) {
-            admin.getPermissions().sort((o1, o2) -> (int) (o1.getOrder() - o2.getOrder()));
+        adminVo.setPermissions(getPages(adminVo));
+        if (null != adminVo.getPermissions()) {
+            adminVo.getPermissions().sort((o1, o2) -> (int) (o1.getOrder() - o2.getOrder()));
         }
     }
 
@@ -118,7 +118,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return this.baseMapper.listPermissionPages(adminId);
     }
 
-    private List<PageVo> getPages(final AdminVo admin) {
+    private List<PageVo> getPages(final AdminVo adminVo) {
         final List<SysPageDto> allPages = this.listSysPages();
         final Map<Long, SysPageDto> allPageMap = toMap(allPages);
 
@@ -126,7 +126,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         final List<PageVo> nonRootPageList = new ArrayList<>();
         // 顶级集合
         final List<PageVo> rootPageList = new ArrayList<>();
-        final List<PageVo> pageVoList = this.listPermissionPages(admin.getId());
+        final List<PageVo> pageVoList = this.listPermissionPages(adminVo.getId());
 
         final Map<Long, PageVo> permission = new HashMap<>((int) (0.75 / pageVoList.size()));
         for (final PageVo pageVo : pageVoList) {
@@ -134,7 +134,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
 
         for (final SysPageDto sysPage : allPages) {
-            if (!admin.getSysRole().getSuperAdmin() && !permission.containsKey(sysPage.getId())) {
+            if (!adminVo.getSysRole().getSuperAdmin() && !permission.containsKey(sysPage.getId())) {
                 continue;
             }
             if (0 == sysPage.getParentId()) {
@@ -151,7 +151,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 nonRootPageList.add(CommonTool.toVo(sysPage, PageVo.class));
             }
             if (sysPage.getIsDefault()) {
-                admin.setDefaultPage(sysPage.getUrl());
+                adminVo.setDefaultPage(sysPage.getUrl());
             }
         }
 
@@ -175,7 +175,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
 
         if (ObjectUtils.isNotNull(rootPageList) || ObjectUtils.isNotNull(nonRootPageList)) {
             final Set<Long> map = Sets.newHashSetWithExpectedSize(nonRootPageList.size());
-            rootPageList.forEach(rootPage -> getChild(admin, permission, rootPage, nonRootPageList, map));
+            rootPageList.forEach(rootPage -> getChild(adminVo, permission, rootPage, nonRootPageList, map));
             filter(rootPageList);
             return rootPageList;
         }
@@ -203,7 +203,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
     }
 
-    private void getChild(final AdminVo admin,
+    private void getChild(final AdminVo adminVo,
                           final Map<Long, PageVo> permission,
                           final PageVo parentPage,
                           final List<PageVo> childrenPageList,
@@ -214,11 +214,11 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 filter(p -> p.getParentId().equals(parentPage.getId())). // 判断是否父子关系
                 filter(p -> set.size() <= childrenPageList.size()).// set集合大小不能超过childrenPageList的大小
                 forEach(p -> {
-            if (admin.getSysRole().getSuperAdmin() || ObjectUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
+            if (adminVo.getSysRole().getSuperAdmin() || ObjectUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
                 // 放入set, 递归循环时可以跳过这个页面，提高循环效率
                 set.add(p.getId());
                 // 递归获取当前类目的子类目
-                getChild(admin, permission, p, childrenPageList, set);
+                getChild(adminVo, permission, p, childrenPageList, set);
 
                 if (permission.containsKey(p.getId())) {
                     final PageVo page = permission.get(p.getId());

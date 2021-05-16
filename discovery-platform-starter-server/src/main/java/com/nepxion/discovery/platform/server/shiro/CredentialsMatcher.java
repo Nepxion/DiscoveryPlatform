@@ -28,10 +28,10 @@ public class CredentialsMatcher extends SimpleCredentialsMatcher {
     @Override
     public boolean doCredentialsMatch(final AuthenticationToken token,
                                       final AuthenticationInfo info) {
-        final AdminVo admin = (AdminVo) info.getPrincipals().getPrimaryPrincipal();
+        final AdminVo adminVo = (AdminVo) info.getPrincipals().getPrimaryPrincipal();
         try {
-            this.pageService.fillPages(admin);
-        } catch (Exception e) {
+            this.pageService.fillPages(adminVo);
+        } catch (final Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return false;
         }

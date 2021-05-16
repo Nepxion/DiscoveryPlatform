@@ -17,4 +17,5 @@ public class PlatformConstant {
     public static final String SUER_ADMIN_NAME = "super_admin";
     public static final String GATEWAY_DYNAMIC_ROUTE = "dynamic-route";
     public static final String ROW_SEPARATOR = "\n";
+    public static final String PLATFORM = "platform";
 }

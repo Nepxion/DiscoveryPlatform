@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.mysql.service;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -29,16 +39,6 @@ import org.springframework.util.ObjectUtils;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
 
 @Service
 public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
@@ -76,10 +76,10 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
             return null;
         }
 
-        final AdminVo admin = new AdminVo();
-        BeanUtils.copyProperties(admin, sysAdmin);
-        admin.setSysRole(this.roleService.getById(admin.getSysRoleId()));
-        return admin;
+        final AdminVo adminVo = new AdminVo();
+        BeanUtils.copyProperties(adminVo, sysAdmin);
+        adminVo.setSysRole(this.roleService.getById(adminVo.getSysRoleId()));
+        return adminVo;
     }
 
     @TranRead

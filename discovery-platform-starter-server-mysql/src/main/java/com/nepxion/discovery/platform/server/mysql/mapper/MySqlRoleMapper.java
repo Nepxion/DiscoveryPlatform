@@ -1,9 +1,5 @@
 package com.nepxion.discovery.platform.server.mysql.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
-import org.apache.ibatis.annotations.Mapper;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -13,6 +9,10 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MySqlRoleMapper extends BaseMapper<SysRoleDto> {

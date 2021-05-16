@@ -94,12 +94,12 @@ public class RouteGatewayController {
         final List<GatewayRouteVo> result = new ArrayList<>();
         final List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(GATEWAY_TYPE, gatewayName);
         for (final ResultEntity resultEntity : resultEntityList) {
-            final GatewayRouteVo instanceGatewayRoute = new GatewayRouteVo();
-            instanceGatewayRoute.setHost(resultEntity.getHost());
-            instanceGatewayRoute.setPort(String.valueOf(resultEntity.getPort()));
-            instanceGatewayRoute.setRoutes(JsonTool.toEntity(resultEntity.getResult(), new TypeToken<List<RouteGatewayPo>>() {
+            final GatewayRouteVo gatewayRouteVo = new GatewayRouteVo();
+            gatewayRouteVo.setHost(resultEntity.getHost());
+            gatewayRouteVo.setPort(String.valueOf(resultEntity.getPort()));
+            gatewayRouteVo.setRoutes(JsonTool.toEntity(resultEntity.getResult(), new TypeToken<List<RouteGatewayPo>>() {
             }));
-            result.add(instanceGatewayRoute);
+            result.add(gatewayRouteVo);
         }
         return Result.ok(result);
     }
@@ -151,23 +151,23 @@ public class RouteGatewayController {
     public Result<?> publish() throws Exception {
         final List<String> gatewayNames = this.serviceResource.getGateways();
         final List<RouteGatewayDto> routeGatewayList = this.routeGatewayService.listEnabled();
-        final List<RouteGatewayPo> gatewayStrategyRouteEntityList = new ArrayList<>(routeGatewayList.size());
+        final List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>(routeGatewayList.size());
 
         for (final RouteGatewayDto routeGateway : routeGatewayList) {
-            final RouteGatewayPo gatewayStrategyRouteEntity = new RouteGatewayPo();
-            gatewayStrategyRouteEntity.setId(routeGateway.getRouteId());
-            gatewayStrategyRouteEntity.setUri(routeGateway.getUri());
-            gatewayStrategyRouteEntity.setPredicates(Arrays.asList(routeGateway.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
-            gatewayStrategyRouteEntity.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
-            gatewayStrategyRouteEntity.setOrder(routeGateway.getOrder());
-            gatewayStrategyRouteEntity.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
-            gatewayStrategyRouteEntityList.add(gatewayStrategyRouteEntity);
+            final RouteGatewayPo routeGatewayPo = new RouteGatewayPo();
+            routeGatewayPo.setId(routeGateway.getRouteId());
+            routeGatewayPo.setUri(routeGateway.getUri());
+            routeGatewayPo.setPredicates(Arrays.asList(routeGateway.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
+            routeGatewayPo.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
+            routeGatewayPo.setOrder(routeGateway.getOrder());
+            routeGatewayPo.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+            routeGatewayPoList.add(routeGatewayPo);
         }
 
         for (final String gatewayName : gatewayNames) {
             final String group = this.serviceResource.getGroup(gatewayName);
             final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-            final String config = JsonUtil.toJson(gatewayStrategyRouteEntityList);
+            final String config = JsonUtil.toJson(routeGatewayPoList);
             this.configResource.updateRemoteConfig(group, serviceId, JsonTool.prettyFormat(config));
         }
 

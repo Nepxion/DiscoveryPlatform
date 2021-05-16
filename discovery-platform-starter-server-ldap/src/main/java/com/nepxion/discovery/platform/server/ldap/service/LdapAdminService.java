@@ -44,15 +44,15 @@ public class LdapAdminService implements AdminService {
 
     @Override
     public AdminVo getAdminByUserName(String username) throws Exception {
-        final LdapUserVo ldapUser = this.ldapService.getByUserName(username);
-        if (null == ldapUser) {
+        final LdapUserVo ldapUserVo = this.ldapService.getByUserName(username);
+        if (null == ldapUserVo) {
             return null;
         }
         SysAdminDto sysAdmin = this.adminService.getByUserName(username);
         if (null == sysAdmin) {
-            this.adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUser.getName(), ldapUser.getPhoneNumber(), ldapUser.getEmail(), ldapUser.getRemark());
+            this.adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
         } else {
-            this.adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUser.getName(), ldapUser.getPhoneNumber(), ldapUser.getEmail(), ldapUser.getRemark());
+            this.adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
         }
         return this.adminService.getAdminByUserName(username);
     }
@@ -62,19 +62,18 @@ public class LdapAdminService implements AdminService {
                                 final Integer pageNum,
                                 final Integer pageSize) {
         final List<AdminVo> result = new ArrayList<>();
-        final List<LdapUserVo> ldapUsersList = this.ldapService.search(keyword, pageNum, pageSize);
+        final List<LdapUserVo> ldapUserVoList = this.ldapService.search(keyword, pageNum, pageSize);
 
-        for (final LdapUserVo ldapUser : ldapUsersList) {
-            final AdminVo admin = new AdminVo();
-            admin.setLoginMode(LoginMode.LDAP.getCode());
-            admin.setUsername(ldapUser.getUsername());
-            admin.setName(ldapUser.getName());
-            admin.setPhoneNumber(ldapUser.getPhoneNumber());
-            admin.setEmail(ldapUser.getEmail());
-            admin.setRemark(ldapUser.getRemark());
-            result.add(admin);
+        for (final LdapUserVo ldapUserVo : ldapUserVoList) {
+            final AdminVo adminVo = new AdminVo();
+            adminVo.setLoginMode(LoginMode.LDAP.getCode());
+            adminVo.setUsername(ldapUserVo.getUsername());
+            adminVo.setName(ldapUserVo.getName());
+            adminVo.setPhoneNumber(ldapUserVo.getPhoneNumber());
+            adminVo.setEmail(ldapUserVo.getEmail());
+            adminVo.setRemark(ldapUserVo.getRemark());
+            result.add(adminVo);
         }
-
         return result;
     }
 

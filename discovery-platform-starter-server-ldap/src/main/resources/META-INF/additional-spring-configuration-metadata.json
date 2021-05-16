@@ -25,37 +25,37 @@
       "description": "The urls of LDAP. Multiple separated by commas."
     },
     {
-      "name": "spring.ldap.object-class-attr-name",
+      "name": "platform.ldap.object-class-attr-name",
       "type": "java.lang.String",
       "defaultValue": "user",
       "description": "The attribute name using for obtain user's information."
     },
     {
-      "name": "spring.ldap.login-id-attr-name",
+      "name": "platform.ldap.login-id-attr-name",
       "type": "java.lang.String",
       "defaultValue": "sAMAccountName",
       "description": "The attribute name using for obtain user's login name."
     },
     {
-      "name": "spring.ldap.name-attr-name",
+      "name": "platform.ldap.name-attr-name",
       "type": "java.lang.String",
       "defaultValue": "description",
       "description": "The attribute name using for obtain user's description."
     },
     {
-      "name": "spring.ldap.mail-attr-name",
+      "name": "platform.ldap.mail-attr",
       "type": "java.lang.String",
       "defaultValue": "mail",
       "description": "The attribute name using for obtain user's email."
     },
     {
-      "name": "spring.ldap.phone-number-attr-name",
+      "name": "platform.ldap.phone-number-attr-name",
       "type": "java.lang.String",
       "defaultValue": "mobile",
       "description": "The attribute name using for obtain user's phone number."
     },
     {
-      "name": "spring.ldap.title-attr-name",
+      "name": "platform.ldap.title-attr-name",
       "type": "java.lang.String",
       "defaultValue": "title",
       "description": "The attribute name using for obtain user's title."

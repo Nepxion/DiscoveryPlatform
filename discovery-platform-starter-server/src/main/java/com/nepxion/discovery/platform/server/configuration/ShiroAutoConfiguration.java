@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.shiro.AuthRealm;
 import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -39,7 +40,7 @@ public class ShiroAutoConfiguration {
         final ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
 
-        bean.setLoginUrl("/l"); // 配置登录的url
+        bean.setLoginUrl("/".concat(PlatformConstant.PLATFORM)); // 配置登录的url
         bean.setSuccessUrl("/index"); // 登录成功后要跳转的链接
 
         final LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();

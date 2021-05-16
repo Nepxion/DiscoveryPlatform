@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.annotation;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.configuration.WebConfiguration;
+import com.nepxion.discovery.platform.server.configuration.WebAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
@@ -24,7 +24,7 @@ import java.lang.annotation.*;
 @Documented
 @SpringBootApplication
 @EnableDiscoveryClient
-@Import(WebConfiguration.class)
+@Import(WebAutoConfiguration.class)
 public @interface EnablePlatformServer {
 
 }

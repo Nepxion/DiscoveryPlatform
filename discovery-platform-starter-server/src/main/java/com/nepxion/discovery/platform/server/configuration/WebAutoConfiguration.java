@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @Configuration
-public class WebConfiguration extends WebMvcConfigurationSupport {
+public class WebAutoConfiguration extends WebMvcConfigurationSupport {
     @Override
     protected void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
         final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();

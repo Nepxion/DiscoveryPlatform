@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.annocation;
+package com.nepxion.discovery.platform.server.annotation;
 
 /**
  * <p>Title: Nepxion Discovery</p>

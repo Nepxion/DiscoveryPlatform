@@ -13,7 +13,7 @@ package com.nepxion.discovery.platform.application;
 
 import org.springframework.boot.SpringApplication;
 
-import com.nepxion.discovery.platform.server.annocation.EnablePlatformServer;
+import com.nepxion.discovery.platform.server.annotation.EnablePlatformServer;
 
 @EnablePlatformServer
 public class PlatformApplication {

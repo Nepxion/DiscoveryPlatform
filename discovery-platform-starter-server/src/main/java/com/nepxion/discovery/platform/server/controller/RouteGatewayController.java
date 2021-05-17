@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.common.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.entity.GatewayType;
@@ -20,11 +20,10 @@ import com.nepxion.discovery.console.resource.RouteResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
-import com.nepxion.discovery.platform.server.entity.vo.GatewayRouteVo;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
+import com.nepxion.discovery.platform.server.entity.vo.GatewayRouteVo;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.tool.common.JsonTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,7 +106,7 @@ public class RouteGatewayController {
             final GatewayRouteVo gatewayRouteVo = new GatewayRouteVo();
             gatewayRouteVo.setHost(resultEntity.getHost());
             gatewayRouteVo.setPort(String.valueOf(resultEntity.getPort()));
-            gatewayRouteVo.setRoutes(JsonTool.toEntity(resultEntity.getResult(), new TypeToken<List<RouteGatewayPo>>() {
+            gatewayRouteVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteGatewayPo>>() {
             }));
             result.add(gatewayRouteVo);
         }
@@ -178,7 +177,7 @@ public class RouteGatewayController {
             final String group = this.serviceResource.getGroup(gatewayName);
             final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
             final String config = JsonUtil.toJson(routeGatewayPoList);
-            this.configResource.updateRemoteConfig(group, serviceId, JsonTool.prettyFormat(config));
+            this.configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
         }
 
         return Result.ok();

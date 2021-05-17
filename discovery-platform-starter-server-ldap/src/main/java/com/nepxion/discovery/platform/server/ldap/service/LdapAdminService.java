@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.ldap.service;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
@@ -38,8 +39,9 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public boolean authenticate(UserEntity userEntity) {
-        return this.authenticate(userEntity.getUserId(), userEntity.getPassword());
+    public AuthenticationEntity authenticate(final UserEntity userEntity) {
+        AuthenticationEntity authenticationEntity = new AuthenticationEntity();
+        return authenticationEntity;
     }
 
     @Override

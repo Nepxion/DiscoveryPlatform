@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
@@ -32,7 +33,6 @@ import com.nepxion.discovery.platform.server.tool.exception.BusinessException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -63,8 +63,9 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     }
 
     @Override
-    public boolean authenticate(UserEntity userEntity) {
-        return this.authenticate(userEntity.getUserId(), userEntity.getPassword());
+    public AuthenticationEntity authenticate(final UserEntity userEntity) {
+        final AuthenticationEntity authenticationEntity = new AuthenticationEntity();
+        return authenticationEntity;
     }
 
     @TranRead

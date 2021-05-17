@@ -176,8 +176,8 @@ public class RouteGatewayController {
         for (final String gatewayName : gatewayNames) {
             final String group = this.serviceResource.getGroup(gatewayName);
             final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-            final String config = JsonUtil.toJson(routeGatewayPoList);
-            this.configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
+            final String config = JsonUtil.toPrettyJson(routeGatewayPoList);
+            this.configResource.updateRemoteConfig(group, serviceId, config);
         }
 
         return Result.ok();

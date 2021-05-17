@@ -40,7 +40,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
 public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
     @Autowired
     private RoleService roleService;

@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
     @TranRead
     @Override

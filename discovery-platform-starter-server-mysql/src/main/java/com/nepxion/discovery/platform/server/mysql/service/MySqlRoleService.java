@@ -28,7 +28,6 @@ import org.springframework.util.ObjectUtils;
 import java.util.List;
 import java.util.Set;
 
-@Service
 public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {
     @TranRead
     @Override

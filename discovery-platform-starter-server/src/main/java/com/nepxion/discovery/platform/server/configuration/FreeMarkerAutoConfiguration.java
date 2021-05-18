@@ -10,7 +10,16 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.template.*;
+import com.nepxion.discovery.platform.server.template.DeleteDirective;
+import com.nepxion.discovery.platform.server.template.InsertDirective;
+import com.nepxion.discovery.platform.server.template.NoDeleteDirective;
+import com.nepxion.discovery.platform.server.template.NoInsertDirective;
+import com.nepxion.discovery.platform.server.template.NoSelectDirective;
+import com.nepxion.discovery.platform.server.template.NoUpdateDirective;
+import com.nepxion.discovery.platform.server.template.NotOnlySelectDirective;
+import com.nepxion.discovery.platform.server.template.OnlySelectDirective;
+import com.nepxion.discovery.platform.server.template.SelectDirective;
+import com.nepxion.discovery.platform.server.template.UpdateDirective;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -99,14 +108,11 @@ public class FreeMarkerAutoConfiguration implements InitializingBean {
         this.freeMarkerConfiguration.setSharedVariable("delete", deleteDirective());
         this.freeMarkerConfiguration.setSharedVariable("update", updateDirective());
         this.freeMarkerConfiguration.setSharedVariable("select", selectDirective());
-
         this.freeMarkerConfiguration.setSharedVariable("no_insert", noInsertDirective());
         this.freeMarkerConfiguration.setSharedVariable("no_delete", noDeleteDirective());
         this.freeMarkerConfiguration.setSharedVariable("no_update", noUpdateDirective());
         this.freeMarkerConfiguration.setSharedVariable("no_select", noSelectDirective());
-
         this.freeMarkerConfiguration.setSharedVariable("only_select", onlySelectDirective());
-
         this.freeMarkerConfiguration.setSharedVariable("not_only_select", notOnlySelectDirective());
     }
 }

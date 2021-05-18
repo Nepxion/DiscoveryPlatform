@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public abstract class AuthDirective {
-
     @Autowired
     protected HttpServletRequest request;
 

@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.advice;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
 import com.nepxion.discovery.platform.server.tool.web.Result;
 import com.nepxion.discovery.platform.server.tool.web.ResultCode;
@@ -48,8 +49,8 @@ public class ExceptionControllerAdvice {
                 return Result.create(respondCode);
             }
         } else {
-            model.addAttribute("error", getStackTrace(exception));
-            return new ModelAndView("error/500");
+            model.addAttribute(PlatformConstant.ERROR, getStackTrace(exception));
+            return new ModelAndView(PlatformConstant.ERROR_500);
         }
     }
 

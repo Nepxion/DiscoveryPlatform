@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SelectDirective extends AuthDirective implements TemplateDirectiveModel {
+    @SuppressWarnings("rawtypes")
     @Override
     public void execute(final Environment env,
                         final Map params,
@@ -29,5 +30,4 @@ public class SelectDirective extends AuthDirective implements TemplateDirectiveM
             body.render(env.getOut());
         }
     }
-
 }

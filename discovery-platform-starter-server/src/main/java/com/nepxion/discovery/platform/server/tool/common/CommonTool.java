@@ -68,6 +68,7 @@ public final class CommonTool {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> List<T> parseList(final String value,
                                         final String separate,
                                         final Class<T> tClass) {
@@ -82,6 +83,7 @@ public final class CommonTool {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> List<T> split(final String value,
                                     final String separator,
                                     final Class<T> clazz) {

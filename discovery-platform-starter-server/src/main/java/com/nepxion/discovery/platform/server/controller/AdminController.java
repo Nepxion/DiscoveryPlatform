@@ -54,7 +54,7 @@ public class AdminController {
     public String toAdd(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.listOrderByName());
 
-        if (this.loginAdapter.getLoginMode() == LoginMode.MYSQL) {
+        if (this.loginAdapter.getLoginMode() == LoginMode.DB) {
             return String.format("%s/%s", PREFIX, "add");
         }
         if (this.loginAdapter.getLoginMode() == LoginMode.LDAP) {

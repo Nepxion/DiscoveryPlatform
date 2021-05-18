@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.entity.enums;
  */
 
 public enum LoginMode {
-    MYSQL(1, "mysql"),
+    DB(1, "db"),
     LDAP(2, "ldap");
 
     private final int code;

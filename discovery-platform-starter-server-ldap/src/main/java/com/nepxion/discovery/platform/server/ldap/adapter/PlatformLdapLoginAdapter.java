@@ -16,6 +16,6 @@ import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 public class PlatformLdapLoginAdapter implements LoginAdapter {
     @Override
     public LoginMode getLoginMode() {
-        return LoginMode.MYSQL;
+        return LoginMode.LDAP;
     }
 }

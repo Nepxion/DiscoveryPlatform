@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.anno;
+package com.nepxion.discovery.platform.server.annotation;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@Transactional(readOnly = true, timeout = 30)
-public @interface TranRead {
+@Transactional(rollbackFor = Exception.class, timeout = 30)
+public @interface TranSave {
 
 }

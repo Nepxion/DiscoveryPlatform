@@ -15,14 +15,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.platform.server.annotation.TranRead;
+import com.nepxion.discovery.platform.server.annotation.TranSave;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
-import com.nepxion.discovery.platform.server.tool.anno.TranRead;
-import com.nepxion.discovery.platform.server.tool.anno.TranSave;
 import com.nepxion.discovery.platform.server.tool.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;

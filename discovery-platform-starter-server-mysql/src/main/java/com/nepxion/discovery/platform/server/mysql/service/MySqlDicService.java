@@ -15,10 +15,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlDicMapper;
 import com.nepxion.discovery.platform.server.service.DicService;
-import org.springframework.stereotype.Service;
 
 public class MySqlDicService extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
-
     @Override
     public String getByName(String name) {
         QueryWrapper<SysDicDto> queryWrapper = new QueryWrapper<>();

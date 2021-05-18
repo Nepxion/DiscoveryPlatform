@@ -16,17 +16,22 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.nepxion.discovery.platform.server.annotation.TranRead;
+import com.nepxion.discovery.platform.server.annotation.TranSave;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPageMapper;
 import com.nepxion.discovery.platform.server.service.PageService;
-import com.nepxion.discovery.platform.server.tool.anno.TranRead;
-import com.nepxion.discovery.platform.server.tool.anno.TranSave;
 import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
     @TranRead
@@ -105,6 +110,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return super.removeByIds(idList);
     }
 
+    @SuppressWarnings("unchecked")
     private List<SysPageDto> listSysPages() {
         final QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()

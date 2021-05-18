@@ -12,7 +12,8 @@ package com.nepxion.discovery.platform.server.shiro;
 
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.service.PageService;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;

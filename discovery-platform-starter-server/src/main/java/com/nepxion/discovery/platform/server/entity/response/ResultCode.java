@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.web;
+package com.nepxion.discovery.platform.server.entity.response;
 
 /**
  * <p>Title: Nepxion Discovery</p>

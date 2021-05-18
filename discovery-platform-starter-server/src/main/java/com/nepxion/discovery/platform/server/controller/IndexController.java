@@ -11,11 +11,12 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.web.Result;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;

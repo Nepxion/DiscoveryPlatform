@@ -12,7 +12,8 @@ package com.nepxion.discovery.platform.server.interceptor;
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

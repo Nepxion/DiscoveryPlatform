@@ -23,7 +23,7 @@ import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPageMapper;
 import com.nepxion.discovery.platform.server.service.PageService;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 import java.util.ArrayList;
 import java.util.HashMap;

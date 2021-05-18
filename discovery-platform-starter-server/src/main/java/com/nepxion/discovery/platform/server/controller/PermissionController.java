@@ -13,12 +13,13 @@ package com.nepxion.discovery.platform.server.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
+import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.service.PermissionService;
 import com.nepxion.discovery.platform.server.service.RoleService;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.tool.web.Result;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -11,9 +11,10 @@ package com.nepxion.discovery.platform.server.advice;
  */
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.web.Result;
-import com.nepxion.discovery.platform.server.tool.web.ResultCode;
+import com.nepxion.discovery.platform.server.entity.response.Result;
+import com.nepxion.discovery.platform.server.entity.response.ResultCode;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;

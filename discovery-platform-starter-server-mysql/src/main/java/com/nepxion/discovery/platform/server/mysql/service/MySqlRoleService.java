@@ -18,9 +18,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.annotation.TranRead;
 import com.nepxion.discovery.platform.server.annotation.TranSave;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
+import com.nepxion.discovery.platform.server.exception.BusinessException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
-import com.nepxion.discovery.platform.server.tool.exception.BusinessException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 

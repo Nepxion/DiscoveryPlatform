@@ -21,10 +21,11 @@ import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
+import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.GatewayRouteVo;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.tool.web.Result;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

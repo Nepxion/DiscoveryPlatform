@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.common;
+package com.nepxion.discovery.platform.server.tool;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.tool.common;
  */
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.web;
+package com.nepxion.discovery.platform.server.entity.response;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -10,7 +10,8 @@ package com.nepxion.discovery.platform.server.tool.web;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

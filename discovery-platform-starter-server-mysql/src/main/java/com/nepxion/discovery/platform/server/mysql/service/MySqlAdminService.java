@@ -24,12 +24,13 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.exception.BusinessException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.DicService;
 import com.nepxion.discovery.platform.server.service.RoleService;
-import com.nepxion.discovery.platform.server.tool.common.CommonTool;
-import com.nepxion.discovery.platform.server.tool.exception.BusinessException;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

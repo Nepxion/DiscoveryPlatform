@@ -10,7 +10,8 @@ package com.nepxion.discovery.platform.server.context;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.exception.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

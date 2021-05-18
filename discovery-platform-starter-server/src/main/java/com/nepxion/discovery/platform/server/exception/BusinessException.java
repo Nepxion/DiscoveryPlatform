@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.exception;
+package com.nepxion.discovery.platform.server.exception;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -11,6 +11,8 @@ package com.nepxion.discovery.platform.server.tool.exception;
  */
 
 import java.io.Serializable;
+
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public final class BusinessException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = -1046678240722236088L;

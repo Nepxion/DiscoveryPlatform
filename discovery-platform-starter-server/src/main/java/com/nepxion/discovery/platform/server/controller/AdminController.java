@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
@@ -35,12 +35,15 @@ import java.util.List;
 @RequestMapping(AdminController.PREFIX)
 public class AdminController {
     public static final String PREFIX = "admin";
-    @Autowired
-    private PlatformServerProperties platformProperties;
+
     @Autowired
     private AdminService adminService;
+
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private LoginAdapter loginAdapter;
 
     @GetMapping("tolist")
     public String toList() {
@@ -51,13 +54,13 @@ public class AdminController {
     public String toAdd(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.listOrderByName());
 
-        if (this.platformProperties.getLoginMode() == LoginMode.DB) {
+        if (this.loginAdapter.getLoginMode() == LoginMode.MYSQL) {
             return String.format("%s/%s", PREFIX, "add");
         }
-        if (this.platformProperties.getLoginMode() == LoginMode.LDAP) {
+        if (this.loginAdapter.getLoginMode() == LoginMode.LDAP) {
             return String.format("%s/%s", PREFIX, "addldap");
         }
-        throw new BusinessException(String.format("暂不支持登录模式[%s]", this.platformProperties.getLoginMode()));
+        throw new BusinessException(String.format("暂不支持登录模式[%s]", this.loginAdapter.getLoginMode()));
     }
 
     @GetMapping("toedit")
@@ -65,7 +68,7 @@ public class AdminController {
                          @RequestParam(name = "id") final Long id) throws Exception {
         model.addAttribute("admin", this.adminService.getById(id));
         model.addAttribute("roles", this.roleService.listOrderByName());
-        model.addAttribute("loginMode", this.platformProperties.getLoginMode());
+        model.addAttribute("loginMode", this.loginAdapter.getLoginMode());
         return String.format("%s/%s", PREFIX, "edit");
     }
 
@@ -74,7 +77,7 @@ public class AdminController {
     public Result<List<AdminVo>> list(@RequestParam(value = "name", required = false) final String name,
                                       @RequestParam(value = "page") final Integer pageNum,
                                       @RequestParam(value = "limit") final Integer pageSize) throws Exception {
-        final IPage<AdminVo> adminPage = this.adminService.list(this.platformProperties.getLoginMode(), name, pageNum, pageSize);
+        final IPage<AdminVo> adminPage = this.adminService.list(this.loginAdapter.getLoginMode(), name, pageNum, pageSize);
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
 
@@ -103,7 +106,7 @@ public class AdminController {
                          @RequestParam(value = "phoneNumber") final String phoneNumber,
                          @RequestParam(value = "email") final String email,
                          @RequestParam(value = "remark") final String remark) throws Exception {
-        this.adminService.insert(this.platformProperties.getLoginMode(), roleId, username, password, name, phoneNumber, email, remark);
+        this.adminService.insert(this.loginAdapter.getLoginMode(), roleId, username, password, name, phoneNumber, email, remark);
         return Result.ok();
     }
 

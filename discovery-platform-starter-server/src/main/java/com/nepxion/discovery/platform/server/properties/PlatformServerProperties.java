@@ -10,15 +10,10 @@ package com.nepxion.discovery.platform.server.properties;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
-import org.springframework.beans.BeansException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 @ConfigurationProperties("platform.server")
-public class PlatformServerProperties implements ApplicationContextAware {
-    private ApplicationContext applicationContext;
+public class PlatformServerProperties {
     /**
      * 标题
      */
@@ -56,18 +51,5 @@ public class PlatformServerProperties implements ApplicationContextAware {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
-    }
-
-    public LoginMode getLoginMode() {
-        final boolean ldapServiceExisted = this.applicationContext.containsBean("ldapService");
-        if (ldapServiceExisted) {
-            return LoginMode.LDAP;
-        }
-        return LoginMode.DB;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }

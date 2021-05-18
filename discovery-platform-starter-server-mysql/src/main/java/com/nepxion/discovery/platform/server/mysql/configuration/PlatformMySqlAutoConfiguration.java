@@ -10,10 +10,19 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
+import com.nepxion.discovery.platform.server.mysql.adapter.PlatformMySqlLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
-import com.nepxion.discovery.platform.server.mysql.service.*;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlAdminService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlDicService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlPageService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlPermissionService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlRoleService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlRouteGatewayService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlRouteZuulService;
 import com.nepxion.discovery.platform.server.mysql.tool.DataSourceTool;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +35,6 @@ import javax.sql.DataSource;
 @MapperScan(basePackageClasses = MySqlAdminMapper.class)
 @EnableConfigurationProperties({PlatformMySqlProperties.class})
 public class PlatformMySqlAutoConfiguration {
-
     private final PlatformMySqlProperties platformMySqlProperties;
 
     public PlatformMySqlAutoConfiguration(final PlatformMySqlProperties platformMySqlProperties) {
@@ -45,6 +53,11 @@ public class PlatformMySqlAutoConfiguration {
                 this.platformMySqlProperties.getMinIdle(),
                 this.platformMySqlProperties.getMaximum()
         );
+    }
+
+    @Bean
+    public LoginAdapter loginAdapter() {
+        return new PlatformMySqlLoginAdapter();
     }
 
     @Bean

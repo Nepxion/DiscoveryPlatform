@@ -10,12 +10,12 @@ package com.nepxion.discovery.platform.server.mysql.adapter;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
+import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 
-public class PlatformMySqlLoginAdapter implements LoginAdapter {
+public class PlatformMySqlLoginAdapter implements PlatformLoginAdapter {
     @Override
     public LoginMode getLoginMode() {
-        return LoginMode.LDAP;
+        return LoginMode.DATABASE;
     }
 }

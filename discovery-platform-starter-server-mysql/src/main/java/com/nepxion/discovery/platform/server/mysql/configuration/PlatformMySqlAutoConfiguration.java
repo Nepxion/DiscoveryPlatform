@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
+import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.adapter.PlatformMySqlLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
@@ -56,7 +56,7 @@ public class PlatformMySqlAutoConfiguration {
     }
 
     @Bean
-    public LoginAdapter loginAdapter() {
+    public PlatformLoginAdapter platformLoginAdapter() {
         return new PlatformMySqlLoginAdapter();
     }
 

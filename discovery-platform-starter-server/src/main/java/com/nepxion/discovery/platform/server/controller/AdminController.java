@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
+import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
@@ -43,7 +43,7 @@ public class AdminController {
     private RoleService roleService;
 
     @Autowired
-    private LoginAdapter loginAdapter;
+    private PlatformLoginAdapter loginAdapter;
 
     @GetMapping("tolist")
     public String toList() {
@@ -54,7 +54,7 @@ public class AdminController {
     public String toAdd(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.listOrderByName());
 
-        if (this.loginAdapter.getLoginMode() == LoginMode.DB) {
+        if (this.loginAdapter.getLoginMode() == LoginMode.DATABASE) {
             return String.format("%s/%s", PREFIX, "add");
         }
         if (this.loginAdapter.getLoginMode() == LoginMode.LDAP) {

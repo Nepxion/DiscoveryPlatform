@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.ldap.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.adapter.LoginAdapter;
+import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.ldap.adapter.PlatformLdapLoginAdapter;
 import com.nepxion.discovery.platform.server.ldap.properties.PlatformLdapProperties;
 import com.nepxion.discovery.platform.server.ldap.service.LdapService;
@@ -80,7 +80,7 @@ public class PlatformLdapAutoConfiguration {
     }
 
     @Bean
-    public LoginAdapter loginAdapter() {
+    public PlatformLoginAdapter platformLoginAdapter() {
         return new PlatformLdapLoginAdapter();
     }
 }

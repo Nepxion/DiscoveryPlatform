@@ -12,11 +12,13 @@ package com.nepxion.discovery.platform.server.tool;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 
+import org.apache.commons.lang3.StringUtils;
+
 public final class ExceptionTool {
     public static String getRootCauseMessage(final Throwable throwable) {
         Throwable rootCause = ExceptionUtil.getRootCause(throwable);
         if (null == rootCause) {
-            return "";
+            return StringUtils.EMPTY;
         }
         return null == rootCause.getMessage() ? rootCause.toString() : rootCause.getMessage();
     }

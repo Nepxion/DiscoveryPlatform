@@ -9,6 +9,18 @@
     <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
          style="padding: 20px 30px 0 0;">
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">网关名称</label>
+            <div class="layui-input-inline" style="width: 740px">
+                <select name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
+                    <option value="">请选择网关名称</option>
+                    <#list gatewayNames as gatewayName>
+                        <option value="${gatewayName}"
+                                <#if route.gatewayName==gatewayName>selected="selected"</#if>>${gatewayName}</option>
+                    </#list>
+                </select>
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址</label>
@@ -28,10 +40,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
-                       style="width: 740px"
-                       placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off"
-                       value="${route.serviceName}">
+                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input" style="width: 740px" placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off" value="${route.serviceName}">
             </div>
         </div>
 
@@ -44,7 +53,7 @@
             <div class="layui-input-inline">
                 <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
                           placeholder="请输入断言字符串(使用换行来分隔), 例如:&#13;Path=/a/**,/b/**&#13;Header=type,1&#13;Cookie=category,a"
-                          style="width: 740px;height:120px;resize: none">${route.predicates}</textarea>
+                          style="width: 740px;height:100px;resize: none">${route.predicates}</textarea>
             </div>
         </div>
 
@@ -56,7 +65,7 @@
             </label>
             <div class="layui-input-inline">
                 <textarea id="filters" name="filters" class="layui-input" autocomplete="off" placeholder="请输入过滤字符串(使用换行来分隔), 例如:&#13;StripPrefix=1&#13;PrefixPath=/a"
-                          style="width: 740px;height:120px;resize: none">${route.filters}</textarea>
+                          style="width: 740px;height:100px;resize: none">${route.filters}</textarea>
             </div>
         </div>
 
@@ -64,7 +73,7 @@
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off" placeholder="请输入元数据字符串(使用换行来分隔), 例如:&#13;a=1&#13;b=2&#13;c=3"
-                          style="width: 740px;height:120px;resize: none">${route.metadata}</textarea>
+                          style="width: 740px;height:100px;resize: none">${route.metadata}</textarea>
             </div>
         </div>
 

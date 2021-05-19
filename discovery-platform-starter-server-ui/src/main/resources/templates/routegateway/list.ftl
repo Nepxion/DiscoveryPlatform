@@ -106,17 +106,18 @@
                 cols: [[
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
-                    {field: 'uri', title: '目标地址', width: 300},
+                    {field: 'gatewayName', title: '网关名称', width: 250},
+                    {field: 'uri', title: '目标地址', width: 250},
                     {field: 'predicates', title: '断言器'},
-                    {field: 'filters', title: '过滤器', width: 200},
+                    {field: 'filters', title: '过滤器', width: 150},
                     {field: 'metadata', title: '元数据', width: 200},
                     {field: 'order', title: '排序', align: 'center', width: 80},
                     {
-                        title: '是否启用', width: 100, align: 'center', templet: function (d) {
+                        title: '状态', width: 80, align: 'center', templet: function (d) {
                             return d.enabled ? '<span class="layui-badge layui-bg-green"><b>启用</b></span>' : '<span class="layui-badge"><b>禁用</b></span>'
                         }
                     },
-                    {field: 'description', title: '路由描述', width: 200}
+                    {field: 'description', title: '路由描述', width: 150}
                     <@select>
                     , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 150}
                     </@select>

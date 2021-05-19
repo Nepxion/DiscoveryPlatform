@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `id`                    BIGINT(0) UNSIGNED      NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`              VARCHAR(64)             NOT NULL COMMENT '路由id',
+    `gateway_name`          VARCHAR(128)            NOT NULL COMMENT '网关名称',
     `uri`                   VARCHAR(256)            NOT NULL COMMENT '转发目标uri',
     `predicates`            VARCHAR(2048)           NOT NULL COMMENT '断言字符串',
     `filters`               VARCHAR(2048)           NOT NULL COMMENT '过滤器字符串',
@@ -105,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                    BIGINT(0) UNSIGNED      NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`              VARCHAR(64)             NOT NULL COMMENT '路由id',
+    `gateway_name`          VARCHAR(128)            NOT NULL COMMENT '网关名称',
     `service_id`            VARCHAR(64)             NOT NULL COMMENT '服务id',
     `path`                  VARCHAR(256)            NOT NULL COMMENT '转发目标路径',
     `uri`                   VARCHAR(256)            NOT NULL COMMENT '转发目标uri',

@@ -23,21 +23,16 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.GatewayRouteVo;
-import com.nepxion.discovery.platform.server.event.PlatformAlarmEvent;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(RouteGatewayController.PREFIX)
@@ -70,13 +65,13 @@ public class RouteGatewayController {
 
     @GetMapping("toworking")
     public String toWorking(final Model model) {
-        final List<String> gatewayNames = this.serviceResource.getGatewayList(GATEWAY_TYPE);
-        model.addAttribute("gatewayNames", gatewayNames);
+        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(GATEWAY_TYPE));
         return String.format("%s/%s", PREFIX, "working");
     }
 
     @GetMapping("toadd")
     public String toAdd(final Model model) {
+        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(GATEWAY_TYPE));
         model.addAttribute("serviceNames", this.serviceResource.getServices());
         return String.format("%s/%s", PREFIX, "add");
     }
@@ -84,12 +79,13 @@ public class RouteGatewayController {
     @GetMapping("toedit")
     public String toEdit(final Model model,
                          @RequestParam(name = "id") final Long id) {
-        final List<String> serviceNameList = this.serviceResource.getServices();
         final RouteGatewayDto routeGateway = this.routeGatewayService.getById(id);
         routeGateway.setPredicates(CommonTool.formatTextarea(routeGateway.getPredicates()));
         routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
         routeGateway.setMetadata(CommonTool.formatTextarea(routeGateway.getMetadata()));
-        model.addAttribute("serviceNames", serviceNameList);
+
+        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(GATEWAY_TYPE));
+        model.addAttribute("serviceNames", this.serviceResource.getServices());
         model.addAttribute("route", routeGateway);
         return String.format("%s/%s", PREFIX, "edit");
     }
@@ -171,9 +167,8 @@ public class RouteGatewayController {
     @PostMapping("publish")
     @ResponseBody
     public Result<?> publish() throws Exception {
-        final List<String> gatewayNames = this.serviceResource.getGateways();
         final List<RouteGatewayDto> routeGatewayList = this.routeGatewayService.listEnabled();
-        final List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>(routeGatewayList.size());
+        final Map<String, List<RouteGatewayPo>> gatewayNameRouteGatewayPoMap = new HashMap<>();
 
         for (final RouteGatewayDto routeGateway : routeGatewayList) {
             final RouteGatewayPo routeGatewayPo = new RouteGatewayPo();
@@ -183,13 +178,21 @@ public class RouteGatewayController {
             routeGatewayPo.setFilters(Arrays.asList(routeGateway.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             routeGatewayPo.setOrder(routeGateway.getOrder());
             routeGatewayPo.setMetadata(CommonTool.asMap(routeGateway.getMetadata(), PlatformConstant.ROW_SEPARATOR));
-            routeGatewayPoList.add(routeGatewayPo);
+
+            if (gatewayNameRouteGatewayPoMap.containsKey(routeGateway.getGatewayName())) {
+                gatewayNameRouteGatewayPoMap.get(routeGateway.getGatewayName()).add(routeGatewayPo);
+            } else {
+                final List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>();
+                routeGatewayPoList.add(routeGatewayPo);
+                gatewayNameRouteGatewayPoMap.put(routeGateway.getGatewayName(), routeGatewayPoList);
+            }
         }
 
-        for (final String gatewayName : gatewayNames) {
+        for (Map.Entry<String, List<RouteGatewayPo>> pair : gatewayNameRouteGatewayPoMap.entrySet()) {
+            final String gatewayName = pair.getKey();
             final String group = this.serviceResource.getGroup(gatewayName);
             final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-            final String config = JsonUtil.toPrettyJson(routeGatewayPoList);
+            final String config = JsonUtil.toPrettyJson(pair.getValue());
             this.configResource.updateRemoteConfig(group, serviceId, config);
         }
 

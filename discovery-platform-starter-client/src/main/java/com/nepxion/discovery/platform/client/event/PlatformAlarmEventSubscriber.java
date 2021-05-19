@@ -10,13 +10,13 @@ package com.nepxion.discovery.platform.client.event;
  */
 
 import com.google.common.eventbus.Subscribe;
-import com.nepxion.discovery.common.event.AlarmEvent;
+import com.nepxion.discovery.plugin.strategy.event.StrategyAlarmEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
 public class PlatformAlarmEventSubscriber {
     @Subscribe
-    public void onAlarm(AlarmEvent alarmEvent) {
-        System.out.println("::::: 推送告警信息给钉钉，告警类型=" + alarmEvent.getAlarmType() + "，告警内容=" + alarmEvent.getAlarmMap());
+    public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
+        System.out.println("::::: 推送告警信息给钉钉，告警类型=" + strategyAlarmEvent.getAlarmType() + "，告警内容=" + strategyAlarmEvent.getAlarmMap());
     }
 }

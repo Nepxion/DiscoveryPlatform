@@ -23,7 +23,6 @@ import com.nepxion.discovery.platform.server.controller.PageController;
 import com.nepxion.discovery.platform.server.controller.PermissionController;
 import com.nepxion.discovery.platform.server.controller.RoleController;
 import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
-import com.nepxion.discovery.platform.server.event.PlatformEventWapper;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
@@ -81,10 +80,5 @@ public class PlatformAutoConfiguration {
     @Bean
     public PlatformSubscriber platformSubscriber() {
         return new PlatformSubscriber();
-    }
-
-    @Bean
-    public PlatformEventWapper platformEventWapper() {
-        return new PlatformEventWapper();
     }
 }

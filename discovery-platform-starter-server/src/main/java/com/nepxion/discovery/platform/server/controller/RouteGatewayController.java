@@ -23,6 +23,8 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.GatewayRouteVo;
+import com.nepxion.discovery.platform.server.event.PlatformAlarmEvent;
+import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
@@ -41,15 +43,25 @@ import java.util.List;
 @RequestMapping(RouteGatewayController.PREFIX)
 public class RouteGatewayController {
     public static final String PREFIX = "routegateway";
+
+    private static final GatewayType GATEWAY_TYPE = GatewayType.SPRING_CLOUD_GATEWAY;
+
     @Autowired
     private ServiceResource serviceResource;
+
     @Autowired
     private ConfigResource configResource;
+
     @Autowired
     private RouteResource routeResource;
+
     @Autowired
     private RouteGatewayService routeGatewayService;
-    private static final GatewayType GATEWAY_TYPE = GatewayType.SPRING_CLOUD_GATEWAY;
+
+    @Autowired
+    private PlatformPublisher platformPublisher;
+
+    // platformPublisher.asyncPublish(new PlatformAlarmEvent());
 
     @GetMapping("tolist")
     public String toList() {

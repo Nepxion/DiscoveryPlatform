@@ -9,6 +9,9 @@ package com.nepxion.discovery.platform.server.state.handler;
  * @version 1.0
  */
 
+import java.util.List;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,7 @@ public class StateChangeListenerImpl implements StateChangeListener {
     private static final Logger LOG = LoggerFactory.getLogger(StateChangeListenerImpl.class);
 
     @Autowired(required = false)
-    private StateChangeAdapter stateChangeAdapter;
+    private List<StateChangeAdapter> stateChangeAdapters;
 
     @Override
     public void onChanged(StateMessage<Events> message, State<States, Events> state, Transition<States, Events> transition, StateMachine<States, Events> stateMachine, StateMachine<States, Events> rootStateMachine) {
@@ -33,8 +36,10 @@ public class StateChangeListenerImpl implements StateChangeListener {
 
         StateMachineContext.getCurrentContext().setMessage(message);
 
-        if (stateChangeAdapter != null) {
-            stateChangeAdapter.onChanged(message);
+        if (CollectionUtils.isNotEmpty(stateChangeAdapters)) {
+            for (StateChangeAdapter stateChangeAdapter : stateChangeAdapters) {
+                stateChangeAdapter.onChanged(message);
+            }
         }
     }
 }

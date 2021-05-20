@@ -16,6 +16,8 @@ public enum Events {
     EVENT_DO_MODIFY,
     // 事件：执行删除
     EVENT_DO_DELETE,
+    // 事件：执行回滚
+    EVENT_DO_ROLLBACK,
     // 事件：执行发布
     EVENT_DO_PUBLISH
 }

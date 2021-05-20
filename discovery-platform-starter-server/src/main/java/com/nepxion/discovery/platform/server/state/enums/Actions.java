@@ -16,6 +16,8 @@ public enum Actions {
     ACTION_TO_MODIFY,
     // 动作：去删除
     ACTION_TO_DELETE,
+    // 动作：去回滚
+    ACTION_TO_ROLLBACK,
     // 动作：去发布
     ACTION_TO_PUBLISH
 }

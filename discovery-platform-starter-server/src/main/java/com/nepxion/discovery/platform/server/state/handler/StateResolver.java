@@ -16,14 +16,14 @@ import com.nepxion.discovery.platform.server.state.enums.Actions;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
 public class StateResolver {
-    public static final List<Actions> STATE_INITIAL_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_ADD, Actions.ACTION_TO_MODIFY, Actions.ACTION_TO_DELETE);
-    public static final List<Actions> STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_PUBLISH);
+    public static final List<Actions> STATE_INITIAL_PUBLISHED_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_ADD, Actions.ACTION_TO_MODIFY, Actions.ACTION_TO_DELETE);
+    public static final List<Actions> STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_ROLLBACK, Actions.ACTION_TO_PUBLISH);
     public static final List<Actions> EMPTY_NEXT_ACTIONS = Arrays.asList();
 
     public static List<Actions> getNextActions(States state) {
         switch (state) {
             case STATE_INITIAL:
-                return STATE_INITIAL_NEXT_ACTIONS;
+                return STATE_INITIAL_PUBLISHED_NEXT_ACTIONS;
             case STATE_TO_ADD:
                 return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS;
             case STATE_TO_MODIFY:
@@ -31,7 +31,7 @@ public class StateResolver {
             case STATE_TO_DELETE:
                 return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS;
             case STATE_PUBLISHED:
-                return EMPTY_NEXT_ACTIONS;
+                return STATE_INITIAL_PUBLISHED_NEXT_ACTIONS;
         }
 
         return EMPTY_NEXT_ACTIONS;

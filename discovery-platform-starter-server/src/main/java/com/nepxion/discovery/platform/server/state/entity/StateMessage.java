@@ -26,30 +26,30 @@ public class StateMessage<T> extends GenericMessage<T> {
     private static final long serialVersionUID = 3822349578970192942L;
 
     // 上一个状态
-    private States fromState;
+    private States sourceState;
 
     // 下一个状态
-    private States toState;
+    private States targetState;
 
     // 下一个状态下，可选择的操作列表
     private List<Actions> nextActions;
 
-    public StateMessage(States fromState, T payload) {
+    public StateMessage(States sourceState, T payload) {
         this(payload);
 
-        this.fromState = fromState;
+        this.sourceState = sourceState;
     }
 
-    public StateMessage(States fromState, T payload, Map<String, Object> headers) {
+    public StateMessage(States sourceState, T payload, Map<String, Object> headers) {
         this(payload, headers);
 
-        this.fromState = fromState;
+        this.sourceState = sourceState;
     }
 
-    public StateMessage(States fromState, T payload, MessageHeaders headers) {
+    public StateMessage(States sourceState, T payload, MessageHeaders headers) {
         this(payload, headers);
 
-        this.fromState = fromState;
+        this.sourceState = sourceState;
     }
 
     public StateMessage(T payload) {
@@ -64,20 +64,20 @@ public class StateMessage<T> extends GenericMessage<T> {
         super(payload, headers);
     }
 
-    public States getFromState() {
-        return fromState;
+    public States getSourceState() {
+        return sourceState;
     }
 
-    public void setFromState(States fromState) {
-        this.fromState = fromState;
+    public void setSourceState(States sourceState) {
+        this.sourceState = sourceState;
     }
 
-    public States getToState() {
-        return toState;
+    public States getTargetState() {
+        return targetState;
     }
 
-    public void setToState(States toState) {
-        this.toState = toState;
+    public void setTargetState(States targetState) {
+        this.targetState = targetState;
     }
 
     public List<Actions> getNextActions() {

@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.nepxion.discovery.platform.server.state.entity.StateResponseMessage;
+import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
 
 public class StateMachineContext {
@@ -25,7 +25,7 @@ public class StateMachineContext {
         }
     };
 
-    private StateResponseMessage<Events> message;
+    private StateMessage<Events> message;
 
     public static StateMachineContext getCurrentContext() {
         return THREAD_LOCAL.get();
@@ -35,11 +35,11 @@ public class StateMachineContext {
         THREAD_LOCAL.remove();
     }
 
-    public StateResponseMessage<Events> getMessage() {
+    public StateMessage<Events> getMessage() {
         return message;
     }
 
-    public void setMessage(StateResponseMessage<Events> message) {
+    public void setMessage(StateMessage<Events> message) {
         this.message = message;
     }
 

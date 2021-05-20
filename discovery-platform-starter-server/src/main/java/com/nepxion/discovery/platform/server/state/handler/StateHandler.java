@@ -17,8 +17,7 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.support.LifecycleObjectSupport;
 
 import com.nepxion.discovery.platform.server.state.context.StateMachineContext;
-import com.nepxion.discovery.platform.server.state.entity.StateRequestMessage;
-import com.nepxion.discovery.platform.server.state.entity.StateResponseMessage;
+import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
@@ -48,24 +47,21 @@ public class StateHandler extends LifecycleObjectSupport {
         }
     }
 
-    public StateResponseMessage<Events> send(StateRequestMessage<Events> requestMessage) {
-        sendEvent(requestMessage);
+    public StateMessage<Events> next(StateMessage<Events> requestMessage) {
+        nextEvent(requestMessage);
 
-        StateResponseMessage<Events> responseMessage = StateMachineContext.getCurrentContext().getMessage();
+        StateMessage<Events> responseMessage = StateMachineContext.getCurrentContext().getMessage();
 
         StateMachineContext.clearCurrentContext();
 
         return responseMessage;
     }
 
-    public boolean sendEvent(StateRequestMessage<Events> requestMessage) {
-        /*stateMachine.stop();
-        List<StateMachineAccess<States, Events>> accesses = stateMachine.getStateMachineAccessor().withAllRegions();
-        for (StateMachineAccess<States, Events> access : accesses) {
-            access.resetStateMachine(new DefaultStateMachineContext<>(requestMessage.getTargetState(), null, null, null));
+    public boolean nextEvent(StateMessage<Events> message) {
+        if (message == null) {
+            throw new IllegalArgumentException("Message is null");
         }
-        stateMachine.start();*/
 
-        return stateMachine.sendEvent(requestMessage);
+        return stateMachine.sendEvent(message);
     }
 }

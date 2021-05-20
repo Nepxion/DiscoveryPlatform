@@ -11,7 +11,7 @@ package com.nepxion.discovery.platform.server.state.enums;
 
 public enum States {
     // 状态：初始
-    STATE_INITIAL,    
+    STATE_INITIAL,
     // 状态：待增加
     STATE_TO_ADD,
     // 状态：待修改

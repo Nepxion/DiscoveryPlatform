@@ -15,8 +15,7 @@ import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.statemachine.transition.Transition;
 
-import com.nepxion.discovery.platform.server.state.entity.StateRequestMessage;
-import com.nepxion.discovery.platform.server.state.entity.StateResponseMessage;
+import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
@@ -29,17 +28,15 @@ public class StateChangeInterceptor extends StateMachineInterceptorAdapter<State
 
     @Override
     public void preStateChange(State<States, Events> state, Message<Events> message, Transition<States, Events> transition, StateMachine<States, Events> stateMachine, StateMachine<States, Events> rootStateMachine) {
-        StateRequestMessage<Events> requestMessage = (StateRequestMessage<Events>) message;
-
         States sourceState = transition.getSource().getId();
         States targetState = transition.getTarget().getId();
 
-        StateResponseMessage<Events> responseMessage = new StateResponseMessage<Events>(requestMessage.getPayload(), requestMessage.getHeaders());
+        StateMessage<Events> responseMessage = new StateMessage<Events>(message.getPayload(), message.getHeaders());
 
         responseMessage.setFromState(sourceState);
         responseMessage.setToState(targetState);
         responseMessage.setNextActions(StateResolver.getNextActions(targetState));
 
-        compositeStateChangeListener.onChanged(state, responseMessage, transition, stateMachine, rootStateMachine);
+        compositeStateChangeListener.onChanged(responseMessage, state, transition, stateMachine, rootStateMachine);
     }
 }

@@ -13,10 +13,10 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.transition.Transition;
 
-import com.nepxion.discovery.platform.server.state.entity.StateResponseMessage;
+import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
 public interface StateChangeListener {
-    void onChanged(State<States, Events> state, StateResponseMessage<Events> message, Transition<States, Events> transition, StateMachine<States, Events> stateMachine, StateMachine<States, Events> rootStateMachine);
+    void onChanged(StateMessage<Events> message, State<States, Events> state, Transition<States, Events> transition, StateMachine<States, Events> stateMachine, StateMachine<States, Events> rootStateMachine);
 }

@@ -22,7 +22,7 @@ import org.springframework.messaging.support.GenericMessage;
 import com.nepxion.discovery.platform.server.state.enums.Actions;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
-public class StateResponseMessage<T> extends GenericMessage<T> {
+public class StateMessage<T> extends GenericMessage<T> {
     private static final long serialVersionUID = 3822349578970192942L;
 
     // 上一个状态
@@ -34,15 +34,33 @@ public class StateResponseMessage<T> extends GenericMessage<T> {
     // 下一个状态下，可选择的操作列表
     private List<Actions> nextActions;
 
-    public StateResponseMessage(T payload) {
+    public StateMessage(States fromState, T payload) {
+        this(payload);
+
+        this.fromState = fromState;
+    }
+
+    public StateMessage(States fromState, T payload, Map<String, Object> headers) {
+        this(payload, headers);
+
+        this.fromState = fromState;
+    }
+
+    public StateMessage(States fromState, T payload, MessageHeaders headers) {
+        this(payload, headers);
+
+        this.fromState = fromState;
+    }
+
+    public StateMessage(T payload) {
         super(payload);
     }
 
-    public StateResponseMessage(T payload, Map<String, Object> headers) {
+    public StateMessage(T payload, Map<String, Object> headers) {
         super(payload, headers);
     }
 
-    public StateResponseMessage(T payload, MessageHeaders headers) {
+    public StateMessage(T payload, MessageHeaders headers) {
         super(payload, headers);
     }
 

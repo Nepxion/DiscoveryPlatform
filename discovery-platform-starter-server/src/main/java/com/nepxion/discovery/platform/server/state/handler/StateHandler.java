@@ -57,11 +57,14 @@ public class StateHandler extends LifecycleObjectSupport {
         return responseMessage;
     }
 
-    public boolean nextEvent(StateMessage<Events> message) {
+    public void nextEvent(StateMessage<Events> message) {
         if (message == null) {
             throw new IllegalArgumentException("Message is null");
         }
 
-        return stateMachine.sendEvent(message);
+        boolean result = stateMachine.sendEvent(message);
+        if (!result) {
+            throw new IllegalArgumentException("Message is rejected with illegal state=" + message.getSourceState() + ", event=" + message.getPayload());
+        }
     }
 }

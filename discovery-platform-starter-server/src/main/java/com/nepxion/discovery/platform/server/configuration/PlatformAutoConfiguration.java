@@ -15,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.nepxion.discovery.platform.server.adapter.PlatformStateChangeAdapter;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
@@ -80,5 +81,10 @@ public class PlatformAutoConfiguration {
     @Bean
     public PlatformSubscriber platformSubscriber() {
         return new PlatformSubscriber();
+    }
+
+    @Bean
+    public PlatformStateChangeAdapter platformStateChangeAdapter() {
+        return new PlatformStateChangeAdapter();
     }
 }

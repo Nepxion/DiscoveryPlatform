@@ -31,4 +31,9 @@ public class PlatformSubscriber {
             System.out.println("::::: 推送告警信息给钉钉，告警类型=" + platformAlarmEvent.getAlarmType() + "，告警内容=" + platformAlarmEvent.getAlarmMap());
         }
     }
+
+    @Subscribe
+    public void onState(PlatformStateEvent platformStateEvent) {
+        System.out.println("::::: 推送告警信息给钉钉，操作记录=" + platformStateEvent.getMessage());
+    }
 }

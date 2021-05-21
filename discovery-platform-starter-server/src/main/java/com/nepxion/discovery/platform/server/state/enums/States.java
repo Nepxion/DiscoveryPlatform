@@ -11,9 +11,9 @@ package com.nepxion.discovery.platform.server.state.enums;
 
 public enum States {
     STATE_INITIAL(10, "STATE_INITIAL", "初始"),
-    STATE_TO_ADD(11, "STATE_TO_ADD", "待增加"),
-    STATE_TO_MODIFY(12, "STATE_TO_MODIFY", "待修改"),
-    STATE_TO_DELETE(13, "STATE_TO_DELETE", "待删除"),
+    STATE_AWAIT_ADD(11, "STATE_AWAIT_ADD", "待增加"),
+    STATE_AWAIT_MODIFY(12, "STATE_AWAIT_MODIFY", "待修改"),
+    STATE_AWAIT_DELETE(13, "STATE_AWAIT_DELETE", "待删除"),
     STATE_PUBLISHED(14, "STATE_PUBLISHED", "已发布");
 
     private int index;

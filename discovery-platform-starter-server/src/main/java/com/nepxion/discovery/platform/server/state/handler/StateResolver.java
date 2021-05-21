@@ -24,11 +24,11 @@ public class StateResolver {
         switch (state) {
             case STATE_INITIAL:
                 return STATE_INITIAL_PUBLISHED_NEXT_EVENTS;
-            case STATE_TO_ADD:
+            case STATE_AWAIT_ADD:
                 return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
-            case STATE_TO_MODIFY:
+            case STATE_AWAIT_MODIFY:
                 return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
-            case STATE_TO_DELETE:
+            case STATE_AWAIT_DELETE:
                 return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
             case STATE_PUBLISHED:
                 return STATE_INITIAL_PUBLISHED_NEXT_EVENTS;

@@ -10,12 +10,15 @@ package com.nepxion.discovery.platform.server.state.handler;
  */
 
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.support.LifecycleObjectSupport;
 
+import com.nepxion.discovery.platform.server.state.context.StateContext;
 import com.nepxion.discovery.platform.server.state.context.StateMachineContext;
 import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
@@ -26,7 +29,7 @@ public class StateHandler extends LifecycleObjectSupport {
     private StateChangeInterceptor stateChangeInterceptor;
 
     @Autowired
-    private StateMachine<States, Events> stateMachine;
+    private StateMachineFactory<States, Events> stateMachineFactory;
 
     @Autowired(required = false)
     private List<StateChangeListener> stateChangeListeners;
@@ -38,8 +41,6 @@ public class StateHandler extends LifecycleObjectSupport {
 
     @Override
     protected void onInit() throws Exception {
-        stateMachine.getStateMachineAccessor().doWithAllRegions(function -> function.addStateMachineInterceptor(stateChangeInterceptor));
-
         if (CollectionUtils.isNotEmpty(stateChangeListeners)) {
             for (StateChangeListener stateChangeListener : stateChangeListeners) {
                 compositeStateChangeListener.register(stateChangeListener);
@@ -47,20 +48,35 @@ public class StateHandler extends LifecycleObjectSupport {
         }
     }
 
-    public StateMessage<Events> nextSync(StateMessage<Events> requestMessage) {
-        nextAsync(requestMessage);
+    private StateMachine<States, Events> getStateMachine() {
+        StateMachine<States, Events> stateMachine = StateMachineContext.getCurrentContext().getStateMachine();
+        if (stateMachine == null) {
+            stateMachine = stateMachineFactory.getStateMachine(UUID.randomUUID());
 
-        StateMessage<Events> responseMessage = StateMachineContext.getCurrentContext().getMessage();
+            stateMachine.getStateMachineAccessor().doWithAllRegions(function -> function.addStateMachineInterceptor(stateChangeInterceptor));
 
-        StateMachineContext.clearCurrentContext();
+            StateMachineContext.getCurrentContext().setStateMachine(stateMachine);
+        }
+
+        return stateMachine;
+    }
+
+    public StateMessage<Events> sendSync(StateMessage<Events> requestMessage) {
+        sendAsync(requestMessage);
+
+        StateMessage<Events> responseMessage = StateContext.getCurrentContext().getMessage();
+
+        StateContext.clearCurrentContext();
 
         return responseMessage;
     }
 
-    public void nextAsync(StateMessage<Events> message) {
+    public void sendAsync(StateMessage<Events> message) {
         if (message == null) {
             throw new IllegalArgumentException("Message is null");
         }
+
+        StateMachine<States, Events> stateMachine = getStateMachine();
 
         boolean result = stateMachine.sendEvent(message);
         if (!result) {

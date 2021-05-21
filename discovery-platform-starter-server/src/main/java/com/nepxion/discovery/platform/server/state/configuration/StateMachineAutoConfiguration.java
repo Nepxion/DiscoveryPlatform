@@ -13,7 +13,7 @@ import java.util.EnumSet;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.statemachine.config.EnableStateMachine;
+import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
@@ -25,11 +25,11 @@ import com.nepxion.discovery.platform.server.state.handler.StateChangeAdapter;
 import com.nepxion.discovery.platform.server.state.handler.StateChangeListener;
 import com.nepxion.discovery.platform.server.state.handler.StateChangeListenerImpl;
 import com.nepxion.discovery.platform.server.state.handler.StateHandler;
-import com.nepxion.discovery.platform.server.state.listener.StateChangeSyncContextAdapter;
 import com.nepxion.discovery.platform.server.state.listener.StateChangePublisherAdapter;
+import com.nepxion.discovery.platform.server.state.listener.StateChangeSyncContextAdapter;
 
 @Configuration
-@EnableStateMachine
+@EnableStateMachineFactory
 public class StateMachineAutoConfiguration extends EnumStateMachineConfigurerAdapter<States, Events> {
     @Override
     public void configure(StateMachineStateConfigurer<States, Events> states) throws Exception {
@@ -104,7 +104,7 @@ public class StateMachineAutoConfiguration extends EnumStateMachineConfigurerAda
                 .and()
                 .withExternal()
                 .source(States.STATE_TO_DELETE).target(States.STATE_TO_MODIFY)
-                .event(Events.EVENT_DO_MODIFY);                
+                .event(Events.EVENT_DO_MODIFY);
     }
 
     @Override

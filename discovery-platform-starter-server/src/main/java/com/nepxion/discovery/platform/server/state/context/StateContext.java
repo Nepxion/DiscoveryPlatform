@@ -13,22 +13,21 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.statemachine.StateMachine;
 
+import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
-import com.nepxion.discovery.platform.server.state.enums.States;
 
-public class StateMachineContext {
-    private static final ThreadLocal<StateMachineContext> THREAD_LOCAL = new ThreadLocal<StateMachineContext>() {
+public class StateContext {
+    private static final ThreadLocal<StateContext> THREAD_LOCAL = new ThreadLocal<StateContext>() {
         @Override
-        protected StateMachineContext initialValue() {
-            return new StateMachineContext();
+        protected StateContext initialValue() {
+            return new StateContext();
         }
     };
 
-    private StateMachine<States, Events> stateMachine;
+    private StateMessage<Events> message;
 
-    public static StateMachineContext getCurrentContext() {
+    public static StateContext getCurrentContext() {
         return THREAD_LOCAL.get();
     }
 
@@ -36,12 +35,12 @@ public class StateMachineContext {
         THREAD_LOCAL.remove();
     }
 
-    public StateMachine<States, Events> getStateMachine() {
-        return stateMachine;
+    public StateMessage<Events> getMessage() {
+        return message;
     }
 
-    public void setStateMachine(StateMachine<States, Events> stateMachine) {
-        this.stateMachine = stateMachine;
+    public void setMessage(StateMessage<Events> message) {
+        this.message = message;
     }
 
     @Override

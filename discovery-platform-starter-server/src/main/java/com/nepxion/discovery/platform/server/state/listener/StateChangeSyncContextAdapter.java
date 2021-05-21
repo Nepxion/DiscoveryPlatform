@@ -9,7 +9,7 @@ package com.nepxion.discovery.platform.server.state.listener;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.state.context.StateMachineContext;
+import com.nepxion.discovery.platform.server.state.context.StateContext;
 import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.handler.AbstractStateChangeAdapter;
@@ -17,7 +17,7 @@ import com.nepxion.discovery.platform.server.state.handler.AbstractStateChangeAd
 public class StateChangeSyncContextAdapter extends AbstractStateChangeAdapter {
     @Override
     public void onChanged(StateMessage<Events> message) {
-        StateMachineContext.getCurrentContext().setMessage(message);
+        StateContext.getCurrentContext().setMessage(message);
     }
 
     @Override

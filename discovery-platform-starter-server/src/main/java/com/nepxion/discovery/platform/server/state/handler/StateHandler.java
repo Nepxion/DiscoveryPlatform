@@ -47,8 +47,8 @@ public class StateHandler extends LifecycleObjectSupport {
         }
     }
 
-    public StateMessage<Events> next(StateMessage<Events> requestMessage) {
-        nextEvent(requestMessage);
+    public StateMessage<Events> nextSync(StateMessage<Events> requestMessage) {
+        nextAsync(requestMessage);
 
         StateMessage<Events> responseMessage = StateMachineContext.getCurrentContext().getMessage();
 
@@ -57,7 +57,7 @@ public class StateHandler extends LifecycleObjectSupport {
         return responseMessage;
     }
 
-    public void nextEvent(StateMessage<Events> message) {
+    public void nextAsync(StateMessage<Events> message) {
         if (message == null) {
             throw new IllegalArgumentException("Message is null");
         }

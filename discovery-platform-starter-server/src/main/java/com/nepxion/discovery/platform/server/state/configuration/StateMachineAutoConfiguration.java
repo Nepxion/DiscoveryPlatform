@@ -21,9 +21,12 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 
 import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.enums.States;
+import com.nepxion.discovery.platform.server.state.handler.StateChangeAdapter;
 import com.nepxion.discovery.platform.server.state.handler.StateChangeListener;
 import com.nepxion.discovery.platform.server.state.handler.StateChangeListenerImpl;
 import com.nepxion.discovery.platform.server.state.handler.StateHandler;
+import com.nepxion.discovery.platform.server.state.listener.StateChangeSyncContextAdapter;
+import com.nepxion.discovery.platform.server.state.listener.StateChangePublisherAdapter;
 
 @Configuration
 @EnableStateMachine
@@ -104,5 +107,15 @@ public class StateMachineAutoConfiguration extends EnumStateMachineConfigurerAda
     @Bean
     public StateChangeListener stateChangeListener() {
         return new StateChangeListenerImpl();
+    }
+
+    @Bean
+    public StateChangeAdapter stateChangeSyncContextAdapter() {
+        return new StateChangeSyncContextAdapter();
+    }
+
+    @Bean
+    public StateChangeAdapter stateChangePublisherAdapter() {
+        return new StateChangePublisherAdapter();
     }
 }

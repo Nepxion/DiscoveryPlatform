@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.adapter;
+package com.nepxion.discovery.platform.server.state.listener;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -15,14 +15,19 @@ import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformStateEvent;
 import com.nepxion.discovery.platform.server.state.entity.StateMessage;
 import com.nepxion.discovery.platform.server.state.enums.Events;
-import com.nepxion.discovery.platform.server.state.handler.StateChangeAdapter;
+import com.nepxion.discovery.platform.server.state.handler.AbstractStateChangeAdapter;
 
-public class PlatformStateChangeAdapter implements StateChangeAdapter {
+public class StateChangePublisherAdapter extends AbstractStateChangeAdapter {
     @Autowired
     private PlatformPublisher platformPublisher;
 
     @Override
     public void onChanged(StateMessage<Events> message) {
         platformPublisher.asyncPublish(new PlatformStateEvent(message));
+    }
+
+    @Override
+    public int getOrder() {
+        return LOWEST_PRECEDENCE;
     }
 }

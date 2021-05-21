@@ -34,8 +34,9 @@ public class PlatformSubscriber {
         StateMessage<Events> message = platformStateEvent.getMessage();
 
         System.out.println("::::: 推送告警信息给钉钉，操作记录 :::::");
+        System.out.println("业务对象：" + message.getHeaders());
         System.out.println("状态由【" + message.getSourceState().getFullDescription() + "】变迁为【" + message.getTargetState().getFullDescription() + "】，执行事件为【" + message.getPayload().getFullDescription() + "】");
-        System.out.println("下一步可执行事件为" + message.getNextEvents().stream().map(event -> event.getFullDescription()).collect(Collectors.toList()));
+        System.out.println("下一步可执行事件：" + message.getNextEvents().stream().map(event -> event.getFullDescription()).collect(Collectors.toList()));
         System.out.println("");
     }
 }

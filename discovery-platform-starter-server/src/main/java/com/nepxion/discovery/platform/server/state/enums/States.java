@@ -10,23 +10,20 @@ package com.nepxion.discovery.platform.server.state.enums;
  */
 
 public enum States {
-    // 状态：初始
-    STATE_INITIAL(10, "STATE_INITIAL"),
-    // 状态：待增加
-    STATE_TO_ADD(11, "STATE_TO_ADD"),
-    // 状态：待修改
-    STATE_TO_MODIFY(12, "STATE_TO_MODIFY"),
-    // 状态：待删除
-    STATE_TO_DELETE(13, "STATE_TO_DELETE"),
-    // 状态：已发布
-    STATE_PUBLISHED(14, "STATE_PUBLISHED");
+    STATE_INITIAL(10, "STATE_INITIAL", "初始"),
+    STATE_TO_ADD(11, "STATE_TO_ADD", "待增加"),
+    STATE_TO_MODIFY(12, "STATE_TO_MODIFY", "待修改"),
+    STATE_TO_DELETE(13, "STATE_TO_DELETE", "待删除"),
+    STATE_PUBLISHED(14, "STATE_PUBLISHED", "已发布");
 
     private int index;
     private String value;
+    private String description;
 
-    private States(int index, String value) {
+    private States(int index, String value, String description) {
         this.index = index;
         this.value = value;
+        this.description = description;
     }
 
     public int getIndex() {
@@ -35,6 +32,14 @@ public enum States {
 
     public String getValue() {
         return value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFullDescription() {
+        return description + ":" + value;
     }
 
     public static States fromString(int index) {

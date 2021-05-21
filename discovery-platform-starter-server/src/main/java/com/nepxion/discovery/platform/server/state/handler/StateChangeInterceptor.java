@@ -35,7 +35,7 @@ public class StateChangeInterceptor extends StateMachineInterceptorAdapter<State
 
         responseMessage.setSourceState(sourceState);
         responseMessage.setTargetState(targetState);
-        responseMessage.setNextActions(StateResolver.getNextActions(targetState));
+        responseMessage.setNextEvents(StateResolver.getNextEvents(targetState));
 
         compositeStateChangeListener.onChanged(responseMessage, state, transition, stateMachine, rootStateMachine);
     }

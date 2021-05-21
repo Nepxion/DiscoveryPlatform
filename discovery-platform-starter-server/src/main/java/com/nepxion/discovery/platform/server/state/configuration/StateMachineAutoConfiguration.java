@@ -88,7 +88,23 @@ public class StateMachineAutoConfiguration extends EnumStateMachineConfigurerAda
                 .and()
                 .withExternal()
                 .source(States.STATE_TO_DELETE).target(States.STATE_INITIAL)
-                .event(Events.EVENT_DO_ROLLBACK);
+                .event(Events.EVENT_DO_ROLLBACK)
+                .and()
+                .withExternal()
+                .source(States.STATE_TO_ADD).target(States.STATE_TO_MODIFY)
+                .event(Events.EVENT_DO_MODIFY)
+                .and()
+                .withExternal()
+                .source(States.STATE_TO_ADD).target(States.STATE_TO_DELETE)
+                .event(Events.EVENT_DO_DELETE)
+                .and()
+                .withExternal()
+                .source(States.STATE_TO_MODIFY).target(States.STATE_TO_DELETE)
+                .event(Events.EVENT_DO_DELETE)
+                .and()
+                .withExternal()
+                .source(States.STATE_TO_DELETE).target(States.STATE_TO_MODIFY)
+                .event(Events.EVENT_DO_MODIFY);                
     }
 
     @Override

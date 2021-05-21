@@ -12,28 +12,28 @@ package com.nepxion.discovery.platform.server.state.handler;
 import java.util.Arrays;
 import java.util.List;
 
-import com.nepxion.discovery.platform.server.state.enums.Actions;
+import com.nepxion.discovery.platform.server.state.enums.Events;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
 public class StateResolver {
-    public static final List<Actions> STATE_INITIAL_PUBLISHED_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_ADD, Actions.ACTION_TO_MODIFY, Actions.ACTION_TO_DELETE);
-    public static final List<Actions> STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS = Arrays.asList(Actions.ACTION_TO_ROLLBACK, Actions.ACTION_TO_PUBLISH);
-    public static final List<Actions> EMPTY_NEXT_ACTIONS = Arrays.asList();
+    public static final List<Events> STATE_INITIAL_PUBLISHED_NEXT_EVENTS = Arrays.asList(Events.EVENT_DO_ADD, Events.EVENT_DO_MODIFY, Events.EVENT_DO_DELETE);
+    public static final List<Events> STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS = Arrays.asList(Events.EVENT_DO_ROLLBACK, Events.EVENT_DO_PUBLISH);
+    public static final List<Events> EMPTY_NEXT_EVENTS = Arrays.asList();
 
-    public static List<Actions> getNextActions(States state) {
+    public static List<Events> getNextEvents(States state) {
         switch (state) {
             case STATE_INITIAL:
-                return STATE_INITIAL_PUBLISHED_NEXT_ACTIONS;
+                return STATE_INITIAL_PUBLISHED_NEXT_EVENTS;
             case STATE_TO_ADD:
-                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS;
+                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
             case STATE_TO_MODIFY:
-                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS;
+                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
             case STATE_TO_DELETE:
-                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_ACTIONS;
+                return STATE_STATE_TO_ADD_MODIFY_DELETE_NEXT_EVENTS;
             case STATE_PUBLISHED:
-                return STATE_INITIAL_PUBLISHED_NEXT_ACTIONS;
+                return STATE_INITIAL_PUBLISHED_NEXT_EVENTS;
         }
 
-        return EMPTY_NEXT_ACTIONS;
+        return EMPTY_NEXT_EVENTS;
     }
 }

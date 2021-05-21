@@ -10,23 +10,20 @@ package com.nepxion.discovery.platform.server.state.enums;
  */
 
 public enum Events {
-    // 事件：执行增加
-    EVENT_DO_ADD(20, "EVENT_DO_ADD"),
-    // 事件：执行修改
-    EVENT_DO_MODIFY(21, "EVENT_DO_MODIFY"),
-    // 事件：执行删除
-    EVENT_DO_DELETE(22, "EVENT_DO_DELETE"),
-    // 事件：执行回滚
-    EVENT_DO_ROLLBACK(23, "EVENT_DO_ROLLBACK"),
-    // 事件：执行发布
-    EVENT_DO_PUBLISH(24, "EVENT_DO_PUBLISH");
+    EVENT_DO_ADD(20, "EVENT_DO_ADD", "增加"),
+    EVENT_DO_MODIFY(21, "EVENT_DO_MODIFY", "修改"),
+    EVENT_DO_DELETE(22, "EVENT_DO_DELETE", "删除"),
+    EVENT_DO_ROLLBACK(23, "EVENT_DO_ROLLBACK", "回滚"),
+    EVENT_DO_PUBLISH(24, "EVENT_DO_PUBLISH", "发布");
 
     private int index;
     private String value;
+    private String description;
 
-    private Events(int index, String value) {
+    private Events(int index, String value, String description) {
         this.index = index;
         this.value = value;
+        this.description = description;
     }
 
     public int getIndex() {
@@ -35,6 +32,14 @@ public enum Events {
 
     public String getValue() {
         return value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFullDescription() {
+        return description + ":" + value;
     }
 
     public static Events fromString(int index) {
@@ -60,5 +65,5 @@ public enum Events {
     @Override
     public String toString() {
         return value;
-    }   
+    }
 }

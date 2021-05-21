@@ -19,7 +19,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.GenericMessage;
 
-import com.nepxion.discovery.platform.server.state.enums.Actions;
 import com.nepxion.discovery.platform.server.state.enums.States;
 
 public class StateMessage<T> extends GenericMessage<T> {
@@ -31,8 +30,8 @@ public class StateMessage<T> extends GenericMessage<T> {
     // 下一个状态
     private States targetState;
 
-    // 下一个状态下，可选择的操作列表
-    private List<Actions> nextActions;
+    // 下一个状态下，可执行事件列表
+    private List<T> nextEvents;
 
     public StateMessage(States sourceState, T payload) {
         this(payload);
@@ -80,12 +79,12 @@ public class StateMessage<T> extends GenericMessage<T> {
         this.targetState = targetState;
     }
 
-    public List<Actions> getNextActions() {
-        return nextActions;
+    public List<T> getNextEvents() {
+        return nextEvents;
     }
 
-    public void setNextActions(List<Actions> nextActions) {
-        this.nextActions = nextActions;
+    public void setNextEvents(List<T> nextEvents) {
+        this.nextEvents = nextEvents;
     }
 
     @Override

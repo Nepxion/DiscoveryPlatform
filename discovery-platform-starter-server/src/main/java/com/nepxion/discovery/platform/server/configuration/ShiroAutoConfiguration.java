@@ -14,6 +14,7 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.shiro.AuthRealm;
 import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -61,12 +62,14 @@ public class ShiroAutoConfiguration {
     }
 
     // 配置核心安全事务管理器
-    @Bean
+    @Bean(name = "securityManager")
     @Primary
     @ConditionalOnMissingBean
-    public SecurityManager securityManager(@Qualifier("authRealm") final AuthRealm authRealm) {
+    public SecurityManager securityManager(@Qualifier("authRealm") final AuthRealm authRealm,
+                                           @Qualifier("sessionManager") final SessionManager sessionManager) {
         final DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm); // 设置自定义realm
+        manager.setSessionManager(sessionManager);
         return manager;
     }
 

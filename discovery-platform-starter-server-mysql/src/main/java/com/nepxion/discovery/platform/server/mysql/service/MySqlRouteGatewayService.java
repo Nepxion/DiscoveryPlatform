@@ -163,6 +163,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             return;
         }
         routeGatewayDto.setPublish(false);
+        routeGatewayDto.setDeleted(false);
         routeGatewayDto.setOperation(Operation.UPDATE.getCode());
         this.updateById(routeGatewayDto);
     }

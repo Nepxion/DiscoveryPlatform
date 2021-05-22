@@ -134,7 +134,7 @@
                     {field: 'predicates', title: '断言器'},
                     {field: 'filters', title: '过滤器', width: 150},
                     {field: 'metadata', title: '元数据', width: 125},
-                    {field: 'order', title: '排序', align: 'center', width: 80},
+                    {field: 'order', title: '执行顺序', align: 'center', width: 100},
                     {field: 'description', title: '路由描述', width: 150}
                     <@select>
                     , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 150}

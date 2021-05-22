@@ -42,7 +42,7 @@
                 <scope>import</scope>
             </dependency>
 
-			<dependency>
+            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-client</artifactId>
                 <version>${project.version}</version>

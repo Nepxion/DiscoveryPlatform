@@ -18,19 +18,16 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>discovery-platform-starter-server</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>discovery-platform-starter-common-dingding</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>discovery-platform-starter-common-mail</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>

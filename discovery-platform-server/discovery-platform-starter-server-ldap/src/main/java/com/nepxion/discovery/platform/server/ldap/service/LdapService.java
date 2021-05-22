@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.ldap.service;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.ldap.properties.PlatformLdapProperties;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;

@@ -50,13 +50,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-common-dingding</artifactId>
+                <artifactId>discovery-platform-starter-common-dingding</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-common-mail</artifactId>
+                <artifactId>discovery-platform-starter-common-mail</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

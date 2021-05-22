@@ -137,7 +137,7 @@
                                             return r;
                                         }
                                     },
-                                    {field: 'order', title: '排序', align: 'center', width: 80}
+                                    {field: 'order', title: '执行顺序', align: 'center', width: 120}
                                 ]],
                                 data: v.routes
                             });

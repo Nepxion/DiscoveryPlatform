@@ -11,12 +11,15 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.console.entity.GatewayType;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface RouteGatewayService {
+    GatewayType GATEWAY_TYPE = GatewayType.SPRING_CLOUD_GATEWAY;
+
+    void publish() throws Exception;
 
     IPage<RouteGatewayDto> page(final String description,
                                 final Integer pageNum,
@@ -28,10 +31,10 @@ public interface RouteGatewayService {
 
     void update(final RouteGatewayDto routeGateway);
 
-    void delete(final Collection<Long> ids);
-
     void enable(final Long id,
                 final boolean enabled);
 
-    List<RouteGatewayDto> listEnabled();
+    void logicDelete(final Collection<Long> ids);
+
+    void delete(final Collection<Long> ids);
 }

@@ -26,6 +26,36 @@
             <div class="layui-card-body">
                 <table id="grid" lay-filter="grid"></table>
 
+                <script type="text/html" id="colState">
+
+                    {{#  if(d.publish){ }}
+
+                    {{#  if(d.enabled){ }}
+                    <span class="layui-badge layui-bg-green"><b>已启用</b></span>
+                    {{#  } else { }}
+                    <span class="layui-badge"><b>已禁用</b></span>
+                    {{#  } }}
+
+                    {{#  } else { }}
+                    <span class="layui-badge layui-bg-orange"><b>未发布</b></span>
+                    {{#  } }}
+                </script>
+
+                <script type="text/html" id="colGatewayName">
+                    {{ d.gatewayName }} &nbsp;&nbsp;
+                    {{#  if(!d.publish){ }}
+                    {{#  if(d.operation==1){ }}
+                    <span class="layui-badge layui-bg-green"><b>增</b></span>
+                    {{#  } else if(d.operation==2){ }}
+                    <span class="layui-badge layui-bg-blue"><b>改</b></span>
+                    {{#  } else if(d.operation==3){ }}
+                    <span class="layui-badge layui-bg-red"><b>删</b></span>
+                    {{#  } else { }}
+                    <span class="layui-badge layui-bg-red"><b>未知</b></span>
+                    {{#  } }}
+                    {{#  } }}
+                </script>
+
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
@@ -50,8 +80,6 @@
                                     class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin"
                                     lay-event="publish" style="margin-left: 50px">
                                 <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布<b>Spring Cloud Gateway</b>路由
-                                <span id="spanStatus" class="layui-badge layui-bg-orange"
-                                      style="display: none">有修改</span>
                             </button>
                         </@update>
                     </div>
@@ -61,7 +89,6 @@
                     <@update>
                         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
                                     class="layui-icon layui-icon-edit"></i>编辑</a>
-
                         {{#  if(d.enabled){ }}
                         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">
                             <i class="layui-icon layui-icon-logout"></i>禁用</a>
@@ -78,15 +105,10 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
             const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table;
-            let isUpdate = false;
             tableErrorHandler();
             form.on('submit(search)', function (data) {
-                if (isUpdate) {
-                    admin.error("系统提示", "已修改了路由信息,请先发布");
-                    return;
-                }
                 const field = data.field;
-                table.reload('grid', {page: {curr: 1}, where: field});
+                table.reload('grid', {where: field});
                 updateStatus(false);
             });
 
@@ -96,9 +118,9 @@
                 toolbar: '#grid-toolbar',
                 method: 'post',
                 cellMinWidth: 80,
-                page: true,
-                limit: 15,
-                limits: [15],
+                page: false,
+                limit: 99999999,
+                limits: [99999999],
                 even: true,
                 text: {
                     none: '暂无相关数据'
@@ -106,22 +128,28 @@
                 cols: [[
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
-                    {field: 'gatewayName', title: '网关名称', width: 250},
+                    {title: '状态', align: 'center', templet: '#colState', width: 80},
+                    {title: '网关名称', templet: '#colGatewayName', width: 275},
                     {field: 'uri', title: '目标地址', width: 250},
                     {field: 'predicates', title: '断言器'},
                     {field: 'filters', title: '过滤器', width: 150},
-                    {field: 'metadata', title: '元数据', width: 200},
+                    {field: 'metadata', title: '元数据', width: 125},
                     {field: 'order', title: '排序', align: 'center', width: 80},
-                    {
-                        title: '状态', width: 80, align: 'center', templet: function (d) {
-                            return d.enabled ? '<span class="layui-badge layui-bg-green"><b>启用</b></span>' : '<span class="layui-badge"><b>禁用</b></span>'
-                        }
-                    },
                     {field: 'description', title: '路由描述', width: 150}
                     <@select>
                     , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 150}
                     </@select>
-                ]]
+                ]],
+                done: function (res) {
+                    let needPublish = false;
+                    $.each(res.data, function (idx, val) {
+                        if (!val.publish) {
+                            needPublish = true;
+                            return;
+                        }
+                    });
+                    updateStatus(needPublish);
+                }
             });
 
             table.on('toolbar(grid)', function (obj) {
@@ -234,23 +262,12 @@
                 }
             });
 
-            function updateStatus(update) {
-                isUpdate = update;
-                if (isUpdate) {
-                    enablePublish();
+            function updateStatus(needUpdate) {
+                if (needUpdate) {
+                    $("#btnPublish").removeClass("layui-btn-disabled");
                 } else {
-                    disablePublish();
+                    $("#btnPublish").addClass("layui-btn-disabled");
                 }
-            }
-
-            function enablePublish() {
-                $("#btnPublish").removeClass("layui-btn-disabled");
-                $("#spanStatus").show();
-            }
-
-            function disablePublish() {
-                $("#btnPublish").addClass("layui-btn-disabled");
-                $("#spanStatus").hide();
             }
         });
     </script>

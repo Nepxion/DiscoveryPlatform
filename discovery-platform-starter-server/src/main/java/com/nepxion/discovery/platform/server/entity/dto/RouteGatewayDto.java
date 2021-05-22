@@ -12,14 +12,14 @@ package com.nepxion.discovery.platform.server.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @TableName(value = "`t_route_gateway`")
-public final class RouteGatewayDto extends BaseEntity {
+public final class RouteGatewayDto extends BaseStateEntity {
     private static final long serialVersionUID = 2636994152216571320L;
 
     @TableField(value = "`route_id`")
@@ -51,6 +51,7 @@ public final class RouteGatewayDto extends BaseEntity {
 
     @TableField(value = "`description`")
     private String description;
+
 
     public String getRouteId() {
         return routeId;

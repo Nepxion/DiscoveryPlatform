@@ -11,7 +11,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <select name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
+                <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
                     <option value="">请选择网关名称</option>
                     <#list gatewayNames as gatewayName>
                         <option value="${gatewayName}">${gatewayName}</option>
@@ -139,6 +139,11 @@
                     }
                 }
             });
+
+            <#if (serviceNames?size>0) >
+            $('#gatewayName option:eq(1)').attr('selected', 'selected');
+            layui.form.render('select');
+            </#if>
         });
     </script>
     </body>

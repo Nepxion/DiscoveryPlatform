@@ -1,15 +1,5 @@
 package com.nepxion.discovery.platform.server.ldap.configuration;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
-
 import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.ldap.adapter.PlatformLdapLoginAdapter;
 import com.nepxion.discovery.platform.server.ldap.constant.PlatformLdapConstant;

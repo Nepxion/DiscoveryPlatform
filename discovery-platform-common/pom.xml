@@ -15,7 +15,7 @@
     </parent>
 
     <modules>
-        <module>discovery-platform-starter-common-dingding</module>
-        <module>discovery-platform-starter-common-mail</module>
+        <module>discovery-platform-common-dingding</module>
+        <module>discovery-platform-common-mail</module>
     </modules>
 </project>

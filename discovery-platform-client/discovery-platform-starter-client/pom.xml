@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-starter-client-event</artifactId>
+            <artifactId>discovery-platform-client-event</artifactId>
         </dependency>
     </dependencies>
 </project>

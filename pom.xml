@@ -44,43 +44,67 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-client-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-client-event</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+			<dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-client-event</artifactId>
+                <artifactId>discovery-platform-common-dingding</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-common-dingding</artifactId>
+                <artifactId>discovery-platform-common-mail</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-common-mail</artifactId>
+                <artifactId>discovery-platform-server-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-server-event</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-server-gray</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-server-route</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-platform-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-event</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-gray</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -108,22 +132,9 @@
                 <version>${project.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-route</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-shiro</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

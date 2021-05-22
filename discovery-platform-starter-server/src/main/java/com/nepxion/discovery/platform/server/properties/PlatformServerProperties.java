@@ -17,17 +17,17 @@ public class PlatformServerProperties {
     /**
      * 标题
      */
-    private String title = "Discovery Platform";
+    private String title = "Nepxion Platform";
 
     /**
      * 应用全名称
      */
-    private String fullName = "Discovery Platform";
+    private String fullName = "Nepxion Platform";
 
     /**
      * 应用简称
      */
-    private String shortName = "Discovery Platform";
+    private String shortName = "Nepxion Platform";
 
     public String getTitle() {
         return title;

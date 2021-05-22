@@ -12,6 +12,8 @@
 
     <properties>
         <discovery.platform.version>1.0.0-SNAPSHOT</discovery.platform.version>
+        <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -22,6 +24,11 @@
             <artifactId>discovery-platform-starter-bootstrap-server</artifactId>
             <version>${discovery.platform.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -30,6 +37,14 @@
                 <groupId>com.nepxion</groupId>
                 <artifactId>discovery-platform</artifactId>
                 <version>${discovery.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring.boot.admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

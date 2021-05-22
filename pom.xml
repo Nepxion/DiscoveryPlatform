@@ -20,14 +20,14 @@
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
 
-        <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
-        <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
+        <mysql.connector.version>8.0.25</mysql.connector.version>
+        <mybatis.plus.version>3.4.2</mybatis.plus.version>
         <hikaricp.version>4.0.3</hikaricp.version>
+        <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>
         <unirest.version>3.11.11</unirest.version>
         <hutool.version>5.6.5</hutool.version>
-        <commons-codec.version>1.15</commons-codec.version>
-        <java-jwt.version>3.16.0</java-jwt.version>
+        <commons.codec.version>1.15</commons.codec.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,19 +46,25 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
+                <version>${mysql.connector.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
+                <version>${mybatis.plus.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${hikaricp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
             </dependency>
 
             <dependency>
@@ -92,15 +98,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.auth0</groupId>
-                <artifactId>java-jwt</artifactId>
-                <version>${java-jwt.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>${commons-codec.version}</version>
+                <version>${commons.codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

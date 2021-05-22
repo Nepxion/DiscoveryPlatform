@@ -15,8 +15,6 @@
     </parent>
 
     <modules>
-        <module>discovery-platform-client-core</module>
-        <module>discovery-platform-client-event</module>
         <module>discovery-platform-starter-client</module>
     </modules>
 </project>

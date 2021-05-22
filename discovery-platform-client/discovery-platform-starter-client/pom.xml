@@ -16,8 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-client-event</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

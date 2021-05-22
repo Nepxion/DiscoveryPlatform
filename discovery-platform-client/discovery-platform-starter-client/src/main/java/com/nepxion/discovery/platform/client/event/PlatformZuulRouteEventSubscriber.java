@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.client.event.subscriber;
+package com.nepxion.discovery.platform.client.event;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -17,7 +17,7 @@ import com.nepxion.discovery.plugin.strategy.zuul.event.ZuulStrategyRouteUpdated
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
-public class ZuulRouteEventSubscriber {
+public class PlatformZuulRouteEventSubscriber {
     @Subscribe
     public void onZuulStrategyRouteAdded(ZuulStrategyRouteAddedEvent zuulStrategyRouteAddedEvent) {
         System.out.println("::::: 推送网关路由变更信息给钉钉，增加网关路由=" + zuulStrategyRouteAddedEvent.getZuulStrategyRouteEntity());

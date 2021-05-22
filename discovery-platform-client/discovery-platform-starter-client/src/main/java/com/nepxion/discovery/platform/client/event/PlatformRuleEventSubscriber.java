@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.client.event.subscriber;
+package com.nepxion.discovery.platform.client.event;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -16,7 +16,7 @@ import com.nepxion.discovery.plugin.framework.event.RuleUpdatedEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
-public class RuleEventSubscriber {
+public class PlatformRuleEventSubscriber {
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
         System.out.println("::::: 推送规则变更信息给钉钉，规则执行更新, rule=" + ruleUpdatedEvent.getRule());

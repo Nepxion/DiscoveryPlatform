@@ -11,13 +11,10 @@
     <url>http://www.nepxion.com</url>
 
     <modules>
-        <module>discovery-platform-starter-server</module>
-        <module>discovery-platform-starter-server-mysql</module>
-        <module>discovery-platform-starter-server-h2</module>
-        <module>discovery-platform-starter-server-ldap</module>
-        <module>discovery-platform-starter-server-ui</module>
-        <module>discovery-platform-starter-client</module>
-        <module>discovery-platform-application</module>
+        <module>discovery-platform-bootstrap</module>
+        <module>discovery-platform-common</module>
+        <module>discovery-platform-client</module>
+        <module>discovery-platform-server</module>
     </modules>
 
     <properties>
@@ -44,42 +41,6 @@
                 <version>${discovery.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-mysql</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-h2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-ldap</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-client</artifactId>
-                <version>${project.version}</version>
             </dependency>
 
             <dependency>

@@ -11,7 +11,6 @@
     <url>http://www.nepxion.com</url>
 
     <modules>
-        <module>discovery-platform-bootstrap</module>
         <module>discovery-platform-common</module>
         <module>discovery-platform-client</module>
         <module>discovery-platform-server</module>

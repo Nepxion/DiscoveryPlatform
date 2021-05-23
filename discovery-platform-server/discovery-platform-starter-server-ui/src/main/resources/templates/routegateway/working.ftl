@@ -51,7 +51,6 @@
             let chooseGatewayName = '';
             tableErrorHandler();
 
-
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'refresh') {
                     reloadGrid();
@@ -64,7 +63,7 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("listGatewayNames", {}, function (data) {
+                admin.post("do-list-gateway_names", {}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
                     selGatewayName.html('<option value="">请选择路由实例名称</option>');
@@ -87,7 +86,7 @@
                 $("#tabTitle").html('');
                 $("#tabContent").html('');
                 if (chooseGatewayName != null && chooseGatewayName != '') {
-                    admin.post("listWorking", {"gatewayName": chooseGatewayName}, function (result) {
+                    admin.post("do-list-working", {"gatewayName": chooseGatewayName}, function (result) {
                         const data = result.data;
                         const set = new Set();
                         let index = 0;
@@ -155,7 +154,6 @@
                     table.reload('grid', {'data': []});
                 }
             }
-
         });
     </script>
     </body>

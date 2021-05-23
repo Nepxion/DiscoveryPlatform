@@ -57,7 +57,7 @@
                 if (obj.field.password !== obj.field.repassword) {
                     admin.error("系统提示", "输入的密码不一致，请重新输入.");
                 } else {
-                    admin.post("${ctx}/repwd", obj.field, function () {
+                    admin.post("do-change-password", obj.field, function () {
                         admin.success("系统提示", "密码修改成功，请重新登录", function () {
                             admin.quit();
                         })

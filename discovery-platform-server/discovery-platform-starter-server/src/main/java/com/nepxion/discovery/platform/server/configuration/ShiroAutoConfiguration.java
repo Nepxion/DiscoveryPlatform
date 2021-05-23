@@ -47,6 +47,7 @@ public class ShiroAutoConfiguration {
         final LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/js/**", "anon"); // 静态资源
+        filterChainDefinitionMap.put("/assets/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/images/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/fonts/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/layuiadmin/**", "anon"); // 静态资源
@@ -54,8 +55,11 @@ public class ShiroAutoConfiguration {
         filterChainDefinitionMap.put("/favicon.ico", "anon"); // 静态资源
         filterChainDefinitionMap.put("/actuator/**", "anon"); // spring-boot-admin
         filterChainDefinitionMap.put(bean.getLoginUrl(), "anon"); // 登录页面
-        filterChainDefinitionMap.put("/login", "anon"); // 登录逻辑
-        filterChainDefinitionMap.put("/quit", "anon"); // 登出逻辑
+        filterChainDefinitionMap.put("/instances", "anon"); //
+        filterChainDefinitionMap.put("/login", "anon"); // 登录页面
+        filterChainDefinitionMap.put("/logout", "anon"); // 登录逻辑
+        filterChainDefinitionMap.put("/do-login", "anon"); // 登录逻辑
+        filterChainDefinitionMap.put("/do-quit", "anon"); // 登出逻辑
         filterChainDefinitionMap.put("/**", "authc");// 需要认证才可以访问
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;

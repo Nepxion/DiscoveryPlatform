@@ -17,12 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
-import com.nepxion.discovery.platform.server.controller.AdminController;
-import com.nepxion.discovery.platform.server.controller.IndexController;
-import com.nepxion.discovery.platform.server.controller.PageController;
-import com.nepxion.discovery.platform.server.controller.PermissionController;
-import com.nepxion.discovery.platform.server.controller.RoleController;
-import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
+import com.nepxion.discovery.platform.server.controller.*;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
@@ -30,7 +25,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
-@EnableConfigurationProperties({ PlatformServerProperties.class })
+@EnableConfigurationProperties({PlatformServerProperties.class})
 public class PlatformAutoConfiguration {
     @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {
@@ -70,6 +65,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteGatewayController routeGatewayController() {
         return new RouteGatewayController();
+    }
+
+    @Bean
+    public RouteZuulController routeZuulController() {
+        return new RouteZuulController();
     }
 
     @Bean

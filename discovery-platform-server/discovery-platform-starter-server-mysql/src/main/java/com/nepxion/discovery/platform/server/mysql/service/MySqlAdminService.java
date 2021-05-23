@@ -102,14 +102,14 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
             return false;
         }
 
-        if (!sysAdmin.getPassword().equals(CommonTool.hash(oldPassword))) {
+        if (!sysAdmin.getPassword().equals(oldPassword)) {
             throw new BusinessException("密码不匹配, 修改密码失败");
         }
 
         UpdateWrapper<SysAdminDto> updateWrapper = new UpdateWrapper<>();
         updateWrapper.lambda()
                 .eq(SysAdminDto::getId, id)
-                .set(SysAdminDto::getPassword, CommonTool.hash(newPassword));
+                .set(SysAdminDto::getPassword, newPassword);
         return this.update(updateWrapper);
     }
 

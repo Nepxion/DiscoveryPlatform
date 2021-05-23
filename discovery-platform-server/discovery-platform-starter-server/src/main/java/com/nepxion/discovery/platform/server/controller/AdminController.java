@@ -45,13 +45,13 @@ public class AdminController {
     @Autowired
     private PlatformLoginAdapter loginAdapter;
 
-    @GetMapping("tolist")
-    public String toList() {
+    @GetMapping("list")
+    public String list() {
         return String.format("%s/%s", PREFIX, "list");
     }
 
-    @GetMapping("toadd")
-    public String toAdd(final Model model) throws Exception {
+    @GetMapping("add")
+    public String add(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.listOrderByName());
 
         if (this.loginAdapter.getLoginMode() == LoginMode.DATABASE) {
@@ -63,8 +63,8 @@ public class AdminController {
         throw new BusinessException(String.format("暂不支持登录模式[%s]", this.loginAdapter.getLoginMode()));
     }
 
-    @GetMapping("toedit")
-    public String toEdit(final Model model,
+    @GetMapping("edit")
+    public String edit(final Model model,
                          @RequestParam(name = "id") final Long id) throws Exception {
         model.addAttribute("admin", this.adminService.getById(id));
         model.addAttribute("roles", this.roleService.listOrderByName());
@@ -72,18 +72,18 @@ public class AdminController {
         return String.format("%s/%s", PREFIX, "edit");
     }
 
-    @PostMapping("list")
+    @PostMapping("do-list")
     @ResponseBody
-    public Result<List<AdminVo>> list(@RequestParam(value = "name", required = false) final String name,
+    public Result<List<AdminVo>> doList(@RequestParam(value = "name", required = false) final String name,
                                       @RequestParam(value = "page") final Integer pageNum,
                                       @RequestParam(value = "limit") final Integer pageSize) throws Exception {
         final IPage<AdminVo> adminPage = this.adminService.list(this.loginAdapter.getLoginMode(), name, pageNum, pageSize);
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
 
-    @PostMapping("repwd")
+    @PostMapping("do-reset-password")
     @ResponseBody
-    public Result<?> repwd(@RequestParam(value = "id") final Long id) throws Exception {
+    public Result<?> doResetPassword(@RequestParam(value = "id") final Long id) throws Exception {
         final SysAdminDto sysAdmin = this.adminService.getById(id);
         if (null == sysAdmin) {
             return Result.error(String.format("用户[id=%s]不存在", id));
@@ -97,9 +97,9 @@ public class AdminController {
         }
     }
 
-    @PostMapping("add")
+    @PostMapping("do-add")
     @ResponseBody
-    public Result<?> add(@RequestParam(value = "roleId") final Long roleId,
+    public Result<?> doAdd(@RequestParam(value = "roleId") final Long roleId,
                          @RequestParam(value = "username") final String username,
                          @RequestParam(value = "password", defaultValue = "") final String password,
                          @RequestParam(value = "name") final String name,
@@ -110,9 +110,9 @@ public class AdminController {
         return Result.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> edit(@RequestParam(value = "id") final Long id,
+    public Result<?> doEdit(@RequestParam(value = "id") final Long id,
                           @RequestParam(value = "roleId") final Long roleId,
                           @RequestParam(value = "username") final String username,
                           @RequestParam(value = "name") final String name,
@@ -123,17 +123,17 @@ public class AdminController {
         return Result.ok();
     }
 
-    @PostMapping("del")
+    @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
+    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.adminService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 
-    @PostMapping("search")
+    @PostMapping("do-search")
     @ResponseBody
-    public Result<List<AdminVo>> search(@RequestParam(value = "keyword", defaultValue = "") final String keyword) throws Exception {
+    public Result<List<AdminVo>> doSearch(@RequestParam(value = "keyword", defaultValue = "") final String keyword) {
         if (ObjectUtils.isEmpty(keyword.trim())) {
             return Result.ok();
         }

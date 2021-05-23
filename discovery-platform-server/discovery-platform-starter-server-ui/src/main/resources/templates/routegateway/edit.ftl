@@ -12,13 +12,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <select name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
-                    <option value="">请选择网关名称</option>
-                    <#list gatewayNames as gatewayName>
-                        <option value="${gatewayName}"
-                                <#if route.gatewayName==gatewayName>selected="selected"</#if>>${gatewayName}</option>
-                    </#list>
-                </select>
+                <input type="text" readonly="readonly" id="gatewayName" name="gatewayName" lay-verify="required" class="layui-input layui-disabled" style="width: 740px" value="${route.gatewayName}">
             </div>
         </div>
 
@@ -40,7 +34,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
-                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input" style="width: 740px" placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off" value="${route.serviceName}">
+                <input type="text" readonly="readonly" id="serviceName" name="serviceName" lay-verify="required" class="layui-input layui-disabled" style="width: 740px" value="${route.serviceName}">
             </div>
         </div>
 

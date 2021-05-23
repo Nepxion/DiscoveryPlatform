@@ -45,7 +45,7 @@
                     <@update>
                         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
                                     class="layui-icon layui-icon-edit"></i>编辑</a>
-                        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="repwd"><i
+                        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="resetPassword"><i
                                     class="layui-icon layui-icon-password"></i>密码重置</a>
                     </@update>
                 </script>
@@ -63,7 +63,7 @@
             });
             table.render({
                 elem: '#grid',
-                url: 'list',
+                url: 'do-list',
                 toolbar: '#grid-toolbar',
                 method: 'post',
                 cellMinWidth: 80,
@@ -94,7 +94,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增管理员',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['880px', '650px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -110,7 +110,7 @@
                                     });
                                     return;
                                 }
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {
@@ -121,10 +121,10 @@
                         }
                     });
                 } else if (obj.event === 'del') {
-                    const checkedId = admin.getCheckedData(table, obj, "id");
+                    const checkedId = admin.getCheckedData(table, obj, 'id');
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(',')}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });
@@ -140,7 +140,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑管理员',
-                        content: 'toedit?id=' + data.id,
+                        content: 'edit?id=' + data.id,
                         area: ['880px', '400px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -150,7 +150,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
                                 const field = d.field;
                                 field.id = data.id;
-                                admin.post('edit', field, function () {
+                                admin.post('do-edit', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {
@@ -160,13 +160,13 @@
                             submit.trigger('click');
                         }
                     });
-                } else if (obj.event === 'repwd') {
-                    layer.confirm("确定要重置[" + data.username + "]的密码吗?", function (index) {
-                        admin.post("repwd", data, function () {
+                } else if (obj.event === 'resetPassword') {
+                    layer.confirm('确定要重置[' + data.username + ']的密码吗?', function (index) {
+                        admin.post('do-reset-password', data, function () {
                                 layer.close(index);
-                                admin.success("系统提示", "密码重置成功, 初始密码为:admin");
+                                admin.success('系统提示', '密码重置成功, 初始密码为:admin');
                             }, function () {
-                                admin.error("系统提示", "密码重置失败");
+                                admin.error('系统提示', '密码重置失败');
                             }
                         );
                     });

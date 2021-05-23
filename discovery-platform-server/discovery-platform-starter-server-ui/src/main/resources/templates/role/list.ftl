@@ -69,7 +69,7 @@
             });
             table.render({
                 elem: '#grid',
-                url: 'list',
+                url: 'do-list',
                 toolbar: '#grid-toolbar',
                 method: 'post',
                 cellMinWidth: 80,
@@ -87,7 +87,7 @@
                     {field: 'superadmin', title: '是否超级管理员', templet: '#colSuperadmin', width: 200},
                     {field: 'remark', title: '备注'}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 90}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                     </@select>
                 ]]
             });
@@ -97,7 +97,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增角色',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['880px', '650px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -106,7 +106,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {
@@ -117,10 +117,10 @@
                         }
                     });
                 } else if (obj.event === 'del') {
-                    const checkedId = admin.getCheckedData(table, obj, "id");
+                    const checkedId = admin.getCheckedData(table, obj, 'id');
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(',')}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });
@@ -134,16 +134,16 @@
                 const data = obj.data;
                 if (obj.event === 'del') {
                     layer.confirm(admin.DEL_QUESTION, function (index) {
-                        admin.post("del", data, function () {
+                        admin.post('do-delete', data, function () {
                             if (table.cache.grid.length < 2) {
-                                const skip = $(".layui-laypage-skip");
+                                const skip = $('.layui-laypage-skip');
                                 const curPage = skip.find("input").val();
                                 let page = parseInt(curPage) - 1;
                                 if (page < 1) {
                                     page = 1;
                                 }
-                                skip.find("input").val(page);
-                                $(".layui-laypage-btn").click();
+                                skip.find('input').val(page);
+                                $('.layui-laypage-btn').click();
                             } else {
                                 table.reload('grid');
                             }
@@ -154,7 +154,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑主题',
-                        content: 'toedit?id=' + data.id,
+                        content: 'edit?id=' + data.id,
                         area: ['880px', '400px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -164,7 +164,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
                                 const field = d.field;
                                 field.id = data.id;
-                                admin.post('edit', field, function () {
+                                admin.post('do-edit', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

@@ -72,7 +72,7 @@
             form.render();
 
             form.on('submit(btnSubmit)', function (obj) {
-                admin.post("${ctx}/reinfo", obj.field, function () {
+                admin.post("do-edit-info", obj.field, function () {
                     admin.success("系统提示", "个人信息更新成功", function () {
                         top.window.location.reload();
                     });

@@ -57,7 +57,7 @@
         });
         table.render({
             elem: '#grid',
-            url: 'list',
+            url: 'do-list',
             toolbar: '#grid-toolbar',
             method: 'post',
             cellMinWidth: 80,
@@ -79,22 +79,22 @@
                 },
                 {
                     title: '是否是菜单', width: 120, templet: function (d) {
-                        return d.isMenu ? "是" : "否"
+                        return d.isMenu ? '是' : '否'
                     }
                 },
                 {
                     title: '是否首页', width: 120, templet: function (d) {
-                        return d.isDefault ? "是" : "否"
+                        return d.isDefault ? '是' : '否'
                     }
                 },
                 {
                     title: '是否新窗口', width: 120, templet: function (d) {
-                        return d.isBlank ? "是" : "否"
+                        return d.isBlank ? '是' : '否'
                     }
                 },
                 {field: 'description', title: '描述信息'}
                 <@select>
-                , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 80}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 80}
                 </@select>
             ]]
         });
@@ -105,7 +105,7 @@
                     const checkedId = admin.getCheckedData(table, obj, "id");
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(",")}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });
@@ -117,7 +117,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加页面',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['400px', '690px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -126,7 +126,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {
@@ -147,7 +147,7 @@
                 layer.open({
                     type: 2,
                     title: '<i class="layui-icon layui-icon-edit"></i>&nbsp;编辑页面',
-                    content: 'toedit?id=' + data.id,
+                    content: 'edit?id=' + data.id,
                     area: ['400px', '760px'],
                     btn: admin.BUTTONS,
                     resize: false,
@@ -156,7 +156,7 @@
                             submit = layero.find('iframe').contents().find('#' + submitID);
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             const field = data.field;
-                            admin.post('edit', admin.toJson(field), function () {
+                            admin.post('do-edit', admin.toJson(field), function () {
                                 table.reload('grid');
                                 layer.close(index);
                             }, function (result) {

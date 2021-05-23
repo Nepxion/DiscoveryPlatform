@@ -140,7 +140,7 @@
                 }
             });
 
-            <#if (serviceNames?size>0) >
+            <#if (serviceNames?size==0) >
             $('#gatewayName option:eq(1)').attr('selected', 'selected');
             layui.form.render('select');
             </#if>

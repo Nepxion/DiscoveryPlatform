@@ -45,9 +45,9 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     @TranSave
     @Override
     public void publish() throws Exception {
-        final List<RouteGatewayDto> routeGatewayList = this.list();
+        final List<RouteGatewayDto> routeGatewayDtoList = this.list();
 
-        if (CollectionUtils.isEmpty(routeGatewayList)) {
+        if (CollectionUtils.isEmpty(routeGatewayDtoList)) {
             final List<String> gatewayNameList = this.serviceResource.getGatewayList(GATEWAY_TYPE);
             for (final String gatewayName : gatewayNameList) {
                 final String group = this.serviceResource.getGroup(gatewayName);
@@ -56,12 +56,12 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             return;
         }
 
-        final List<RouteGatewayDto> toUpdateList = new ArrayList<>(routeGatewayList.size());
-        final List<RouteGatewayDto> toDeleteList = new ArrayList<>(routeGatewayList.size());
+        final List<RouteGatewayDto> toUpdateList = new ArrayList<>(routeGatewayDtoList.size());
+        final List<RouteGatewayDto> toDeleteList = new ArrayList<>(routeGatewayDtoList.size());
         final Map<String, List<RouteGatewayDto>> unusedMap = new HashMap<>();
 
         final Map<String, List<RouteGatewayPo>> newGatewayRouteMap = new HashMap<>();
-        for (final RouteGatewayDto routeGatewayDto : routeGatewayList) {
+        for (final RouteGatewayDto routeGatewayDto : routeGatewayDtoList) {
             if (routeGatewayDto.getDeleted()) {
                 toDeleteList.add(routeGatewayDto);
                 addKV(unusedMap, routeGatewayDto.getGatewayName(), routeGatewayDto);

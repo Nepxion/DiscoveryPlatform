@@ -21,9 +21,6 @@
         <div class="layui-input-inline">
             <select id="sysPageId" name="sysPageId" lay-filter="sysPageId" lay-verify="required">
                 <option value="">请选择页面</option>
-                <#--                <#list pages as page>-->
-                <#--                    <option value="${page.id}">${page.name}</option>-->
-                <#--                </#list>-->
             </select>
         </div>
     </div>
@@ -67,7 +64,7 @@
         form.on('select(sysRoleId)', function (data) {
             const sysRoleId = data.value;
             $("select[name=sysPageId]").html("<option value=\"\">请选择页面</option>");
-            admin.post("getPages", {'sysRoleId': sysRoleId}, function (res) {
+            admin.post("do-get-pages", {'sysRoleId': sysRoleId}, function (res) {
                 $.each(res.data, function (key, val) {
                     const option = $("<option>").val(val.id).text(val.name);
                     $("select[name=sysPageId]").append(option);

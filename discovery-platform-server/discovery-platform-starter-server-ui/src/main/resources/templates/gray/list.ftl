@@ -192,7 +192,7 @@
                             return;
                         }
                         layer.confirm("确定要发布灰度策略吗?", function (index) {
-                            admin.post("publish", {"data": JSON.stringify(d)}, function () {
+                            admin.post("do-publish", {"data": JSON.stringify(d)}, function () {
                                 updateStatus(false);
                                 reloadWithUrl();
                                 admin.success("系统提示", "灰度策略发布成功, 已立即生效");
@@ -220,7 +220,7 @@
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {
-                    admin.post("seteditdata", {"data": JSON.stringify(data)}, function () {
+                    admin.post("do-edit", {"data": JSON.stringify(data)}, function () {
                         layer.open({
                             type: 2,
                             title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑调用分支',

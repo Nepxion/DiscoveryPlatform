@@ -61,7 +61,7 @@
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const $ = layui.$, admin = layui.admin;
             $("#btnGenName").click(function () {
-                admin.post("genName", {}, function (data) {
+                admin.post('do-gen-name', {}, function (data) {
                     $("#clientId").val(data.data.clientId);
                     $("#clientSecret").val(data.data.clientSecret);
                 });

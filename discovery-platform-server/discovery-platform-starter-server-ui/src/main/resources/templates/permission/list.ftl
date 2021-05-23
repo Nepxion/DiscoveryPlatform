@@ -112,7 +112,7 @@
         });
         table.render({
             elem: '#grid',
-            url: 'list',
+            url: 'do-list',
             toolbar: '#grid-toolbar',
             method: 'post',
             cellMinWidth: 80,
@@ -133,7 +133,7 @@
         form.on('switch(editPermission)', function (obj) {
             let json = JSON.parse(decodeURIComponent($(this).data('json')));
             json = table.clearCacheKey(json);
-            admin.post("edit", {id: json.id, type: this.name, hasPermission: obj.elem.checked});
+            admin.post("do-edit", {id: json.id, type: this.name, hasPermission: obj.elem.checked});
         });
 
         table.on('toolbar(grid)', function (obj) {
@@ -148,7 +148,7 @@
                             for (; j < len; j++) {
                                 keys = keys + data[j].id + ","
                             }
-                            admin.post('del', {ids: keys}, function () {
+                            admin.post('do-delete', {ids: keys}, function () {
                                 table.reload('grid');
                                 layer.close(index);
                             });
@@ -161,7 +161,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加权限',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['450px', '445px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -170,7 +170,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

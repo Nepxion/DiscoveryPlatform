@@ -34,7 +34,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <#if loginMode=="DB">
+                <#if loginMode=="DATABASE">
                     <input type="text" name="name" lay-verify="required" class="layui-input" style="width: 740px"
                            placeholder="请输入姓名" value="${admin.name}" autocomplete="off">
                 <#else>
@@ -46,7 +46,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">手机</label>
             <div class="layui-input-inline">
-                <#if loginMode=="DB">
+                <#if loginMode=="DATABASE">
                     <input type="text" name="phoneNumber" lay-verify="phone" style="width: 740px" class="layui-input"
                            placeholder="请输入手机号" value="${admin.phoneNumber}" autocomplete="off">
                 <#else>
@@ -58,7 +58,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-inline">
-                <#if loginMode=="DB">
+                <#if loginMode=="DATABASE">
                     <input type="text" name="email" lay-verify="email" style="width: 740px" class="layui-input"
                            placeholder="请输入邮箱" value="${admin.email}" autocomplete="off">
                 <#else>
@@ -70,7 +70,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
-                <#if loginMode=="DB">
+                <#if loginMode=="DATABASE">
                     <textarea name="remark" placeholder="请输入备注" class="layui-textarea"
                               style="resize: none">${admin.remark}</textarea>
                 <#else>

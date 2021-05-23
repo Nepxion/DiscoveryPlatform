@@ -11,7 +11,6 @@ package com.nepxion.discovery.platform.server.tool;
  */
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
@@ -100,7 +99,7 @@ public final class CommonTool {
             }
             return result;
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static List<String> split(final String value,

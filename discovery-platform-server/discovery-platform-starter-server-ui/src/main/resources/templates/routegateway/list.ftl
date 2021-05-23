@@ -114,7 +114,7 @@
 
             table.render({
                 elem: '#grid',
-                url: 'list',
+                url: 'do-list',
                 toolbar: '#grid-toolbar',
                 method: 'post',
                 cellMinWidth: 80,
@@ -137,7 +137,7 @@
                     {field: 'order', title: '执行顺序', align: 'center', width: 100},
                     {field: 'description', title: '路由描述', width: 150}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 150}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
                     </@select>
                 ]],
                 done: function (res) {
@@ -157,7 +157,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增<b>Spring Cloud Gateway</b>路由',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['920px', '790px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -166,7 +166,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
                                     layer.close(index);
@@ -181,7 +181,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作<b>Spring Cloud Gateway</b>路由',
-                        content: 'toworking',
+                        content: 'working',
                         shadeClose: true,
                         shade: 0.8,
                         area: ['90%', '78%']
@@ -190,7 +190,7 @@
                     const checkedId = admin.getCheckedData(table, obj, "id");
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(',')}, function () {
                                 admin.closeDelete(table, obj, index);
                                 updateStatus(true);
                             });
@@ -199,12 +199,12 @@
                         admin.error(admin.SYSTEM_PROMPT, admin.DEL_ERROR);
                     }
                 } else if (obj.event === 'publish') {
-                    if (!$("#btnPublish").hasClass("layui-btn-disabled")) {
-                        layer.confirm("确定要发布路由吗?", function (index) {
-                            admin.post("publish", {}, function () {
+                    if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
+                        layer.confirm('确定要发布路由吗?', function (index) {
+                            admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success("系统提示", "路由发布成功, 已立即生效");
+                                admin.success('系统提示', '路由发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });
@@ -218,7 +218,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>Spring Cloud Gateway</b>路由',
-                        content: 'toedit?id=' + data.id,
+                        content: 'edit?id=' + data.id,
                         area: ['920px', '790px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -228,7 +228,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
                                 const field = d.field;
                                 field.id = data.id;
-                                admin.post('edit', field, function () {
+                                admin.post('do-edit', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
                                     layer.close(index);
@@ -240,8 +240,8 @@
                         }
                     });
                 } else if (obj.event === 'disable') {
-                    layer.confirm("确定要禁用路由吗", function (index) {
-                        admin.post('disable', {"id": data.id}, function () {
+                    layer.confirm('确定要禁用路由吗', function (index) {
+                        admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
                             layer.close(index);
@@ -250,8 +250,8 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm("确定要启用路由吗", function (index) {
-                        admin.post('enable', {"id": data.id}, function () {
+                    layer.confirm('确定要启用路由吗', function (index) {
+                        admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
                             layer.close(index);
@@ -264,9 +264,9 @@
 
             function updateStatus(needUpdate) {
                 if (needUpdate) {
-                    $("#btnPublish").removeClass("layui-btn-disabled");
+                    $("#btnPublish").removeClass('layui-btn-disabled');
                 } else {
-                    $("#btnPublish").addClass("layui-btn-disabled");
+                    $("#btnPublish").addClass('layui-btn-disabled');
                 }
             }
         });

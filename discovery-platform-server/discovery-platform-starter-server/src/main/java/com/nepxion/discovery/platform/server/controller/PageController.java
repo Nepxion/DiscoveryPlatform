@@ -34,37 +34,37 @@ public class PageController {
     private PageService pageService;
 
 
-    @GetMapping("tolist")
-    public String toList() {
+    @GetMapping("list")
+    public String list() {
         return String.format("%s/%s", PREFIX, "list");
     }
 
-    @RequestMapping("toadd")
-    public String toAdd(final Model model) throws Exception {
+    @RequestMapping("add")
+    public String add(final Model model) throws Exception {
         model.addAttribute("pages", this.pageService.listEmptyUrlPages());
-        return "page/add";
+        return String.format("%s/%s", PREFIX, "add");
     }
 
-    @RequestMapping("toedit")
-    public String toEdit(final Model model,
-                         @RequestParam(value = "id") final Long id) throws Exception {
+    @RequestMapping("edit")
+    public String edit(final Model model,
+                       @RequestParam(value = "id") final Long id) throws Exception {
         model.addAttribute("page", this.pageService.getById(id));
         model.addAttribute("pages", this.pageService.listEmptyUrlPages());
-        return "page/edit";
+        return String.format("%s/%s", PREFIX, "edit");
     }
 
-    @PostMapping("list")
+    @PostMapping("do-list")
     @ResponseBody
-    public Result<List<PageVo>> list(@RequestParam(value = "page") final Integer pageNum,
-                                     @RequestParam(value = "limit") final Integer pageSize,
-                                     @RequestParam(value = "name", required = false) final String name) throws Exception {
+    public Result<List<PageVo>> doList(@RequestParam(value = "page") final Integer pageNum,
+                                       @RequestParam(value = "limit") final Integer pageSize,
+                                       @RequestParam(value = "name", required = false) final String name) throws Exception {
         final IPage<PageVo> page = this.pageService.list(name, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
-    @PostMapping("add")
+    @PostMapping("do-add")
     @ResponseBody
-    public Result<?> add(final SysPageDto sysPage) throws Exception {
+    public Result<?> doAdd(final SysPageDto sysPage) throws Exception {
         if (null == sysPage.getIsDefault()) {
             sysPage.setIsDefault(false);
         }
@@ -80,9 +80,9 @@ public class PageController {
         return Result.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> edit(final SysPageDto sysPage) throws Exception {
+    public Result<?> doEdit(final SysPageDto sysPage) throws Exception {
         final SysPageDto dbSysPage = this.pageService.getById(sysPage.getId());
         if (null != dbSysPage) {
             if (null == sysPage.getIsDefault()) {
@@ -99,9 +99,9 @@ public class PageController {
         return Result.ok();
     }
 
-    @PostMapping("del")
+    @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
+    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) throws Exception {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.pageService.removeByIds(new HashSet<>(idList));
         return Result.ok();

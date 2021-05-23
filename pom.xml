@@ -20,7 +20,7 @@
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
 
         <mysql.connector.version>8.0.25</mysql.connector.version>
-        <mybatis.plus.version>3.4.2</mybatis.plus.version>
+        <mybatis.plus.version>3.4.3</mybatis.plus.version>
         <hikaricp.version>4.0.3</hikaricp.version>
         <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>

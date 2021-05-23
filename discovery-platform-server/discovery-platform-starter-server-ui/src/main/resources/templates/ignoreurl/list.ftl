@@ -90,7 +90,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增白名单',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['920px', '490px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -110,10 +110,10 @@
                         }
                     });
                 } else if (obj.event === 'del') {
-                    const checkedId = admin.getCheckedData(table, obj, "id");
+                    const checkedId = admin.getCheckedData(table, obj, 'id');
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(",")}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });
@@ -129,7 +129,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑白名单',
-                        content: 'toedit?id=' + data.id,
+                        content: 'edit?id=' + data.id,
                         area: ['920px', '490px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -139,7 +139,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
                                 const field = d.field;
                                 field.id = data.id;
-                                admin.post('edit', field, function () {
+                                admin.post('do-edit', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

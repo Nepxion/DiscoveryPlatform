@@ -42,47 +42,47 @@ public class PermissionController {
     @Autowired
     private PageService pageService;
 
-    @GetMapping("tolist")
-    public String toList(final Model model) throws Exception {
+    @GetMapping("list")
+    public String list(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.getNotSuperAdmin());
         model.addAttribute("pages", this.pageService.listNotEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "list");
     }
 
-    @GetMapping("toadd")
-    public String toAdd(final Model model) throws Exception {
+    @GetMapping("add")
+    public String add(final Model model) throws Exception {
         model.addAttribute("roles", this.roleService.getNotSuperAdmin());
         return String.format("%s/%s", PREFIX, "add");
     }
 
-    @PostMapping("getPages")
+    @PostMapping("do-get-pages")
     @ResponseBody
-    public Result<List<SysPageDto>> getPages(@RequestParam(value = "sysRoleId") final Long sysRoleId) throws Exception {
+    public Result<List<SysPageDto>> doGetPages(@RequestParam(value = "sysRoleId") final Long sysRoleId) throws Exception {
         final List<SysPageDto> allPages = this.pageService.list();
         final List<SysPageDto> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
         allPages.removeAll(pages);
         return Result.ok(allPages.stream().filter(p -> !ObjectUtils.isEmpty(p.getUrl())).collect(Collectors.toList()));
     }
 
-    @PostMapping("list")
+    @PostMapping("do-list")
     @ResponseBody
-    public Result<List<PermissionVo>> list(@RequestParam(value = "page") final Integer pageNum,
-                                           @RequestParam(value = "limit") final Integer pageSize,
-                                           @RequestParam(value = "sysRoleId", required = false) final Long sysRoleId,
-                                           @RequestParam(value = "sysPageId", required = false) final Long sysPageId) throws Exception {
+    public Result<List<PermissionVo>> doList(@RequestParam(value = "page") final Integer pageNum,
+                                             @RequestParam(value = "limit") final Integer pageSize,
+                                             @RequestParam(value = "sysRoleId", required = false) final Long sysRoleId,
+                                             @RequestParam(value = "sysPageId", required = false) final Long sysPageId) throws Exception {
         final IPage<PermissionVo> list = this.permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
 
-    @PostMapping("add")
+    @PostMapping("do-add")
     @ResponseBody
-    public Result<?> add(@RequestParam(value = "sysRoleId") final Long sysRoleId,
-                         @RequestParam(value = "sysPageId") final Long sysPageId,
-                         @RequestParam(value = "insert", defaultValue = "false") final Boolean insert,
-                         @RequestParam(value = "delete", defaultValue = "false") final Boolean delete,
-                         @RequestParam(value = "update", defaultValue = "false") final Boolean update,
-                         @RequestParam(value = "select", defaultValue = "false") final Boolean select) throws Exception {
+    public Result<?> doAdd(@RequestParam(value = "sysRoleId") final Long sysRoleId,
+                           @RequestParam(value = "sysPageId") final Long sysPageId,
+                           @RequestParam(value = "insert", defaultValue = "false") final Boolean insert,
+                           @RequestParam(value = "delete", defaultValue = "false") final Boolean delete,
+                           @RequestParam(value = "update", defaultValue = "false") final Boolean update,
+                           @RequestParam(value = "select", defaultValue = "false") final Boolean select) {
         final SysPermissionDto authPermission = new SysPermissionDto();
         authPermission.setSysRoleId(sysRoleId);
         authPermission.setSysPageId(sysPageId);
@@ -94,11 +94,11 @@ public class PermissionController {
         return Result.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> edit(@RequestParam(value = "id") final Long id,
-                          @RequestParam(value = "type") final String type,
-                          @RequestParam(value = "hasPermission") final Boolean hasPermission) throws Exception {
+    public Result<?> doEdit(@RequestParam(value = "id") final Long id,
+                            @RequestParam(value = "type") final String type,
+                            @RequestParam(value = "hasPermission") final Boolean hasPermission) {
         final SysPermissionDto dbAdminPermission = this.permissionService.getById(id);
         if (null != dbAdminPermission) {
             switch (type.toLowerCase()) {
@@ -120,9 +120,9 @@ public class PermissionController {
         return Result.ok();
     }
 
-    @PostMapping("del")
+    @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
+    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.permissionService.removeByIds(new HashSet<>(idList));
         return Result.ok();

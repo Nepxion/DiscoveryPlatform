@@ -27,9 +27,9 @@ public interface RouteGatewayService {
 
     RouteGatewayDto getById(final Long id);
 
-    void insert(final RouteGatewayDto routeGateway);
+    void insert(final RouteGatewayDto routeGatewayDto);
 
-    void update(final RouteGatewayDto routeGateway);
+    void update(final RouteGatewayDto routeGatewayDto);
 
     void enable(final Long id,
                 final boolean enabled);

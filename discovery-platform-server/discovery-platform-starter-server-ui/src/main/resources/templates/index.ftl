@@ -36,8 +36,8 @@
                             <cite>${admin.name}</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd><a lay-href="${ctx}/toinfo">基本资料</a></dd>
-                            <dd><a lay-href="${ctx}/topassword">修改密码</a></dd>
+                            <dd><a lay-href="${ctx}/info">基本资料</a></dd>
+                            <dd><a lay-href="${ctx}/password">修改密码</a></dd>
                             <hr>
                             <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
                         </dl>

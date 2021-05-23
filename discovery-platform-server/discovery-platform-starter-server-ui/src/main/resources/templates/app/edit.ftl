@@ -139,7 +139,7 @@
             const $ = layui.$, admin = layui.admin;
             $("#btnRefreshAccessToken").click(function () {
                 layer.confirm("确定要生成Client Id=[${app.clientId}]的Access Token吗?", function (index) {
-                    admin.post("createAccessToken", {'clientId': '${app.clientId}'}, function (data) {
+                    admin.post("do-create-access-token", {'clientId': '${app.clientId}'}, function (data) {
                             $("#accessToken").html(data.data.accessToken);
                             $("#expire").val(data.data.expiresTime);
                             layer.close(index);
@@ -149,7 +149,7 @@
             });
 
             $("#btnRefresh").click(function () {
-                admin.post("refreshAccessToken", {'clientId': '${app.clientId}'}, function (data) {
+                admin.post("do-refresh-access-token", {'clientId': '${app.clientId}'}, function (data) {
                         $("#accessToken").html(data.data.accessToken);
                         $("#expire").val(data.data.expiresTime);
                     }
@@ -158,7 +158,7 @@
 
             $("#btnLogoutAccessToken").click(function () {
                 layer.confirm("确定要注销Client Id=[${app.clientId}]的Access Token吗?", function (index) {
-                    admin.post("logoutAccessToken", {'clientId': '${app.clientId}'}, function (data) {
+                    admin.post("do-logout-access-token", {'clientId': '${app.clientId}'}, function (data) {
                             $("#accessToken").html(data.data.accessToken);
                             $("#expire").val(data.data.expiresTime);
                             layer.close(index);

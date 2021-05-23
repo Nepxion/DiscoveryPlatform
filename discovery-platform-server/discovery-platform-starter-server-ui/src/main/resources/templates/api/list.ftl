@@ -97,7 +97,7 @@
                     {field: 'method', title: '请求方式', width: 300},
                     {field: 'path', title: '接口路径'}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 80}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 80}
                     </@select>
                 ]]
             });
@@ -127,10 +127,10 @@
                         }
                     });
                 } else if (obj.event === 'del') {
-                    const checkedId = admin.getCheckedData(table, obj, "id");
+                    const checkedId = admin.getCheckedData(table, obj, 'id');
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(',')}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });

@@ -36,54 +36,54 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("tolist")
-    public String toList() {
+    @GetMapping("list")
+    public String list() {
         return String.format("%s/%s", PREFIX, "list");
     }
 
-    @GetMapping("toadd")
-    public String toAdd() {
+    @GetMapping("add")
+    public String add() {
         return String.format("%s/%s", PREFIX, "add");
     }
 
-    @GetMapping("toedit")
-    public String toEdit(final Model model,
-                         @RequestParam(name = "id") final Long id) throws Exception {
+    @GetMapping("edit")
+    public String edit(final Model model,
+                       @RequestParam(name = "id") final Long id) throws Exception {
         model.addAttribute("role", this.roleService.getById(id));
         return String.format("%s/%s", PREFIX, "edit");
     }
 
-    @PostMapping("list")
+    @PostMapping("do-list")
     @ResponseBody
-    public Result<List<SysRoleDto>> list(@RequestParam(value = "name", required = false) final String name,
-                                         @RequestParam(value = "page") final Integer pageNum,
-                                         @RequestParam(value = "limit") final Integer pageSize) throws Exception {
+    public Result<List<SysRoleDto>> doList(@RequestParam(value = "name", required = false) final String name,
+                                           @RequestParam(value = "page") final Integer pageNum,
+                                           @RequestParam(value = "limit") final Integer pageSize) throws Exception {
         final IPage<SysRoleDto> sysAdmins = this.roleService.list(name, pageNum, pageSize);
         return Result.ok(sysAdmins.getRecords(), sysAdmins.getTotal());
     }
 
-    @PostMapping("add")
+    @PostMapping("do-add")
     @ResponseBody
-    public Result<?> add(@RequestParam(value = "name") final String name,
-                         @RequestParam(value = "superAdmin") final boolean superAdmin,
-                         @RequestParam(value = "remark") final String remark) throws Exception {
+    public Result<?> doAdd(@RequestParam(value = "name") final String name,
+                           @RequestParam(value = "superAdmin") final boolean superAdmin,
+                           @RequestParam(value = "remark") final String remark) throws Exception {
         this.roleService.insert(name, superAdmin, remark);
         return Result.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> edit(@RequestParam(value = "id") final Long id,
-                          @RequestParam(value = "name") final String name,
-                          @RequestParam(value = "superAdmin") final boolean superAdmin,
-                          @RequestParam(value = "remark") final String remark) throws Exception {
+    public Result<?> doEdit(@RequestParam(value = "id") final Long id,
+                            @RequestParam(value = "name") final String name,
+                            @RequestParam(value = "superAdmin") final boolean superAdmin,
+                            @RequestParam(value = "remark") final String remark) throws Exception {
         this.roleService.update(id, name, superAdmin, remark);
         return Result.ok();
     }
 
-    @PostMapping("del")
+    @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> del(@RequestParam(value = "ids") final String ids) throws Exception {
+    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) throws Exception {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         final Set<Long> idSet = new HashSet<>();
         for (final Long id : idList) {

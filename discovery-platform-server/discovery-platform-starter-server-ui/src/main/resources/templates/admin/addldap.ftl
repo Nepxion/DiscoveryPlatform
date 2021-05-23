@@ -69,25 +69,25 @@
             const admin = layui.admin, $ = layui.$;
             parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
 
-            $("#username").keydown(function (e) {
-                if ($("#username").val() !== '') {
+            $('#username').keydown(function (e) {
+                if ($('#username').val() !== '') {
                     const curKey = e.which;
                     if (curKey == 13) {
-                        $("#btnSearch").click();
+                        $('#btnSearch').click();
                     }
                 }
             });
 
-            $("#btnSearch").click(function () {
-                admin.post("search", {'keyword': $("#username").val()}, function (result) {
+            $('#btnSearch').click(function () {
+                admin.post('do-search', {'keyword': $('#username').val()}, function (result) {
                     const list = result.data;
                     if (list && list.length > 0) {
                         const item = list[0];
-                        $("#username").val(item.username);
-                        $("#name").val(item.name);
-                        $("#phoneNumber").val(item.phoneNumber);
-                        $("#email").val(item.email);
-                        $("#remark").html(item.remark);
+                        $('#username').val(item.username);
+                        $('#name').val(item.name);
+                        $('#phoneNumber').val(item.phoneNumber);
+                        $('#email').val(item.email);
+                        $('#remark').html(item.remark);
                     }
                 });
             });

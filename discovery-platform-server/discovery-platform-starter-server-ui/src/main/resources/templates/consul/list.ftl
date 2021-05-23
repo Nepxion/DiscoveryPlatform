@@ -146,7 +146,7 @@
                     const checkedId = admin.getCheckedData(table, obj, "id");
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post("do-delete", {'ids': checkedId.join(",")}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });

@@ -108,7 +108,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增应用',
-                        content: 'toadd',
+                        content: 'add',
                         area: ['900px', '700px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -117,7 +117,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('add', field, function () {
+                                admin.post('do-add', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {
@@ -128,10 +128,10 @@
                         }
                     });
                 } else if (obj.event === 'del') {
-                    const checkedId = admin.getCheckedData(table, obj, "id");
+                    const checkedId = admin.getCheckedData(table, obj, 'id');
                     if (checkedId.length > 0) {
                         layer.confirm(admin.DEL_QUESTION, function (index) {
-                            admin.post("del", {'ids': checkedId.join(",")}, function () {
+                            admin.post('do-delete', {'ids': checkedId.join(',')}, function () {
                                 admin.closeDelete(table, obj, index);
                             });
                         });
@@ -147,7 +147,7 @@
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑应用',
-                        content: 'toedit?id=' + data.id,
+                        content: 'edit?id=' + data.id,
                         area: ['900px', '700px'],
                         btn: admin.BUTTONS,
                         resize: false,
@@ -169,7 +169,7 @@
                     });
                 } else if (obj.event === 'clearCache') {
                     layer.confirm('确定要清空Client Id[' + data.clientId + ']的缓存吗?', function (index) {
-                        admin.post("clearCache", {'clientId': data.clientId}, function () {
+                        admin.post('do-clear-cache', {'clientId': data.clientId}, function () {
                             table.reload('grid');
                             layer.close(index);
                         });

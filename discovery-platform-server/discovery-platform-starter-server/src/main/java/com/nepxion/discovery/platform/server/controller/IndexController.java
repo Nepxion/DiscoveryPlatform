@@ -33,36 +33,36 @@ public class IndexController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping(value = {"/", PlatformConstant.PLATFORM})
-    public String toLogin(final Model model) {
+    @GetMapping(value = {PlatformConstant.PLATFORM})
+    public String login(final Model model) {
         model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
         return "login";
     }
 
     @RequestMapping(value = "index")
-    public String toIndex(final Model model,
+    public String index(final Model model,
                           final AdminVo adminVo) {
         model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("admin", adminVo);
         return "index";
     }
 
-    @GetMapping("toinfo")
-    public String toInfo(final Model model,
+    @GetMapping("info")
+    public String info(final Model model,
                          final AdminVo adminVo) {
         model.addAttribute("admin", this.adminService.getById(adminVo.getId()));
         return "info";
     }
 
-    @GetMapping("topassword")
-    public String toPassword() {
+    @GetMapping("password")
+    public String password() {
         return "password";
     }
 
-    @PostMapping("login")
+    @PostMapping("do-login")
     @ResponseBody
-    public Result<?> login(@RequestParam(name = "username") final String username,
+    public Result<?> doLogin(@RequestParam(name = "username") final String username,
                            @RequestParam(name = "password") final String password,
                            @RequestParam(name = "remember", defaultValue = "false") final Boolean remember) {
         try {
@@ -78,18 +78,18 @@ public class IndexController {
         }
     }
 
-    @PostMapping("repwd")
+    @PostMapping("do-change-password")
     @ResponseBody
-    public Result<?> repwd(final AdminVo adminVo,
-                           @RequestParam(name = "oldPassword") final String oldPassword,
-                           @RequestParam(name = "password") final String newPassword) throws Exception {
+    public Result<?> doChangePassword(final AdminVo adminVo,
+                                    @RequestParam(name = "oldPassword") final String oldPassword,
+                                    @RequestParam(name = "password") final String newPassword) throws Exception {
         this.adminService.changePassword(adminVo.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
         return Result.ok();
     }
 
-    @PostMapping("reinfo")
+    @PostMapping("do-edit-info")
     @ResponseBody
-    public Result<?> reinfo(final AdminVo adminVo,
+    public Result<?> doEditInfo(final AdminVo adminVo,
                             @RequestParam(name = "name") final String name,
                             @RequestParam(name = "phoneNumber") final String phoneNumber,
                             @RequestParam(name = "email") final String email,
@@ -98,9 +98,9 @@ public class IndexController {
         return Result.ok();
     }
 
-    @PostMapping("quit")
+    @PostMapping("do-quit")
     @ResponseBody
-    public Result<?> quit() {
+    public Result<?> doQuit() {
         final Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             subject.logout();

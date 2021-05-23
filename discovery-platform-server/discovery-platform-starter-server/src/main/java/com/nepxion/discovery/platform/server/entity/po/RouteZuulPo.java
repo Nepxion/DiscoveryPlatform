@@ -87,7 +87,7 @@ public class RouteZuulPo implements Serializable {
         this.sensitiveHeaders = sensitiveHeaders;
     }
 
-    public boolean isCustomSensitiveHeaders() {
+    public boolean getCustomSensitiveHeaders() {
         return customSensitiveHeaders;
     }
 

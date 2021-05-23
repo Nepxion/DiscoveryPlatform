@@ -41,34 +41,33 @@ public class RouteGatewayController {
     @Autowired
     private ServiceResource serviceResource;
 
-
     @Autowired
     private RouteResource routeResource;
 
     @Autowired
     private RouteGatewayService routeGatewayService;
 
-    @GetMapping("tolist")
-    public String toList() {
+    @GetMapping("list")
+    public String list() {
         return String.format("%s/%s", PREFIX, "list");
     }
 
-    @GetMapping("toworking")
-    public String toWorking(final Model model) {
+    @GetMapping("working")
+    public String working(final Model model) {
         model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
         return String.format("%s/%s", PREFIX, "working");
     }
 
-    @GetMapping("toadd")
-    public String toAdd(final Model model) {
+    @GetMapping("add")
+    public String add(final Model model) {
         model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
         model.addAttribute("serviceNames", this.serviceResource.getServices());
         return String.format("%s/%s", PREFIX, "add");
     }
 
-    @GetMapping("toedit")
-    public String toEdit(final Model model,
-                         @RequestParam(name = "id") final Long id) {
+    @GetMapping("edit")
+    public String edit(final Model model,
+                       @RequestParam(name = "id") final Long id) {
         final RouteGatewayDto routeGateway = this.routeGatewayService.getById(id);
         routeGateway.setPredicates(CommonTool.formatTextarea(routeGateway.getPredicates()));
         routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
@@ -80,11 +79,11 @@ public class RouteGatewayController {
         return String.format("%s/%s", PREFIX, "edit");
     }
 
-    @PostMapping("list")
+    @PostMapping("do-list")
     @ResponseBody
-    public Result<List<RouteGatewayDto>> list(@RequestParam(value = "page") final Integer pageNum,
-                                              @RequestParam(value = "limit") final Integer pageSize,
-                                              @RequestParam(value = "description", required = false) final String description) {
+    public Result<List<RouteGatewayDto>> doList(@RequestParam(value = "page") final Integer pageNum,
+                                                @RequestParam(value = "limit") final Integer pageSize,
+                                                @RequestParam(value = "description", required = false) final String description) {
         final IPage<RouteGatewayDto> page = this.routeGatewayService.page(description, pageNum, pageSize);
         for (final RouteGatewayDto record : page.getRecords()) {
             record.setMetadata(record.getMetadata().replaceAll(PlatformConstant.ROW_SEPARATOR, ", "));
@@ -92,9 +91,9 @@ public class RouteGatewayController {
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
-    @PostMapping("listWorking")
+    @PostMapping("do-list-working")
     @ResponseBody
-    public Result<List<GatewayRouteVo>> listWorking(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
+    public Result<List<GatewayRouteVo>> doListWorking(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
         if (ObjectUtils.isEmpty(gatewayName)) {
             return Result.ok();
         }
@@ -112,51 +111,51 @@ public class RouteGatewayController {
         return Result.ok(result);
     }
 
-    @PostMapping("listGatewayNames")
+    @PostMapping("do-list-gateway-names")
     @ResponseBody
-    public Result<List<String>> listGatewayNames(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
+    public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
         return Result.ok(this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
     }
 
-    @PostMapping("add")
+    @PostMapping("do-add")
     @ResponseBody
-    public Result<?> add(RouteGatewayDto routeGateway) {
+    public Result<?> doAdd(RouteGatewayDto routeGateway) {
         this.routeGatewayService.insert(routeGateway);
         return Result.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> edit(RouteGatewayDto routeGateway) {
+    public Result<?> doEdit(RouteGatewayDto routeGateway) {
         this.routeGatewayService.update(routeGateway);
         return Result.ok();
     }
 
-    @PostMapping("enable")
+    @PostMapping("do-enable")
     @ResponseBody
-    public Result<?> enable(@RequestParam(value = "id") final Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") final Long id) {
         this.routeGatewayService.enable(id, true);
         return Result.ok();
     }
 
-    @PostMapping("disable")
+    @PostMapping("do-disable")
     @ResponseBody
-    public Result<?> disable(@RequestParam(value = "id") final Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") final Long id) {
         this.routeGatewayService.enable(id, false);
         return Result.ok();
     }
 
-    @PostMapping("del")
+    @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> del(@RequestParam(value = "ids") final String ids) {
+    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) {
         final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.routeGatewayService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }
 
-    @PostMapping("publish")
+    @PostMapping("do-publish")
     @ResponseBody
-    public Result<?> publish() throws Exception {
+    public Result<?> doPublish() throws Exception {
         this.routeGatewayService.publish();
         return Result.ok();
     }

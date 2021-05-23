@@ -3,7 +3,7 @@
     const $ = layui.$, admin = layui.admin;
     i.events.logout = function () {
         admin.quit();
-    }, e("common", {});
+    }, e('common', {});
 
     admin.SYSTEM_PROMPT = '系统提示';
     admin.OPT_SUCCESS = '操作成功';
@@ -46,7 +46,7 @@
             data: data,
             cache: false,
             complete: function (xhr) {
-                if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
+                if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
                     admin.toLogin();
                 } else {
                     const result = xhr.responseJSON;
@@ -92,7 +92,7 @@
     };
 
     admin.quit = function () {
-        admin.post("quit", {}, function () {
+        admin.post('do-quit', {}, function () {
             admin.toLogin();
         });
     };
@@ -105,7 +105,7 @@
 
     admin.toLogin = function () {
         admin.initPage();
-        location.href = "/"
+        location.href = '/'
     }
 
     admin.getCheckedData = function (table, obj, field) {

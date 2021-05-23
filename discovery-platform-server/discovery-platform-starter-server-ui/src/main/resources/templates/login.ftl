@@ -52,7 +52,7 @@
             const $ = layui.$, admin = layui.admin, form = layui.form;
             form.render();
             form.on('submit(btnSubmit)', function (obj) {
-                admin.post('login', obj.field, function () {
+                admin.post('do-login', obj.field, function () {
                     layer.msg('登入成功', {
                         offset: '15px',
                         icon: 1,
@@ -66,16 +66,16 @@
                         icon: 2,
                         time: 3000
                     }, function () {
-                        $("#password").val('');
-                        $("#username").focus();
+                        $('#password').val('');
+                        $('#username').focus();
                     });
                 });
             });
 
             $(document).keydown(function (event) {
                 if (event.keyCode === 13) {
-                    $("#btnSubmit").trigger("click");
-                    return false
+                    $('#btnSubmit').trigger('click');
+                    return false;
                 }
             });
         });

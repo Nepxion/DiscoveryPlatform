@@ -86,7 +86,7 @@
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'add') {
                     if (!appId) {
-                        admin.error("系统提示", "请先选择应用名称");
+                        admin.error('系统提示', '请先选择应用名称');
                         return;
                     }
                     layer.open({
@@ -121,7 +121,7 @@
                             for (let j = 0, len = data.length; j < len; j++) {
                                 keys = keys + data[j].id + ","
                             }
-                            admin.post("del", {'appId': appId, 'apiIds': keys}, function () {
+                            admin.post('do-delete', {'appId': appId, 'apiIds': keys}, function () {
                                 table.reload('grid');
                                 layer.close(index);
                             });
@@ -134,7 +134,7 @@
 
             form.on('select(appId)', function (data) {
                 appId = data.value;
-                $("#search").click();
+                $('#search').click();
             });
         });
     </script>

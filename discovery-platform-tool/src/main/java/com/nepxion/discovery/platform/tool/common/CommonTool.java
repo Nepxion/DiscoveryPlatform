@@ -16,6 +16,7 @@ import com.nepxion.discovery.platform.tool.exception.ExceptionTool;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
@@ -33,6 +34,38 @@ public final class CommonTool {
     private final static long GB_IN_BYTES = 1024 * MB_IN_BYTES;
     private final static long TB_IN_BYTES = 1024 * GB_IN_BYTES;
     private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
+
+    public static <T> T toVo(final Object source,
+                             final Class<T> target) {
+        if (null == source) {
+            return null;
+        }
+        try {
+            final T result = target.newInstance();
+            BeanUtils.copyProperties(source, result);
+            return result;
+        } catch (final Exception e) {
+            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+            return null;
+        }
+    }
+
+    public static <T> List<T> toVoList(final List<?> source,
+                                       final Class<T> target) {
+        if (null == source) {
+            return null;
+        }
+        try {
+            final List<T> result = new ArrayList<>(source.size());
+            for (final Object o : source) {
+                result.add(toVo(o, target));
+            }
+            return result;
+        } catch (final Exception e) {
+            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+            return null;
+        }
+    }
 
     public static boolean isJson(final String value) {
         if (ObjectUtils.isEmpty(value)) {

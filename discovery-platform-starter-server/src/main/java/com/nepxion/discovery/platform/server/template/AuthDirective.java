@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.template;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
-import com.nepxion.discovery.platform.server.entity.vo.Page;
+import com.nepxion.discovery.common.entity.vo.Admin;
+import com.nepxion.discovery.common.entity.vo.Page;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

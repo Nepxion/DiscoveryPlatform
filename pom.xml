@@ -17,6 +17,8 @@
         <module>discovery-platform-starter-client</module>
         <module>discovery-platform-application</module>
         <module>discovery-platform-tool</module>
+        <module>discovery-platform-common</module>
+        <module>discovery-platform-mysql</module>
     </modules>
 
     <properties>
@@ -56,9 +58,21 @@
             </dependency>
 
             <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-tool</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-platform-mysql</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
@@ -84,6 +98,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
 

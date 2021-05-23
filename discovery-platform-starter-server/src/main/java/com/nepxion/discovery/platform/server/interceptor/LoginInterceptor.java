@@ -10,8 +10,8 @@ package com.nepxion.discovery.platform.server.interceptor;
  * @version 1.0
  */
 
+import com.nepxion.discovery.common.entity.vo.Admin;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.vo.Admin;
 import com.nepxion.discovery.platform.tool.exception.ExceptionTool;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;

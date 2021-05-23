@@ -138,8 +138,6 @@ public final class CrudService implements DisposableBean {
                                       final String sql,
                                       final Object... params) throws Exception {
         final int startIndex = (Math.max(pageNum, 1) - 1) * pageSize;
-
-
         final String querySql = String.format("SELECT * FROM (%s) crud_service_query LIMIT %s, %s", sql, startIndex, pageSize);
         final String totalSql = String.format("SELECT COUNT(*) FROM (%s) crud_service_count", sql);
 

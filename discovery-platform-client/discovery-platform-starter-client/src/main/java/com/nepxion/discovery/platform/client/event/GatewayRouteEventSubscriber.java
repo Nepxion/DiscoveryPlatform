@@ -17,7 +17,7 @@ import com.nepxion.discovery.plugin.strategy.gateway.event.GatewayStrategyRouteU
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
-public class PlatformGatewayRouteEventSubscriber {
+public class GatewayRouteEventSubscriber {
     @Subscribe
     public void onGatewayStrategyRouteAdded(GatewayStrategyRouteAddedEvent gatewayStrategyRouteAddedEvent) {
         System.out.println("::::: 推送网关路由变更信息给钉钉，增加网关路由=" + gatewayStrategyRouteAddedEvent.getGatewayStrategyRouteEntity());

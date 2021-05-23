@@ -20,7 +20,6 @@
         <module>discovery-platform-starter-server-jwt</module>
         <module>discovery-platform-starter-server-ldap</module>
         <module>discovery-platform-starter-server-mysql</module>
-        <module>discovery-platform-starter-server-shiro</module>
         <module>discovery-platform-starter-server-ui</module>
     </modules>
 </project>

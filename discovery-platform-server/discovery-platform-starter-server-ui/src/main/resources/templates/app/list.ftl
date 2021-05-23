@@ -168,7 +168,7 @@
                         }
                     });
                 } else if (obj.event === 'clearCache') {
-                    layer.confirm('确定要清空Client Id[' + data.clientId + ']的缓存吗?', function (index) {
+                    layer.confirm('确定要清空Client Id[' + data.clientId + ']的缓存吗？', function (index) {
                         admin.post('do-clear-cache', {'clientId': data.clientId}, function () {
                             table.reload('grid');
                             layer.close(index);

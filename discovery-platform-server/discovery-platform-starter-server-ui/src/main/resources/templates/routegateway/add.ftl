@@ -39,7 +39,7 @@
             <div class="layui-input-inline">
                 <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
                        style="width: 740px"
-                       placeholder="请输入服务名称(即: 注册中心中该服务的名称)" autocomplete="off">
+                       placeholder="请输入服务名称（即：注册中心中该服务的名称）" autocomplete="off">
             </div>
         </div>
 
@@ -51,7 +51,7 @@
             </label>
             <div class="layui-input-inline">
                 <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
-                          placeholder="请输入断言字符串(使用换行来分隔), 例如:&#13;Path=/a/**,/b/**&#13;Header=type,1&#13;Cookie=category,a"
+                          placeholder="请输入断言字符串（使用换行分隔）。例如：&#13;Path=/a/**,/b/**&#13;Header=type,1&#13;Cookie=category,a"
                           style="width: 740px;height:100px;resize: none"></textarea>
             </div>
         </div>
@@ -64,7 +64,7 @@
             </label>
             <div class="layui-input-inline">
                 <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
-                          placeholder="请输入过滤字符串(使用换行来分隔), 例如:&#13;StripPrefix=1&#13;PrefixPath=/a"
+                          placeholder="请输入过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/a"
                           style="width: 740px;height:100px;resize: none"></textarea>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off"
-                          placeholder="请输入元数据字符串(使用换行来分隔), 例如:&#13;a=1&#13;b=2&#13;c=3"
+                          placeholder="请输入元数据字符串（使用换行来隔）, 例如：&#13;a=1&#13;b=2&#13;c=3"
                           style="width: 740px;height:100px;resize: none"></textarea>
             </div>
         </div>

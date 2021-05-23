@@ -124,7 +124,7 @@
                                     {field: 'path', title: '目标地址'},
                                     {field: 'url', title: '连接地址', width: 200},
                                     {
-                                        title: '是否截取', align: "center", templet: function (d) {
+                                        title: '是否过滤', align: "center", templet: function (d) {
                                             return d.stripPrefix ? "是" : "否"
                                         }, width: 100
                                     },

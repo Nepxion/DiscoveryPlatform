@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label" style="width: 90px">过期时间(秒)</label>
+                        <label class="layui-form-label" style="width: 90px">过期时间（秒）</label>
                         <div class="layui-input-inline">
                             <input type="text" id="expire" readonly="readonly" class="layui-input"
                                    style="width: 740px" value="${(ak.expiresTime)!''}">
@@ -138,7 +138,7 @@
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const $ = layui.$, admin = layui.admin;
             $("#btnRefreshAccessToken").click(function () {
-                layer.confirm("确定要生成Client Id=[${app.clientId}]的Access Token吗?", function (index) {
+                layer.confirm("确定要生成Client Id=[${app.clientId}]的Access Token吗？", function (index) {
                     admin.post("do-create-access-token", {'clientId': '${app.clientId}'}, function (data) {
                             $("#accessToken").html(data.data.accessToken);
                             $("#expire").val(data.data.expiresTime);
@@ -157,7 +157,7 @@
             });
 
             $("#btnLogoutAccessToken").click(function () {
-                layer.confirm("确定要注销Client Id=[${app.clientId}]的Access Token吗?", function (index) {
+                layer.confirm("确定要注销Client Id=[${app.clientId}]的Access Token吗？", function (index) {
                     admin.post("do-logout-access-token", {'clientId': '${app.clientId}'}, function (data) {
                             $("#accessToken").html(data.data.accessToken);
                             $("#expire").val(data.data.expiresTime);

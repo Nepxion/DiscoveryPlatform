@@ -17,7 +17,6 @@
     <modules>
         <module>discovery-platform-starter-server</module>
         <module>discovery-platform-starter-server-h2</module>
-        <module>discovery-platform-starter-server-jwt</module>
         <module>discovery-platform-starter-server-ldap</module>
         <module>discovery-platform-starter-server-mysql</module>
         <module>discovery-platform-starter-server-ui</module>

@@ -200,7 +200,7 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布路由吗?', function (index) {
+                        layer.confirm('确定要发布路由吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
@@ -240,7 +240,7 @@
                         }
                     });
                 } else if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用路由吗', function (index) {
+                    layer.confirm('确定要禁用路由吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -250,7 +250,7 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用路由吗', function (index) {
+                    layer.confirm('确定要启用路由吗？', function (index) {
                         admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);

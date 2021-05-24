@@ -21,7 +21,7 @@
             <label class="layui-form-label">请求方式</label>
             <div class="layui-input-inline">
                 <input type="text" name="method" lay-verify="required" class="layui-input" style="width: 740px"
-                       placeholder="请输入请求方式(多个用逗号隔开)" autocomplete="off">
+                       placeholder="请输入请求方式（多个用逗号分隔）" autocomplete="off">
             </div>
         </div>
 

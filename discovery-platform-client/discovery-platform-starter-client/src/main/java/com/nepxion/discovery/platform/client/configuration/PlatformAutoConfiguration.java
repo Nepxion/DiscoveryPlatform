@@ -9,8 +9,6 @@ package com.nepxion.discovery.platform.client.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.client.event.PlatformRuleEventSubscriber;
-import com.nepxion.discovery.platform.client.event.PlatformZuulRouteEventSubscriber;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,8 +16,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import com.nepxion.discovery.platform.client.event.PlatformAlarmEventSubscriber;
-import com.nepxion.discovery.platform.client.event.PlatformGatewayRouteEventSubscriber;
+import com.nepxion.discovery.platform.client.event.AlarmEventSubscriber;
+import com.nepxion.discovery.platform.client.event.GatewayRouteEventSubscriber;
+import com.nepxion.discovery.platform.client.event.RuleEventSubscriber;
+import com.nepxion.discovery.platform.client.event.ZuulRouteEventSubscriber;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
@@ -28,13 +28,13 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 public class PlatformAutoConfiguration {
     protected static class PlatformConfiguration {
         @Bean
-        public PlatformRuleEventSubscriber platformRuleEventSubscriber() {
-            return new PlatformRuleEventSubscriber();
+        public RuleEventSubscriber ruleEventSubscriber() {
+            return new RuleEventSubscriber();
         }
 
         @Bean
-        public PlatformAlarmEventSubscriber platformAlarmEventSubscriber() {
-            return new PlatformAlarmEventSubscriber();
+        public AlarmEventSubscriber alarmEventSubscriber() {
+            return new AlarmEventSubscriber();
         }
     }
 
@@ -42,16 +42,16 @@ public class PlatformAutoConfiguration {
     protected static class PlatformGatewayRouteEventConfiguration {
         @Bean
         @ConditionalOnProperty(value = "spring.cloud.gateway.discovery.locator.enabled", havingValue = "false", matchIfMissing = true)
-        public PlatformGatewayRouteEventSubscriber platformGatewayRouteEventSubscriber() {
-            return new PlatformGatewayRouteEventSubscriber();
+        public GatewayRouteEventSubscriber gatewayRouteEventSubscriber() {
+            return new GatewayRouteEventSubscriber();
         }
     }
 
     @ConditionalOnBean(ZuulStrategyRoute.class)
     protected static class PlatformZuulRouteEventConfiguration {
         @Bean
-        public PlatformZuulRouteEventSubscriber platformZuulRouteEventSubscriber() {
-            return new PlatformZuulRouteEventSubscriber();
+        public ZuulRouteEventSubscriber zuulRouteEventSubscriber() {
+            return new ZuulRouteEventSubscriber();
         }
     }
 }

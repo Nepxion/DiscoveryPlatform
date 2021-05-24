@@ -43,7 +43,7 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">是否截取</label>
+            <label class="layui-form-label">是否过滤</label>
             <div class="layui-input-block">
                 <input type="radio" name="stripPrefix" value="true" title="是" ${(route.stripPrefix) ? string('checked','')}>
                 <input type="radio" name="stripPrefix" value="false" title="否" ${(!route.stripPrefix) ? string('checked','')}>
@@ -61,7 +61,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">自定义头</label>
             <div class="layui-input-block">
-                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头(使用逗号分隔), 例如:a,b,c" style="width: 740px;height:100px;resize: none">${route.sensitiveHeaders}</textarea>
+                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头（使用逗号分隔）。例如：a,b,c" style="width: 740px;height:100px;resize: none">${route.sensitiveHeaders}</textarea>
             </div>
         </div>
 

@@ -14,7 +14,7 @@ import com.nepxion.discovery.plugin.strategy.event.StrategyAlarmEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
-public class PlatformAlarmEventSubscriber {
+public class AlarmEventSubscriber {
     @Subscribe
     public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
         System.out.println("::::: 推送告警信息给钉钉，告警类型=" + strategyAlarmEvent.getAlarmType() + "，告警内容=" + strategyAlarmEvent.getAlarmMap());

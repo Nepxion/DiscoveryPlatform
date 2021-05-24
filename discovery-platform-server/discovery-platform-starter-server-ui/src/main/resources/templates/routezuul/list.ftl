@@ -133,7 +133,7 @@
                     {field: 'path', title: '目标地址'},
                     {field: 'url', title: '连接地址', width: 200},
                     {
-                        title: '是否截取', align: 'center', templet: function (d) {
+                        title: '是否过滤', align: 'center', templet: function (d) {
                             return d.stripPrefix ? '是' : '否'
                         }, width: 100
                     },
@@ -227,7 +227,7 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布路由吗?', function (index) {
+                        layer.confirm('确定要发布路由吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
@@ -267,7 +267,7 @@
                         }
                     });
                 } else if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用路由吗', function (index) {
+                    layer.confirm('确定要禁用路由吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -277,7 +277,7 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用路由吗', function (index) {
+                    layer.confirm('确定要启用路由吗？', function (index) {
                         admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);

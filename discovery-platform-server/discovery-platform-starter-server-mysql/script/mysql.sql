@@ -149,13 +149,13 @@ INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_
 INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (8, '权限列表', '/auth/list', b'1', b'0', b'0', '', 5, 3, '权限列表');
 INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (9, '白名单列表', '/ignoreurl/list', b'1', b'0', b'0', '', 5, 4, '白名单列表');
 
-INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (10, '链路跟踪', 'http://192.168.6.167:9411', b'1', b'0', b'1', 'layui-icon-location', 0, 4, 'Zipkin链路跟踪');
+INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (10, '链路跟踪', 'http://127.0.0.1:8080', b'1', b'0', b'1', 'layui-icon-location', 0, 4, 'SkyWalking链路跟踪');
 
-INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (11, '配置中心', 'http://apollo.wyyt.com/signin', b'1', b'0', b'1', 'layui-icon-form', 0, 5, 'Apollo配置中心');
+INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (11, '配置中心', 'http://106.54.227.205', b'1', b'0', b'1', 'layui-icon-form', 0, 5, 'Apollo配置中心');
 
-INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (12, '注册中心', 'http://192.168.5.21:8500', b'1', b'0', b'1', 'layui-icon-component', 0, 6, 'Consul注册中心');
+INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (12, '注册中心', 'http://127.0.0.1:8848/nacos', b'1', b'0', b'1', 'layui-icon-component', 0, 6, 'Nacos注册中心');
 
-INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (13, '监控中心', 'http://springadmin.wyyt.com', b'1', b'0', b'1', 'layui-icon-chart-screen', 0, 7, 'SpringBootAdmin监控中心');
+INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (13, '监控中心', 'http://127.0.0.1:8080', b'1', b'0', b'1', 'layui-icon-chart-screen', 0, 7, 'SkyWalking监控中心');
 
 INSERT IGNORE INTO `sys_page`(`id`, `name`, `url`, `is_menu`, `is_default`, `is_blank`, `icon_class`, `parent_id`, `order`, `remark`) VALUES (14, '文档中心', 'http://127.0.0.1:10010/doc.html', b'1', b'0', b'1', 'layui-icon-read', 0, 8, '接口文档中心');
 

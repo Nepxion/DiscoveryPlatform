@@ -16,7 +16,7 @@ import com.nepxion.discovery.plugin.framework.event.RuleUpdatedEvent;
 import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
-public class PlatformRuleEventSubscriber {
+public class RuleEventSubscriber {
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
         System.out.println("::::: 推送规则变更信息给钉钉，规则执行更新, rule=" + ruleUpdatedEvent.getRule());

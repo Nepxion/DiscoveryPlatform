@@ -55,7 +55,7 @@
             form.render();
             form.on('submit(btnSubmit)', function (obj) {
                 if (obj.field.password !== obj.field.repassword) {
-                    admin.error("系统提示", "输入的密码不一致，请重新输入.");
+                    admin.error("系统提示", "输入的密码不一致，请重新输入");
                 } else {
                     admin.post("do-change-password", obj.field, function () {
                         admin.success("系统提示", "密码修改成功，请重新登录", function () {

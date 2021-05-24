@@ -13,7 +13,7 @@
             <label class="layui-form-label">接口路径</label>
             <div class="layui-input-inline">
                 <input type="text" name="url" lay-verify="required" class="layui-input" style="width: 740px"
-                       placeholder="请输入接口地址(支持Ant路径表达式)" autocomplete="off">
+                       placeholder="请输入接口地址（支持Ant路径表达式）" autocomplete="off">
             </div>
         </div>
 

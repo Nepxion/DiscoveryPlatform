@@ -21,15 +21,13 @@ import com.nepxion.discovery.platform.server.exception.BusinessException;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-
+import java.util.HashSet;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @RequestMapping(AdminController.PREFIX)
@@ -65,7 +63,7 @@ public class AdminController {
 
     @GetMapping("edit")
     public String edit(final Model model,
-                         @RequestParam(name = "id") final Long id) throws Exception {
+                       @RequestParam(name = "id") final Long id) throws Exception {
         model.addAttribute("admin", this.adminService.getById(id));
         model.addAttribute("roles", this.roleService.listOrderByName());
         model.addAttribute("loginMode", this.loginAdapter.getLoginMode());
@@ -75,8 +73,8 @@ public class AdminController {
     @PostMapping("do-list")
     @ResponseBody
     public Result<List<AdminVo>> doList(@RequestParam(value = "name", required = false) final String name,
-                                      @RequestParam(value = "page") final Integer pageNum,
-                                      @RequestParam(value = "limit") final Integer pageSize) throws Exception {
+                                        @RequestParam(value = "page") final Integer pageNum,
+                                        @RequestParam(value = "limit") final Integer pageSize) throws Exception {
         final IPage<AdminVo> adminPage = this.adminService.list(this.loginAdapter.getLoginMode(), name, pageNum, pageSize);
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
@@ -100,12 +98,12 @@ public class AdminController {
     @PostMapping("do-add")
     @ResponseBody
     public Result<?> doAdd(@RequestParam(value = "roleId") final Long roleId,
-                         @RequestParam(value = "username") final String username,
-                         @RequestParam(value = "password", defaultValue = "") final String password,
-                         @RequestParam(value = "name") final String name,
-                         @RequestParam(value = "phoneNumber") final String phoneNumber,
-                         @RequestParam(value = "email") final String email,
-                         @RequestParam(value = "remark") final String remark) throws Exception {
+                           @RequestParam(value = "username") final String username,
+                           @RequestParam(value = "password", defaultValue = "") final String password,
+                           @RequestParam(value = "name") final String name,
+                           @RequestParam(value = "phoneNumber") final String phoneNumber,
+                           @RequestParam(value = "email") final String email,
+                           @RequestParam(value = "remark") final String remark) throws Exception {
         this.adminService.insert(this.loginAdapter.getLoginMode(), roleId, username, password, name, phoneNumber, email, remark);
         return Result.ok();
     }
@@ -113,12 +111,12 @@ public class AdminController {
     @PostMapping("do-edit")
     @ResponseBody
     public Result<?> doEdit(@RequestParam(value = "id") final Long id,
-                          @RequestParam(value = "roleId") final Long roleId,
-                          @RequestParam(value = "username") final String username,
-                          @RequestParam(value = "name") final String name,
-                          @RequestParam(value = "phoneNumber") final String phoneNumber,
-                          @RequestParam(value = "email") final String email,
-                          @RequestParam(value = "remark") final String remark) throws Exception {
+                            @RequestParam(value = "roleId") final Long roleId,
+                            @RequestParam(value = "username") final String username,
+                            @RequestParam(value = "name") final String name,
+                            @RequestParam(value = "phoneNumber") final String phoneNumber,
+                            @RequestParam(value = "email") final String email,
+                            @RequestParam(value = "remark") final String remark) throws Exception {
         this.adminService.update(id, roleId, username, name, phoneNumber, email, remark);
         return Result.ok();
     }

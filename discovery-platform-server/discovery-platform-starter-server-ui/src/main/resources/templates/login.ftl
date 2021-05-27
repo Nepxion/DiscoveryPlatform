@@ -11,6 +11,8 @@
 
         <div class="layadmin-user-login-main">
             <div class="layadmin-user-login-box layadmin-user-login-header">
+
+                <img src="${ctx}/images/Logo.png"/>
                 <h2>${fullName}</h2>
                 <p>Anytime, Anywhere, Just Enjoy</p>
             </div>

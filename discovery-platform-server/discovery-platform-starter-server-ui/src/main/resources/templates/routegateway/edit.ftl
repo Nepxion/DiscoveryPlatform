@@ -49,8 +49,8 @@
             <div class="layui-input-inline" style="width: 740px;margin-top:-12px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">内置断言器</li>
-                        <li>自定义断言器</li>
+                        <li class="layui-this">内置</li>
+                        <li>自定义</li>
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">

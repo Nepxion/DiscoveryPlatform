@@ -5,22 +5,26 @@ package com.nepxion.discovery.platform.server.entity.po;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
+ * @author Haojun Ren
  * @version 1.0
  */
 
-import com.nepxion.discovery.common.util.JsonUtil;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.util.*;
+import com.nepxion.discovery.common.util.JsonUtil;
 
 public class RouteGatewayPo implements Serializable {
-    private static final long serialVersionUID = 8552414941889295451L;
+    private static final long serialVersionUID = 8552414941889295450L;
 
     private String id;
     private String uri;
@@ -97,29 +101,75 @@ public class RouteGatewayPo implements Serializable {
         }
     }
 
-    public String getUserPredicatesStr() {
+    public String getUserPredicatesJson() {
         StringBuilder userPredicateStringBuilder = new StringBuilder();
-        for (Predicate predicate : this.getUserPredicates()) {
+
+        for (Predicate predicate : getUserPredicates()) {
             userPredicateStringBuilder.append(String.format("%s=%s, ", predicate.getName(), JsonUtil.toJson(predicate.getArgs())));
         }
+
         if (userPredicateStringBuilder.length() > 0) {
             userPredicateStringBuilder.delete(userPredicateStringBuilder.length() - 2, userPredicateStringBuilder.length());
         }
+
         return userPredicateStringBuilder.toString();
     }
 
-    public String getUserFiltersStr() {
+    public String getUserFiltersJson() {
         StringBuilder userFilterStringBuilder = new StringBuilder();
-        for (Filter filter : this.getUserFilters()) {
+
+        for (Filter filter : getUserFilters()) {
             userFilterStringBuilder.append(String.format("%s=%s, ", filter.getName(), JsonUtil.toJson(filter.getArgs())));
         }
+
         if (userFilterStringBuilder.length() > 0) {
             userFilterStringBuilder.delete(userFilterStringBuilder.length() - 2, userFilterStringBuilder.length());
         }
+
         return userFilterStringBuilder.toString();
     }
 
-    public static class BaseClauseEntity {
+    public static class Predicate extends Clause {
+        private static final long serialVersionUID = -5113611207453059195L;
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            return EqualsBuilder.reflectionEquals(this, object);
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        }
+    }
+
+    public static class Filter extends Clause {
+        private static final long serialVersionUID = 4975847305584873755L;
+
+        @Override
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            return EqualsBuilder.reflectionEquals(this, object);
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        }
+    }
+
+    public static class Clause implements Serializable {
+        private static final long serialVersionUID = -6284675851623689077L;
+
         private String name;
         private Map<String, String> args = new LinkedHashMap<>();
 
@@ -143,40 +193,6 @@ public class RouteGatewayPo implements Serializable {
             this.args.put(key, value);
         }
 
-        @Override
-        public int hashCode() {
-            return HashCodeBuilder.reflectionHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            return EqualsBuilder.reflectionEquals(this, object);
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-        }
-    }
-
-    public static class Predicate extends BaseClauseEntity {
-        @Override
-        public int hashCode() {
-            return HashCodeBuilder.reflectionHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            return EqualsBuilder.reflectionEquals(this, object);
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-        }
-    }
-
-    public static class Filter extends BaseClauseEntity {
         @Override
         public int hashCode() {
             return HashCodeBuilder.reflectionHashCode(this);

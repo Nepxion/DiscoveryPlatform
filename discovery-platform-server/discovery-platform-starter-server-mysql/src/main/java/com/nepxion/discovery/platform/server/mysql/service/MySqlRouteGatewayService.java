@@ -228,7 +228,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
-    private <T extends RouteGatewayPo.BaseClauseEntity> List<T> parse(String value,
+    private <T extends RouteGatewayPo.Clause> List<T> parse(String value,
                                                                       Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);

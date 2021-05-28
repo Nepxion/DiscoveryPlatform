@@ -123,9 +123,9 @@
                                     {type: 'numbers', title: '序号', width: 100},
                                     {field: 'uri', title: '目标地址', width: 300},
                                     {field: 'predicates', title: '断言器', width: 300},
-                                    {field: 'userPredicatesStr', title: '自定义断言器', width: 300},
+                                    {field: 'userPredicatesJson', title: '自定义断言器', width: 300},
                                     {field: 'filters', title: '过滤器', width: 300},
-                                    {field: 'userFiltersStr', title: '自定义过滤器', width: 300},
+                                    {field: 'userFiltersJson', title: '自定义过滤器', width: 300},
                                     {
                                         field: 'metadata', title: '元数据', width: 300,
                                         templet: function (d) {

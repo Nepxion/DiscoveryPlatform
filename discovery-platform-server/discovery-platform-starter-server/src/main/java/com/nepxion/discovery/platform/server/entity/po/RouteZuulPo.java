@@ -5,22 +5,21 @@ package com.nepxion.discovery.platform.server.entity.po;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
+ * @author Haojun Ren
  * @version 1.0
  */
+
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 public class RouteZuulPo implements Serializable {
-    private static final long serialVersionUID = 7174491697992085482L;
+    private static final long serialVersionUID = 7174491897992085456L;
 
     private String id;
     private String serviceId;
@@ -87,7 +86,7 @@ public class RouteZuulPo implements Serializable {
         this.sensitiveHeaders = sensitiveHeaders;
     }
 
-    public boolean getCustomSensitiveHeaders() {
+    public boolean isCustomSensitiveHeaders() {
         return customSensitiveHeaders;
     }
 

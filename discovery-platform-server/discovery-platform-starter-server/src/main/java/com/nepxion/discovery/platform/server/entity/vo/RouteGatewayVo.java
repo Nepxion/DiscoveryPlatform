@@ -64,8 +64,7 @@ public class RouteGatewayVo {
     }
 
     public static class RouteGatewayPoVo extends RouteGatewayPo {
-        private String userPredicatesJson;
-        private String userFiltersJson;
+        private static final long serialVersionUID = 2600817965821067952L;
 
         public String getUserPredicatesJson() {
             return this.getUserJson(getUserPredicates());
@@ -88,6 +87,5 @@ public class RouteGatewayVo {
 
             return userFilterStringBuilder.toString();
         }
-
     }
 }

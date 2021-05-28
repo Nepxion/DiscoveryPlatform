@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -50,7 +50,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     @TranRead
     @Override
     public boolean authenticate(String username, String password) {
-        if (ObjectUtils.isEmpty(username) || ObjectUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return false;
         }
         SysAdminDto sysAdmin = this.getByUserName(username);

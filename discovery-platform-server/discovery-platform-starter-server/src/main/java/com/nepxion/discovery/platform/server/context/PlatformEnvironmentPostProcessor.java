@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.context;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,6 @@ import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.util.ObjectUtils;
 
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
@@ -68,7 +68,7 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
     private void addDefaultConfig(ConfigurableEnvironment configurableEnvironment, Properties properties, String name, Object value) {
         try {
             String oldProperty = configurableEnvironment.getProperty(name);
-            if (ObjectUtils.isEmpty(oldProperty)) {
+            if (StringUtils.isEmpty(oldProperty)) {
                 properties.put(name, value);
             }
         } catch (IllegalArgumentException exception) {

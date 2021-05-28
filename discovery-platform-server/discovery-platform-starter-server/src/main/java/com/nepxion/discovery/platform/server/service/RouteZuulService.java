@@ -1,11 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-import java.util.Collection;
-
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.console.entity.GatewayType;
-import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -14,6 +8,12 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.util.Collection;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.console.entity.GatewayType;
+import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 
 public interface RouteZuulService {
     GatewayType GATEWAY_TYPE = GatewayType.ZUUL;

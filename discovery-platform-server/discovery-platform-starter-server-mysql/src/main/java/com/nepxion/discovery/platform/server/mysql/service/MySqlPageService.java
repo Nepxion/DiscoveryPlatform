@@ -17,9 +17,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -51,6 +53,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
     }
 
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public List<SysPageDto> listEmptyUrlPages() {
@@ -61,6 +64,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return this.list(queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public List<SysPageDto> listNotEmptyUrlPages() {
@@ -175,7 +179,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
             }
         }
 
-        if (ObjectUtils.isNotNull(rootPageList) || ObjectUtils.isNotNull(nonRootPageList)) {
+        if (CollectionUtils.isNotEmpty(rootPageList) || CollectionUtils.isNotEmpty(nonRootPageList)) {
             Set<Long> map = Sets.newHashSetWithExpectedSize(nonRootPageList.size());
             rootPageList.forEach(rootPage -> getChild(adminVo, permission, rootPage, nonRootPageList, map));
             filter(rootPageList);
@@ -197,7 +201,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         Iterator<PageVo> iterator = pageList.iterator();
         while (iterator.hasNext()) {
             PageVo page = iterator.next();
-            if (ObjectUtils.isEmpty(page.getUrl()) && (page.getChildren() == null || page.getChildren().size() < 1)) {
+            if (StringUtils.isEmpty(page.getUrl()) && (page.getChildren() == null || page.getChildren().size() < 1)) {
                 iterator.remove();
             } else {
                 filter(page.getChildren());
@@ -216,7 +220,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 filter(p -> p.getParentId().equals(parentPage.getId())). // 判断是否父子关系
                 filter(p -> set.size() <= childrenPageList.size()).// set集合大小不能超过childrenPageList的大小
                 forEach(p -> {
-            if (adminVo.getSysRole().getSuperAdmin() || ObjectUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
+            if (adminVo.getSysRole().getSuperAdmin() || StringUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
                 // 放入set, 递归循环时可以跳过这个页面，提高循环效率
                 set.add(p.getId());
                 // 递归获取当前类目的子类目

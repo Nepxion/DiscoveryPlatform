@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -84,17 +84,17 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             routeGatewayPo.setUri(routeGatewayDto.getUri());
 
 
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getPredicates())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getPredicates())) {
                 routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserPredicates())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getUserPredicates())) {
                 List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
                 routeGatewayPo.setUserPredicates(predicateList);
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getFilters())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getFilters())) {
                 routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserFilters())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getUserFilters())) {
                 List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
                 routeGatewayPo.setUserFilters(filterList);
             }
@@ -137,12 +137,13 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getRowCreateTime);
-        if (!ObjectUtils.isEmpty(description)) {
+        if (StringUtils.isNotEmpty(description)) {
             lambda.eq(RouteGatewayDto::getDescription, description);
         }
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
@@ -163,7 +164,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         if (routeGatewayDto == null) {
             return;
         }
-        if (ObjectUtils.isEmpty(routeGatewayDto.getRouteId())) {
+        if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
             routeGatewayDto.setRouteId("gw_".concat(RandomUtil.randomString(15)));
         }
         routeGatewayDto.setOperation(Operation.INSERT.getCode());
@@ -231,6 +232,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends RouteGatewayPo.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);

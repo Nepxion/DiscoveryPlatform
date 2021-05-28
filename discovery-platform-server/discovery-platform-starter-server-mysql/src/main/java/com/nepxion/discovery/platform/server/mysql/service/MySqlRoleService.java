@@ -12,7 +12,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -27,6 +27,7 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
 
 public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public List<SysRoleDto> listOrderByName() {
@@ -35,6 +36,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         return this.list(queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public List<SysRoleDto> getNotSuperAdmin() {
@@ -45,12 +47,13 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         return this.list(queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TranRead
     @Override
     public IPage<SysRoleDto> list(String name, Integer pageNum, Integer pageSize) {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<SysRoleDto> sysRoleLambdaQueryWrapper = queryWrapper.lambda().orderByAsc(SysRoleDto::getName);
-        if (!ObjectUtils.isEmpty(name)) {
+        if (StringUtils.isNotEmpty(name)) {
             sysRoleLambdaQueryWrapper.like(SysRoleDto::getName, name);
         }
         return this.page(new Page<>(), queryWrapper);
@@ -76,7 +79,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
                        String name,
                        Boolean superAdmin,
                        String remark) {
-        if (ObjectUtils.isEmpty(name) && superAdmin == null && ObjectUtils.isEmpty(remark)) {
+        if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(remark)) {
             throw new BusinessException("请输入要更新的内容");
         }
 

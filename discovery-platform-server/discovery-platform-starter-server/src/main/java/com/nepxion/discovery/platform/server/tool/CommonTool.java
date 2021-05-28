@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.util.ObjectUtils;
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 
@@ -70,7 +70,7 @@ public class CommonTool {
         String[] array = value.split(separate);
         List<T> result = new ArrayList<>(array.length);
         for (String item : array) {
-            if (ObjectUtils.isEmpty(item)) {
+            if (StringUtils.isEmpty(item)) {
                 continue;
             }
             result.add((T) ConvertUtils.convert(item, tClass));
@@ -80,13 +80,13 @@ public class CommonTool {
 
     @SuppressWarnings("unchecked")
     public static <T> List<T> split(String value, String separator, Class<T> clazz) {
-        if (!ObjectUtils.isEmpty(value)) {
+        if (StringUtils.isNotEmpty(value)) {
             List<T> result = new ArrayList<>();
             String[] array = value.split(separator);
             for (String item : array) {
                 if (item == null) {
                     continue;
-                } else if (ObjectUtils.isEmpty(item.trim())) {
+                } else if (StringUtils.isEmpty(item.trim())) {
                     continue;
                 }
                 result.add((T) ConvertUtils.convert(item, clazz));
@@ -107,13 +107,13 @@ public class CommonTool {
     public static Map<String, Object> asMap(String metadata, String rowSeparator) {
         Map<String, Object> result = new HashMap<>();
 
-        if (ObjectUtils.isEmpty(metadata) || ObjectUtils.isEmpty(rowSeparator)) {
+        if (StringUtils.isEmpty(metadata) || StringUtils.isEmpty(rowSeparator)) {
             return result;
         }
 
         String[] all = metadata.split(rowSeparator);
         for (String item : all) {
-            if (ObjectUtils.isEmpty(item)) {
+            if (StringUtils.isEmpty(item)) {
                 continue;
             }
             int firstEqualsIndex = item.indexOf('=');

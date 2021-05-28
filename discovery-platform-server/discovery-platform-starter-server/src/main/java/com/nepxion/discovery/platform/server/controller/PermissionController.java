@@ -13,10 +13,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +64,7 @@ public class PermissionController {
         List<SysPageDto> allPages = this.pageService.list();
         List<SysPageDto> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
         allPages.removeAll(pages);
-        return Result.ok(allPages.stream().filter(p -> !ObjectUtils.isEmpty(p.getUrl())).collect(Collectors.toList()));
+        return Result.ok(allPages.stream().filter(p -> StringUtils.isNotEmpty(p.getUrl())).collect(Collectors.toList()));
     }
 
     @PostMapping("do-list")

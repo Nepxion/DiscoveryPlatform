@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "统一数据接口")
 public class Result<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7830728886529866685L;
 
     @ApiModelProperty("编码")
     private Long code;

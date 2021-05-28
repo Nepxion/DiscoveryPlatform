@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.tool.common;
+package com.nepxion.discovery.platform.server.tool;
 
 /**
  * <p>Title: Nepxion Discovery</p>

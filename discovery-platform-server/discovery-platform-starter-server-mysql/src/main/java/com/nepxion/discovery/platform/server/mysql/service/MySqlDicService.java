@@ -5,7 +5,6 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -20,7 +19,7 @@ public class MySqlDicService extends ServiceImpl<MySqlDicMapper, SysDicDto> impl
     @Override
     public String getByName(String name) {
         QueryWrapper<SysDicDto> queryWrapper = new QueryWrapper<>();
-        final SysDicDto sysDic = this.getOne(queryWrapper);
+        SysDicDto sysDic = this.getOne(queryWrapper);
         if (sysDic == null) {
             return null;
         }

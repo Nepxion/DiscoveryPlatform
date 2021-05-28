@@ -10,11 +10,10 @@ package com.nepxion.discovery.platform.application;
  * @version 1.0
  */
 
-import de.codecentric.boot.admin.server.config.EnableAdminServer;
-
 import org.springframework.boot.SpringApplication;
 
 import com.nepxion.discovery.platform.server.annotation.EnablePlatformServer;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 
 @EnablePlatformServer
 @EnableAdminServer

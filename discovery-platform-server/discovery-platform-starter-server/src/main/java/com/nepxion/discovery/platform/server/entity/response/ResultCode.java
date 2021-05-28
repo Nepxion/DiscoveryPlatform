@@ -5,12 +5,11 @@ package com.nepxion.discovery.platform.server.entity.response;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 public enum ResultCode {
     SUCCESS(200L, true, "SUCCESS"),
@@ -21,9 +20,9 @@ public enum ResultCode {
     UNABLE_TO_ACCESS(100012L, false, "服务暂时无法访问(微服务无法访问，某个服务宕机)"),
     DATABASE_EXCEPTION(100013L, false, "数据库访问异常(数据库异常)");
 
-    private final Long code;
-    private final String description;
-    private final Boolean success;
+    private Long code;
+    private String description;
+    private Boolean success;
 
     public Long getCode() {
         return code;
@@ -37,20 +36,20 @@ public enum ResultCode {
         return success;
     }
 
-    ResultCode(final long code,
-               final Boolean success,
-               final String description) {
+    ResultCode(long code,
+               Boolean success,
+               String description) {
         this.code = code;
         this.success = success;
         this.description = description;
     }
 
-    public static ResultCode get(final Long code) {
-        if (null == code) {
+    public static ResultCode get(Long code) {
+        if (code == null) {
             return null;
         }
 
-        for (final ResultCode item : ResultCode.values()) {
+        for (ResultCode item : ResultCode.values()) {
             if (item.getCode().equals(code)) {
                 return item;
             }
@@ -58,12 +57,12 @@ public enum ResultCode {
         return null;
     }
 
-    public static ResultCode get(final String description) {
-        if (StringUtils.isEmpty(description)) {
+    public static ResultCode get(String description) {
+        if (ObjectUtils.isEmpty(description)) {
             return null;
         }
 
-        for (final ResultCode item : ResultCode.values()) {
+        for (ResultCode item : ResultCode.values()) {
             if (item.getDescription().equals(description)) {
                 return item;
             }

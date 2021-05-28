@@ -5,10 +5,16 @@ package com.nepxion.discovery.platform.server.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import com.nepxion.discovery.platform.server.template.DeleteDirective;
 import com.nepxion.discovery.platform.server.template.InsertDirective;
@@ -20,12 +26,6 @@ import com.nepxion.discovery.platform.server.template.NotOnlySelectDirective;
 import com.nepxion.discovery.platform.server.template.OnlySelectDirective;
 import com.nepxion.discovery.platform.server.template.SelectDirective;
 import com.nepxion.discovery.platform.server.template.UpdateDirective;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class FreeMarkerAutoConfiguration implements InitializingBean {

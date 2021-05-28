@@ -5,7 +5,6 @@ package com.nepxion.discovery.platform.server.entity.enums;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -15,8 +14,8 @@ public enum Operation {
     UPDATE(2, "UPDATE"),
     DELETE(3, "DELETE");
 
-    private final int code;
-    private final String name;
+    private int code;
+    private String name;
 
     public int getCode() {
         return code;
@@ -26,14 +25,14 @@ public enum Operation {
         return name;
     }
 
-    Operation(final int code,
-              final String name) {
+    Operation(int code,
+              String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static Operation get(final Integer code) {
-        for (final Operation item : Operation.values()) {
+    public static Operation get(Integer code) {
+        for (Operation item : Operation.values()) {
             if (item.getCode() == code) {
                 return item;
             }
@@ -41,8 +40,8 @@ public enum Operation {
         return null;
     }
 
-    public static Operation get(final String name) {
-        for (final Operation item : Operation.values()) {
+    public static Operation get(String name) {
+        for (Operation item : Operation.values()) {
             if (item.getName().equals(name)) {
                 return item;
             }

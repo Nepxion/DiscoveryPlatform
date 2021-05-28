@@ -5,21 +5,21 @@ package com.nepxion.discovery.platform.server.entity.vo;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.List;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 
-public final class PageVo extends BaseEntity {
+public class PageVo extends BaseEntity {
     private static final long serialVersionUID = -4924651888194918771L;
 
     @TableField("`name`")

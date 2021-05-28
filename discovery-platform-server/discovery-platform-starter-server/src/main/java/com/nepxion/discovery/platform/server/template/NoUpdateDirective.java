@@ -5,10 +5,12 @@ package com.nepxion.discovery.platform.server.template;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.io.IOException;
+import java.util.Map;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
@@ -16,18 +18,15 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
-import java.io.IOException;
-import java.util.Map;
-
 public class NoUpdateDirective extends AuthDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")
     @Override
-    public void execute(final Environment env,
-                        final Map params,
-                        final TemplateModel[] loopVars,
-                        final TemplateDirectiveBody body)
+    public void execute(Environment env,
+                        Map params,
+                        TemplateModel[] loopVars,
+                        TemplateDirectiveBody body)
             throws TemplateException, IOException {
-        if (null != body && !checkPermission(Operation.UPDATE)) {
+        if (body != null && !checkPermission(Operation.UPDATE)) {
             body.render(env.getOut());
         }
     }

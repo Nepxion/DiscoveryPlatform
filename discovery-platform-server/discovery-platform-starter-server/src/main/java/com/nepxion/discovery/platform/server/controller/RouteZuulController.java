@@ -5,16 +5,23 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,13 +32,9 @@ import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.entity.vo.GatewayZuulVo;
+import com.nepxion.discovery.platform.server.entity.vo.RouteZuulVo;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @RequestMapping(RouteZuulController.PREFIX)
@@ -53,21 +56,21 @@ public class RouteZuulController {
     }
 
     @GetMapping("working")
-    public String working(final Model model) {
+    public String working(Model model) {
         model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
         return String.format("%s/%s", PREFIX, "working");
     }
 
     @GetMapping("add")
-    public String add(final Model model) {
+    public String add(Model model) {
         model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
         model.addAttribute("serviceNames", this.serviceResource.getServices());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @GetMapping("edit")
-    public String edit(final Model model,
-                       @RequestParam(name = "id") final Long id) {
+    public String edit(Model model,
+                       @RequestParam(name = "id") Long id) {
         model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
         model.addAttribute("serviceNames", this.serviceResource.getServices());
         model.addAttribute("route", this.routeZuulService.getById(id));
@@ -76,36 +79,36 @@ public class RouteZuulController {
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<RouteZuulDto>> doList(@RequestParam(value = "page") final Integer pageNum,
-                                             @RequestParam(value = "limit") final Integer pageSize,
-                                             @RequestParam(value = "description", required = false) final String description) {
-        final IPage<RouteZuulDto> page = this.routeZuulService.page(description, pageNum, pageSize);
+    public Result<List<RouteZuulDto>> doList(@RequestParam(value = "page") Integer pageNum,
+                                             @RequestParam(value = "limit") Integer pageSize,
+                                             @RequestParam(value = "description", required = false) String description) {
+        IPage<RouteZuulDto> page = this.routeZuulService.page(description, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
     @PostMapping("do-list-working")
     @ResponseBody
-    public Result<List<GatewayZuulVo>> doListWorking(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
+    public Result<List<RouteZuulVo>> doListWorking(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
         if (ObjectUtils.isEmpty(gatewayName)) {
             return Result.ok();
         }
 
-        final List<GatewayZuulVo> result = new ArrayList<>();
-        final List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(RouteZuulService.GATEWAY_TYPE, gatewayName);
-        for (final ResultEntity resultEntity : resultEntityList) {
-            final GatewayZuulVo gatewayZuulVo = new GatewayZuulVo();
-            gatewayZuulVo.setHost(resultEntity.getHost());
-            gatewayZuulVo.setPort(String.valueOf(resultEntity.getPort()));
-            gatewayZuulVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteZuulPo>>() {
+        List<RouteZuulVo> result = new ArrayList<>();
+        List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(RouteZuulService.GATEWAY_TYPE, gatewayName);
+        for (ResultEntity resultEntity : resultEntityList) {
+            RouteZuulVo routeZuulVo = new RouteZuulVo();
+            routeZuulVo.setHost(resultEntity.getHost());
+            routeZuulVo.setPort(String.valueOf(resultEntity.getPort()));
+            routeZuulVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteZuulPo>>() {
             }));
-            result.add(gatewayZuulVo);
+            result.add(routeZuulVo);
         }
         return Result.ok(result);
     }
 
     @PostMapping("do-list-gateway-names")
     @ResponseBody
-    public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) final String gatewayName) {
+    public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
         return Result.ok(this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
     }
 
@@ -125,22 +128,22 @@ public class RouteZuulController {
 
     @PostMapping("do-enable")
     @ResponseBody
-    public Result<?> doEnable(@RequestParam(value = "id") final Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
         this.routeZuulService.enable(id, true);
         return Result.ok();
     }
 
     @PostMapping("do-disable")
     @ResponseBody
-    public Result<?> doDisable(@RequestParam(value = "id") final Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
         this.routeZuulService.enable(id, false);
         return Result.ok();
     }
 
     @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) {
-        final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
+    public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
+        List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.routeZuulService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }

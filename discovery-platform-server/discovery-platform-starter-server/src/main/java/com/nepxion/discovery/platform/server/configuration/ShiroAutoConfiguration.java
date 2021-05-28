@@ -5,14 +5,12 @@ package com.nepxion.discovery.platform.server.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.shiro.AuthRealm;
-import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
+import java.util.LinkedHashMap;
+
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -30,21 +28,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import java.util.LinkedHashMap;
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.shiro.AuthRealm;
+import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
 
 @Configuration
 public class ShiroAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean
-    public ShiroFilterFactoryBean shiroFilter(final SecurityManager manager) {
-        final ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager manager) {
+        ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
 
         bean.setLoginUrl("/".concat(PlatformConstant.PLATFORM)); // 配置登录的url
         bean.setSuccessUrl("/index"); // 登录成功后要跳转的链接
 
-        final LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/js/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/assets/**", "anon"); // 静态资源
@@ -69,9 +69,8 @@ public class ShiroAutoConfiguration {
     @Bean(name = "securityManager")
     @Primary
     @ConditionalOnMissingBean
-    public SecurityManager securityManager(@Qualifier("authRealm") final AuthRealm authRealm,
-                                           @Qualifier("sessionManager") final SessionManager sessionManager) {
-        final DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm, @Qualifier("sessionManager") SessionManager sessionManager) {
+        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm); // 设置自定义realm
         manager.setSessionManager(sessionManager);
         return manager;
@@ -81,7 +80,7 @@ public class ShiroAutoConfiguration {
     @Primary
     @ConditionalOnMissingBean
     public DefaultWebSessionManager sessionManager() {
-        final DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 
         sessionManager.setSessionIdCookieEnabled(true);
         sessionManager.setSessionIdCookie(sessionIdCookie());
@@ -102,7 +101,7 @@ public class ShiroAutoConfiguration {
     @ConditionalOnMissingBean
     public SimpleCookie sessionIdCookie() {
         // 这个参数是cookie的名称
-        final SimpleCookie simpleCookie = new SimpleCookie("sidDb2EsAdmin");
+        SimpleCookie simpleCookie = new SimpleCookie("sidDb2EsAdmin");
         // setCookie的httponly属性如果设为true的话，会增加对xss防护的安全系数。它有以下特点：
         // 只能通过http访问，javascript无法访问
         // 防止xss读取cookie
@@ -123,8 +122,8 @@ public class ShiroAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean
-    public AuthRealm authRealm(@Qualifier("credentialsMatcher") final CredentialsMatcher matcher) {
-        final AuthRealm authRealm = new AuthRealm();
+    public AuthRealm authRealm(@Qualifier("credentialsMatcher") CredentialsMatcher matcher) {
+        AuthRealm authRealm = new AuthRealm();
         authRealm.setCredentialsMatcher(matcher);
         return authRealm;
     }
@@ -148,7 +147,7 @@ public class ShiroAutoConfiguration {
     @Primary
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        final DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
+        DefaultAdvisorAutoProxyCreator creator = new DefaultAdvisorAutoProxyCreator();
         creator.setProxyTargetClass(true);
         return creator;
     }
@@ -156,8 +155,8 @@ public class ShiroAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(final SecurityManager manager) {
-        final AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager manager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(manager);
         return advisor;
     }

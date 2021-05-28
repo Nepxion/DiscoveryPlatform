@@ -5,23 +5,23 @@ package com.nepxion.discovery.platform.server.entity.vo;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.List;
+import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 
-public class GatewayRouteVo {
+public class RouteZuulVo {
     private String host;
     private String port;
-    private List<RouteGatewayPo> routes;
+    private List<RouteZuulPo> routes;
 
     public String getHost() {
         return host;
@@ -39,11 +39,11 @@ public class GatewayRouteVo {
         this.port = port;
     }
 
-    public List<RouteGatewayPo> getRoutes() {
+    public List<RouteZuulPo> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RouteGatewayPo> routes) {
+    public void setRoutes(List<RouteZuulPo> routes) {
         this.routes = routes;
     }
 

@@ -5,15 +5,11 @@ package com.nepxion.discovery.platform.server.advice;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.entity.response.ResultCode;
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +19,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.response.Result;
+import com.nepxion.discovery.platform.server.entity.response.ResultCode;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
@@ -31,20 +30,16 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    public Object handleOtherException(final Model model,
-                                       final HttpServletRequest request,
-                                       final Exception e) {
+    public Object handleOtherException(Model model, HttpServletRequest request, Exception e) {
         return handleException(model, request, e);
     }
 
-    private Object handleException(final Model model,
-                                   final HttpServletRequest request,
-                                   final Exception exception) {
-        final String errorMsg = ExceptionTool.getRootCauseMessage(exception);
+    private Object handleException(Model model, HttpServletRequest request, Exception exception) {
+        String errorMsg = ExceptionTool.getRootCauseMessage(exception);
         LOG.error(errorMsg, exception);
         if (isAjax(request)) {
-            final ResultCode respondCode = ResultCode.get(errorMsg);
-            if (null == respondCode) {
+            ResultCode respondCode = ResultCode.get(errorMsg);
+            if (respondCode == null) {
                 return Result.error(errorMsg);
             } else {
                 return Result.create(respondCode);
@@ -55,11 +50,11 @@ public class ExceptionControllerAdvice {
         }
     }
 
-    private boolean isAjax(final HttpServletRequest request) {
+    private boolean isAjax(HttpServletRequest request) {
         return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
     }
 
-    private String getStackTrace(final Exception exception) {
+    private String getStackTrace(Exception exception) {
         return ExceptionTool.getStackTraceInHtml(exception);
     }
 }

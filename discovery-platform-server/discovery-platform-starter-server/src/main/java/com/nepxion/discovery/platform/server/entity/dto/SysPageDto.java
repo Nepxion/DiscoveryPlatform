@@ -5,21 +5,21 @@ package com.nepxion.discovery.platform.server.entity.dto;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
+
 @TableName(value = "`sys_page`")
-public final class SysPageDto extends BaseEntity {
+public class SysPageDto extends BaseEntity {
     private static final long serialVersionUID = -3106165704196966179L;
 
     /**

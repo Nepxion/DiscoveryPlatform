@@ -5,12 +5,15 @@ package com.nepxion.discovery.platform.server.tool;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
@@ -18,62 +21,55 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 
-public final class CommonTool {
+public class CommonTool {
     private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
-    private final static String SALT = "PEgASuS";
+    private static final String SALT = "PEgASuS";
 
     public static String getVersion() {
         return System.getProperty("version", PlatformConstant.PLATFORM_VERSION);
     }
 
-    public static String hash(final String value) {
+    public static String hash(String value) {
         return new Md5Hash(value, SALT).toString();
     }
 
-    public static <T> T toVo(final Object source,
-                             final Class<T> target) {
-        if (null == source) {
+    public static <T> T toVo(Object source, Class<T> target) {
+        if (source == null) {
             return null;
         }
         try {
-            final T result = target.newInstance();
+            T result = target.newInstance();
             BeanUtils.copyProperties(source, result);
             return result;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;
         }
     }
 
-    public static <T> List<T> toVoList(final List<?> source,
-                                       final Class<T> target) {
-        if (null == source) {
+    public static <T> List<T> toVoList(List<?> source, Class<T> target) {
+        if (source == null) {
             return null;
         }
         try {
-            final List<T> result = new ArrayList<>(source.size());
-            for (final Object o : source) {
+            List<T> result = new ArrayList<>(source.size());
+            for (Object o : source) {
                 result.add(toVo(o, target));
             }
             return result;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> List<T> parseList(final String value,
-                                        final String separate,
-                                        final Class<T> tClass) {
-        final String[] array = value.split(separate);
+    public static <T> List<T> parseList(String value, String separate, Class<T> tClass) {
+        String[] array = value.split(separate);
         List<T> result = new ArrayList<>(array.length);
-        for (final String item : array) {
+        for (String item : array) {
             if (ObjectUtils.isEmpty(item)) {
                 continue;
             }
@@ -83,13 +79,11 @@ public final class CommonTool {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> List<T> split(final String value,
-                                    final String separator,
-                                    final Class<T> clazz) {
+    public static <T> List<T> split(String value, String separator, Class<T> clazz) {
         if (!ObjectUtils.isEmpty(value)) {
             List<T> result = new ArrayList<>();
-            final String[] array = value.split(separator);
-            for (final String item : array) {
+            String[] array = value.split(separator);
+            for (String item : array) {
                 if (item == null) {
                     continue;
                 } else if (ObjectUtils.isEmpty(item.trim())) {
@@ -102,8 +96,7 @@ public final class CommonTool {
         return new ArrayList<>();
     }
 
-    public static List<String> split(final String value,
-                                     final String separator) {
+    public static List<String> split(String value, String separator) {
         return split(value, separator, String.class);
     }
 
@@ -111,16 +104,15 @@ public final class CommonTool {
         return value.replaceAll(PlatformConstant.ROW_SEPARATOR, "&#13;");
     }
 
-    public static Map<String, Object> asMap(String metadata,
-                                            String rowSeparator) {
-        final Map<String, Object> result = new HashMap<>();
+    public static Map<String, Object> asMap(String metadata, String rowSeparator) {
+        Map<String, Object> result = new HashMap<>();
 
         if (ObjectUtils.isEmpty(metadata) || ObjectUtils.isEmpty(rowSeparator)) {
             return result;
         }
 
-        final String[] all = metadata.split(rowSeparator);
-        for (final String item : all) {
+        String[] all = metadata.split(rowSeparator);
+        for (String item : all) {
             if (ObjectUtils.isEmpty(item)) {
                 continue;
             }
@@ -128,8 +120,8 @@ public final class CommonTool {
             if (firstEqualsIndex < 1) {
                 continue;
             }
-            final String key = item.substring(0, firstEqualsIndex);
-            final String val = item.substring(firstEqualsIndex + 1);
+            String key = item.substring(0, firstEqualsIndex);
+            String val = item.substring(firstEqualsIndex + 1);
             result.put(key, val);
         }
         return result;

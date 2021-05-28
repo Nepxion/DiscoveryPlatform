@@ -5,21 +5,21 @@ package com.nepxion.discovery.platform.server.entity.dto;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
+
 @TableName(value = "`t_route_gateway`")
-public final class RouteGatewayDto extends BaseStateEntity {
+public class RouteGatewayDto extends BaseStateEntity {
     private static final long serialVersionUID = 2636994152216571320L;
 
     @TableField(value = "`route_id`")

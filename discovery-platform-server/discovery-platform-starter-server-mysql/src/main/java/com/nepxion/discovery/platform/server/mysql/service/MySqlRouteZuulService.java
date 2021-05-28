@@ -5,10 +5,22 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -29,12 +41,6 @@ import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
@@ -45,23 +51,23 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     @TranSave
     @Override
     public void publish() throws Exception {
-        final List<RouteZuulDto> routeZuulDtoList = this.list();
+        List<RouteZuulDto> routeZuulDtoList = this.list();
 
         if (CollectionUtils.isEmpty(routeZuulDtoList)) {
-            final List<String> gatewayNameList = this.serviceResource.getGatewayList(GATEWAY_TYPE);
-            for (final String gatewayName : gatewayNameList) {
-                final String group = this.serviceResource.getGroup(gatewayName);
+            List<String> gatewayNameList = this.serviceResource.getGatewayList(GATEWAY_TYPE);
+            for (String gatewayName : gatewayNameList) {
+                String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, new ArrayList<RouteZuulDto>());
             }
             return;
         }
 
-        final List<RouteZuulDto> toUpdateList = new ArrayList<>(routeZuulDtoList.size());
-        final List<RouteZuulDto> toDeleteList = new ArrayList<>(routeZuulDtoList.size());
-        final Map<String, List<RouteZuulDto>> unusedMap = new HashMap<>();
+        List<RouteZuulDto> toUpdateList = new ArrayList<>(routeZuulDtoList.size());
+        List<RouteZuulDto> toDeleteList = new ArrayList<>(routeZuulDtoList.size());
+        Map<String, List<RouteZuulDto>> unusedMap = new HashMap<>();
 
-        final Map<String, List<RouteZuulPo>> newGatewayRouteMap = new HashMap<>();
-        for (final RouteZuulDto routeZuulDto : routeZuulDtoList) {
+        Map<String, List<RouteZuulPo>> newGatewayRouteMap = new HashMap<>();
+        for (RouteZuulDto routeZuulDto : routeZuulDtoList) {
             if (routeZuulDto.getDeleted()) {
                 toDeleteList.add(routeZuulDto);
                 addKV(unusedMap, routeZuulDto.getGatewayName(), routeZuulDto);
@@ -74,7 +80,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
             toUpdateList.add(routeZuulDto);
 
-            final RouteZuulPo routeZuulPo = new RouteZuulPo();
+            RouteZuulPo routeZuulPo = new RouteZuulPo();
             routeZuulPo.setId(routeZuulDto.getRouteId());
             routeZuulPo.setServiceId(routeZuulDto.getServiceId());
             routeZuulPo.setPath(routeZuulDto.getPath());
@@ -87,7 +93,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
             if (newGatewayRouteMap.containsKey(routeZuulDto.getGatewayName())) {
                 newGatewayRouteMap.get(routeZuulDto.getGatewayName()).add(routeZuulPo);
             } else {
-                final List<RouteZuulPo> routeGatewayPoList = new ArrayList<>();
+                List<RouteZuulPo> routeGatewayPoList = new ArrayList<>();
                 routeGatewayPoList.add(routeZuulPo);
                 newGatewayRouteMap.put(routeZuulDto.getGatewayName(), routeGatewayPoList);
             }
@@ -95,14 +101,14 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteZuulDto>> pair : unusedMap.entrySet()) {
-                final String gatewayName = pair.getKey();
-                final String group = this.serviceResource.getGroup(gatewayName);
+                String gatewayName = pair.getKey();
+                String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, new ArrayList<RouteZuulPo>());
             }
         } else {
             for (Map.Entry<String, List<RouteZuulPo>> pair : newGatewayRouteMap.entrySet()) {
-                final String gatewayName = pair.getKey();
-                final String group = this.serviceResource.getGroup(gatewayName);
+                String gatewayName = pair.getKey();
+                String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -112,7 +118,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         }
 
         if (!CollectionUtils.isEmpty(toUpdateList)) {
-            for (final RouteZuulDto routeGatewayDto : toUpdateList) {
+            for (RouteZuulDto routeGatewayDto : toUpdateList) {
                 routeGatewayDto.setPublish(true);
             }
             this.updateBatchById(toUpdateList, toUpdateList.size());
@@ -121,21 +127,18 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TranRead
     @Override
-    public IPage<RouteZuulDto> page(final String description,
-                                    final Integer pageNum,
-                                    final Integer pageSize) {
-        final QueryWrapper<RouteZuulDto> queryWrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<RouteZuulDto> lambda = queryWrapper.lambda();
+    public IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize) {
+        QueryWrapper<RouteZuulDto> queryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<RouteZuulDto> lambda = queryWrapper.lambda().orderByAsc(RouteZuulDto::getRowCreateTime);
         if (!ObjectUtils.isEmpty(description)) {
             lambda.eq(RouteZuulDto::getDescription, description);
         }
-        lambda.orderByAsc(RouteZuulDto::getRowCreateTime);
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
     @TranRead
     @Override
-    public RouteZuulDto getById(final Long id) {
+    public RouteZuulDto getById(Long id) {
         if (id == null) {
             return null;
         }
@@ -144,7 +147,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TranSave
     @Override
-    public void insert(final RouteZuulDto routeZuulDto) {
+    public void insert(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
             return;
         }
@@ -159,7 +162,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TranSave
     @Override
-    public void update(final RouteZuulDto routeZuulDto) {
+    public void update(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
             return;
         }
@@ -171,18 +174,18 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TranSave
     @Override
-    public void enable(final Long id,
-                       final boolean enabled) {
-        final RouteZuulDto routeZuulDto = this.getById(id);
+    public void enable(Long id,
+                       boolean enabled) {
+        RouteZuulDto routeZuulDto = this.getById(id);
         routeZuulDto.setEnabled(enabled);
         this.update(routeZuulDto);
     }
 
     @TranSave
     @Override
-    public void logicDelete(final Collection<Long> ids) {
-        for (final Long id : ids) {
-            final RouteZuulDto routeZuulDto = this.getById(id);
+    public void logicDelete(Collection<Long> ids) {
+        for (Long id : ids) {
+            RouteZuulDto routeZuulDto = this.getById(id);
             if (routeZuulDto == null) {
                 continue;
             }
@@ -195,20 +198,18 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TranSave
     @Override
-    public void delete(final Collection<Long> ids) {
+    public void delete(Collection<Long> ids) {
         this.removeByIds(ids);
     }
 
-    private void updateConfig(String gatewayName,
-                              String group,
-                              Object config) throws Exception {
-        final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
+    private void updateConfig(String gatewayName, String group, Object config) throws Exception {
+        String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
         this.configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
-    private void addKV(final Map<String, List<RouteZuulDto>> map,
-                       final String key,
-                       final RouteZuulDto value) {
+    private void addKV(Map<String, List<RouteZuulDto>> map,
+                       String key,
+                       RouteZuulDto value) {
         if (map.containsKey(key)) {
             map.get(key).add(value);
         } else {

@@ -5,17 +5,15 @@ package com.nepxion.discovery.platform.server.shiro;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
-import com.nepxion.discovery.platform.server.service.AdminService;
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -24,16 +22,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
+import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 public class AuthRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
     @Autowired
     private AdminService adminService;
 
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(final AuthenticationToken authenticationToken) throws AuthenticationException {
-        final UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
-        final String username = usernamePasswordToken.getUsername();
-        final String password = new String(usernamePasswordToken.getPassword());
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
+        String username = usernamePasswordToken.getUsername();
+        String password = new String(usernamePasswordToken.getPassword());
         AdminVo adminVo;
         try {
             if (!this.adminService.authenticate(username, password)) {
@@ -45,7 +48,7 @@ public class AuthRealm extends AuthorizingRealm {
             } else {
                 adminVo.getSysRole().setSuperAdmin(false);
             }
-        } catch (final Exception e) {
+        } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;
         }
@@ -53,7 +56,7 @@ public class AuthRealm extends AuthorizingRealm {
     }
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principalCollection) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return new SimpleAuthorizationInfo();
     }
 }

@@ -5,20 +5,17 @@ package com.nepxion.discovery.platform.server.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.nepxion.discovery.platform.server.converter.CustomDateConverter;
-import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
-import com.nepxion.discovery.platform.server.resolver.LoginArgumentResolver;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
+import javax.servlet.Filter;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,27 +30,29 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 
-import javax.servlet.Filter;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.List;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.nepxion.discovery.platform.server.converter.CustomDateConverter;
+import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
+import com.nepxion.discovery.platform.server.resolver.LoginArgumentResolver;
 
 @Configuration
 public class WebAutoConfiguration extends WebMvcConfigurationSupport {
     @Override
-    protected void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
-        final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final SimpleModule module = new SimpleModule();
+    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        SimpleModule module = new SimpleModule();
         module.addSerializer(new ToStringSerializer(Long.TYPE));
         module.addSerializer(new ToStringSerializer(Long.class));
         module.addSerializer(new ToStringSerializer(BigInteger.class));
         objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @Override
-            public void serialize(Object o,
-                                  JsonGenerator jsonGenerator,
-                                  SerializerProvider serializerProvider) throws IOException {
+            public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
                 jsonGenerator.writeString("");
             }
         });
@@ -69,7 +68,7 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Override
-    protected void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:static/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:static/js/");
         registry.addResourceHandler("/images/**").addResourceLocations("classpath:static/images/");
@@ -81,13 +80,13 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Override
-    public void addFormatters(final FormatterRegistry registry) {
+    public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new CustomDateConverter());
         super.addFormatters(registry);
     }
 
     @Override
-    protected void addInterceptors(final InterceptorRegistry registry) {
+    protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor())
                 .addPathPatterns("/**") // 拦截所有
                 .excludePathPatterns("/") // 排除登录页面
@@ -109,7 +108,7 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
     }
 
     @Override
-    protected void addArgumentResolvers(final List<HandlerMethodArgumentResolver> argumentResolvers) {
+    protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new ServletWebArgumentResolverAdapter(new LoginArgumentResolver()));
         super.addArgumentResolvers(argumentResolvers);
     }

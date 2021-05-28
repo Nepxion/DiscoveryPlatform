@@ -5,10 +5,13 @@ package com.nepxion.discovery.platform.server.ldap.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
@@ -19,16 +22,12 @@ import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 public class LdapAdminService implements AdminService {
     private final LdapService ldapService;
     private final AdminService adminService;
 
-    public LdapAdminService(final LdapService ldapService,
-                            final AdminService adminService) {
+    public LdapAdminService(LdapService ldapService,
+                            AdminService adminService) {
         this.ldapService = ldapService;
         this.adminService = adminService;
     }
@@ -39,19 +38,19 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public AuthenticationEntity authenticate(final UserEntity userEntity) {
+    public AuthenticationEntity authenticate(UserEntity userEntity) {
         AuthenticationEntity authenticationEntity = new AuthenticationEntity();
         return authenticationEntity;
     }
 
     @Override
     public AdminVo getAdminByUserName(String username) throws Exception {
-        final LdapUserVo ldapUserVo = this.ldapService.getByUserName(username);
-        if (null == ldapUserVo) {
+        LdapUserVo ldapUserVo = this.ldapService.getByUserName(username);
+        if (ldapUserVo == null) {
             return null;
         }
         SysAdminDto sysAdmin = this.adminService.getByUserName(username);
-        if (null == sysAdmin) {
+        if (sysAdmin == null) {
             this.adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
         } else {
             this.adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
@@ -60,14 +59,14 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public List<AdminVo> search(final String keyword,
-                                final Integer pageNum,
-                                final Integer pageSize) {
-        final List<AdminVo> result = new ArrayList<>();
-        final List<LdapUserVo> ldapUserVoList = this.ldapService.search(keyword, pageNum, pageSize);
+    public List<AdminVo> search(String keyword,
+                                Integer pageNum,
+                                Integer pageSize) {
+        List<AdminVo> result = new ArrayList<>();
+        List<LdapUserVo> ldapUserVoList = this.ldapService.search(keyword, pageNum, pageSize);
 
-        for (final LdapUserVo ldapUserVo : ldapUserVoList) {
-            final AdminVo adminVo = new AdminVo();
+        for (LdapUserVo ldapUserVo : ldapUserVoList) {
+            AdminVo adminVo = new AdminVo();
             adminVo.setLoginMode(LoginMode.LDAP.getCode());
             adminVo.setUsername(ldapUserVo.getUsername());
             adminVo.setName(ldapUserVo.getName());

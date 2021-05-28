@@ -5,10 +5,17 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -25,14 +32,6 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPageMapper;
 import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
     @TranRead
     @Override
@@ -42,12 +41,12 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
 
     @TranRead
     @Override
-    public void fillPages(final AdminVo adminVo) {
-        if (null == adminVo) {
+    public void fillPages(AdminVo adminVo) {
+        if (adminVo == null) {
             return;
         }
         adminVo.setPermissions(getPages(adminVo));
-        if (null != adminVo.getPermissions()) {
+        if (adminVo.getPermissions() != null) {
             adminVo.getPermissions().sort((o1, o2) -> (int) (o1.getOrder() - o2.getOrder()));
         }
     }
@@ -55,7 +54,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
     @TranRead
     @Override
     public List<SysPageDto> listEmptyUrlPages() {
-        final QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(SysPageDto::getUrl, "")
                 .orderByAsc(SysPageDto::getName);
@@ -65,7 +64,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
     @TranRead
     @Override
     public List<SysPageDto> listNotEmptyUrlPages() {
-        final QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .ne(SysPageDto::getUrl, "")
                 .orderByAsc(SysPageDto::getName);
@@ -74,33 +73,31 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
 
     @TranRead
     @Override
-    public IPage<PageVo> list(final String name,
-                              final Integer pageNum,
-                              final Integer pageSize) {
+    public IPage<PageVo> list(String name, Integer pageNum, Integer pageSize) {
         return this.baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
     }
 
     @TranRead
     @Override
-    public Long getMaxOrder(final Long parentId) {
+    public Long getMaxOrder(Long parentId) {
         return this.baseMapper.getMaxOrder(parentId);
     }
 
     @TranSave
     @Override
-    public boolean insert(final SysPageDto sysPage) {
+    public boolean insert(SysPageDto sysPage) {
         return super.save(sysPage);
     }
 
     @TranRead
     @Override
-    public SysPageDto getById(final Long id) {
+    public SysPageDto getById(Long id) {
         return super.getById(id);
     }
 
     @TranSave
     @Override
-    public boolean updateById(final SysPageDto entity) {
+    public boolean updateById(SysPageDto entity) {
         return super.updateById(entity);
     }
 
@@ -112,40 +109,40 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
 
     @SuppressWarnings("unchecked")
     private List<SysPageDto> listSysPages() {
-        final QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(SysPageDto::getIsMenu, 1)
                 .orderByAsc(SysPageDto::getParentId, SysPageDto::getOrder);
         return this.list(queryWrapper);
     }
 
-    private List<PageVo> listPermissionPages(final Long adminId) {
+    private List<PageVo> listPermissionPages(Long adminId) {
         return this.baseMapper.listPermissionPages(adminId);
     }
 
-    private List<PageVo> getPages(final AdminVo adminVo) {
-        final List<SysPageDto> allPages = this.listSysPages();
-        final Map<Long, SysPageDto> allPageMap = toMap(allPages);
+    private List<PageVo> getPages(AdminVo adminVo) {
+        List<SysPageDto> allPages = this.listSysPages();
+        Map<Long, SysPageDto> allPageMap = toMap(allPages);
 
         // 非顶级集合
-        final List<PageVo> nonRootPageList = new ArrayList<>();
+        List<PageVo> nonRootPageList = new ArrayList<>();
         // 顶级集合
-        final List<PageVo> rootPageList = new ArrayList<>();
-        final List<PageVo> pageVoList = this.listPermissionPages(adminVo.getId());
+        List<PageVo> rootPageList = new ArrayList<>();
+        List<PageVo> pageVoList = this.listPermissionPages(adminVo.getId());
 
-        final Map<Long, PageVo> permission = new HashMap<>((int) (0.75 / pageVoList.size()));
-        for (final PageVo pageVo : pageVoList) {
+        Map<Long, PageVo> permission = new HashMap<>((int) (0.75 / pageVoList.size()));
+        for (PageVo pageVo : pageVoList) {
             permission.put(pageVo.getId(), pageVo);
         }
 
-        for (final SysPageDto sysPage : allPages) {
+        for (SysPageDto sysPage : allPages) {
             if (!adminVo.getSysRole().getSuperAdmin() && !permission.containsKey(sysPage.getId())) {
                 continue;
             }
             if (0 == sysPage.getParentId()) {
-                final PageVo rootPageVo = CommonTool.toVo(sysPage, PageVo.class);
-                final PageVo permissionPageVo = permission.get(rootPageVo.getId());
-                if (null != permissionPageVo) {
+                PageVo rootPageVo = CommonTool.toVo(sysPage, PageVo.class);
+                PageVo permissionPageVo = permission.get(rootPageVo.getId());
+                if (permissionPageVo != null) {
                     rootPageVo.setCanInsert(permissionPageVo.getCanInsert());
                     rootPageVo.setCanDelete(permissionPageVo.getCanDelete());
                     rootPageVo.setCanUpdate(permissionPageVo.getCanUpdate());
@@ -160,14 +157,14 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
             }
         }
 
-        for (final PageVo pageVo : nonRootPageList) {
-            final SysPageDto sysPageParent = allPageMap.get(pageVo.getParentId());
-            if (null != sysPageParent) {
-                final Optional<PageVo> first = rootPageList.stream().filter(p -> p.getId().equals(sysPageParent.getId())).findFirst();
+        for (PageVo pageVo : nonRootPageList) {
+            SysPageDto sysPageParent = allPageMap.get(pageVo.getParentId());
+            if (sysPageParent != null) {
+                Optional<PageVo> first = rootPageList.stream().filter(p -> p.getId().equals(sysPageParent.getId())).findFirst();
                 if (!first.isPresent()) {
-                    final PageVo rootPageVo = CommonTool.toVo(sysPageParent, PageVo.class);
-                    final PageVo permissionPageVo = permission.get(rootPageVo.getId());
-                    if (null != permissionPageVo) {
+                    PageVo rootPageVo = CommonTool.toVo(sysPageParent, PageVo.class);
+                    PageVo permissionPageVo = permission.get(rootPageVo.getId());
+                    if (permissionPageVo != null) {
                         rootPageVo.setCanInsert(permissionPageVo.getCanInsert());
                         rootPageVo.setCanDelete(permissionPageVo.getCanDelete());
                         rootPageVo.setCanUpdate(permissionPageVo.getCanUpdate());
@@ -179,7 +176,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
 
         if (ObjectUtils.isNotNull(rootPageList) || ObjectUtils.isNotNull(nonRootPageList)) {
-            final Set<Long> map = Sets.newHashSetWithExpectedSize(nonRootPageList.size());
+            Set<Long> map = Sets.newHashSetWithExpectedSize(nonRootPageList.size());
             rootPageList.forEach(rootPage -> getChild(adminVo, permission, rootPage, nonRootPageList, map));
             filter(rootPageList);
             return rootPageList;
@@ -187,19 +184,19 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return null;
     }
 
-    private Map<Long, SysPageDto> toMap(final List<SysPageDto> sysPageList) {
-        final Map<Long, SysPageDto> result = new HashMap<>((int) (sysPageList.size() / 0.75));
+    private Map<Long, SysPageDto> toMap(List<SysPageDto> sysPageList) {
+        Map<Long, SysPageDto> result = new HashMap<>((int) (sysPageList.size() / 0.75));
 
-        for (final SysPageDto sysPage : sysPageList) {
+        for (SysPageDto sysPage : sysPageList) {
             result.put(sysPage.getId(), sysPage);
         }
         return result;
     }
 
-    private void filter(final List<PageVo> pageList) {
-        final Iterator<PageVo> iterator = pageList.iterator();
+    private void filter(List<PageVo> pageList) {
+        Iterator<PageVo> iterator = pageList.iterator();
         while (iterator.hasNext()) {
-            final PageVo page = iterator.next();
+            PageVo page = iterator.next();
             if (ObjectUtils.isEmpty(page.getUrl()) && (page.getChildren() == null || page.getChildren().size() < 1)) {
                 iterator.remove();
             } else {
@@ -208,12 +205,12 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
     }
 
-    private void getChild(final AdminVo adminVo,
-                          final Map<Long, PageVo> permission,
-                          final PageVo parentPage,
-                          final List<PageVo> childrenPageList,
-                          final Set<Long> set) {
-        final List<PageVo> childList = Lists.newArrayList();
+    private void getChild(AdminVo adminVo,
+                          Map<Long, PageVo> permission,
+                          PageVo parentPage,
+                          List<PageVo> childrenPageList,
+                          Set<Long> set) {
+        List<PageVo> childList = Lists.newArrayList();
         childrenPageList.stream().//
                 filter(p -> !set.contains(p.getId())). // 判断是否已循环过当前对象
                 filter(p -> p.getParentId().equals(parentPage.getId())). // 判断是否父子关系
@@ -226,7 +223,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 getChild(adminVo, permission, p, childrenPageList, set);
 
                 if (permission.containsKey(p.getId())) {
-                    final PageVo page = permission.get(p.getId());
+                    PageVo page = permission.get(p.getId());
                     p.setCanInsert(page.getCanInsert());
                     p.setCanDelete(page.getCanDelete());
                     p.setCanUpdate(page.getCanUpdate());

@@ -5,25 +5,26 @@ package com.nepxion.discovery.platform.server.template;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 
 public abstract class AuthDirective {
     @Autowired
     protected HttpServletRequest request;
 
-    protected boolean checkPermission(final Operation operation) {
-        if (null == operation) {
+    protected boolean checkPermission(Operation operation) {
+        if (operation == null) {
             return false;
         }
         String uri = request.getRequestURI();
@@ -44,32 +45,31 @@ public abstract class AuthDirective {
         return false;
     }
 
-    private boolean checkPermission(String uri,
-                                    final HandlePermission handlePermission) {
-        final AdminVo adminVo = (AdminVo) SecurityUtils.getSubject().getPrincipal();
-        if (null == adminVo) {
+    private boolean checkPermission(String uri, HandlePermission handlePermission) {
+        AdminVo adminVo = (AdminVo) SecurityUtils.getSubject().getPrincipal();
+        if (adminVo == null) {
             return false;
         } else if (adminVo.getSysRole().getSuperAdmin()) {
             return true;
         } else if (adminVo.getPermissions() == null || adminVo.getPermissions().size() < 1) {
             return false;
         }
-        if (null == uri) {
+        if (uri == null) {
             uri = "";
         }
-        final PageVo pageVo = getByUri(adminVo.getPermissions(), uri);
-        if (null != pageVo) {
+        PageVo pageVo = getByUri(adminVo.getPermissions(), uri);
+        if (pageVo != null) {
             return handlePermission.check(pageVo);
         }
         return false;
     }
 
-    private PageVo getByUri(final List<PageVo> pageVoList,
-                            final String uri) {
-        for (final PageVo pageVo : pageVoList) {
+    private PageVo getByUri(List<PageVo> pageVoList,
+                            String uri) {
+        for (PageVo pageVo : pageVoList) {
             if (pageVo.getUrl().equals(uri)) {
                 return pageVo;
-            } else if (null != pageVo.getChildren() && !pageVo.getChildren().isEmpty()) {
+            } else if (pageVo.getChildren() != null && !pageVo.getChildren().isEmpty()) {
                 return getByUri(pageVo.getChildren(), uri);
             }
         }
@@ -84,6 +84,6 @@ public abstract class AuthDirective {
     }
 
     private interface HandlePermission {
-        boolean check(final PageVo pageVo);
+        boolean check(PageVo pageVo);
     }
 }

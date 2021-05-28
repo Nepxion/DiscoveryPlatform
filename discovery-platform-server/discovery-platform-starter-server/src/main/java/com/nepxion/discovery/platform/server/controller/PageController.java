@@ -5,10 +5,21 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
+
+import java.util.HashSet;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
@@ -16,14 +27,6 @@ import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @RequestMapping(PageController.PREFIX)
@@ -40,14 +43,14 @@ public class PageController {
     }
 
     @RequestMapping("add")
-    public String add(final Model model) throws Exception {
+    public String add(Model model) throws Exception {
         model.addAttribute("pages", this.pageService.listEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @RequestMapping("edit")
-    public String edit(final Model model,
-                       @RequestParam(value = "id") final Long id) throws Exception {
+    public String edit(Model model,
+                       @RequestParam(value = "id") Long id) throws Exception {
         model.addAttribute("page", this.pageService.getById(id));
         model.addAttribute("pages", this.pageService.listEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "edit");
@@ -55,26 +58,26 @@ public class PageController {
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<PageVo>> doList(@RequestParam(value = "page") final Integer pageNum,
-                                       @RequestParam(value = "limit") final Integer pageSize,
-                                       @RequestParam(value = "name", required = false) final String name) throws Exception {
-        final IPage<PageVo> page = this.pageService.list(name, pageNum, pageSize);
+    public Result<List<PageVo>> doList(@RequestParam(value = "page") Integer pageNum,
+                                       @RequestParam(value = "limit") Integer pageSize,
+                                       @RequestParam(value = "name", required = false) String name) throws Exception {
+        IPage<PageVo> page = this.pageService.list(name, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
     @PostMapping("do-add")
     @ResponseBody
-    public Result<?> doAdd(final SysPageDto sysPage) throws Exception {
-        if (null == sysPage.getIsDefault()) {
+    public Result<?> doAdd(SysPageDto sysPage) throws Exception {
+        if (sysPage.getIsDefault() == null) {
             sysPage.setIsDefault(false);
         }
-        if (null == sysPage.getIsMenu()) {
+        if (sysPage.getIsMenu() == null) {
             sysPage.setIsMenu(false);
         }
-        if (null == sysPage.getIsBlank()) {
+        if (sysPage.getIsBlank() == null) {
             sysPage.setIsBlank(false);
         }
-        final Long order = this.pageService.getMaxOrder(sysPage.getParentId());
+        Long order = this.pageService.getMaxOrder(sysPage.getParentId());
         sysPage.setOrder(order + 1);
         this.pageService.insert(sysPage);
         return Result.ok();
@@ -82,16 +85,16 @@ public class PageController {
 
     @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> doEdit(final SysPageDto sysPage) throws Exception {
-        final SysPageDto dbSysPage = this.pageService.getById(sysPage.getId());
-        if (null != dbSysPage) {
-            if (null == sysPage.getIsDefault()) {
+    public Result<?> doEdit(SysPageDto sysPage) {
+        SysPageDto dbSysPage = this.pageService.getById(sysPage.getId());
+        if (dbSysPage != null) {
+            if (sysPage.getIsDefault() == null) {
                 sysPage.setIsDefault(false);
             }
-            if (null == sysPage.getIsMenu()) {
+            if (sysPage.getIsMenu() == null) {
                 sysPage.setIsMenu(false);
             }
-            if (null == sysPage.getIsBlank()) {
+            if (sysPage.getIsBlank() == null) {
                 sysPage.setIsBlank(false);
             }
             this.pageService.updateById(sysPage);
@@ -101,8 +104,8 @@ public class PageController {
 
     @PostMapping("do-delete")
     @ResponseBody
-    public Result<?> doDelete(@RequestParam(value = "ids") final String ids) throws Exception {
-        final List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
+    public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
+        List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         this.pageService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }

@@ -5,44 +5,45 @@ package com.nepxion.discovery.platform.server.mysql.tool;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.zaxxer.hikari.HikariDataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.zaxxer.hikari.HikariDataSource;
 
-public final class DataSourceTool {
+public class DataSourceTool {
     private static final Logger LOG = LoggerFactory.getLogger(DataSourceTool.class);
 
     private static final String DATA_BASE_URL = "jdbc:mysql://%s/%s?allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&useUnicode=true&autoReconnect=true&allowMultiQueries=true&useSSL=false&rewriteBatchedStatements=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
-    private final static String ZIPKIN_MYSQL8_INTERCEPTOR = "queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=%s";
+    private static final String ZIPKIN_MYSQL8_INTERCEPTOR = "queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=%s";
     private static final String CONNECTION_TEST_QUERY = "SELECT 1";
     private static final String CONNECTION_INIT_SQL = "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci";
     private static final int MIN_IDLE = 10;
     private static final int MAXIMUM = 30;
     private static final String DRIVER_CLASS_NAME = com.mysql.cj.jdbc.Driver.class.getCanonicalName();
 
-    public static DataSource createHikariDataSource(final String poolName,
-                                                    final String host,
-                                                    final String port,
-                                                    final String databaseName,
-                                                    final String userName,
-                                                    final String password,
-                                                    final Integer minIdle,
-                                                    final Integer maximum,
-                                                    @Nullable final PostProcessor postProcessor) {
-        final Parameter parameter = DataSourceTool.generateParameter(poolName, host, port, databaseName, postProcessor);
-        final HikariDataSource result = new HikariDataSource();
+    public static DataSource createHikariDataSource(String poolName,
+                                                    String host,
+                                                    String port,
+                                                    String databaseName,
+                                                    String userName,
+                                                    String password,
+                                                    Integer minIdle,
+                                                    Integer maximum,
+                                                    @Nullable PostProcessor postProcessor) {
+        Parameter parameter = DataSourceTool.generateParameter(poolName, host, port, databaseName, postProcessor);
+        HikariDataSource result = new HikariDataSource();
         if (!ObjectUtils.isEmpty(parameter.getPoolName())) {
             result.setPoolName(parameter.getPoolName()); //连接池名称
         }
@@ -61,100 +62,99 @@ public final class DataSourceTool {
         return result;
     }
 
-    public static DataSource createHikariDataSource(final String poolName,
-                                                    final String host,
-                                                    final String port,
-                                                    final String databaseName,
-                                                    final String userName,
-                                                    final String password,
-                                                    final Integer minIdle,
-                                                    final Integer maximum) {
+    public static DataSource createHikariDataSource(String poolName,
+                                                    String host,
+                                                    String port,
+                                                    String databaseName,
+                                                    String userName,
+                                                    String password,
+                                                    Integer minIdle,
+                                                    Integer maximum) {
         return createHikariDataSource(poolName, host, port, databaseName, userName, password, minIdle, maximum, null);
     }
 
-    public static DataSource createHikariDataSource(final String host,
-                                                    final String port,
-                                                    final String databaseName,
-                                                    final String userName,
-                                                    final String password,
-                                                    final Integer minIdle,
-                                                    final Integer maximum) {
+    public static DataSource createHikariDataSource(String host,
+                                                    String port,
+                                                    String databaseName,
+                                                    String userName,
+                                                    String password,
+                                                    Integer minIdle,
+                                                    Integer maximum) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, minIdle, maximum, null);
     }
 
-    public static DataSource createHikariDataSource(final String host,
-                                                    final String port,
-                                                    final String databaseName,
-                                                    final String userName,
-                                                    final String password,
-                                                    final PostProcessor postProcessor) {
+    public static DataSource createHikariDataSource(String host,
+                                                    String port,
+                                                    String databaseName,
+                                                    String userName,
+                                                    String password,
+                                                    PostProcessor postProcessor) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, MIN_IDLE, MAXIMUM, postProcessor);
     }
 
-    public static DataSource createHikariDataSource(final String host,
-                                                    final String port,
-                                                    final String databaseName,
-                                                    final String userName,
-                                                    final String password) {
+    public static DataSource createHikariDataSource(String host,
+                                                    String port,
+                                                    String databaseName,
+                                                    String userName,
+                                                    String password) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, MIN_IDLE, MAXIMUM, null);
     }
 
-    public static Parameter registerZipkinForMySql8(final Parameter parameter) {
+    public static Parameter registerZipkinForMySql8(Parameter parameter) {
         String name = ObjectUtils.isEmpty(parameter.getPoolName()) ? parameter.getDatabaseName() : parameter.getPoolName();
         if (ObjectUtils.isEmpty(name)) {
             name = Thread.currentThread().getName();
         }
-        final String zipkinServiceName = String.format("MYSQL_%s", name).toUpperCase();
-        final String suffix = String.format(ZIPKIN_MYSQL8_INTERCEPTOR, zipkinServiceName);
+        String zipkinServiceName = String.format("MYSQL_%s", name).toUpperCase();
+        String suffix = String.format(ZIPKIN_MYSQL8_INTERCEPTOR, zipkinServiceName);
         parameter.setUrl(parameter.getUrl().concat(String.format("&%s", suffix)));
         return parameter;
     }
 
-    public static void close(final DataSource dataSource) {
-        if (null != dataSource) {
+    public static void close(DataSource dataSource) {
+        if (dataSource != null) {
             try {
                 if (dataSource instanceof HikariDataSource) {
                     ((HikariDataSource) dataSource).close();
                 }
 
-            } catch (final Exception exception) {
+            } catch (Exception exception) {
                 LOG.error(exception.getMessage(), exception);
             }
         }
     }
 
-    public static void close(final Connection connection) {
-        if (null != connection) {
+    public static void close(Connection connection) {
+        if (connection != null) {
             try {
                 connection.close();
-            } catch (final Exception exception) {
+            } catch (Exception exception) {
                 LOG.error(exception.getMessage(), exception);
             }
         }
     }
 
-    public static void close(final Statement statement) {
-        if (null != statement) {
+    public static void close(Statement statement) {
+        if (statement != null) {
             try {
                 statement.close();
-            } catch (final Exception exception) {
+            } catch (Exception exception) {
                 LOG.error(exception.getMessage(), exception);
             }
         }
     }
 
-    public static void close(final ResultSet resultSet) {
-        if (null != resultSet) {
+    public static void close(ResultSet resultSet) {
+        if (resultSet != null) {
             try {
                 resultSet.close();
-            } catch (final Exception exception) {
+            } catch (Exception exception) {
                 LOG.error(exception.getMessage(), exception);
             }
         }
     }
 
-    private static String getDbUrl(final String host,
-                                   final String port) {
+    private static String getDbUrl(String host, String port) {
         if (ObjectUtils.isEmpty(host)) {
             throw new RuntimeException("host is required");
         }
@@ -166,18 +166,18 @@ public final class DataSourceTool {
         }
     }
 
-    private static Parameter generateParameter(final String poolName,
-                                               final String host,
-                                               @Nullable final String port,
-                                               final String databaseName,
-                                               final PostProcessor postProcessor) {
+    private static Parameter generateParameter(String poolName,
+                                               String host,
+                                               @Nullable String port,
+                                               String databaseName,
+                                               PostProcessor postProcessor) {
         Parameter result = new Parameter();
         result.setPoolName(poolName);
         result.setHost(host);
         result.setPort(port);
         result.setDatabaseName(databaseName);
         result.setUrl(String.format(DATA_BASE_URL, DataSourceTool.getDbUrl(host, port), databaseName));
-        if (null != postProcessor) {
+        if (postProcessor != null) {
             result = postProcessor.after(result);
         }
         return result;

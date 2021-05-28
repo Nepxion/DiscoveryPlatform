@@ -5,12 +5,11 @@ package com.nepxion.discovery.platform.server.context;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,23 +21,22 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Properties;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
     private static final Logger LOG = LoggerFactory.getLogger(PlatformEnvironmentPostProcessor.class);
 
     @Override
-    public void postProcessEnvironment(final ConfigurableEnvironment configurableEnvironment,
-                                       final SpringApplication springApplication) {
-        if (null == configurableEnvironment || null == springApplication) {
+    public void postProcessEnvironment(ConfigurableEnvironment configurableEnvironment, SpringApplication springApplication) {
+        if (configurableEnvironment == null || springApplication == null) {
             return;
         }
-        final WebApplicationType webApplicationType = springApplication.getWebApplicationType();
-        if (null == webApplicationType || WebApplicationType.NONE == webApplicationType) {
+        WebApplicationType webApplicationType = springApplication.getWebApplicationType();
+        if (webApplicationType == null || webApplicationType == WebApplicationType.NONE) {
             return;
         }
 
-        final Properties properties = new Properties();
+        Properties properties = new Properties();
 
         this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.allow-request-override", true);
         this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.check-template-location", true);
@@ -67,16 +65,13 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         return Ordered.HIGHEST_PRECEDENCE;
     }
 
-    private void addDefaultConfig(final ConfigurableEnvironment configurableEnvironment,
-                                  final Properties properties,
-                                  final String name,
-                                  final Object value) {
+    private void addDefaultConfig(ConfigurableEnvironment configurableEnvironment, Properties properties, String name, Object value) {
         try {
-            final String oldProperty = configurableEnvironment.getProperty(name);
+            String oldProperty = configurableEnvironment.getProperty(name);
             if (ObjectUtils.isEmpty(oldProperty)) {
                 properties.put(name, value);
             }
-        } catch (final IllegalArgumentException exception) {
+        } catch (IllegalArgumentException exception) {
             LOG.error(ExceptionTool.getRootCauseMessage(exception), exception);
         }
     }

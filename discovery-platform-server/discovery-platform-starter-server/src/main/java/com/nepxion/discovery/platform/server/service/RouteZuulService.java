@@ -1,18 +1,16 @@
 package com.nepxion.discovery.platform.server.service;
 
+import java.util.Collection;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.console.entity.GatewayType;
-import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
-
-import java.util.Collection;
 
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
- *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -22,20 +20,17 @@ public interface RouteZuulService {
 
     void publish() throws Exception;
 
-    IPage<RouteZuulDto> page(final String description,
-                                final Integer pageNum,
-                                final Integer pageSize);
+    IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize);
 
-    RouteZuulDto getById(final Long id);
+    RouteZuulDto getById(Long id);
 
-    void insert(final RouteZuulDto routeZuulDto);
+    void insert(RouteZuulDto routeZuulDto);
 
-    void update(final RouteZuulDto routeZuulDto);
+    void update(RouteZuulDto routeZuulDto);
 
-    void enable(final Long id,
-                final boolean enabled);
+    void enable(Long id, boolean enabled);
 
-    void logicDelete(final Collection<Long> ids);
+    void logicDelete(Collection<Long> ids);
 
-    void delete(final Collection<Long> ids);
+    void delete(Collection<Long> ids);
 }

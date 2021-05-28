@@ -89,7 +89,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             }
 
             if (!StringUtils.isEmpty(routeGatewayDto.getUserFilters())) {
-                final List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Filter.class);
+                final List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
                 routeGatewayPo.setUserFilters(filterList);
             }
 

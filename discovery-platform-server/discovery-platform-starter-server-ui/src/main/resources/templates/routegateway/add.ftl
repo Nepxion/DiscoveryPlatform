@@ -63,7 +63,7 @@
                         </div>
                         <div class="layui-tab-item">
                              <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
-                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;name0={"arg0":"val0"}&#13;name1={"arg1":"val1"}'
+                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;Path={"_genkey_0":"/a/**", "_genkey_1":"/b/**"}&#13;Authentication={"secretKey":"abc"}'
                                        style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                     </div>
@@ -86,12 +86,12 @@
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
                                   <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
-                                            placeholder="请输入自定义过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/a"
+                                            placeholder="请输入过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/a"
                                             style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                         <div class="layui-tab-item">
                                    <textarea id="userFilters" name="userFilters" class="layui-input" autocomplete="off"
-                                             placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;name0={"arg0":"val0"}&#13;name1={"arg1":"val1"}'
+                                             placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;StripPrefix={"_genkey_0":"1"}&#13;Authentication={"secretKey":"abc"}'
                                              style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off"
-                          placeholder="请输入元数据字符串（使用换行分隔）, 例如：&#13;a=1&#13;b=2&#13;c=3"
+                          placeholder="请输入元数据字符串（使用换行分隔）。例如：&#13;foo=bar&#13;food=chocolate"
                           style="width: 740px;height:75px;resize: none"></textarea>
             </div>
         </div>

@@ -12,7 +12,8 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">网关列表</div>
                     <div class="layui-inline" style="width:350px">
-                        <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off" lay-verify="required" class="layui-select" lay-search>
+                        <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
+                                lay-verify="required" class="layui-select" lay-search>
                             <option value="">请选择路由实例名称</option>
                             <#list gatewayNames as gatewayName>
                                 <option value="${gatewayName}">${gatewayName}</option>
@@ -63,7 +64,7 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("do-list-gateway_names", {}, function (data) {
+                admin.post("do-list-gateway-names", {}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
                     selGatewayName.html('<option value="">请选择路由实例名称</option>');
@@ -121,8 +122,10 @@
                                 cols: [[
                                     {type: 'numbers', title: '序号', width: 100},
                                     {field: 'uri', title: '目标地址', width: 300},
-                                    {field: 'predicates', title: '断言器'},
+                                    {field: 'predicates', title: '断言器', width: 300},
+                                    {field: 'userPredicatesStr', title: '自定义断言器', width: 300},
                                     {field: 'filters', title: '过滤器', width: 300},
+                                    {field: 'userFiltersStr', title: '自定义过滤器', width: 300},
                                     {
                                         field: 'metadata', title: '元数据', width: 300,
                                         templet: function (d) {

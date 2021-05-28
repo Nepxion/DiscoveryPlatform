@@ -32,6 +32,7 @@ import com.nepxion.discovery.platform.server.tool.CommonTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -81,6 +82,16 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             routeGatewayPo.setOrder(routeGatewayDto.getOrder());
             routeGatewayPo.setMetadata(CommonTool.asMap(routeGatewayDto.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+
+            if (!StringUtils.isEmpty(routeGatewayDto.getUserPredicates())) {
+                final List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
+                routeGatewayPo.setUserPredicates(predicateList);
+            }
+
+            if (!StringUtils.isEmpty(routeGatewayDto.getUserFilters())) {
+                final List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Filter.class);
+                routeGatewayPo.setUserFilters(filterList);
+            }
 
             if (newGatewayRouteMap.containsKey(routeGatewayDto.getGatewayName())) {
                 newGatewayRouteMap.get(routeGatewayDto.getGatewayName()).add(routeGatewayPo);
@@ -215,6 +226,26 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             routeGatewayDtoList.add(value);
             map.put(key, routeGatewayDtoList);
         }
+    }
 
+    private <T extends RouteGatewayPo.BaseClauseEntity> List<T> parse(String value,
+                                                                      Class<T> tClass) throws Exception {
+        List<T> result = new ArrayList<>();
+        String[] all = value.split(PlatformConstant.ROW_SEPARATOR);
+        for (String item : all) {
+            T t = tClass.newInstance();
+
+            int index = item.indexOf("=");
+            if (index < 0) {
+                continue;
+            }
+            String name = item.substring(0, index).trim();
+            String json = item.substring(index + 1).trim();
+            Map<String, String> map = JsonUtil.fromJson(json, Map.class);
+            t.setName(name);
+            t.setArgs(map);
+            result.add(t);
+        }
+        return result;
     }
 }

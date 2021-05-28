@@ -6,7 +6,8 @@
     </head>
     <body>
 
-    <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
+         style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
@@ -38,8 +39,7 @@
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline">
                 <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
-                       style="width: 740px"
-                       placeholder="请输入服务名称（即：注册中心中该服务的名称）" autocomplete="off">
+                       style="width: 740px" placeholder="请输入服务名称（即：注册中心中该服务的名称）" autocomplete="off">
             </div>
         </div>
 
@@ -49,32 +49,62 @@
                     断言器
                 </a>
             </label>
-            <div class="layui-input-inline">
-                <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
-                          placeholder="请输入断言字符串（使用换行分隔）。例如：&#13;Path=/a/**,/b/**&#13;Header=type,1&#13;Cookie=category,a"
-                          style="width: 740px;height:100px;resize: none"></textarea>
+            <div class="layui-input-inline" style="width: 740px;margin-top:-12px">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">内置</li>
+                        <li>自定义</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                             <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
+                                       placeholder='请输入断言字符串（使用换行分隔）。例如：&#13;Path=/a/**,/b/**&#13;Header=type,1'
+                                       style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                        </div>
+                        <div class="layui-tab-item">
+                             <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
+                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;name0={"arg0":"val0"}&#13;name1={"arg1":"val1"}'
+                                       style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="height: 100px;margin-top: -100px">
             <label class="layui-form-label">
                 <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
                     过滤器
                 </a>
             </label>
-            <div class="layui-input-inline">
-                <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
-                          placeholder="请输入过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/a"
-                          style="width: 740px;height:100px;resize: none"></textarea>
+            <div class="layui-input-inline" style="width: 740px;margin-top:-12px">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">内置</li>
+                        <li>自定义</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                                  <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
+                                            placeholder="请输入自定义过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/a"
+                                            style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                        </div>
+                        <div class="layui-tab-item">
+                                   <textarea id="userFilters" name="userFilters" class="layui-input" autocomplete="off"
+                                             placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;name0={"arg0":"val0"}&#13;name1={"arg1":"val1"}'
+                                             style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-top: -100px">
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off"
-                          placeholder="请输入元数据字符串（使用换行来隔）, 例如：&#13;a=1&#13;b=2&#13;c=3"
-                          style="width: 740px;height:100px;resize: none"></textarea>
+                          placeholder="请输入元数据字符串（使用换行分隔）, 例如：&#13;a=1&#13;b=2&#13;c=3"
+                          style="width: 740px;height:75px;resize: none"></textarea>
             </div>
         </div>
 

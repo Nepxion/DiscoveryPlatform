@@ -34,8 +34,14 @@ public final class RouteGatewayDto extends BaseStateEntity {
     @TableField(value = "`predicates`")
     private String predicates;
 
+    @TableField(value = "`user_predicates`")
+    private String userPredicates;
+
     @TableField(value = "`filters`")
     private String filters;
+
+    @TableField(value = "`user_filters`")
+    private String userFilters;
 
     @TableField(value = "`metadata`")
     private String metadata;
@@ -85,12 +91,28 @@ public final class RouteGatewayDto extends BaseStateEntity {
         this.predicates = predicates;
     }
 
+    public String getUserPredicates() {
+        return userPredicates;
+    }
+
+    public void setUserPredicates(String userPredicates) {
+        this.userPredicates = userPredicates;
+    }
+
     public String getFilters() {
         return filters;
     }
 
     public void setFilters(String filters) {
         this.filters = filters;
+    }
+
+    public String getUserFilters() {
+        return userFilters;
+    }
+
+    public void setUserFilters(String userFilters) {
+        this.userFilters = userFilters;
     }
 
     public String getMetadata() {

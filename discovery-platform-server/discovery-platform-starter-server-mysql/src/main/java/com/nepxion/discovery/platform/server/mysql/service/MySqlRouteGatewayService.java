@@ -5,21 +5,10 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -40,6 +29,13 @@ import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
@@ -50,23 +46,23 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     @TranSave
     @Override
     public void publish() throws Exception {
-        List<RouteGatewayDto> routeGatewayDtoList = this.list();
+        final List<RouteGatewayDto> routeGatewayDtoList = this.list();
 
         if (CollectionUtils.isEmpty(routeGatewayDtoList)) {
-            List<String> gatewayNameList = this.serviceResource.getGatewayList(GATEWAY_TYPE);
-            for (String gatewayName : gatewayNameList) {
-                String group = this.serviceResource.getGroup(gatewayName);
+            final List<String> gatewayNameList = this.serviceResource.getGatewayList(GATEWAY_TYPE);
+            for (final String gatewayName : gatewayNameList) {
+                final String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, new ArrayList<RouteGatewayPo>());
             }
             return;
         }
 
-        List<RouteGatewayDto> toUpdateList = new ArrayList<>(routeGatewayDtoList.size());
-        List<RouteGatewayDto> toDeleteList = new ArrayList<>(routeGatewayDtoList.size());
-        Map<String, List<RouteGatewayDto>> unusedMap = new HashMap<>();
+        final List<RouteGatewayDto> toUpdateList = new ArrayList<>(routeGatewayDtoList.size());
+        final List<RouteGatewayDto> toDeleteList = new ArrayList<>(routeGatewayDtoList.size());
+        final Map<String, List<RouteGatewayDto>> unusedMap = new HashMap<>();
 
-        Map<String, List<RouteGatewayPo>> newGatewayRouteMap = new HashMap<>();
-        for (RouteGatewayDto routeGatewayDto : routeGatewayDtoList) {
+        final Map<String, List<RouteGatewayPo>> newGatewayRouteMap = new HashMap<>();
+        for (final RouteGatewayDto routeGatewayDto : routeGatewayDtoList) {
             if (routeGatewayDto.getDeleted()) {
                 toDeleteList.add(routeGatewayDto);
                 addKV(unusedMap, routeGatewayDto.getGatewayName(), routeGatewayDto);
@@ -79,48 +75,44 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
             toUpdateList.add(routeGatewayDto);
 
-            RouteGatewayPo routeGatewayPo = new RouteGatewayPo();
+            final RouteGatewayPo routeGatewayPo = new RouteGatewayPo();
             routeGatewayPo.setId(routeGatewayDto.getRouteId());
             routeGatewayPo.setUri(routeGatewayDto.getUri());
-
-
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getPredicates())) {
-                routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
-            }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserPredicates())) {
-                List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
-                routeGatewayPo.setUserPredicates(predicateList);
-            }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getFilters())) {
-                routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
-            }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserFilters())) {
-                List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
-                routeGatewayPo.setUserFilters(filterList);
-            }
-
+            routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
+            routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             routeGatewayPo.setOrder(routeGatewayDto.getOrder());
             routeGatewayPo.setMetadata(CommonTool.asMap(routeGatewayDto.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+
+            if (!StringUtils.isEmpty(routeGatewayDto.getUserPredicates())) {
+                final List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
+                routeGatewayPo.setUserPredicates(predicateList);
+            }
+
+            if (!StringUtils.isEmpty(routeGatewayDto.getUserFilters())) {
+                final List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
+                routeGatewayPo.setUserFilters(filterList);
+            }
 
             if (newGatewayRouteMap.containsKey(routeGatewayDto.getGatewayName())) {
                 newGatewayRouteMap.get(routeGatewayDto.getGatewayName()).add(routeGatewayPo);
             } else {
-                List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>();
+                final List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>();
                 routeGatewayPoList.add(routeGatewayPo);
                 newGatewayRouteMap.put(routeGatewayDto.getGatewayName(), routeGatewayPoList);
             }
         }
 
+
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteGatewayDto>> pair : unusedMap.entrySet()) {
-                String gatewayName = pair.getKey();
-                String group = this.serviceResource.getGroup(gatewayName);
+                final String gatewayName = pair.getKey();
+                final String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, new ArrayList<RouteGatewayPo>());
             }
         } else {
             for (Map.Entry<String, List<RouteGatewayPo>> pair : newGatewayRouteMap.entrySet()) {
-                String gatewayName = pair.getKey();
-                String group = this.serviceResource.getGroup(gatewayName);
+                final String gatewayName = pair.getKey();
+                final String group = this.serviceResource.getGroup(gatewayName);
                 this.updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -130,7 +122,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
 
         if (!CollectionUtils.isEmpty(toUpdateList)) {
-            for (RouteGatewayDto routeGatewayDto : toUpdateList) {
+            for (final RouteGatewayDto routeGatewayDto : toUpdateList) {
                 routeGatewayDto.setPublish(true);
             }
             this.updateBatchById(toUpdateList, toUpdateList.size());
@@ -139,18 +131,21 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TranRead
     @Override
-    public IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize) {
-        QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getRowCreateTime);
+    public IPage<RouteGatewayDto> page(final String description,
+                                       final Integer pageNum,
+                                       final Integer pageSize) {
+        final QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda();
         if (!ObjectUtils.isEmpty(description)) {
             lambda.eq(RouteGatewayDto::getDescription, description);
         }
+        lambda.orderByAsc(RouteGatewayDto::getRowCreateTime);
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
     @TranRead
     @Override
-    public RouteGatewayDto getById(Long id) {
+    public RouteGatewayDto getById(final Long id) {
         if (id == null) {
             return null;
         }
@@ -159,7 +154,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TranSave
     @Override
-    public void insert(RouteGatewayDto routeGatewayDto) {
+    public void insert(final RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
             return;
         }
@@ -174,7 +169,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TranSave
     @Override
-    public void update(RouteGatewayDto routeGatewayDto) {
+    public void update(final RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
             return;
         }
@@ -186,18 +181,18 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TranSave
     @Override
-    public void enable(Long id,
-                       boolean enabled) {
-        RouteGatewayDto routeGatewayDto = this.getById(id);
+    public void enable(final Long id,
+                       final boolean enabled) {
+        final RouteGatewayDto routeGatewayDto = this.getById(id);
         routeGatewayDto.setEnabled(enabled);
         this.update(routeGatewayDto);
     }
 
     @TranSave
     @Override
-    public void logicDelete(Collection<Long> ids) {
-        for (Long id : ids) {
-            RouteGatewayDto routeGatewayDto = this.getById(id);
+    public void logicDelete(final Collection<Long> ids) {
+        for (final Long id : ids) {
+            final RouteGatewayDto routeGatewayDto = this.getById(id);
             if (routeGatewayDto == null) {
                 continue;
             }
@@ -210,18 +205,20 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TranSave
     @Override
-    public void delete(Collection<Long> ids) {
+    public void delete(final Collection<Long> ids) {
         this.removeByIds(ids);
     }
 
-    private void updateConfig(String gatewayName, String group, Object config) throws Exception {
-        String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
+    private void updateConfig(String gatewayName,
+                              String group,
+                              Object config) throws Exception {
+        final String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
         this.configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
-    private void addKV(Map<String, List<RouteGatewayDto>> map,
-                       String key,
-                       RouteGatewayDto value) {
+    private void addKV(final Map<String, List<RouteGatewayDto>> map,
+                       final String key,
+                       final RouteGatewayDto value) {
         if (map.containsKey(key)) {
             map.get(key).add(value);
         } else {
@@ -231,7 +228,8 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
-    private <T extends RouteGatewayPo.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
+    private <T extends RouteGatewayPo.Clause> List<T> parse(String value,
+                                                                      Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);
         for (String item : all) {

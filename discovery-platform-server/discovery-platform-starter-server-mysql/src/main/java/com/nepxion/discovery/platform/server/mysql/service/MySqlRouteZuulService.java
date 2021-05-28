@@ -30,8 +30,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
@@ -47,7 +47,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     @Autowired
     private ConfigResource configResource;
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void publish() throws Exception {
         List<RouteZuulDto> routeZuulDtoList = this.list();
@@ -125,7 +125,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteZuulDto> queryWrapper = new QueryWrapper<>();
@@ -136,7 +136,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public RouteZuulDto getById(Long id) {
         if (id == null) {
@@ -145,7 +145,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
@@ -160,7 +160,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         this.save(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
@@ -172,7 +172,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         this.updateById(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void enable(Long id,
             boolean enabled) {
@@ -181,7 +181,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         this.update(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
@@ -196,7 +196,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         }
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void delete(Collection<Long> ids) {
         this.removeByIds(ids);

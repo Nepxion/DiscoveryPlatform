@@ -21,6 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Transactional(rollbackFor = Exception.class, timeout = 30)
-public @interface TranSave {
+public @interface TransactionWriter {
 
 }

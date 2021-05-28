@@ -25,8 +25,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
@@ -35,13 +35,13 @@ import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysPageDto> list() {
         return super.list();
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public void fillPages(AdminVo adminVo) {
         if (adminVo == null) {
@@ -54,7 +54,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysPageDto> listEmptyUrlPages() {
         QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
@@ -65,7 +65,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysPageDto> listNotEmptyUrlPages() {
         QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
@@ -75,37 +75,37 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<PageVo> list(String name, Integer pageNum, Integer pageSize) {
         return this.baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public Long getMaxOrder(Long parentId) {
         return this.baseMapper.getMaxOrder(parentId);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean insert(SysPageDto sysPage) {
         return super.save(sysPage);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public SysPageDto getById(Long id) {
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean updateById(SysPageDto entity) {
         return super.updateById(entity);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return super.removeByIds(idList);

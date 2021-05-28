@@ -21,6 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Transactional(readOnly = true, timeout = 30)
-public @interface TranRead {
+public @interface TransactionReader {
 
 }

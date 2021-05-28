@@ -19,8 +19,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 import com.nepxion.discovery.platform.server.exception.BusinessException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
@@ -28,7 +28,7 @@ import com.nepxion.discovery.platform.server.service.RoleService;
 
 public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysRoleDto> listOrderByName() {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
@@ -37,7 +37,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysRoleDto> getNotSuperAdmin() {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
@@ -48,7 +48,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<SysRoleDto> list(String name, Integer pageNum, Integer pageSize) {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
@@ -59,7 +59,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         return this.page(new Page<>(), queryWrapper);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(String name, Boolean superAdmin, String remark) {
         SysRoleDto sysRole = this.getByUserName(name);
@@ -73,7 +73,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         this.save(sysRole);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(Long id,
                        String name,

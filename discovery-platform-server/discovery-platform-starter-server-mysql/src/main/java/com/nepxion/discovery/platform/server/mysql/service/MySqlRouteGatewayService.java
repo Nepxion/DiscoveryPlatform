@@ -30,8 +30,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
@@ -47,7 +47,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     @Autowired
     private ConfigResource configResource;
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void publish() throws Exception {
         List<RouteGatewayDto> routeGatewayDtoList = this.list();
@@ -138,7 +138,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     }
 
     @SuppressWarnings("unchecked")
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
@@ -149,7 +149,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public RouteGatewayDto getById(Long id) {
         if (id == null) {
@@ -158,7 +158,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
@@ -173,7 +173,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.save(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
@@ -185,7 +185,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.updateById(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void enable(Long id,
                        boolean enabled) {
@@ -194,7 +194,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.update(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
@@ -209,7 +209,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void delete(Collection<Long> ids) {
         this.removeByIds(ids);

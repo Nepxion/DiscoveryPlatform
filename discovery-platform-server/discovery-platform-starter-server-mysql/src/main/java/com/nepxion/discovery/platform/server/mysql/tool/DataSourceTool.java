@@ -15,10 +15,10 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
-import org.springframework.util.ObjectUtils;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -44,7 +44,7 @@ public class DataSourceTool {
                                                     @Nullable PostProcessor postProcessor) {
         Parameter parameter = DataSourceTool.generateParameter(poolName, host, port, databaseName, postProcessor);
         HikariDataSource result = new HikariDataSource();
-        if (!ObjectUtils.isEmpty(parameter.getPoolName())) {
+        if (StringUtils.isNotEmpty(parameter.getPoolName())) {
             result.setPoolName(parameter.getPoolName()); //连接池名称
         }
         result.setDriverClassName(DRIVER_CLASS_NAME);
@@ -101,8 +101,8 @@ public class DataSourceTool {
     }
 
     public static Parameter registerZipkinForMySql8(Parameter parameter) {
-        String name = ObjectUtils.isEmpty(parameter.getPoolName()) ? parameter.getDatabaseName() : parameter.getPoolName();
-        if (ObjectUtils.isEmpty(name)) {
+        String name = StringUtils.isEmpty(parameter.getPoolName()) ? parameter.getDatabaseName() : parameter.getPoolName();
+        if (StringUtils.isEmpty(name)) {
             name = Thread.currentThread().getName();
         }
         String zipkinServiceName = String.format("MYSQL_%s", name).toUpperCase();
@@ -155,11 +155,11 @@ public class DataSourceTool {
     }
 
     private static String getDbUrl(String host, String port) {
-        if (ObjectUtils.isEmpty(host)) {
+        if (StringUtils.isEmpty(host)) {
             throw new RuntimeException("host is required");
         }
 
-        if (ObjectUtils.isEmpty(port)) {
+        if (StringUtils.isEmpty(port)) {
             return host.trim();
         } else {
             return String.format("%s:%s", host.trim(), port.trim());

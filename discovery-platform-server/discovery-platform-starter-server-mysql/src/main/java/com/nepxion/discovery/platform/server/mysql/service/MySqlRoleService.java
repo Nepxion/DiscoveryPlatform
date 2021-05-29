@@ -12,22 +12,23 @@ package com.nepxion.discovery.platform.server.mysql.service;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 import com.nepxion.discovery.platform.server.exception.BusinessException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
 
 public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public List<SysRoleDto> listOrderByName() {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
@@ -35,7 +36,8 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public List<SysRoleDto> getNotSuperAdmin() {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
@@ -45,18 +47,19 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public IPage<SysRoleDto> list(String name, Integer pageNum, Integer pageSize) {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<SysRoleDto> sysRoleLambdaQueryWrapper = queryWrapper.lambda().orderByAsc(SysRoleDto::getName);
-        if (!ObjectUtils.isEmpty(name)) {
+        if (StringUtils.isNotEmpty(name)) {
             sysRoleLambdaQueryWrapper.like(SysRoleDto::getName, name);
         }
         return this.page(new Page<>(), queryWrapper);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(String name, Boolean superAdmin, String remark) {
         SysRoleDto sysRole = this.getByUserName(name);
@@ -70,13 +73,13 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         this.save(sysRole);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(Long id,
                        String name,
                        Boolean superAdmin,
                        String remark) {
-        if (ObjectUtils.isEmpty(name) && superAdmin == null && ObjectUtils.isEmpty(remark)) {
+        if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(remark)) {
             throw new BusinessException("请输入要更新的内容");
         }
 

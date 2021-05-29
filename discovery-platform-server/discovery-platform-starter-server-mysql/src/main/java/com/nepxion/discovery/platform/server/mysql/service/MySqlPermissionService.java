@@ -15,8 +15,8 @@ import java.util.Set;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
@@ -24,37 +24,37 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPermissionMapper;
 import com.nepxion.discovery.platform.server.service.PermissionService;
 
 public class MySqlPermissionService extends ServiceImpl<MySqlPermissionMapper, SysPermissionDto> implements PermissionService {
-    @TranRead
+    @TransactionReader
     @Override
     public SysPermissionDto getById(Long id) {
         return super.getById(id);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysPageDto> listPermissionPagesByRoleId(Long sysRoleId) {
         return this.baseMapper.listPermissionPagesByRoleId(sysRoleId);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysPageId) {
         return this.baseMapper.list(new Page<>(pageNum, pageSize), sysRoleId, sysPageId);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(SysPermissionDto sysPermission) {
         this.save(sysPermission);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean updateById(SysPermissionDto entity) {
         return super.updateById(entity);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return super.removeByIds(idList);

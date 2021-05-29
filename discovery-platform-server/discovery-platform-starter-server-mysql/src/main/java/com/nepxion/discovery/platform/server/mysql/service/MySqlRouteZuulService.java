@@ -9,7 +9,6 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * @version 1.0
  */
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -31,8 +30,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
@@ -48,7 +47,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     @Autowired
     private ConfigResource configResource;
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void publish() throws Exception {
         List<RouteZuulDto> routeZuulDtoList = this.list();
@@ -125,18 +124,19 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         }
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteZuulDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RouteZuulDto> lambda = queryWrapper.lambda().orderByAsc(RouteZuulDto::getRowCreateTime);
-        if (!ObjectUtils.isEmpty(description)) {
+        if (StringUtils.isNotEmpty(description)) {
             lambda.eq(RouteZuulDto::getDescription, description);
         }
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public RouteZuulDto getById(Long id) {
         if (id == null) {
@@ -145,13 +145,13 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
             return;
         }
-        if (ObjectUtils.isEmpty(routeZuulDto.getRouteId())) {
+        if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
             routeZuulDto.setRouteId("zl_".concat(RandomUtil.randomString(15)));
         }
         routeZuulDto.setOperation(Operation.INSERT.getCode());
@@ -160,7 +160,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         this.save(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(RouteZuulDto routeZuulDto) {
         if (routeZuulDto == null) {
@@ -172,16 +172,16 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         this.updateById(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void enable(Long id,
-                       boolean enabled) {
+            boolean enabled) {
         RouteZuulDto routeZuulDto = this.getById(id);
         routeZuulDto.setEnabled(enabled);
         this.update(routeZuulDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
@@ -196,7 +196,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         }
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void delete(Collection<Long> ids) {
         this.removeByIds(ids);
@@ -208,8 +208,8 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     }
 
     private void addKV(Map<String, List<RouteZuulDto>> map,
-                       String key,
-                       RouteZuulDto value) {
+            String key,
+            RouteZuulDto value) {
         if (map.containsKey(key)) {
             map.get(key).add(value);
         } else {
@@ -217,6 +217,5 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
             routeGatewayDtoList.add(value);
             map.put(key, routeGatewayDtoList);
         }
-
     }
 }

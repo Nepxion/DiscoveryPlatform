@@ -1,4 +1,13 @@
-package com.nepxion.discovery.platform.server.tool.common;
+package com.nepxion.discovery.platform.server.tool;
+
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Ning Zhang
+ * @version 1.0
+ */
 
 import java.util.Date;
 
@@ -9,15 +18,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- * @author Ning Zhang
- * @version 1.0
- */
 
 public class JwtTool {
     private static final String SECRET = "nengapszsnuighag";

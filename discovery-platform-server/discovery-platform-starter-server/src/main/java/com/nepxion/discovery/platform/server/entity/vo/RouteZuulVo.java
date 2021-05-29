@@ -9,6 +9,7 @@ package com.nepxion.discovery.platform.server.entity.vo;
  * @version 1.0
  */
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -18,7 +19,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 
-public class RouteZuulVo {
+public class RouteZuulVo implements Serializable {
+    private static final long serialVersionUID = 6158905002253940456L;
+
     private String host;
     private String port;
     private List<RouteZuulPo> routes;

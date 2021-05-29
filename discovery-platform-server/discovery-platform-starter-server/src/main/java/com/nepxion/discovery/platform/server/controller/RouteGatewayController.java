@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,7 +98,7 @@ public class RouteGatewayController {
     @PostMapping("do-list-working")
     @ResponseBody
     public Result<List<RouteGatewayVo>> doListWorking(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        if (ObjectUtils.isEmpty(gatewayName)) {
+        if (StringUtils.isEmpty(gatewayName)) {
             return Result.ok();
         }
 

@@ -9,6 +9,7 @@ package com.nepxion.discovery.platform.server.entity.vo;
  * @version 1.0
  */
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,7 +20,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 
-public class RouteGatewayVo {
+public class RouteGatewayVo implements Serializable {
+    private static final long serialVersionUID = -730031129510373510L;
+
     private String host;
     private String port;
     private List<RouteGatewayPoVo> routes;
@@ -64,8 +67,7 @@ public class RouteGatewayVo {
     }
 
     public static class RouteGatewayPoVo extends RouteGatewayPo {
-        private String userPredicatesJson;
-        private String userFiltersJson;
+        private static final long serialVersionUID = 2600817965821067952L;
 
         public String getUserPredicatesJson() {
             return this.getUserJson(getUserPredicates());
@@ -88,6 +90,5 @@ public class RouteGatewayVo {
 
             return userFilterStringBuilder.toString();
         }
-
     }
 }

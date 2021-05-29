@@ -12,10 +12,10 @@ package com.nepxion.discovery.platform.server.controller;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -137,7 +137,7 @@ public class AdminController {
     @PostMapping("do-search")
     @ResponseBody
     public Result<List<AdminVo>> doSearch(@RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        if (ObjectUtils.isEmpty(keyword.trim())) {
+        if (StringUtils.isEmpty(keyword.trim())) {
             return Result.ok();
         }
         return Result.ok(this.adminService.search(keyword, 0, 10));

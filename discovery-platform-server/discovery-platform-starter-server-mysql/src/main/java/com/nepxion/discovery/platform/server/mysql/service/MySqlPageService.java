@@ -17,14 +17,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
@@ -33,13 +35,13 @@ import com.nepxion.discovery.platform.server.service.PageService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> implements PageService {
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysPageDto> list() {
         return super.list();
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public void fillPages(AdminVo adminVo) {
         if (adminVo == null) {
@@ -51,7 +53,8 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public List<SysPageDto> listEmptyUrlPages() {
         QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
@@ -61,7 +64,8 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public List<SysPageDto> listNotEmptyUrlPages() {
         QueryWrapper<SysPageDto> queryWrapper = new QueryWrapper<>();
@@ -71,37 +75,37 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<PageVo> list(String name, Integer pageNum, Integer pageSize) {
         return this.baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public Long getMaxOrder(Long parentId) {
         return this.baseMapper.getMaxOrder(parentId);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean insert(SysPageDto sysPage) {
         return super.save(sysPage);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public SysPageDto getById(Long id) {
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean updateById(SysPageDto entity) {
         return super.updateById(entity);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return super.removeByIds(idList);
@@ -175,7 +179,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
             }
         }
 
-        if (ObjectUtils.isNotNull(rootPageList) || ObjectUtils.isNotNull(nonRootPageList)) {
+        if (CollectionUtils.isNotEmpty(rootPageList) || CollectionUtils.isNotEmpty(nonRootPageList)) {
             Set<Long> map = Sets.newHashSetWithExpectedSize(nonRootPageList.size());
             rootPageList.forEach(rootPage -> getChild(adminVo, permission, rootPage, nonRootPageList, map));
             filter(rootPageList);
@@ -197,7 +201,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         Iterator<PageVo> iterator = pageList.iterator();
         while (iterator.hasNext()) {
             PageVo page = iterator.next();
-            if (ObjectUtils.isEmpty(page.getUrl()) && (page.getChildren() == null || page.getChildren().size() < 1)) {
+            if (StringUtils.isEmpty(page.getUrl()) && (page.getChildren() == null || page.getChildren().size() < 1)) {
                 iterator.remove();
             } else {
                 filter(page.getChildren());
@@ -216,7 +220,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 filter(p -> p.getParentId().equals(parentPage.getId())). // 判断是否父子关系
                 filter(p -> set.size() <= childrenPageList.size()).// set集合大小不能超过childrenPageList的大小
                 forEach(p -> {
-            if (adminVo.getSysRole().getSuperAdmin() || ObjectUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
+            if (adminVo.getSysRole().getSuperAdmin() || StringUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
                 // 放入set, 递归循环时可以跳过这个页面，提高循环效率
                 set.add(p.getId());
                 // 递归获取当前类目的子类目

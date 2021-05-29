@@ -9,7 +9,7 @@ package com.nepxion.discovery.platform.server.entity.response;
  * @version 1.0
  */
 
-import org.springframework.util.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public enum ResultCode {
     SUCCESS(200L, true, "SUCCESS"),
@@ -58,7 +58,7 @@ public enum ResultCode {
     }
 
     public static ResultCode get(String description) {
-        if (ObjectUtils.isEmpty(description)) {
+        if (StringUtils.isEmpty(description)) {
             return null;
         }
 

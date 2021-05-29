@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -30,8 +30,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
@@ -47,7 +47,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     @Autowired
     private ConfigResource configResource;
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void publish() throws Exception {
         List<RouteGatewayDto> routeGatewayDtoList = this.list();
@@ -84,17 +84,17 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             routeGatewayPo.setUri(routeGatewayDto.getUri());
 
 
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getPredicates())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getPredicates())) {
                 routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserPredicates())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getUserPredicates())) {
                 List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
                 routeGatewayPo.setUserPredicates(predicateList);
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getFilters())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getFilters())) {
                 routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             }
-            if (!ObjectUtils.isEmpty(routeGatewayDto.getUserFilters())) {
+            if (StringUtils.isNotEmpty(routeGatewayDto.getUserFilters())) {
                 List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
                 routeGatewayPo.setUserFilters(filterList);
             }
@@ -137,18 +137,19 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
-    @TranRead
+    @SuppressWarnings("unchecked")
+    @TransactionReader
     @Override
     public IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getRowCreateTime);
-        if (!ObjectUtils.isEmpty(description)) {
+        if (StringUtils.isNotEmpty(description)) {
             lambda.eq(RouteGatewayDto::getDescription, description);
         }
         return this.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public RouteGatewayDto getById(Long id) {
         if (id == null) {
@@ -157,13 +158,13 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void insert(RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
             return;
         }
-        if (ObjectUtils.isEmpty(routeGatewayDto.getRouteId())) {
+        if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
             routeGatewayDto.setRouteId("gw_".concat(RandomUtil.randomString(15)));
         }
         routeGatewayDto.setOperation(Operation.INSERT.getCode());
@@ -172,7 +173,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.save(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void update(RouteGatewayDto routeGatewayDto) {
         if (routeGatewayDto == null) {
@@ -184,7 +185,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.updateById(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void enable(Long id,
                        boolean enabled) {
@@ -193,7 +194,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         this.update(routeGatewayDto);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
@@ -208,7 +209,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public void delete(Collection<Long> ids) {
         this.removeByIds(ids);
@@ -231,6 +232,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         }
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends RouteGatewayPo.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);

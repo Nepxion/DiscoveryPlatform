@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ldap.LdapProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,7 +24,6 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.query.ContainerCriteria;
 import org.springframework.ldap.query.SearchScope;
-import org.springframework.util.ObjectUtils;
 
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.ldap.properties.PlatformLdapProperties;
@@ -121,7 +121,7 @@ public class LdapService {
     private ContainerCriteria ldapQueryCriteria() {
         ContainerCriteria criteria = query().searchScope(SearchScope.SUBTREE)
                 .where("objectClass").is(this.platformLdapProperties.getObjectClassAttrName());
-        if (this.platformLdapProperties.getMemberOf().length > 0 && !ObjectUtils.isEmpty(this.platformLdapProperties.getMemberOf()[0])) {
+        if (this.platformLdapProperties.getMemberOf().length > 0 && StringUtils.isNotEmpty(this.platformLdapProperties.getMemberOf()[0])) {
             ContainerCriteria memberOfFilters = query().where(MEMBER_OF_ATTR_NAME).is(this.platformLdapProperties.getMemberOf()[0]);
             Arrays.stream(this.platformLdapProperties.getMemberOf()).skip(1)
                     .forEach(filter -> memberOfFilters.or(MEMBER_OF_ATTR_NAME).is(filter));

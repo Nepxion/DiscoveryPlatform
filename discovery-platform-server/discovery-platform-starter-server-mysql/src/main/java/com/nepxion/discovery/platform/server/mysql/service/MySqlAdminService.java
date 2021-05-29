@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -27,8 +27,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
-import com.nepxion.discovery.platform.server.annotation.TranRead;
-import com.nepxion.discovery.platform.server.annotation.TranSave;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
@@ -47,10 +47,10 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     private DicService dicService;
     private static final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
 
-    @TranRead
+    @TransactionReader
     @Override
     public boolean authenticate(String username, String password) {
-        if (ObjectUtils.isEmpty(username) || ObjectUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return false;
         }
         SysAdminDto sysAdmin = this.getByUserName(username);
@@ -67,7 +67,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return authenticationEntity;
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public AdminVo getAdminByUserName(String username) throws Exception {
         SysAdminDto sysAdmin = this.getByUserName(username);
@@ -81,7 +81,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return adminVo;
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public SysAdminDto getByUserName(String username) {
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
@@ -90,7 +90,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return this.getOne(queryWrapper);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean changePassword(Long id, String oldPassword, String newPassword) {
         SysAdminDto sysAdmin = this.getById(id);
@@ -109,7 +109,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return this.update(updateWrapper);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean insert(LoginMode loginMode,
                           Long roleId,
@@ -136,7 +136,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return this.save(sysAdmin);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean update(Long id,
                           Long roleId,
@@ -174,13 +174,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return this.update(updateWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public IPage<AdminVo> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) {
         return this.baseMapper.list(new Page<>(pageNum, pageSize), loginMode.getCode(), name);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public List<AdminVo> search(String keyword, Integer pageNum, Integer pageSize) {
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
@@ -189,7 +189,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return CommonTool.toVoList(page.getRecords(), AdminVo.class);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public List<SysAdminDto> getByRoleId(Long roleId) {
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
@@ -197,13 +197,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         return this.list(queryWrapper);
     }
 
-    @TranRead
+    @TransactionReader
     @Override
     public SysAdminDto getById(Long id) {
         return super.getById(id);
     }
 
-    @TranSave
+    @TransactionWriter
     @Override
     public boolean removeByIds(Set<Long> idList) {
         return super.removeByIds(idList);

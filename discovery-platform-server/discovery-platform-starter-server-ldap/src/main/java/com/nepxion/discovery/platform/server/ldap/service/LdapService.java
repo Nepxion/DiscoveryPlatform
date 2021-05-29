@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.ldap.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -35,8 +36,10 @@ public class LdapService {
 
     @Autowired
     private LdapTemplate ldapTemplate;
+
     @Autowired
     private LdapProperties ldapProperties;
+
     @Autowired
     private PlatformLdapProperties platformLdapProperties;
 
@@ -48,9 +51,9 @@ public class LdapService {
      * @return true: login success; false: login failed
      */
     public boolean authenticate(String username, String password) {
-        EqualsFilter filter = new EqualsFilter(this.platformLdapProperties.getLoginIdAttrName(), username);
-        this.ldapTemplate.setIgnorePartialResultException(true);
-        return this.ldapTemplate.authenticate(this.ldapProperties.getBase(), filter.toString(), password);
+        EqualsFilter filter = new EqualsFilter(platformLdapProperties.getLoginIdAttrName(), username);
+        ldapTemplate.setIgnorePartialResultException(true);
+        return ldapTemplate.authenticate(ldapProperties.getBase(), filter.toString(), password);
     }
 
     /**
@@ -61,17 +64,17 @@ public class LdapService {
      */
     public LdapUserVo getByUserName(String username) {
         try {
-            return this.ldapTemplate.searchForObject(
-                    this.ldapProperties.getBase(),
-                    query().where(this.platformLdapProperties.getLoginIdAttrName()).is(username).filter().toString(),
+            return ldapTemplate.searchForObject(
+                    ldapProperties.getBase(),
+                    query().where(platformLdapProperties.getLoginIdAttrName()).is(username).filter().toString(),
                     ctx -> {
                         DirContextAdapter contextAdapter = (DirContextAdapter) ctx;
                         LdapUserVo ldapUserVo = new LdapUserVo();
-                        ldapUserVo.setUsername(contextAdapter.getStringAttribute(this.platformLdapProperties.getLoginIdAttrName()));
-                        ldapUserVo.setName(contextAdapter.getStringAttribute(this.platformLdapProperties.getNameAttrName()));
-                        ldapUserVo.setPhoneNumber(contextAdapter.getStringAttribute(this.platformLdapProperties.getPhoneNumberAttrName()));
-                        ldapUserVo.setEmail(contextAdapter.getStringAttribute(this.platformLdapProperties.getMailAttrName()));
-                        ldapUserVo.setRemark(contextAdapter.getStringAttribute(this.platformLdapProperties.getTitleAttrName()));
+                        ldapUserVo.setUsername(contextAdapter.getStringAttribute(platformLdapProperties.getLoginIdAttrName()));
+                        ldapUserVo.setName(contextAdapter.getStringAttribute(platformLdapProperties.getNameAttrName()));
+                        ldapUserVo.setPhoneNumber(contextAdapter.getStringAttribute(platformLdapProperties.getPhoneNumberAttrName()));
+                        ldapUserVo.setEmail(contextAdapter.getStringAttribute(platformLdapProperties.getMailAttrName()));
+                        ldapUserVo.setRemark(contextAdapter.getStringAttribute(platformLdapProperties.getTitleAttrName()));
                         return ldapUserVo;
                     });
         } catch (EmptyResultDataAccessException ignored) {
@@ -92,25 +95,25 @@ public class LdapService {
 
         ContainerCriteria criteria = ldapQueryCriteria().and
                 (
-                        query().where(this.platformLdapProperties.getLoginIdAttrName()).like("*" + keyword + "*")
-                                .or(this.platformLdapProperties.getNameAttrName()).like("*" + keyword + "*")
+                        query().where(platformLdapProperties.getLoginIdAttrName()).like("*" + keyword + "*")
+                                .or(platformLdapProperties.getNameAttrName()).like("*" + keyword + "*")
                 );
-        List<LdapUserVo> result = ldapTemplate.search(this.ldapProperties.getBase(), criteria.filter().toString(), (AttributesMapper<LdapUserVo>) ctx -> {
+        List<LdapUserVo> result = ldapTemplate.search(ldapProperties.getBase(), criteria.filter().toString(), (AttributesMapper<LdapUserVo>) ctx -> {
             LdapUserVo ldapUserVo = new LdapUserVo();
-            if (ctx.get(this.platformLdapProperties.getLoginIdAttrName()) != null) {
-                ldapUserVo.setUsername(ctx.get(this.platformLdapProperties.getLoginIdAttrName()).get().toString());
+            if (ctx.get(platformLdapProperties.getLoginIdAttrName()) != null) {
+                ldapUserVo.setUsername(ctx.get(platformLdapProperties.getLoginIdAttrName()).get().toString());
             }
-            if (ctx.get(this.platformLdapProperties.getNameAttrName()) != null) {
-                ldapUserVo.setName(ctx.get(this.platformLdapProperties.getNameAttrName()).get().toString());
+            if (ctx.get(platformLdapProperties.getNameAttrName()) != null) {
+                ldapUserVo.setName(ctx.get(platformLdapProperties.getNameAttrName()).get().toString());
             }
-            if (ctx.get(this.platformLdapProperties.getPhoneNumberAttrName()) != null) {
-                ldapUserVo.setPhoneNumber(ctx.get(this.platformLdapProperties.getPhoneNumberAttrName()).get().toString());
+            if (ctx.get(platformLdapProperties.getPhoneNumberAttrName()) != null) {
+                ldapUserVo.setPhoneNumber(ctx.get(platformLdapProperties.getPhoneNumberAttrName()).get().toString());
             }
-            if (ctx.get(this.platformLdapProperties.getMailAttrName()) != null) {
-                ldapUserVo.setEmail(ctx.get(this.platformLdapProperties.getMailAttrName()).get().toString());
+            if (ctx.get(platformLdapProperties.getMailAttrName()) != null) {
+                ldapUserVo.setEmail(ctx.get(platformLdapProperties.getMailAttrName()).get().toString());
             }
-            if (ctx.get(this.platformLdapProperties.getTitleAttrName()) != null) {
-                ldapUserVo.setRemark(ctx.get(this.platformLdapProperties.getTitleAttrName()).get().toString());
+            if (ctx.get(platformLdapProperties.getTitleAttrName()) != null) {
+                ldapUserVo.setRemark(ctx.get(platformLdapProperties.getTitleAttrName()).get().toString());
             }
             return ldapUserVo;
         });
@@ -120,10 +123,10 @@ public class LdapService {
 
     private ContainerCriteria ldapQueryCriteria() {
         ContainerCriteria criteria = query().searchScope(SearchScope.SUBTREE)
-                .where("objectClass").is(this.platformLdapProperties.getObjectClassAttrName());
-        if (this.platformLdapProperties.getMemberOf().length > 0 && StringUtils.isNotEmpty(this.platformLdapProperties.getMemberOf()[0])) {
-            ContainerCriteria memberOfFilters = query().where(MEMBER_OF_ATTR_NAME).is(this.platformLdapProperties.getMemberOf()[0]);
-            Arrays.stream(this.platformLdapProperties.getMemberOf()).skip(1)
+                .where("objectClass").is(platformLdapProperties.getObjectClassAttrName());
+        if (platformLdapProperties.getMemberOf().length > 0 && StringUtils.isNotEmpty(platformLdapProperties.getMemberOf()[0])) {
+            ContainerCriteria memberOfFilters = query().where(MEMBER_OF_ATTR_NAME).is(platformLdapProperties.getMemberOf()[0]);
+            Arrays.stream(platformLdapProperties.getMemberOf()).skip(1)
                     .forEach(filter -> memberOfFilters.or(MEMBER_OF_ATTR_NAME).is(filter));
             criteria.and(memberOfFilters);
         }

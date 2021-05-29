@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.tool;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -33,15 +34,7 @@ public class DataSourceTool {
     private static final int MAXIMUM = 30;
     private static final String DRIVER_CLASS_NAME = com.mysql.cj.jdbc.Driver.class.getCanonicalName();
 
-    public static DataSource createHikariDataSource(String poolName,
-                                                    String host,
-                                                    String port,
-                                                    String databaseName,
-                                                    String userName,
-                                                    String password,
-                                                    Integer minIdle,
-                                                    Integer maximum,
-                                                    @Nullable PostProcessor postProcessor) {
+    public static DataSource createHikariDataSource(String poolName, String host, String port, String databaseName, String userName, String password, Integer minIdle, Integer maximum, @Nullable PostProcessor postProcessor) {
         Parameter parameter = DataSourceTool.generateParameter(poolName, host, port, databaseName, postProcessor);
         HikariDataSource result = new HikariDataSource();
         if (StringUtils.isNotEmpty(parameter.getPoolName())) {
@@ -62,41 +55,19 @@ public class DataSourceTool {
         return result;
     }
 
-    public static DataSource createHikariDataSource(String poolName,
-                                                    String host,
-                                                    String port,
-                                                    String databaseName,
-                                                    String userName,
-                                                    String password,
-                                                    Integer minIdle,
-                                                    Integer maximum) {
+    public static DataSource createHikariDataSource(String poolName, String host, String port, String databaseName, String userName, String password, Integer minIdle, Integer maximum) {
         return createHikariDataSource(poolName, host, port, databaseName, userName, password, minIdle, maximum, null);
     }
 
-    public static DataSource createHikariDataSource(String host,
-                                                    String port,
-                                                    String databaseName,
-                                                    String userName,
-                                                    String password,
-                                                    Integer minIdle,
-                                                    Integer maximum) {
+    public static DataSource createHikariDataSource(String host, String port, String databaseName, String userName, String password, Integer minIdle, Integer maximum) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, minIdle, maximum, null);
     }
 
-    public static DataSource createHikariDataSource(String host,
-                                                    String port,
-                                                    String databaseName,
-                                                    String userName,
-                                                    String password,
-                                                    PostProcessor postProcessor) {
+    public static DataSource createHikariDataSource(String host, String port, String databaseName, String userName, String password, PostProcessor postProcessor) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, MIN_IDLE, MAXIMUM, postProcessor);
     }
 
-    public static DataSource createHikariDataSource(String host,
-                                                    String port,
-                                                    String databaseName,
-                                                    String userName,
-                                                    String password) {
+    public static DataSource createHikariDataSource(String host, String port, String databaseName, String userName, String password) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, MIN_IDLE, MAXIMUM, null);
     }
 
@@ -166,11 +137,7 @@ public class DataSourceTool {
         }
     }
 
-    private static Parameter generateParameter(String poolName,
-                                               String host,
-                                               @Nullable String port,
-                                               String databaseName,
-                                               PostProcessor postProcessor) {
+    private static Parameter generateParameter(String poolName, String host, @Nullable String port, String databaseName, PostProcessor postProcessor) {
         Parameter result = new Parameter();
         result.setPoolName(poolName);
         result.setHost(host);

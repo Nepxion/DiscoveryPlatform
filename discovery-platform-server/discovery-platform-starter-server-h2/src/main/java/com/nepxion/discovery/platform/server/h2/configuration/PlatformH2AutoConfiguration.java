@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.h2.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -21,7 +22,7 @@ import com.nepxion.discovery.platform.server.h2.properties.PlatformH2Properties;
 import com.taobao.text.Color;
 
 @Configuration
-@EnableConfigurationProperties({PlatformH2Properties.class})
+@EnableConfigurationProperties({ PlatformH2Properties.class })
 public class PlatformH2AutoConfiguration {
     static {
         LogoBanner logoBanner = new LogoBanner(PlatformH2AutoConfiguration.class, "/com/nepxion/h2/resource/logo.txt", "Welcome to Nepxion", 9, 5, new Color[]{Color.red, Color.green}, true);

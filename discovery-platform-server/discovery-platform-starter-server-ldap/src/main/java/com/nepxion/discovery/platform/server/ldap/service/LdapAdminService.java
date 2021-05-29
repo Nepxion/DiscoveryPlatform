@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.ldap.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -34,7 +35,7 @@ public class LdapAdminService implements AdminService {
 
     @Override
     public boolean authenticate(String username, String password) {
-        return this.ldapService.authenticate(username, password);
+        return ldapService.authenticate(username, password);
     }
 
     @Override
@@ -45,25 +46,23 @@ public class LdapAdminService implements AdminService {
 
     @Override
     public AdminVo getAdminByUserName(String username) throws Exception {
-        LdapUserVo ldapUserVo = this.ldapService.getByUserName(username);
+        LdapUserVo ldapUserVo = ldapService.getByUserName(username);
         if (ldapUserVo == null) {
             return null;
         }
-        SysAdminDto sysAdmin = this.adminService.getByUserName(username);
+        SysAdminDto sysAdmin = adminService.getByUserName(username);
         if (sysAdmin == null) {
-            this.adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
+            adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
         } else {
-            this.adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
+            adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
         }
-        return this.adminService.getAdminByUserName(username);
+        return adminService.getAdminByUserName(username);
     }
 
     @Override
-    public List<AdminVo> search(String keyword,
-                                Integer pageNum,
-                                Integer pageSize) {
+    public List<AdminVo> search(String keyword, Integer pageNum, Integer pageSize) {
         List<AdminVo> result = new ArrayList<>();
-        List<LdapUserVo> ldapUserVoList = this.ldapService.search(keyword, pageNum, pageSize);
+        List<LdapUserVo> ldapUserVoList = ldapService.search(keyword, pageNum, pageSize);
 
         for (LdapUserVo ldapUserVo : ldapUserVoList) {
             AdminVo adminVo = new AdminVo();
@@ -81,47 +80,47 @@ public class LdapAdminService implements AdminService {
 
     @Override
     public SysAdminDto getByUserName(String username) throws Exception {
-        return this.adminService.getByUserName(username);
+        return adminService.getByUserName(username);
     }
 
     @Override
     public boolean changePassword(Long id, String oldPassword, String newPassword) throws Exception {
-        return this.adminService.changePassword(id, oldPassword, newPassword);
+        return adminService.changePassword(id, oldPassword, newPassword);
     }
 
     @Override
     public boolean insert(LoginMode loginMode, Long roleId, String username, String password, String name, String phoneNumber, String email, String remark) throws Exception {
-        return this.adminService.insert(loginMode, roleId, username, password, name, phoneNumber, email, remark);
+        return adminService.insert(loginMode, roleId, username, password, name, phoneNumber, email, remark);
     }
 
     @Override
     public boolean update(Long id, Long roleId, String username, String name, String phoneNumber, String email, String remark) throws Exception {
-        return this.adminService.update(id, roleId, username, name, phoneNumber, email, remark);
+        return adminService.update(id, roleId, username, name, phoneNumber, email, remark);
     }
 
     @Override
     public IPage<AdminVo> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) throws Exception {
-        return this.adminService.list(loginMode, name, pageNum, pageSize);
+        return adminService.list(loginMode, name, pageNum, pageSize);
     }
 
 
     @Override
     public List<SysAdminDto> getByRoleId(Long roleId) throws Exception {
-        return this.adminService.getByRoleId(roleId);
+        return adminService.getByRoleId(roleId);
     }
 
     @Override
     public SysAdminDto getById(Long id) {
-        return this.adminService.getById(id);
+        return adminService.getById(id);
     }
 
     @Override
     public boolean removeByIds(Set<Long> idList) {
-        return this.adminService.removeByIds(idList);
+        return adminService.removeByIds(idList);
     }
 
     @Override
     public boolean isSuperAdmin(String username) throws Exception {
-        return this.adminService.isSuperAdmin(username);
+        return adminService.isSuperAdmin(username);
     }
 }

@@ -43,7 +43,7 @@ import com.taobao.text.Color;
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[]{ Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformMySqlConstant.MYSQL_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 
@@ -54,14 +54,13 @@ public class PlatformMySqlAutoConfiguration {
     @Primary
     public DataSource dataSource() {
         return DataSourceTool.createHikariDataSource(
-                this.platformMySqlProperties.getHost(),
-                this.platformMySqlProperties.getPort(),
-                this.platformMySqlProperties.getName(),
-                this.platformMySqlProperties.getUsername(),
-                this.platformMySqlProperties.getPassword(),
-                this.platformMySqlProperties.getMinIdle(),
-                this.platformMySqlProperties.getMaximum()
-        );
+                platformMySqlProperties.getHost(),
+                platformMySqlProperties.getPort(),
+                platformMySqlProperties.getName(),
+                platformMySqlProperties.getUsername(),
+                platformMySqlProperties.getPassword(),
+                platformMySqlProperties.getMinIdle(),
+                platformMySqlProperties.getMaximum());
     }
 
     @Bean

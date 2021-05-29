@@ -44,10 +44,10 @@ public class DataSourceTool {
         result.setJdbcUrl(parameter.getUrl());
         result.setUsername(userName);
         result.setPassword(password);
-        result.setMinimumIdle(minIdle);     //最小空闲连接数量
+        result.setMinimumIdle(minIdle); //最小空闲连接数量
         result.setMaximumPoolSize(maximum); //连接池最大连接数，默认是10
         result.setIdleTimeout(600000); //空闲连接存活最大时间，默认600000（10分钟）
-        result.setAutoCommit(true);  //此属性控制从池返回的连接的默认自动提交行为,默认值：true
+        result.setAutoCommit(true); //此属性控制从池返回的连接的默认自动提交行为,默认值：true
         result.setMaxLifetime(1800000); //此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
         result.setConnectionTimeout(30000); //数据库连接超时时间,默认30秒，即30000
         result.setConnectionTestQuery(CONNECTION_TEST_QUERY);

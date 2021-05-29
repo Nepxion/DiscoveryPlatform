@@ -29,7 +29,7 @@ public class CredentialsMatcher extends SimpleCredentialsMatcher {
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         AdminVo adminVo = (AdminVo) info.getPrincipals().getPrimaryPrincipal();
         try {
-            this.pageService.fillPages(adminVo);
+            pageService.fillPages(adminVo);
         } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return false;

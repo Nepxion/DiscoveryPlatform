@@ -51,37 +51,29 @@ public class RoleController {
     }
 
     @GetMapping("edit")
-    public String edit(Model model,
-                       @RequestParam(name = "id") Long id) {
+    public String edit(Model model, @RequestParam(name = "id") Long id) {
         model.addAttribute("role", this.roleService.getById(id));
         return String.format("%s/%s", PREFIX, "edit");
     }
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<SysRoleDto>> doList(@RequestParam(value = "name", required = false) String name,
-                                           @RequestParam(value = "page") Integer pageNum,
-                                           @RequestParam(value = "limit") Integer pageSize) throws Exception {
+    public Result<List<SysRoleDto>> doList(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize) throws Exception {
         IPage<SysRoleDto> sysAdmins = this.roleService.list(name, pageNum, pageSize);
         return Result.ok(sysAdmins.getRecords(), sysAdmins.getTotal());
     }
 
     @PostMapping("do-add")
     @ResponseBody
-    public Result<?> doAdd(@RequestParam(value = "name") String name,
-                           @RequestParam(value = "superAdmin") boolean superAdmin,
-                           @RequestParam(value = "remark") String remark) throws Exception {
-        this.roleService.insert(name, superAdmin, remark);
+    public Result<?> doAdd(@RequestParam(value = "name") String name, @RequestParam(value = "superAdmin") boolean superAdmin, @RequestParam(value = "remark") String remark) throws Exception {
+        roleService.insert(name, superAdmin, remark);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> doEdit(@RequestParam(value = "id") Long id,
-                            @RequestParam(value = "name") String name,
-                            @RequestParam(value = "superAdmin") boolean superAdmin,
-                            @RequestParam(value = "remark") String remark) throws Exception {
-        this.roleService.update(id, name, superAdmin, remark);
+    public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "name") String name, @RequestParam(value = "superAdmin") boolean superAdmin, @RequestParam(value = "remark") String remark) throws Exception {
+        roleService.update(id, name, superAdmin, remark);
         return Result.ok();
     }
 
@@ -91,14 +83,14 @@ public class RoleController {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         Set<Long> idSet = new HashSet<>();
         for (Long id : idList) {
-            List<SysAdminDto> sysAdminList = this.adminService.getByRoleId(id);
+            List<SysAdminDto> sysAdminList = adminService.getByRoleId(id);
             if (!CollectionUtils.isEmpty(sysAdminList)) {
-                SysRoleDto sysRole = this.roleService.getById(id);
+                SysRoleDto sysRole = roleService.getById(id);
                 return Result.error(String.format("角色[%s]有管理员正在使用,无法删除", sysRole.getName()));
             }
             idSet.add(id);
         }
-        this.roleService.removeByIds(idSet);
+        roleService.removeByIds(idSet);
         return Result.ok();
     }
 }

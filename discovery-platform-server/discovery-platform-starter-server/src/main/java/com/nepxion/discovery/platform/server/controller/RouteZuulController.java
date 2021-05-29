@@ -63,26 +63,23 @@ public class RouteZuulController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", this.serviceResource.getServices());
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", serviceResource.getServices());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @GetMapping("edit")
-    public String edit(Model model,
-                       @RequestParam(name = "id") Long id) {
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", this.serviceResource.getServices());
-        model.addAttribute("route", this.routeZuulService.getById(id));
+    public String edit(Model model, @RequestParam(name = "id") Long id) {
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", serviceResource.getServices());
+        model.addAttribute("route", routeZuulService.getById(id));
         return String.format("%s/%s", PREFIX, "edit");
     }
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<RouteZuulDto>> doList(@RequestParam(value = "page") Integer pageNum,
-                                             @RequestParam(value = "limit") Integer pageSize,
-                                             @RequestParam(value = "description", required = false) String description) {
-        IPage<RouteZuulDto> page = this.routeZuulService.page(description, pageNum, pageSize);
+    public Result<List<RouteZuulDto>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "description", required = false) String description) {
+        IPage<RouteZuulDto> page = routeZuulService.page(description, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
@@ -94,7 +91,7 @@ public class RouteZuulController {
         }
 
         List<RouteZuulVo> result = new ArrayList<>();
-        List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(RouteZuulService.GATEWAY_TYPE, gatewayName);
+        List<ResultEntity> resultEntityList = routeResource.viewAllRoute(RouteZuulService.GATEWAY_TYPE, gatewayName);
         for (ResultEntity resultEntity : resultEntityList) {
             RouteZuulVo routeZuulVo = new RouteZuulVo();
             routeZuulVo.setHost(resultEntity.getHost());
@@ -109,34 +106,34 @@ public class RouteZuulController {
     @PostMapping("do-list-gateway-names")
     @ResponseBody
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        return Result.ok(serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
     }
 
     @PostMapping("do-add")
     @ResponseBody
     public Result<?> doAdd(RouteZuulDto routeZuulDto) {
-        this.routeZuulService.insert(routeZuulDto);
+        routeZuulService.insert(routeZuulDto);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
     public Result<?> doEdit(RouteZuulDto routeZuulDto) {
-        this.routeZuulService.update(routeZuulDto);
+        routeZuulService.update(routeZuulDto);
         return Result.ok();
     }
 
     @PostMapping("do-enable")
     @ResponseBody
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
-        this.routeZuulService.enable(id, true);
+        routeZuulService.enable(id, true);
         return Result.ok();
     }
 
     @PostMapping("do-disable")
     @ResponseBody
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
-        this.routeZuulService.enable(id, false);
+        routeZuulService.enable(id, false);
         return Result.ok();
     }
 
@@ -144,15 +141,14 @@ public class RouteZuulController {
     @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.routeZuulService.logicDelete(new HashSet<>(idList));
+        routeZuulService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }
 
     @PostMapping("do-publish")
     @ResponseBody
     public Result<?> doPublish() throws Exception {
-        this.routeZuulService.publish();
+        routeZuulService.publish();
         return Result.ok();
     }
-
 }

@@ -38,22 +38,22 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
 
         Properties properties = new Properties();
 
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.allow-request-override", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.check-template-location", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.suffix", ".ftl");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.content-type", "text/html;charset=utf-8");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.enabled", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.cache", false);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.template-loader-path", "classpath:/templates/");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.prefer-file-system-access", false);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.charset", "UTF-8");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-request-attributes", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-session-attributes", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-spring-macro-helpers", true);
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.request-context-attribute", "request");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.auto_import", "common/spring.ftl as spring");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.number_format", "0.##");
-        this.addDefaultConfig(configurableEnvironment, properties, "spring.main.allow-bean-definition-overriding", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.allow-request-override", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.check-template-location", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.suffix", ".ftl");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.content-type", "text/html;charset=utf-8");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.enabled", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.cache", false);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.template-loader-path", "classpath:/templates/");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.prefer-file-system-access", false);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.charset", "UTF-8");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-request-attributes", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-session-attributes", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.expose-spring-macro-helpers", true);
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.request-context-attribute", "request");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.auto_import", "common/spring.ftl as spring");
+        addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.settings.number_format", "0.##");
+        addDefaultConfig(configurableEnvironment, properties, "spring.main.allow-bean-definition-overriding", true);
 
         if (!properties.isEmpty()) {
             configurableEnvironment.getPropertySources().addFirst(new PropertiesPropertySource("springCloudApplicationProperties", properties));

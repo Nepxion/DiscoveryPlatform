@@ -104,15 +104,15 @@ public class FreeMarkerAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        this.freeMarkerConfiguration.setSharedVariable("insert", insertDirective());
-        this.freeMarkerConfiguration.setSharedVariable("delete", deleteDirective());
-        this.freeMarkerConfiguration.setSharedVariable("update", updateDirective());
-        this.freeMarkerConfiguration.setSharedVariable("select", selectDirective());
-        this.freeMarkerConfiguration.setSharedVariable("no_insert", noInsertDirective());
-        this.freeMarkerConfiguration.setSharedVariable("no_delete", noDeleteDirective());
-        this.freeMarkerConfiguration.setSharedVariable("no_update", noUpdateDirective());
-        this.freeMarkerConfiguration.setSharedVariable("no_select", noSelectDirective());
-        this.freeMarkerConfiguration.setSharedVariable("only_select", onlySelectDirective());
-        this.freeMarkerConfiguration.setSharedVariable("not_only_select", notOnlySelectDirective());
+        freeMarkerConfiguration.setSharedVariable("insert", insertDirective());
+        freeMarkerConfiguration.setSharedVariable("delete", deleteDirective());
+        freeMarkerConfiguration.setSharedVariable("update", updateDirective());
+        freeMarkerConfiguration.setSharedVariable("select", selectDirective());
+        freeMarkerConfiguration.setSharedVariable("no_insert", noInsertDirective());
+        freeMarkerConfiguration.setSharedVariable("no_delete", noDeleteDirective());
+        freeMarkerConfiguration.setSharedVariable("no_update", noUpdateDirective());
+        freeMarkerConfiguration.setSharedVariable("no_select", noSelectDirective());
+        freeMarkerConfiguration.setSharedVariable("only_select", onlySelectDirective());
+        freeMarkerConfiguration.setSharedVariable("not_only_select", notOnlySelectDirective());
     }
 }

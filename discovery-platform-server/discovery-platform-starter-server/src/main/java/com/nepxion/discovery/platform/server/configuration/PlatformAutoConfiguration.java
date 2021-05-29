@@ -30,7 +30,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
-@EnableConfigurationProperties({PlatformServerProperties.class})
+@EnableConfigurationProperties({ PlatformServerProperties.class })
 public class PlatformAutoConfiguration {
     @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {

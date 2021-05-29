@@ -34,7 +34,7 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.exception.BusinessException;
+import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.DicService;
@@ -102,7 +102,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         }
 
         if (!sysAdmin.getPassword().equals(oldPassword)) {
-            throw new BusinessException("密码不匹配, 修改密码失败");
+            throw new PlatformException("密码不匹配, 修改密码失败");
         }
 
         UpdateWrapper<SysAdminDto> updateWrapper = new UpdateWrapper<>();
@@ -117,7 +117,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     public boolean insert(LoginMode loginMode, Long roleId, String username, String password, String name, String phoneNumber, String email, String remark) {
         SysAdminDto sysAdmin = getByUserName(username);
         if (sysAdmin != null) {
-            throw new BusinessException(String.format("用户名[%s]已存在", username));
+            throw new PlatformException(String.format("用户名[%s]已存在", username));
         }
 
         sysAdmin = new SysAdminDto();

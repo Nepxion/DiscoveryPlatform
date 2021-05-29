@@ -30,7 +30,7 @@ import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.exception.BusinessException;
+import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -64,7 +64,7 @@ public class AdminController {
         if (loginAdapter.getLoginMode() == LoginMode.LDAP) {
             return String.format("%s/%s", PREFIX, "addldap");
         }
-        throw new BusinessException(String.format("暂不支持登录模式[%s]", loginAdapter.getLoginMode()));
+        throw new PlatformException(String.format("暂不支持登录模式[%s]", loginAdapter.getLoginMode()));
     }
 
     @GetMapping("edit")

@@ -12,7 +12,7 @@ package com.nepxion.discovery.platform.server.tool;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.nepxion.discovery.platform.server.exception.BusinessException;
+import com.nepxion.discovery.platform.server.exception.PlatformException;
 
 public final class SequenceTool {
     private static final int MAX_SEQUENCE = 99999;
@@ -44,7 +44,7 @@ public final class SequenceTool {
         } else {
             long timeDifferenceMilliseconds = lastMilliseconds - currentMilliseconds;
             if (timeDifferenceMilliseconds < MAX_TOLERATE_TIME_DIFFERENCE_MILLISECONDS) {
-                throw new BusinessException(String.format("Clock is moving backwards, last time is %s milliseconds, current time is %s milliseconds", lastMilliseconds, currentMilliseconds));
+                throw new PlatformException(String.format("Clock is moving backwards, last time is %s milliseconds, current time is %s milliseconds", lastMilliseconds, currentMilliseconds));
             }
             CommonTool.sleep(timeDifferenceMilliseconds);
             return true;

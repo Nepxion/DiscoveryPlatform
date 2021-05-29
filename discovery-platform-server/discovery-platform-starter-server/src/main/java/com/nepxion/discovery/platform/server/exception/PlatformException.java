@@ -14,14 +14,14 @@ import java.io.Serializable;
 
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
-public class BusinessException extends RuntimeException implements Serializable {
+public class PlatformException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = -1046678240722236088L;
 
-    public BusinessException(Throwable e) {
+    public PlatformException(Throwable e) {
         super(ExceptionTool.getRootCauseMessage(e), e);
     }
 
-    public BusinessException(String errMsg) {
+    public PlatformException(String errMsg) {
         super(errMsg);
     }
 }

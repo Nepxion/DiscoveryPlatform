@@ -23,7 +23,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
-import com.nepxion.discovery.platform.server.exception.BusinessException;
+import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
 
@@ -65,7 +65,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     public void insert(String name, Boolean superAdmin, String remark) {
         SysRoleDto sysRole = getByUserName(name);
         if (sysRole != null) {
-            throw new BusinessException(String.format("角色名[%s]已存在", name));
+            throw new PlatformException(String.format("角色名[%s]已存在", name));
         }
         sysRole = new SysRoleDto();
         sysRole.setName(name);
@@ -78,12 +78,12 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     @Override
     public void update(Long id, String name, Boolean superAdmin, String remark) {
         if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(remark)) {
-            throw new BusinessException("请输入要更新的内容");
+            throw new PlatformException("请输入要更新的内容");
         }
 
         SysRoleDto sysRole = getById(id);
         if (sysRole == null) {
-            throw new BusinessException(String.format("角色[%s]不存在", name));
+            throw new PlatformException(String.format("角色[%s]不存在", name));
         }
 
         sysRole.setName(name);

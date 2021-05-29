@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-platform-application</artifactId>
     <name>Nepxion Discovery Platform Application</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
-    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and
-        gray release orchestration, modelling, flow inspection
-    </description>
+    <description>Nepxion DiscoveryPlatform is a platform for Nepxion Discovery with service governance, blue green and gray release orchestration, modelling, flow inspection</description>
     <url>http://www.nepxion.com</url>
 
     <properties>
         <discovery.platform.version>1.0.0-SNAPSHOT</discovery.platform.version>
+        <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- 1.控制台配置中心 -->
+        <!-- 1.注册中心插件 -->
         <dependency>
-            <groupId>com.nepxion</groupId>
-            <!-- <artifactId>discovery-console-starter-nacos</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-apollo</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-redis</artifactId> -->
-            <!-- <artifactId>discovery-console-starter-zookeeper</artifactId> -->
-            <artifactId>discovery-console-starter-consul</artifactId>
-            <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
-        </dependency>
-
-        <!-- 2.控制台注册中心 -->
-        <dependency>
-            <!-- <groupId>com.alibaba.cloud</groupId> -->
-            <!-- <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId> -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!-- <groupId>org.springframework.cloud</groupId> -->
+            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
             <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
             <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
         </dependency>
 
-        <!-- 3.控制台服务 -->
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-starter-server</artifactId>
+            <artifactId>discovery-console-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-console-starter-apollo</artifactId> -->
+            <!-- <artifactId>discovery-console-starter-redis</artifactId> -->
+            <!-- <artifactId>discovery-console-starter-zookeeper</artifactId> -->
+            <!-- <artifactId>discovery-console-starter-consul</artifactId> -->
+            <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
         </dependency>
 
-        <!-- 4.mysql模式 -->
+        <!-- 3.MySQL数据库插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-platform-mysql</artifactId>
+            <artifactId>discovery-platform-starter-server-mysql</artifactId>
         </dependency>
+
+        <!-- 4.H2内存数据库插件 -->
+        <!-- <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-platform-starter-server-h2</artifactId>
+        </dependency> -->
+
+        <!-- 5. Ldap插件 -->
+        <!-- <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-platform-starter-server-ldap</artifactId>
+        </dependency> -->
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
-
-        <!-- 5. ldap需添加 -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.security</groupId>-->
-        <!--            <artifactId>spring-security-ldap</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
@@ -70,6 +70,14 @@
                 <groupId>com.nepxion</groupId>
                 <artifactId>discovery-platform</artifactId>
                 <version>${discovery.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring.boot.admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -89,18 +97,6 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -1,0 +1,46 @@
+{
+  "properties": [
+    {
+      "name": "platform.mysql.host",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The host of mysql database."
+    },
+    {
+      "name": "platform.mysql.port",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The port of mysql database."
+    },
+    {
+      "name": "platform.mysql.name",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The db name of mysql database."
+    },
+    {
+      "name": "platform.mysql.username",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The username of mysql database."
+    },
+    {
+      "name": "platform.mysql.password",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The password of mysql database."
+    },
+    {
+      "name": "platform.mysql.min-idle",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The min-number of mysql database pool size."
+    },
+    {
+      "name": "platform.mysql.maximum",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The max-number of mysql database pool size."
+    }
+  ]
+}

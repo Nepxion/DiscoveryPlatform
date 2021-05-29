@@ -1,0 +1,4 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.nepxion.discovery.platform.server.ldap.context.PlatformLdapApplicationContextInitializer
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.nepxion.discovery.platform.server.ldap.configuration.PlatformLdapAutoConfiguration

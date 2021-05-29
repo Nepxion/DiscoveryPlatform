@@ -1,0 +1,22 @@
+{
+  "properties": [
+    {
+      "name": "platform.server.title",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The title of platform server."
+    },
+    {
+      "name": "pplatform.server.full-name",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The full name of platform server."
+    },
+    {
+      "name": "platform.server.short-name",
+      "type": "java.lang.String",
+      "defaultValue": "Discovery Platform",
+      "description": "The short name of platform server."
+    }
+  ]
+}

@@ -49,22 +49,22 @@ public class PermissionController {
 
     @GetMapping("list")
     public String list(Model model) throws Exception {
-        model.addAttribute("roles", this.roleService.getNotSuperAdmin());
-        model.addAttribute("pages", this.pageService.listNotEmptyUrlPages());
+        model.addAttribute("roles", roleService.getNotSuperAdmin());
+        model.addAttribute("pages", pageService.listNotEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "list");
     }
 
     @GetMapping("add")
     public String add(Model model) throws Exception {
-        model.addAttribute("roles", this.roleService.getNotSuperAdmin());
+        model.addAttribute("roles", roleService.getNotSuperAdmin());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @PostMapping("do-get-pages")
     @ResponseBody
     public Result<List<SysPageDto>> doGetPages(@RequestParam(value = "sysRoleId") Long sysRoleId) throws Exception {
-        List<SysPageDto> allPages = this.pageService.list();
-        List<SysPageDto> pages = this.permissionService.listPermissionPagesByRoleId(sysRoleId);
+        List<SysPageDto> allPages = pageService.list();
+        List<SysPageDto> pages = permissionService.listPermissionPagesByRoleId(sysRoleId);
         allPages.removeAll(pages);
         return Result.ok(allPages.stream().filter(p -> StringUtils.isNotEmpty(p.getUrl())).collect(Collectors.toList()));
     }
@@ -72,7 +72,7 @@ public class PermissionController {
     @PostMapping("do-list")
     @ResponseBody
     public Result<List<PermissionVo>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "sysRoleId", required = false) Long sysRoleId, @RequestParam(value = "sysPageId", required = false) Long sysPageId) throws Exception {
-        IPage<PermissionVo> list = this.permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
+        IPage<PermissionVo> list = permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
@@ -93,7 +93,7 @@ public class PermissionController {
     @PostMapping("do-edit")
     @ResponseBody
     public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type, @RequestParam(value = "hasPermission") Boolean hasPermission) {
-        SysPermissionDto dbAdminPermission = this.permissionService.getById(id);
+        SysPermissionDto dbAdminPermission = permissionService.getById(id);
         if (dbAdminPermission != null) {
             switch (type.toLowerCase()) {
                 case "insert":

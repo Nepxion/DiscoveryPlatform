@@ -70,11 +70,11 @@ public class RouteGatewayVo implements Serializable {
         private static final long serialVersionUID = 2600817965821067952L;
 
         public String getUserPredicatesJson() {
-            return this.getUserJson(getUserPredicates());
+            return getUserJson(getUserPredicates());
         }
 
         public String getUserFiltersJson() {
-            return this.getUserJson(getUserFilters());
+            return getUserJson(getUserFilters());
         }
 
         private <T extends Clause> String getUserJson(List<T> clauseList) {

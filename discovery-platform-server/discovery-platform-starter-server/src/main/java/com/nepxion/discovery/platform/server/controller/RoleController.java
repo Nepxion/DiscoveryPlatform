@@ -52,14 +52,14 @@ public class RoleController {
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        model.addAttribute("role", this.roleService.getById(id));
+        model.addAttribute("role", roleService.getById(id));
         return String.format("%s/%s", PREFIX, "edit");
     }
 
     @PostMapping("do-list")
     @ResponseBody
     public Result<List<SysRoleDto>> doList(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize) throws Exception {
-        IPage<SysRoleDto> sysAdmins = this.roleService.list(name, pageNum, pageSize);
+        IPage<SysRoleDto> sysAdmins = roleService.list(name, pageNum, pageSize);
         return Result.ok(sysAdmins.getRecords(), sysAdmins.getTotal());
     }
 

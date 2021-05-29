@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -58,11 +59,7 @@ public class Result<T> implements Serializable {
         return data;
     }
 
-    private Result(long code,
-                   String error,
-                   T data,
-                   Long count,
-                   Boolean ok) {
+    private Result(long code, String error, T data, Long count, Boolean ok) {
         this.code = code;
         this.error = error;
         this.data = data;
@@ -70,8 +67,7 @@ public class Result<T> implements Serializable {
         this.ok = ok;
     }
 
-    public static <T> Result<T> create(ResultCode respondCode,
-                                       T data) {
+    public static <T> Result<T> create(ResultCode respondCode, T data) {
         return new Result<>(respondCode.getCode(), respondCode.getDescription(), data, null, respondCode.getSuccess());
     }
 
@@ -79,13 +75,11 @@ public class Result<T> implements Serializable {
         return create(respondCode, null);
     }
 
-    public static <T> Result<T> ok(long code,
-                                   T data) {
+    public static <T> Result<T> ok(long code, T data) {
         return new Result<>(code, null, data, null, true);
     }
 
-    public static <T> Result<List<T>> ok(List<T> data,
-                                         long count) {
+    public static <T> Result<List<T>> ok(List<T> data, long count) {
         return new Result<>(ResultCode.SUCCESS.getCode(), null, data, count, ResultCode.SUCCESS.getSuccess());
     }
 
@@ -97,31 +91,23 @@ public class Result<T> implements Serializable {
         return ok(null);
     }
 
-    public static <T> Result<T> error(long code,
-                                      String error,
-                                      T data) {
+    public static <T> Result<T> error(long code, String error, T data) {
         return new Result<>(code, error, data, null, false);
     }
 
-    public static <T> Result<T> error(long code,
-                                      Exception exception,
-                                      T data) {
+    public static <T> Result<T> error(long code, Exception exception, T data) {
         return error(code, ExceptionTool.getRootCauseMessage(exception), data);
     }
 
-    public static <T> Result<T> error(long code,
-                                      String error) {
+    public static <T> Result<T> error(long code, String error) {
         return error(code, error, null);
     }
 
-    public static <T> Result<T> error(long code,
-                                      Exception exception) {
+    public static <T> Result<T> error(long code, Exception exception) {
         return error(code, exception, null);
     }
 
-    public static <T> Result<List<T>> error(String error,
-                                            List<T> data,
-                                            long count) {
+    public static <T> Result<List<T>> error(String error, List<T> data, long count) {
         return new Result<>(ResultCode.ERROR.getCode(), error, data, count, ResultCode.ERROR.getSuccess());
     }
 

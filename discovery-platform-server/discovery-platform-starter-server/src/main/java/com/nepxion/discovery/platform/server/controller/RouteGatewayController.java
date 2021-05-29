@@ -57,27 +57,27 @@ public class RouteGatewayController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
         return String.format("%s/%s", PREFIX, "working");
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", this.serviceResource.getServices());
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", serviceResource.getServices());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        RouteGatewayDto routeGateway = this.routeGatewayService.getById(id);
+        RouteGatewayDto routeGateway = routeGatewayService.getById(id);
         routeGateway.setPredicates(CommonTool.formatTextarea(routeGateway.getPredicates()));
         routeGateway.setUserPredicates(CommonTool.formatTextarea(routeGateway.getUserPredicates()));
         routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
         routeGateway.setUserFilters(CommonTool.formatTextarea(routeGateway.getUserFilters()));
         routeGateway.setMetadata(CommonTool.formatTextarea(routeGateway.getMetadata()));
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", this.serviceResource.getServices());
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", serviceResource.getServices());
         model.addAttribute("route", routeGateway);
         return String.format("%s/%s", PREFIX, "edit");
     }
@@ -85,7 +85,7 @@ public class RouteGatewayController {
     @PostMapping("do-list")
     @ResponseBody
     public Result<List<RouteGatewayDto>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "description", required = false) String description) {
-        IPage<RouteGatewayDto> page = this.routeGatewayService.page(description, pageNum, pageSize);
+        IPage<RouteGatewayDto> page = routeGatewayService.page(description, pageNum, pageSize);
         for (RouteGatewayDto record : page.getRecords()) {
             record.setMetadata(record.getMetadata().replaceAll(PlatformConstant.ROW_SEPARATOR, ", "));
         }
@@ -100,7 +100,7 @@ public class RouteGatewayController {
         }
 
         List<RouteGatewayVo> result = new ArrayList<>();
-        List<ResultEntity> resultEntityList = this.routeResource.viewAllRoute(RouteGatewayService.GATEWAY_TYPE, gatewayName);
+        List<ResultEntity> resultEntityList = routeResource.viewAllRoute(RouteGatewayService.GATEWAY_TYPE, gatewayName);
         for (ResultEntity resultEntity : resultEntityList) {
             RouteGatewayVo routeGatewayVo = new RouteGatewayVo();
             routeGatewayVo.setHost(resultEntity.getHost());
@@ -115,7 +115,7 @@ public class RouteGatewayController {
     @PostMapping("do-list-gateway-names")
     @ResponseBody
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(this.serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
+        return Result.ok(serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
     }
 
     @PostMapping("do-add")

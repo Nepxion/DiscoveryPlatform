@@ -57,7 +57,7 @@ public class RouteZuulController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", this.serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
         return String.format("%s/%s", PREFIX, "working");
     }
 

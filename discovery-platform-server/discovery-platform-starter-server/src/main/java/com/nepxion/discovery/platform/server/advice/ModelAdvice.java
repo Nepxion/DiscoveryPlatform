@@ -24,8 +24,8 @@ public class ModelAdvice {
 
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute(PlatformConstant.TITLE, this.platformProperties.getTitle());
-        model.addAttribute(PlatformConstant.FULL_NAME, this.platformProperties.getFullName());
-        model.addAttribute(PlatformConstant.SHORT_NAME, this.platformProperties.getShortName());
+        model.addAttribute(PlatformConstant.TITLE, platformProperties.getTitle());
+        model.addAttribute(PlatformConstant.FULL_NAME, platformProperties.getFullName());
+        model.addAttribute(PlatformConstant.SHORT_NAME, platformProperties.getShortName());
     }
 }

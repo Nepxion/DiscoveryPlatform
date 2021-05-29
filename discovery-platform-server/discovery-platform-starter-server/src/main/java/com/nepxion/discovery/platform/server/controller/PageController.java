@@ -43,14 +43,14 @@ public class PageController {
 
     @RequestMapping("add")
     public String add(Model model) throws Exception {
-        model.addAttribute("pages", this.pageService.listEmptyUrlPages());
+        model.addAttribute("pages", pageService.listEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "add");
     }
 
     @RequestMapping("edit")
     public String edit(Model model, @RequestParam(value = "id") Long id) throws Exception {
-        model.addAttribute("page", this.pageService.getById(id));
-        model.addAttribute("pages", this.pageService.listEmptyUrlPages());
+        model.addAttribute("page", pageService.getById(id));
+        model.addAttribute("pages", pageService.listEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "edit");
     }
 
@@ -73,16 +73,16 @@ public class PageController {
         if (sysPage.getIsBlank() == null) {
             sysPage.setIsBlank(false);
         }
-        Long order = this.pageService.getMaxOrder(sysPage.getParentId());
+        Long order = pageService.getMaxOrder(sysPage.getParentId());
         sysPage.setOrder(order + 1);
-        this.pageService.insert(sysPage);
+        pageService.insert(sysPage);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
     public Result<?> doEdit(SysPageDto sysPage) {
-        SysPageDto dbSysPage = this.pageService.getById(sysPage.getId());
+        SysPageDto dbSysPage = pageService.getById(sysPage.getId());
         if (dbSysPage != null) {
             if (sysPage.getIsDefault() == null) {
                 sysPage.setIsDefault(false);
@@ -93,7 +93,7 @@ public class PageController {
             if (sysPage.getIsBlank() == null) {
                 sysPage.setIsBlank(false);
             }
-            this.pageService.updateById(sysPage);
+            pageService.updateById(sysPage);
         }
         return Result.ok();
     }

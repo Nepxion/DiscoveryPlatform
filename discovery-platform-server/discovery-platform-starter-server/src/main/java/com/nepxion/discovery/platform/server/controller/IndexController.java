@@ -52,7 +52,7 @@ public class IndexController {
 
     @GetMapping("info")
     public String info(Model model, AdminVo adminVo) {
-        model.addAttribute("admin", this.adminService.getById(adminVo.getId()));
+        model.addAttribute("admin", adminService.getById(adminVo.getId()));
         return "info";
     }
 

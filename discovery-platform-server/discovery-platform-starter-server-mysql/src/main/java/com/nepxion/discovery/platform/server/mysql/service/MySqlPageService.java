@@ -217,22 +217,22 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
                 filter(p -> p.getParentId().equals(parentPage.getId())). // 判断是否父子关系
                 filter(p -> set.size() <= childrenPageList.size()).// set集合大小不能超过childrenPageList的大小
                 forEach(p -> {
-            if (adminVo.getSysRole().getSuperAdmin() || StringUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
-                // 放入set, 递归循环时可以跳过这个页面，提高循环效率
-                set.add(p.getId());
-                // 递归获取当前类目的子类目
-                getChild(adminVo, permission, p, childrenPageList, set);
+                    if (adminVo.getSysRole().getSuperAdmin() || StringUtils.isEmpty(p.getUrl()) || permission.containsKey(p.getId())) {
+                        // 放入set, 递归循环时可以跳过这个页面，提高循环效率
+                        set.add(p.getId());
+                        // 递归获取当前类目的子类目
+                        getChild(adminVo, permission, p, childrenPageList, set);
 
-                if (permission.containsKey(p.getId())) {
-                    PageVo page = permission.get(p.getId());
-                    p.setCanInsert(page.getCanInsert());
-                    p.setCanDelete(page.getCanDelete());
-                    p.setCanUpdate(page.getCanUpdate());
-                    p.setCanSelect(page.getCanSelect());
-                }
-                childList.add(p);
-            }
-        });
+                        if (permission.containsKey(p.getId())) {
+                            PageVo page = permission.get(p.getId());
+                            p.setCanInsert(page.getCanInsert());
+                            p.setCanDelete(page.getCanDelete());
+                            p.setCanUpdate(page.getCanUpdate());
+                            p.setCanSelect(page.getCanSelect());
+                        }
+                        childList.add(p);
+                    }
+                });
         parentPage.setChildren(childList);
     }
 }

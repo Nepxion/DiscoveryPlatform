@@ -86,7 +86,6 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             routeGatewayPo.setId(routeGatewayDto.getRouteId());
             routeGatewayPo.setUri(routeGatewayDto.getUri());
 
-
             if (StringUtils.isNotEmpty(routeGatewayDto.getPredicates())) {
                 routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
             }

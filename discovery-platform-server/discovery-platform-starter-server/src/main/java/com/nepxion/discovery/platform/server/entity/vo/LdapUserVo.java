@@ -25,7 +25,7 @@ public class LdapUserVo implements Serializable {
     private String name;
     private String phoneNumber;
     private String email;
-    private String remark;
+    private String description;
 
     public String getUsername() {
         return username;
@@ -67,12 +67,12 @@ public class LdapUserVo implements Serializable {
         this.email = email;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

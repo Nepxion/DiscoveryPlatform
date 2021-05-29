@@ -34,14 +34,14 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 记录创建时间
      */
-    @TableField(value = "`row_create_time`")
-    private Date rowCreateTime;
+    @TableField(value = "`create_time`")
+    private Date createTime;
 
     /**
      * 最后一次修改时间
      */
-    @TableField(value = "`row_update_time`")
-    private Date rowUpdateTime;
+    @TableField(value = "`update_time`")
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -51,20 +51,20 @@ public abstract class BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public Date getRowCreateTime() {
-        return rowCreateTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setRowCreateTime(Date rowCreateTime) {
-        this.rowCreateTime = rowCreateTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getRowUpdateTime() {
-        return rowUpdateTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setRowUpdateTime(Date rowUpdateTime) {
-        this.rowUpdateTime = rowUpdateTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override

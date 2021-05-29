@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
+import com.nepxion.discovery.platform.server.entity.po.PermissionPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 import com.nepxion.discovery.platform.server.service.MenuService;
@@ -72,7 +74,14 @@ public class PermissionController {
 
     @ApiOperation(value = "添加权限")
     @PostMapping("do-add")
-    public Result<?> doAdd(SysPermissionDto sysPermissionDto) {
+    public Result<?> doAdd(PermissionPo permissionPo) {
+        SysPermissionDto sysPermissionDto = new SysPermissionDto();
+        sysPermissionDto.setSysRoleId(permissionPo.getSysRoleId());
+        sysPermissionDto.setSysMenuId(permissionPo.getSysMenuId());
+        sysPermissionDto.setCanInsert("on".equalsIgnoreCase(permissionPo.getInsert()));
+        sysPermissionDto.setCanDelete("on".equalsIgnoreCase(permissionPo.getDelete()));
+        sysPermissionDto.setCanUpdate("on".equalsIgnoreCase(permissionPo.getUpdate()));
+        sysPermissionDto.setCanSelect("on".equalsIgnoreCase(permissionPo.getSelect()));
         permissionService.insert(sysPermissionDto);
         return Result.ok();
     }
@@ -88,7 +97,7 @@ public class PermissionController {
         SysPermissionDto dbAdminPermission = permissionService.getById(id);
         if (dbAdminPermission != null) {
             Operation operation = Operation.get(type);
-            switch (operation) {
+            switch (Objects.requireNonNull(operation)) {
                 case INSERT:
                     dbAdminPermission.setCanInsert(hasPermission);
                     break;

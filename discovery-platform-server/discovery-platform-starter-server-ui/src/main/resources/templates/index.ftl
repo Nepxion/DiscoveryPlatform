@@ -57,13 +57,13 @@
                                 <li data-name="config" class="layui-nav-item <#if page_index==0>layui-nav-itemed</#if>">
                                     <#if page.blankFlag>
                                         <a href="${ctx}${page.url}" target="_blank" lay-direction="2"
-                                           lay-tips="<#if page.remark!=''>${page.remark}<#else>${page.name}</#if>">
+                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>">
                                             <i class="layui-icon ${page.iconClass}"></i><cite>${page.name}</cite>
                                         </a>
                                     <#else>
                                         <a href="javascript:"
                                                 <#if page.url!=''> lay-href="${ctx}${page.url}"</#if>
-                                           lay-tips="<#if page.remark!=''>${page.remark}<#else>${page.name}</#if>"
+                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>"
                                            lay-direction="2"
                                                 <#if page.url==(admin.defaultPage)!'_blank'> class="layui-this"</#if>
                                         >

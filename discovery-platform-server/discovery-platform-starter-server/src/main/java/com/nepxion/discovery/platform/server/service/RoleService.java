@@ -23,9 +23,9 @@ public interface RoleService {
 
     IPage<SysRoleDto> list(String name, Integer pageNum, Integer pageSize) throws Exception;
 
-    void insert(String name, Boolean superAdmin, String remark) throws Exception;
+    void insert(String name, Boolean superAdmin, String description) throws Exception;
 
-    void update(Long id, String name, Boolean superAdmin, String remark) throws Exception;
+    void update(Long id, String name, Boolean superAdmin, String description) throws Exception;
 
     SysRoleDto getById(Long sysRoleId);
 

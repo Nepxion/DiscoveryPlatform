@@ -70,7 +70,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
         Map<String, List<RouteGatewayPo>> newGatewayRouteMap = new HashMap<>();
         for (RouteGatewayDto routeGatewayDto : routeGatewayDtoList) {
-            if (routeGatewayDto.getDeleted()) {
+            if (routeGatewayDto.getDeleteFlag()) {
                 toDeleteList.add(routeGatewayDto);
                 addKV(unusedMap, routeGatewayDto.getGatewayName(), routeGatewayDto);
                 continue;
@@ -133,7 +133,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
         if (!CollectionUtils.isEmpty(toUpdateList)) {
             for (RouteGatewayDto routeGatewayDto : toUpdateList) {
-                routeGatewayDto.setPublish(true);
+                routeGatewayDto.setPublishFlag(true);
             }
             updateBatchById(toUpdateList, toUpdateList.size());
         }
@@ -144,7 +144,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
     @Override
     public IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize) {
         QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getRowCreateTime);
+        LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getCreateTime);
         if (StringUtils.isNotEmpty(description)) {
             lambda.eq(RouteGatewayDto::getDescription, description);
         }
@@ -167,11 +167,11 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             return;
         }
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
-            routeGatewayDto.setRouteId(String.format("gw_%s_%s", DateTool.getSequence(), UUID.randomUUID()));
+            routeGatewayDto.setRouteId(String.format("gw_%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
         }
         routeGatewayDto.setOperation(Operation.INSERT.getCode());
-        routeGatewayDto.setPublish(false);
-        routeGatewayDto.setDeleted(false);
+        routeGatewayDto.setPublishFlag(false);
+        routeGatewayDto.setDeleteFlag(false);
         save(routeGatewayDto);
     }
 
@@ -181,8 +181,8 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         if (routeGatewayDto == null) {
             return;
         }
-        routeGatewayDto.setPublish(false);
-        routeGatewayDto.setDeleted(false);
+        routeGatewayDto.setPublishFlag(false);
+        routeGatewayDto.setDeleteFlag(false);
         routeGatewayDto.setOperation(Operation.UPDATE.getCode());
         updateById(routeGatewayDto);
     }
@@ -203,8 +203,8 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             if (routeGatewayDto == null) {
                 continue;
             }
-            routeGatewayDto.setDeleted(true);
-            routeGatewayDto.setPublish(false);
+            routeGatewayDto.setDeleteFlag(true);
+            routeGatewayDto.setPublishFlag(false);
             routeGatewayDto.setOperation(Operation.DELETE.getCode());
             updateById(routeGatewayDto);
         }

@@ -44,7 +44,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(SysRoleDto::getSuperAdmin, false)
-                .orderByAsc(SysRoleDto::getRowCreateTime);
+                .orderByAsc(SysRoleDto::getCreateTime);
         return list(queryWrapper);
     }
 
@@ -62,7 +62,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
 
     @TransactionWriter
     @Override
-    public void insert(String name, Boolean superAdmin, String remark) {
+    public void insert(String name, Boolean superAdmin, String description) {
         SysRoleDto sysRole = getByUserName(name);
         if (sysRole != null) {
             throw new PlatformException(String.format("角色名[%s]已存在", name));
@@ -70,14 +70,14 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         sysRole = new SysRoleDto();
         sysRole.setName(name);
         sysRole.setSuperAdmin(superAdmin);
-        sysRole.setRemark(remark);
+        sysRole.setDescription(description);
         save(sysRole);
     }
 
     @TransactionWriter
     @Override
-    public void update(Long id, String name, Boolean superAdmin, String remark) {
-        if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(remark)) {
+    public void update(Long id, String name, Boolean superAdmin, String description) {
+        if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(description)) {
             throw new PlatformException("请输入要更新的内容");
         }
 
@@ -88,7 +88,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
 
         sysRole.setName(name);
         sysRole.setSuperAdmin(superAdmin);
-        sysRole.setRemark(remark);
+        sysRole.setDescription(description);
         updateById(sysRole);
     }
 

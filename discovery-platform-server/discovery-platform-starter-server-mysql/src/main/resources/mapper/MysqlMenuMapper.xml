@@ -14,7 +14,7 @@
         `menu`.`parent_id`,
         `parent`.`name` AS `parent_name`,
         `menu`.`order`,
-        `menu`.`remark`
+        `menu`.`description`
         FROM `sys_menu` `menu`
         LEFT OUTER JOIN `sys_menu` `parent` ON `menu`.`parent_id` = `parent`.`id`
         <where>
@@ -41,7 +41,7 @@
                `menu`.`parent_id`,
                `parent`.`name` AS `parent_name`,
                `menu`.`order`,
-               `menu`.`remark`,
+               `menu`.`description`,
                `p`.`can_insert`,
                `p`.`can_delete`,
                `p`.`can_update`,

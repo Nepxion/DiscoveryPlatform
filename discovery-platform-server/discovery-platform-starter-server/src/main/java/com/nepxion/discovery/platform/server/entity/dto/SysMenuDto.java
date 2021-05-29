@@ -72,10 +72,10 @@ public class SysMenuDto extends BaseEntity {
     private Long order;
 
     /**
-     * 备注
+     * 菜单描述信息
      */
-    @TableField(value = "`remark`")
-    private String remark;
+    @TableField(value = "`description`")
+    private String description;
 
     public String getName() {
         return name;
@@ -141,12 +141,12 @@ public class SysMenuDto extends BaseEntity {
         this.order = order;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

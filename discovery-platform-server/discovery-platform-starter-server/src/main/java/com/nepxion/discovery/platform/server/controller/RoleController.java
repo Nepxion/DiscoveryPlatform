@@ -54,14 +54,14 @@ public class RoleController {
     @ApiOperation(value = "添加角色")
     @PostMapping("do-add")
     public Result<?> doAdd(SysRoleDto sysRoleDto) throws Exception {
-        roleService.insert(sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getRemark());
+        roleService.insert(sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getDescription());
         return Result.ok();
     }
 
     @ApiOperation(value = "更新角色")
     @PostMapping("do-update")
     public Result<?> doUpdate(SysRoleDto sysRoleDto) throws Exception {
-        roleService.update(sysRoleDto.getId(), sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getRemark());
+        roleService.update(sysRoleDto.getId(), sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getDescription());
         return Result.ok();
     }
 

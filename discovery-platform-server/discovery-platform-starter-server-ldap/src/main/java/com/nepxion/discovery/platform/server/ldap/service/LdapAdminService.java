@@ -63,7 +63,7 @@ public class LdapAdminService implements AdminService {
             adminPo.setName(ldapUserVo.getName());
             adminPo.setPhoneNumber(ldapUserVo.getPhoneNumber());
             adminPo.setEmail(ldapUserVo.getEmail());
-            adminPo.setRemark(ldapUserVo.getRemark());
+            adminPo.setDescription(ldapUserVo.getDescription());
             adminService.insert(LoginMode.LDAP, adminPo);
         } else {
             BeanUtils.copyProperties(adminPo, sysAdmin);
@@ -84,7 +84,7 @@ public class LdapAdminService implements AdminService {
             adminVo.setName(ldapUserVo.getName());
             adminVo.setPhoneNumber(ldapUserVo.getPhoneNumber());
             adminVo.setEmail(ldapUserVo.getEmail());
-            adminVo.setRemark(ldapUserVo.getRemark());
+            adminVo.setDescription(ldapUserVo.getDescription());
             result.add(adminVo);
         }
         return result;

@@ -74,7 +74,7 @@ public class LdapService {
                         ldapUserVo.setName(contextAdapter.getStringAttribute(platformLdapProperties.getNameAttrName()));
                         ldapUserVo.setPhoneNumber(contextAdapter.getStringAttribute(platformLdapProperties.getPhoneNumberAttrName()));
                         ldapUserVo.setEmail(contextAdapter.getStringAttribute(platformLdapProperties.getMailAttrName()));
-                        ldapUserVo.setRemark(contextAdapter.getStringAttribute(platformLdapProperties.getTitleAttrName()));
+                        ldapUserVo.setDescription(contextAdapter.getStringAttribute(platformLdapProperties.getTitleAttrName()));
                         return ldapUserVo;
                     });
         } catch (EmptyResultDataAccessException ignored) {
@@ -113,7 +113,7 @@ public class LdapService {
                 ldapUserVo.setEmail(ctx.get(platformLdapProperties.getMailAttrName()).get().toString());
             }
             if (ctx.get(platformLdapProperties.getTitleAttrName()) != null) {
-                ldapUserVo.setRemark(ctx.get(platformLdapProperties.getTitleAttrName()).get().toString());
+                ldapUserVo.setDescription(ctx.get(platformLdapProperties.getTitleAttrName()).get().toString());
             }
             return ldapUserVo;
         });

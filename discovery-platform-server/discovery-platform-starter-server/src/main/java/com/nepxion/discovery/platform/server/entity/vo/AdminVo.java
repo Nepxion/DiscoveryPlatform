@@ -45,8 +45,8 @@ public class AdminVo extends BaseEntity {
     @TableField(value = "`email`")
     private String email;
 
-    @TableField(value = "`remark`")
-    private String remark;
+    @TableField(value = "`description`")
+    private String description;
 
     @TableField(exist = false)
     private String defaultPage;
@@ -113,12 +113,12 @@ public class AdminVo extends BaseEntity {
         this.email = email;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDefaultPage() {

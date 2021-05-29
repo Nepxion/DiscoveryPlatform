@@ -28,7 +28,7 @@
 
                 <script type="text/html" id="colState">
 
-                    {{#  if(d.publish){ }}
+                    {{#  if(d.publishFlag){ }}
 
                     {{#  if(d.enabled){ }}
                     <span class="layui-badge layui-bg-green"><b>已启用</b></span>
@@ -43,7 +43,7 @@
 
                 <script type="text/html" id="colGatewayName">
                     {{ d.gatewayName }} &nbsp;&nbsp;
-                    {{#  if(!d.publish){ }}
+                    {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
                     {{#  } else if(d.operation==2){ }}
@@ -76,9 +76,7 @@
                             </button>
                         </@select>
                         <@update>
-                            <button id="btnPublish"
-                                    class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin"
-                                    lay-event="publish" style="margin-left: 50px">
+                            <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
                                 <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布<b>Spring Cloud Gateway</b>路由
                             </button>
                         </@update>
@@ -143,7 +141,7 @@
                 done: function (res) {
                     let needPublish = false;
                     $.each(res.data, function (idx, val) {
-                        if (!val.publish) {
+                        if (!val.publishFlag) {
                             needPublish = true;
                             return;
                         }

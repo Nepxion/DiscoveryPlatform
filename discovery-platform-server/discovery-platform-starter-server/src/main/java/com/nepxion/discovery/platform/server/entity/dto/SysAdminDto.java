@@ -66,10 +66,10 @@ public class SysAdminDto extends BaseEntity {
     private String email;
 
     /**
-     * 备注
+     * 管理员描述信息
      */
-    @TableField(value = "`remark`")
-    private String remark;
+    @TableField(value = "`description`")
+    private String description;
 
     public Integer getLoginMode() {
         return loginMode;
@@ -127,12 +127,12 @@ public class SysAdminDto extends BaseEntity {
         this.email = email;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

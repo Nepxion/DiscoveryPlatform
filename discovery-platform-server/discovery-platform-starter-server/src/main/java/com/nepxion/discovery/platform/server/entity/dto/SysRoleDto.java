@@ -36,10 +36,10 @@ public class SysRoleDto extends BaseEntity {
     private Boolean superAdmin;
 
     /**
-     * 角色说明
+     * 角色描述信息
      */
-    @TableField(value = "`remark`")
-    private String remark;
+    @TableField(value = "`description`")
+    private String description;
 
     public String getName() {
         return name;
@@ -57,12 +57,12 @@ public class SysRoleDto extends BaseEntity {
         this.superAdmin = superAdmin;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

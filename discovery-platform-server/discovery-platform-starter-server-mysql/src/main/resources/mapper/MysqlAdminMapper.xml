@@ -10,8 +10,8 @@
         `admin`.`name`,
         `admin`.`phone_number`,
         `admin`.`email`,
-        `admin`.`remark`,
-        `admin`.`row_create_time`,
+        `admin`.`description`,
+        `admin`.`create_time`,
         `role`.`id` AS `sys_role_id`,
         `role`.`name` AS `role_name`
         FROM `sys_admin` `admin`

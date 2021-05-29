@@ -57,7 +57,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">描述信息</label>
         <div class="layui-input-inline" style="width:250px">
-            <textarea name="remark" placeholder="请填写描述信息" class="layui-textarea" style="resize: none"></textarea>
+            <textarea name="description" placeholder="请填写描述信息" class="layui-textarea" style="resize: none"></textarea>
         </div>
     </div>
     <div class="layui-form-item layui-hide">

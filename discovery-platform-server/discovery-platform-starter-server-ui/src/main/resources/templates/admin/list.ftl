@@ -82,7 +82,7 @@
                     {field: 'name', title: '姓名', width: 200},
                     {field: 'phoneNumber', title: '手机号', width: 200},
                     {field: 'email', title: '邮箱地址', width: 200},
-                    {field: 'remark', title: '备注'}
+                    {field: 'description', title: '备注'}
                     <@select>
                     , {fixed: 'right', title: '操作', align: "center", toolbar: '#grid-bar', width: 180}
                     </@select>

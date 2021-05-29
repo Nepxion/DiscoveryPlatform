@@ -71,11 +71,9 @@
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
                 <#if loginMode=="DATABASE">
-                    <textarea name="remark" placeholder="请输入备注" class="layui-textarea"
-                              style="resize: none">${admin.remark}</textarea>
+                    <textarea name="description" placeholder="请输入备注" class="layui-textarea" style="resize: none">${admin.description}</textarea>
                 <#else>
-                    <textarea name="remark" class="layui-textarea layui-disabled" style="resize: none"
-                              readonly>${admin.remark}</textarea>
+                    <textarea name="description" class="layui-textarea layui-disabled" style="resize: none" readonly>${admin.description}</textarea>
                 </#if>
             </div>
         </div>

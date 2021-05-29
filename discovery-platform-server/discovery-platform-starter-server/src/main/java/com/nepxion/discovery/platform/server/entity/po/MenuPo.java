@@ -51,8 +51,8 @@ public class MenuPo implements Serializable {
     @ApiModelProperty("顺序号(值越小, 排名越靠前)")
     private Long order;
 
-    @ApiModelProperty("备注")
-    private String remark;
+    @ApiModelProperty("菜单描述信息")
+    private String description;
 
     public Long getId() {
         return id;
@@ -126,12 +126,12 @@ public class MenuPo implements Serializable {
         this.order = order;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

@@ -45,8 +45,8 @@ public class AdminPo implements Serializable {
     @ApiModelProperty("管理员邮箱")
     private String email;
 
-    @ApiModelProperty("管理员备注信息")
-    private String remark;
+    @ApiModelProperty("管理员描述信息")
+    private String description;
 
     public Long getId() {
         return id;
@@ -104,12 +104,12 @@ public class AdminPo implements Serializable {
         this.email = email;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

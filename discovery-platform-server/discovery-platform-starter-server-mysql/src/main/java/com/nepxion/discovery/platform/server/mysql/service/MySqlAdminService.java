@@ -129,7 +129,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         sysAdmin.setName(adminPo.getName());
         sysAdmin.setPhoneNumber(adminPo.getPhoneNumber());
         sysAdmin.setEmail(adminPo.getEmail());
-        sysAdmin.setRemark(adminPo.getRemark());
+        sysAdmin.setDescription(adminPo.getDescription());
         return save(sysAdmin);
     }
 
@@ -159,8 +159,8 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         if (adminPo.getEmail() != null) {
             lambdaUpdateWrapper.set(SysAdminDto::getEmail, adminPo.getEmail());
         }
-        if (adminPo.getRemark() != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getRemark, adminPo.getRemark());
+        if (adminPo.getDescription() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getDescription, adminPo.getDescription());
         }
         return update(updateWrapper);
     }

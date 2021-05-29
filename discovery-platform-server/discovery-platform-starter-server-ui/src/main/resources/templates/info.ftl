@@ -49,8 +49,7 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">备注</label>
                                 <div class="layui-input-block">
-                                    <textarea name="remark" placeholder="请输入备注"
-                                              class="layui-textarea">${admin.remark}</textarea>
+                                    <textarea name="description" placeholder="请输入备注" class="layui-textarea">${admin.description}</textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">

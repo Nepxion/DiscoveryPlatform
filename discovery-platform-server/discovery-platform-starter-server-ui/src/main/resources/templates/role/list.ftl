@@ -85,7 +85,7 @@
                     {type: 'numbers', title: '序号', width: 50},
                     {field: 'name', title: '角色名称', width: 200},
                     {field: 'superadmin', title: '是否超级管理员', templet: '#colSuperadmin', width: 200},
-                    {field: 'remark', title: '备注'}
+                    {field: 'description', title: '备注'}
                     <@select>
                     , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                     </@select>

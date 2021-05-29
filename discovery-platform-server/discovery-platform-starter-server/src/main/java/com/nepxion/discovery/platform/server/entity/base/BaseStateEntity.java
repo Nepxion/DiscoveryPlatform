@@ -20,22 +20,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 public class BaseStateEntity extends BaseEntity {
     private static final long serialVersionUID = 2636994153216571320L;
 
-    @TableField(value = "`publish`")
-    private Boolean publish = false;
-
     @TableField(value = "`operation`")
     private Integer operation;
 
-    @TableField(value = "`deleted`")
-    private Boolean deleted = false;
+    @TableField(value = "`publish_flag`")
+    private Boolean publishFlag = false;
 
-    public Boolean getPublish() {
-        return publish;
-    }
-
-    public void setPublish(Boolean publish) {
-        this.publish = publish;
-    }
+    @TableField(value = "`delete_flag`")
+    private Boolean deleteFlag = false;
 
     public Integer getOperation() {
         return operation;
@@ -45,12 +37,20 @@ public class BaseStateEntity extends BaseEntity {
         this.operation = operation;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public Boolean getPublishFlag() {
+        return publishFlag;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public void setPublishFlag(Boolean publishFlag) {
+        this.publishFlag = publishFlag;
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override

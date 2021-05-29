@@ -28,7 +28,7 @@
 
                 <script type="text/html" id="colState">
 
-                    {{#  if(d.publish){ }}
+                    {{#  if(d.publishFlag){ }}
 
                     {{#  if(d.enabled){ }}
                     <span class="layui-badge layui-bg-green"><b>已启用</b></span>
@@ -43,7 +43,7 @@
 
                 <script type="text/html" id="colGatewayName">
                     {{ d.gatewayName }} &nbsp;&nbsp;
-                    {{#  if(!d.publish){ }}
+                    {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
                     {{#  } else if(d.operation==2){ }}
@@ -170,7 +170,7 @@
                 done: function (res) {
                     let needPublish = false;
                     $.each(res.data, function (idx, val) {
-                        if (!val.publish) {
+                        if (!val.publishFlag) {
                             needPublish = true;
                             return;
                         }

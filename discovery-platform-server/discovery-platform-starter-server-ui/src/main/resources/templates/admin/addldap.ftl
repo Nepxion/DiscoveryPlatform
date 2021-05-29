@@ -55,8 +55,7 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
-                <textarea id="remark" name="remark" class="layui-textarea layui-disabled" style="resize: none"
-                          readonly></textarea>
+                <textarea id="description" name="description" class="layui-textarea layui-disabled" style="resize: none" readonly></textarea>
             </div>
         </div>
 
@@ -87,7 +86,7 @@
                         $('#name').val(item.name);
                         $('#phoneNumber').val(item.phoneNumber);
                         $('#email').val(item.email);
-                        $('#remark').html(item.remark);
+                        $('#description').html(item.description);
                     }
                 });
             });

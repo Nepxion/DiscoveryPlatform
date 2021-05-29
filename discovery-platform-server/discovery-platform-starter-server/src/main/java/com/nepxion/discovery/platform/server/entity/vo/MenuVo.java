@@ -50,8 +50,8 @@ public class MenuVo extends BaseEntity {
     @TableField("`order`")
     private Long order;
 
-    @TableField("`remark`")
-    private String remark;
+    @TableField("`description`")
+    private String description;
 
     @TableField("`can_insert`")
     private Boolean canInsert;
@@ -140,12 +140,12 @@ public class MenuVo extends BaseEntity {
         this.order = order;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getCanInsert() {

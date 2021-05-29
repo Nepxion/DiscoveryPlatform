@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
+import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 import com.nepxion.discovery.platform.server.service.PageService;
@@ -95,17 +97,18 @@ public class PermissionController {
     public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type, @RequestParam(value = "hasPermission") Boolean hasPermission) {
         SysPermissionDto dbAdminPermission = permissionService.getById(id);
         if (dbAdminPermission != null) {
-            switch (type.toLowerCase()) {
-                case "insert":
+            Operation operation = Operation.get(type);
+            switch (operation) {
+                case INSERT:
                     dbAdminPermission.setCanInsert(hasPermission);
                     break;
-                case "delete":
+                case DELETE:
                     dbAdminPermission.setCanDelete(hasPermission);
                     break;
-                case "update":
+                case UPDATE:
                     dbAdminPermission.setCanUpdate(hasPermission);
                     break;
-                case "select":
+                case SELECT:
                     dbAdminPermission.setCanSelect(hasPermission);
                     break;
             }

@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.client.event;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Haojun Ren
  * @version 1.0
  */
@@ -24,7 +25,7 @@ public class GatewayRouteEventSubscriber {
     }
 
     @Subscribe
-    public void onGatewayStrategyRouteModified(GatewayStrategyRouteModifiedEvent gatewayStrategyRouteModifiedEvent) {        
+    public void onGatewayStrategyRouteModified(GatewayStrategyRouteModifiedEvent gatewayStrategyRouteModifiedEvent) {
         System.out.println("::::: 推送网关路由变更信息给钉钉，修改网关路由=" + gatewayStrategyRouteModifiedEvent.getGatewayStrategyRouteEntity());
     }
 
@@ -34,7 +35,7 @@ public class GatewayRouteEventSubscriber {
     }
 
     @Subscribe
-    public void onGatewayStrategyRouteUpdatedAll(GatewayStrategyRouteUpdatedAllEvent gatewayStrategyRouteUpdatedAllEvent) {       
+    public void onGatewayStrategyRouteUpdatedAll(GatewayStrategyRouteUpdatedAllEvent gatewayStrategyRouteUpdatedAllEvent) {
         System.out.println("::::: 推送网关路由变更信息给钉钉，更新全部网关路由=" + gatewayStrategyRouteUpdatedAllEvent.getGatewayStrategyRouteEntityList());
     }
 }

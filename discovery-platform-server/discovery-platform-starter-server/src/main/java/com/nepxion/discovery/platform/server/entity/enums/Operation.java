@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.entity.enums;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -12,7 +13,8 @@ package com.nepxion.discovery.platform.server.entity.enums;
 public enum Operation {
     INSERT(1, "INSERT"),
     UPDATE(2, "UPDATE"),
-    DELETE(3, "DELETE");
+    DELETE(3, "DELETE"),
+    SELECT(4, "SELECT");
 
     private int code;
     private String name;
@@ -42,7 +44,7 @@ public enum Operation {
 
     public static Operation get(String name) {
         for (Operation item : Operation.values()) {
-            if (item.getName().equals(name)) {
+            if (item.getName().equalsIgnoreCase(name)) {
                 return item;
             }
         }

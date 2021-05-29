@@ -5,18 +5,20 @@ package com.nepxion.discovery.platform.server.template;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
 
+import java.io.IOException;
+import java.util.Map;
+
+import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-
-import java.io.IOException;
-import java.util.Map;
 
 public class UpdateDirective extends AuthDirective implements TemplateDirectiveModel {
     @SuppressWarnings("rawtypes")

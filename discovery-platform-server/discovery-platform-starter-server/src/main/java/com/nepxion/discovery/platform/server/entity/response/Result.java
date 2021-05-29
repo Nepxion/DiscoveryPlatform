@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.entity.response;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -13,7 +14,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

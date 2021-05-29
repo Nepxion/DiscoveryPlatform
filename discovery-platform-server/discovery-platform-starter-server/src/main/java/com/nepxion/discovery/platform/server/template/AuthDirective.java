@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.template;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.PageVo;
 
@@ -73,10 +75,6 @@ public abstract class AuthDirective {
             }
         }
         return null;
-    }
-
-    protected enum Operation {
-        INSERT, DELETE, UPDATE, SELECT
     }
 
     private interface HandlePermission {

@@ -17,12 +17,12 @@
                         </#list>
                     </select>
                 </div>
-                <div class="layui-inline">页面名称</div>
+                <div class="layui-inline">菜单名称</div>
                 <div class="layui-inline">
-                    <select name="sysPageId">
-                        <option value="">请选择页面</option>
-                        <#list pages as page>
-                            <option value="${page.id}">${page.name}</option>
+                    <select name="sysMenuId">
+                        <option value="">请选择菜单</option>
+                        <#list menus as menu>
+                            <option value="${menu.id}">${menu.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -122,7 +122,7 @@
             cols: [[
                 {type: 'checkbox'},
                 {field: 'roleName', title: '角色名称'},
-                {field: 'pageName', title: '页面名称'},
+                {field: 'menuName', title: '页面名称'},
                 {field: 'canInsert', title: '新增权限', unresize: true, templet: '#canInsert', width: 100},
                 {field: 'canDelete', title: '删除权限', unresize: true, templet: '#canDelete', width: 100},
                 {field: 'canUpdate', title: '修改权限', unresize: true, templet: '#canUpdate', width: 100},
@@ -133,7 +133,7 @@
         form.on('switch(editPermission)', function (obj) {
             let json = JSON.parse(decodeURIComponent($(this).data('json')));
             json = table.clearCacheKey(json);
-            admin.post("do-edit", {id: json.id, type: this.name, hasPermission: obj.elem.checked});
+            admin.post("do-update", {id: json.id, type: this.name, hasPermission: obj.elem.checked});
         });
 
         table.on('toolbar(grid)', function (obj) {

@@ -16,28 +16,29 @@ import java.util.Set;
 import org.springframework.lang.Nullable;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
+import com.nepxion.discovery.platform.server.entity.po.MenuPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import com.nepxion.discovery.platform.server.entity.vo.MenuVo;
 
-public interface PageService {
+public interface MenuService {
     void fillPages(AdminVo adminVo) throws Exception;
 
-    List<SysPageDto> listEmptyUrlPages() throws Exception;
+    List<SysMenuDto> listEmptyUrlMenus() throws Exception;
 
-    List<SysPageDto> listNotEmptyUrlPages() throws Exception;
+    List<SysMenuDto> listNotEmptyUrlMenus() throws Exception;
 
-    IPage<PageVo> list(@Nullable String name, Integer pageNum, Integer pageSize) throws Exception;
+    IPage<MenuVo> list(@Nullable String name, Integer pageNum, Integer pageSize) throws Exception;
 
     Long getMaxOrder(Long parentId) throws Exception;
 
-    List<SysPageDto> list();
+    List<SysMenuDto> list();
 
-    boolean insert(SysPageDto sysPage);
+    boolean insert(MenuPo menuPo) throws Exception;
 
-    SysPageDto getById(Long id);
+    SysMenuDto getById(Long id);
 
-    boolean updateById(SysPageDto sysPage);
+    boolean updateById(MenuPo menuPo) throws Exception;
 
     boolean removeByIds(Set<Long> idList);
 }

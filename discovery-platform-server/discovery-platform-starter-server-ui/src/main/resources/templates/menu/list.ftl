@@ -79,17 +79,17 @@
                 },
                 {
                     title: '是否是菜单', width: 120, templet: function (d) {
-                        return d.isMenu ? '是' : '否'
+                        return d.showFlag ? '是' : '否'
                     }
                 },
                 {
                     title: '是否首页', width: 120, templet: function (d) {
-                        return d.isDefault ? '是' : '否'
+                        return d.defaultFlag ? '是' : '否'
                     }
                 },
                 {
                     title: '是否新窗口', width: 120, templet: function (d) {
-                        return d.isBlank ? '是' : '否'
+                        return d.blankFlag ? '是' : '否'
                     }
                 },
                 {field: 'description', title: '描述信息'}
@@ -156,7 +156,7 @@
                             submit = layero.find('iframe').contents().find('#' + submitID);
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             const field = data.field;
-                            admin.post('do-edit', admin.toJson(field), function () {
+                            admin.post('do-update', admin.toJson(field), function () {
                                 table.reload('grid');
                                 layer.close(index);
                             }, function (result) {

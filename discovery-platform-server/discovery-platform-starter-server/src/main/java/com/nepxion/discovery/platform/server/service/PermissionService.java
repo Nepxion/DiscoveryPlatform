@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 
 public interface PermissionService {
-    List<SysPageDto> listPermissionPagesByRoleId(Long sysRoleId) throws Exception;
+    List<SysMenuDto> listPermissionMenusByRoleId(Long sysRoleId) throws Exception;
 
-    IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysPageId) throws Exception;
+    IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysMenuId) throws Exception;
 
     void insert(SysPermissionDto authPermission);
 

@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPermissionMapper;
@@ -33,14 +33,14 @@ public class MySqlPermissionService extends ServiceImpl<MySqlPermissionMapper, S
 
     @TransactionReader
     @Override
-    public List<SysPageDto> listPermissionPagesByRoleId(Long sysRoleId) {
-        return baseMapper.listPermissionPagesByRoleId(sysRoleId);
+    public List<SysMenuDto> listPermissionMenusByRoleId(Long sysRoleId) {
+        return baseMapper.listPermissionMenusByRoleId(sysRoleId);
     }
 
     @TransactionReader
     @Override
-    public IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysPageId) {
-        return baseMapper.list(new Page<>(pageNum, pageSize), sysRoleId, sysPageId);
+    public IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysMenuId) {
+        return baseMapper.list(new Page<>(pageNum, pageSize), sysRoleId, sysMenuId);
     }
 
     @TransactionWriter

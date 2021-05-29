@@ -10,65 +10,38 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import java.util.Calendar;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.po.AdminPo;
+import com.nepxion.discovery.platform.server.entity.po.ChangePasswordPo;
+import com.nepxion.discovery.platform.server.entity.po.LoginPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
-@Controller
+@Api("登录、登出、修改密码等接口")
+@RestController
 public class IndexController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping(value = { PlatformConstant.PLATFORM })
-    public String login(Model model) {
-        model.addAttribute("version", CommonTool.getVersion());
-        model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
-        return "login";
-    }
-
-    @RequestMapping(value = "index")
-    public String index(Model model, AdminVo adminVo) {
-        model.addAttribute("version", CommonTool.getVersion());
-        model.addAttribute("admin", adminVo);
-        return "index";
-    }
-
-    @GetMapping("info")
-    public String info(Model model, AdminVo adminVo) {
-        model.addAttribute("admin", adminService.getById(adminVo.getId()));
-        return "info";
-    }
-
-    @GetMapping("password")
-    public String password() {
-        return "password";
-    }
-
+    @ApiOperation(value = "执行管理员登录系统")
     @PostMapping("do-login")
-    @ResponseBody
-    public Result<?> doLogin(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "remember", defaultValue = "false") Boolean remember) {
+    public Result<?> doLogin(LoginPo loginPo) {
         try {
             Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
-            usernamePasswordToken.setRememberMe(remember);
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(loginPo.getUsername(), loginPo.getPassword());
+            usernamePasswordToken.setRememberMe(loginPo.getRemember());
             subject.login(usernamePasswordToken);
             return Result.ok();
         } catch (UnknownAccountException e) {
@@ -78,22 +51,23 @@ public class IndexController {
         }
     }
 
+    @ApiOperation(value = "修改管理员的登录密码")
     @PostMapping("do-change-password")
-    @ResponseBody
-    public Result<?> doChangePassword(AdminVo adminVo, @RequestParam(name = "oldPassword") String oldPassword, @RequestParam(name = "password") String newPassword) throws Exception {
-        adminService.changePassword(adminVo.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
+    public Result<?> doChangePassword(AdminVo adminVo, ChangePasswordPo changePasswordPo) throws Exception {
+        adminService.changePassword(adminVo.getId(), CommonTool.hash(changePasswordPo.getOldPassword()), CommonTool.hash(changePasswordPo.getPassword()));
         return Result.ok();
     }
 
-    @PostMapping("do-edit-info")
-    @ResponseBody
-    public Result<?> doEditInfo(AdminVo adminVo, @RequestParam(name = "name") String name, @RequestParam(name = "phoneNumber") String phoneNumber, @RequestParam(name = "email") String email, @RequestParam(name = "remark") String remark) throws Exception {
-        adminService.update(adminVo.getId(), null, null, name, phoneNumber, email, remark);
+    @ApiOperation(value = "更新管理员的信息")
+    @PostMapping("do-update-info")
+    public Result<?> doUpdateInfo(AdminVo adminVo, AdminPo adminPo) throws Exception {
+        adminPo.setId(adminVo.getId());
+        adminService.update(adminPo);
         return Result.ok();
     }
 
+    @ApiOperation(value = "执行管理员退出系统逻辑")
     @PostMapping("do-quit")
-    @ResponseBody
     public Result<?> doQuit() {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {

@@ -21,11 +21,11 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 public class PermissionVo extends BaseEntity {
     private static final long serialVersionUID = -6016630948349129129L;
 
-    @TableField("`page_id`")
-    private Long pageId;
+    @TableField("`menu_id`")
+    private Long menuId;
 
-    @TableField("`page_name`")
-    private String pageName;
+    @TableField("`menu_name`")
+    private String menuName;
 
     @TableField("`role_id`")
     private Long roleId;
@@ -45,20 +45,20 @@ public class PermissionVo extends BaseEntity {
     @TableField("`can_select`")
     private Boolean canSelect;
 
-    public Long getPageId() {
-        return pageId;
+    public Long getMenuId() {
+        return menuId;
     }
 
-    public void setPageId(Long pageId) {
-        this.pageId = pageId;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
-    public String getPageName() {
-        return pageName;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setPageName(String pageName) {
-        this.pageName = pageName;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
     public Long getRoleId() {

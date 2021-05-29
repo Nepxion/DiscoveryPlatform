@@ -18,12 +18,19 @@ import org.springframework.context.annotation.Configuration;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
+import com.nepxion.discovery.platform.server.controller.AdminPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
-import com.nepxion.discovery.platform.server.controller.PageController;
+import com.nepxion.discovery.platform.server.controller.IndexPageController;
+import com.nepxion.discovery.platform.server.controller.MenuController;
+import com.nepxion.discovery.platform.server.controller.MenuPageController;
 import com.nepxion.discovery.platform.server.controller.PermissionController;
+import com.nepxion.discovery.platform.server.controller.PermissionPageController;
 import com.nepxion.discovery.platform.server.controller.RoleController;
+import com.nepxion.discovery.platform.server.controller.RolePageController;
 import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
+import com.nepxion.discovery.platform.server.controller.RouteGatewayPageController;
 import com.nepxion.discovery.platform.server.controller.RouteZuulController;
+import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
@@ -44,6 +51,41 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public AdminPageController adminPageController() {
+        return new AdminPageController();
+    }
+
+    @Bean
+    public IndexPageController indexPageController() {
+        return new IndexPageController();
+    }
+
+    @Bean
+    public MenuPageController menuPageController() {
+        return new MenuPageController();
+    }
+
+    @Bean
+    public PermissionPageController permissionPageController() {
+        return new PermissionPageController();
+    }
+
+    @Bean
+    public RolePageController rolePageController() {
+        return new RolePageController();
+    }
+
+    @Bean
+    public RouteGatewayPageController routeGatewayPageController() {
+        return new RouteGatewayPageController();
+    }
+
+    @Bean
+    public RouteZuulPageController routeZuulPageController() {
+        return new RouteZuulPageController();
+    }
+
+    @Bean
     public AdminController adminController() {
         return new AdminController();
     }
@@ -54,8 +96,8 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public PageController pageController() {
-        return new PageController();
+    public MenuController menuController() {
+        return new MenuController();
     }
 
     @Bean

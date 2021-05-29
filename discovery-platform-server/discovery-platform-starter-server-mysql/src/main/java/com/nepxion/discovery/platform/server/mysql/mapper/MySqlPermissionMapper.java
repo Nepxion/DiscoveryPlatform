@@ -17,13 +17,13 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 
 @Mapper
 public interface MySqlPermissionMapper extends BaseMapper<SysPermissionDto> {
-    List<SysPageDto> listPermissionPagesByRoleId(@Param("sysRoleId") Long sysRoleId);
+    List<SysMenuDto> listPermissionMenusByRoleId(@Param("sysRoleId") Long sysRoleId);
 
-    IPage<PermissionVo> list(IPage<PermissionVo> result, @Param("sysRoleId") Long sysRoleId, @Param("sysPageId") Long sysPageId);
+    IPage<PermissionVo> list(IPage<PermissionVo> result, @Param("sysRoleId") Long sysRoleId, @Param("sysMenuId") Long sysMenuId);
 }

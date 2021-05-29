@@ -33,6 +33,7 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
+import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
@@ -114,52 +115,52 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
 
     @TransactionWriter
     @Override
-    public boolean insert(LoginMode loginMode, Long roleId, String username, String password, String name, String phoneNumber, String email, String remark) {
-        SysAdminDto sysAdmin = getByUserName(username);
+    public boolean insert(LoginMode loginMode, AdminPo adminPo) {
+        SysAdminDto sysAdmin = getByUserName(adminPo.getUsername());
         if (sysAdmin != null) {
-            throw new PlatformException(String.format("用户名[%s]已存在", username));
+            throw new PlatformException(String.format("用户名[%s]已存在", adminPo.getUsername()));
         }
 
         sysAdmin = new SysAdminDto();
         sysAdmin.setLoginMode(loginMode.getCode());
-        sysAdmin.setSysRoleId(roleId);
-        sysAdmin.setUsername(username);
-        sysAdmin.setPassword(CommonTool.hash(password));
-        sysAdmin.setName(name);
-        sysAdmin.setPhoneNumber(phoneNumber);
-        sysAdmin.setEmail(email);
-        sysAdmin.setRemark(remark);
+        sysAdmin.setSysRoleId(adminPo.getRoleId());
+        sysAdmin.setUsername(adminPo.getUsername());
+        sysAdmin.setPassword(CommonTool.hash(adminPo.getPassword()));
+        sysAdmin.setName(adminPo.getName());
+        sysAdmin.setPhoneNumber(adminPo.getPhoneNumber());
+        sysAdmin.setEmail(adminPo.getEmail());
+        sysAdmin.setRemark(adminPo.getRemark());
         return save(sysAdmin);
     }
 
     @TransactionWriter
     @Override
-    public boolean update(Long id, Long roleId, String username, String name, String phoneNumber, String email, String remark) {
-        SysAdminDto sysAdmin = getById(id);
+    public boolean update(AdminPo adminPo) {
+        SysAdminDto sysAdmin = getById(adminPo.getId());
         if (sysAdmin == null) {
             return false;
         }
 
         UpdateWrapper<SysAdminDto> updateWrapper = new UpdateWrapper<>();
-        LambdaUpdateWrapper<SysAdminDto> lambdaUpdateWrapper = updateWrapper.lambda().eq(SysAdminDto::getId, id);
+        LambdaUpdateWrapper<SysAdminDto> lambdaUpdateWrapper = updateWrapper.lambda().eq(SysAdminDto::getId, adminPo.getId());
 
-        if (roleId != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getSysRoleId, roleId);
+        if (adminPo.getRoleId() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getSysRoleId, adminPo.getRoleId());
         }
-        if (username != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getUsername, username);
+        if (adminPo.getUsername() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getUsername, adminPo.getUsername());
         }
-        if (name != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getName, name);
+        if (adminPo.getName() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getName, adminPo.getName());
         }
-        if (phoneNumber != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getPhoneNumber, phoneNumber);
+        if (adminPo.getPhoneNumber() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getPhoneNumber, adminPo.getPhoneNumber());
         }
-        if (email != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getEmail, email);
+        if (adminPo.getEmail() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getEmail, adminPo.getEmail());
         }
-        if (remark != null) {
-            lambdaUpdateWrapper.set(SysAdminDto::getRemark, remark);
+        if (adminPo.getRemark() != null) {
+            lambdaUpdateWrapper.set(SysAdminDto::getRemark, adminPo.getRemark());
         }
         return update(updateWrapper);
     }

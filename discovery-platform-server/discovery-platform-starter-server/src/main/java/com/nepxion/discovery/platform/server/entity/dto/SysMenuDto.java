@@ -19,8 +19,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 
-@TableName(value = "`sys_page`")
-public class SysPageDto extends BaseEntity {
+@TableName(value = "`sys_menu`")
+public class SysMenuDto extends BaseEntity {
     private static final long serialVersionUID = -3106165704196966179L;
 
     /**
@@ -38,20 +38,20 @@ public class SysPageDto extends BaseEntity {
     /**
      * 页面是否出现在菜单栏
      */
-    @TableField(value = "`is_menu`")
-    private Boolean isMenu;
+    @TableField(value = "`show_flag`")
+    private Boolean showFlag;
 
     /**
      * 是否是默认页(只允许有一个默认页，如果设置多个，以第一个为准)
      */
-    @TableField(value = "`is_default`")
-    private Boolean isDefault;
+    @TableField(value = "`default_flag`")
+    private Boolean defaultFlag;
 
     /**
      * 是否新开窗口打开页面
      */
-    @TableField(value = "`is_blank`")
-    private Boolean isBlank;
+    @TableField(value = "`blank_flag`")
+    private Boolean blankFlag;
 
     /**
      * html中的图标样式
@@ -93,28 +93,28 @@ public class SysPageDto extends BaseEntity {
         this.url = url;
     }
 
-    public Boolean getIsMenu() {
-        return isMenu;
+    public Boolean getShowFlag() {
+        return showFlag;
     }
 
-    public void setIsMenu(Boolean menu) {
-        isMenu = menu;
+    public void setShowFlag(Boolean showFlag) {
+        this.showFlag = showFlag;
     }
 
-    public Boolean getIsDefault() {
-        return isDefault;
+    public Boolean getDefaultFlag() {
+        return defaultFlag;
     }
 
-    public void setIsDefault(Boolean aDefault) {
-        isDefault = aDefault;
+    public void setDefaultFlag(Boolean defaultFlag) {
+        this.defaultFlag = defaultFlag;
     }
 
-    public Boolean getIsBlank() {
-        return isBlank;
+    public Boolean getBlankFlag() {
+        return blankFlag;
     }
 
-    public void setIsBlank(Boolean blank) {
-        isBlank = blank;
+    public void setBlankFlag(Boolean blankFlag) {
+        this.blankFlag = blankFlag;
     }
 
     public String getIconClass() {

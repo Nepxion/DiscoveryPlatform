@@ -17,6 +17,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import javax.servlet.Filter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,7 +55,7 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
         objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @Override
             public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-                jsonGenerator.writeString("");
+                jsonGenerator.writeString(StringUtils.EMPTY);
             }
         });
         objectMapper.registerModule(module);

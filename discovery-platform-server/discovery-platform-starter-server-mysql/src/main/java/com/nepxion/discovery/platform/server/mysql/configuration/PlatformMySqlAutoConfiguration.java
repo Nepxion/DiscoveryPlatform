@@ -30,7 +30,7 @@ import com.nepxion.discovery.platform.server.mysql.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
 import com.nepxion.discovery.platform.server.mysql.service.MySqlAdminService;
 import com.nepxion.discovery.platform.server.mysql.service.MySqlDicService;
-import com.nepxion.discovery.platform.server.mysql.service.MySqlPageService;
+import com.nepxion.discovery.platform.server.mysql.service.MySqlMenuService;
 import com.nepxion.discovery.platform.server.mysql.service.MySqlPermissionService;
 import com.nepxion.discovery.platform.server.mysql.service.MySqlRoleService;
 import com.nepxion.discovery.platform.server.mysql.service.MySqlRouteGatewayService;
@@ -43,7 +43,7 @@ import com.taobao.text.Color;
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[]{ Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformMySqlConstant.MYSQL_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 
@@ -79,8 +79,8 @@ public class PlatformMySqlAutoConfiguration {
     }
 
     @Bean
-    public MySqlPageService mysqlPageService() {
-        return new MySqlPageService();
+    public MySqlMenuService mySqlMenuService() {
+        return new MySqlMenuService();
     }
 
     @Bean

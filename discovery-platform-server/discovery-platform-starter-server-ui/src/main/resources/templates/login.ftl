@@ -54,6 +54,7 @@
             const $ = layui.$, admin = layui.admin, form = layui.form;
             form.render();
             form.on('submit(btnSubmit)', function (obj) {
+                obj.field.remember = false;
                 admin.post('do-login', obj.field, function () {
                     layer.msg('登入成功', {
                         offset: '15px',

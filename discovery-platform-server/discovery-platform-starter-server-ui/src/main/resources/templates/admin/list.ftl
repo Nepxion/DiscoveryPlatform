@@ -150,7 +150,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
                                 const field = d.field;
                                 field.id = data.id;
-                                admin.post('do-edit', field, function () {
+                                admin.post('do-update', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

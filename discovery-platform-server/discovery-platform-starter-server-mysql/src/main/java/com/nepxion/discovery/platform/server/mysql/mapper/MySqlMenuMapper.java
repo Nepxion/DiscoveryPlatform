@@ -17,14 +17,14 @@ import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
-import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
+import com.nepxion.discovery.platform.server.entity.vo.MenuVo;
 
 @Mapper
-public interface MySqlPageMapper extends BaseMapper<SysPageDto> {
-    IPage<PageVo> list(IPage<PageVo> result, @Param("name") String name);
+public interface MySqlMenuMapper extends BaseMapper<SysMenuDto> {
+    IPage<MenuVo> list(IPage<MenuVo> menuVoIPage, @Param("name") String name);
 
     Long getMaxOrder(@Param("parentId") Long parentId);
 
-    List<PageVo> listPermissionPages(@Param("adminId") Long adminId);
+    List<MenuVo> listPermissionMenus(@Param("adminId") Long adminId);
 }

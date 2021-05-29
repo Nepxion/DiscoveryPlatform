@@ -55,7 +55,7 @@ public class AdminVo extends BaseEntity {
     private SysRoleDto sysRole;
 
     @TableField(exist = false)
-    private List<PageVo> permissions;
+    private List<MenuVo> permissions;
 
     public Integer getLoginMode() {
         return loginMode;
@@ -137,11 +137,11 @@ public class AdminVo extends BaseEntity {
         this.sysRole = sysRole;
     }
 
-    public List<PageVo> getPermissions() {
+    public List<MenuVo> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<PageVo> permissions) {
+    public void setPermissions(List<MenuVo> permissions) {
         this.permissions = permissions;
     }
 

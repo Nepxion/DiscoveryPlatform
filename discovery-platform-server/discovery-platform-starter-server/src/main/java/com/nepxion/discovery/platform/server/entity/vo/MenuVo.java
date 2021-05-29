@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 
-public class PageVo extends BaseEntity {
+public class MenuVo extends BaseEntity {
     private static final long serialVersionUID = -4924651888194918771L;
 
     @TableField("`name`")
@@ -29,14 +29,14 @@ public class PageVo extends BaseEntity {
     @TableField("`url`")
     private String url;
 
-    @TableField("`is_menu`")
-    private Boolean isMenu;
+    @TableField("`menu_flag`")
+    private Boolean menuFlag;
 
-    @TableField(value = "`is_default`")
-    private Boolean isDefault;
+    @TableField(value = "`default_flag`")
+    private Boolean defaultFlag;
 
-    @TableField(value = "`is_blank`")
-    private Boolean isBlank;
+    @TableField(value = "`blank_flag`")
+    private Boolean blankFlag;
 
     @TableField("`icon_class`")
     private String iconClass;
@@ -66,7 +66,7 @@ public class PageVo extends BaseEntity {
     private Boolean canSelect;
 
     @TableField(exist = false)
-    private List<PageVo> children;
+    private List<MenuVo> children;
 
     public String getName() {
         return name;
@@ -84,28 +84,28 @@ public class PageVo extends BaseEntity {
         this.url = url;
     }
 
-    public Boolean getIsMenu() {
-        return isMenu;
+    public Boolean getMenuFlag() {
+        return menuFlag;
     }
 
-    public void setIsMenu(Boolean menu) {
-        isMenu = menu;
+    public void setMenuFlag(Boolean menuFlag) {
+        this.menuFlag = menuFlag;
     }
 
-    public Boolean getIsDefault() {
-        return isDefault;
+    public Boolean getDefaultFlag() {
+        return defaultFlag;
     }
 
-    public void setIsDefault(Boolean aDefault) {
-        isDefault = aDefault;
+    public void setDefaultFlag(Boolean defaultFlag) {
+        this.defaultFlag = defaultFlag;
     }
 
-    public Boolean getIsBlank() {
-        return isBlank;
+    public Boolean getBlankFlag() {
+        return blankFlag;
     }
 
-    public void setIsBlank(Boolean blank) {
-        isBlank = blank;
+    public void setBlankFlag(Boolean blankFlag) {
+        this.blankFlag = blankFlag;
     }
 
     public String getIconClass() {
@@ -180,11 +180,11 @@ public class PageVo extends BaseEntity {
         this.canSelect = canSelect;
     }
 
-    public List<PageVo> getChildren() {
+    public List<MenuVo> getChildren() {
         return children;
     }
 
-    public void setChildren(List<PageVo> children) {
+    public void setChildren(List<MenuVo> children) {
         this.children = children;
     }
 

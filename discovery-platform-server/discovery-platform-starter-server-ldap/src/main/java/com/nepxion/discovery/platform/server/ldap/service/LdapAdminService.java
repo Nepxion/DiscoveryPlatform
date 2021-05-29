@@ -14,11 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
+import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
@@ -51,10 +55,19 @@ public class LdapAdminService implements AdminService {
             return null;
         }
         SysAdminDto sysAdmin = adminService.getByUserName(username);
+        AdminPo adminPo = new AdminPo();
         if (sysAdmin == null) {
-            adminService.insert(LoginMode.LDAP, 2L, username, "", ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
+            adminPo.setRoleId(2L);
+            adminPo.setUsername(username);
+            adminPo.setPassword(StringUtils.EMPTY);
+            adminPo.setName(ldapUserVo.getName());
+            adminPo.setPhoneNumber(ldapUserVo.getPhoneNumber());
+            adminPo.setEmail(ldapUserVo.getEmail());
+            adminPo.setRemark(ldapUserVo.getRemark());
+            adminService.insert(LoginMode.LDAP, adminPo);
         } else {
-            adminService.update(sysAdmin.getId(), sysAdmin.getSysRoleId(), sysAdmin.getUsername(), ldapUserVo.getName(), ldapUserVo.getPhoneNumber(), ldapUserVo.getEmail(), ldapUserVo.getRemark());
+            BeanUtils.copyProperties(adminPo, sysAdmin);
+            adminService.update(adminPo);
         }
         return adminService.getAdminByUserName(username);
     }
@@ -89,13 +102,13 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
-    public boolean insert(LoginMode loginMode, Long roleId, String username, String password, String name, String phoneNumber, String email, String remark) throws Exception {
-        return adminService.insert(loginMode, roleId, username, password, name, phoneNumber, email, remark);
+    public boolean insert(LoginMode loginMode, AdminPo adminPo) throws Exception {
+        return adminService.insert(loginMode, adminPo);
     }
 
     @Override
-    public boolean update(Long id, Long roleId, String username, String name, String phoneNumber, String email, String remark) throws Exception {
-        return adminService.update(id, roleId, username, name, phoneNumber, email, remark);
+    public boolean update(AdminPo adminPo) throws Exception {
+        return adminService.update(adminPo);
     }
 
     @Override

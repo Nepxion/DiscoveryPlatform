@@ -14,12 +14,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.entity.vo.PageVo;
+import com.nepxion.discovery.platform.server.entity.vo.MenuVo;
 
 public abstract class AuthDirective {
     @Autowired
@@ -32,11 +33,11 @@ public abstract class AuthDirective {
         String uri = request.getRequestURI();
         switch (operation) {
             case INSERT:
-                return checkPermission(uri, PageVo::getCanInsert);
+                return checkPermission(uri, MenuVo::getCanInsert);
             case DELETE:
-                return checkPermission(uri, PageVo::getCanDelete);
+                return checkPermission(uri, MenuVo::getCanDelete);
             case UPDATE:
-                return checkPermission(uri, PageVo::getCanUpdate);
+                return checkPermission(uri, MenuVo::getCanUpdate);
             case SELECT:
                 return checkPermission(uri, (permission) ->
                         permission.getCanDelete() ||
@@ -57,27 +58,27 @@ public abstract class AuthDirective {
             return false;
         }
         if (uri == null) {
-            uri = "";
+            uri = StringUtils.EMPTY;
         }
-        PageVo pageVo = getByUri(adminVo.getPermissions(), uri);
-        if (pageVo != null) {
-            return handlePermission.check(pageVo);
+        MenuVo menuVo = getByUri(adminVo.getPermissions(), uri);
+        if (menuVo != null) {
+            return handlePermission.check(menuVo);
         }
         return false;
     }
 
-    private PageVo getByUri(List<PageVo> pageVoList, String uri) {
-        for (PageVo pageVo : pageVoList) {
-            if (pageVo.getUrl().equals(uri)) {
-                return pageVo;
-            } else if (pageVo.getChildren() != null && !pageVo.getChildren().isEmpty()) {
-                return getByUri(pageVo.getChildren(), uri);
+    private MenuVo getByUri(List<MenuVo> menuVoList, String uri) {
+        for (MenuVo menuVo : menuVoList) {
+            if (menuVo.getUrl().equals(uri)) {
+                return menuVo;
+            } else if (menuVo.getChildren() != null && !menuVo.getChildren().isEmpty()) {
+                return getByUri(menuVo.getChildren(), uri);
             }
         }
         return null;
     }
 
     private interface HandlePermission {
-        boolean check(PageVo pageVo);
+        boolean check(MenuVo menuVo);
     }
 }

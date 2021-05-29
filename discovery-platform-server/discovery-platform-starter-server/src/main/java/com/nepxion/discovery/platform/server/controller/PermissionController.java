@@ -16,26 +16,27 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.SysPageDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
-import com.nepxion.discovery.platform.server.service.PageService;
+import com.nepxion.discovery.platform.server.service.MenuService;
 import com.nepxion.discovery.platform.server.service.PermissionService;
-import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
-@Controller
+@Api("权限相关接口")
+@RestController
 @RequestMapping(PermissionController.PREFIX)
 public class PermissionController {
     public static final String PREFIX = "permission";
@@ -44,57 +45,46 @@ public class PermissionController {
     private PermissionService permissionService;
 
     @Autowired
-    private RoleService roleService;
+    private MenuService menuService;
 
-    @Autowired
-    private PageService pageService;
-
-    @GetMapping("list")
-    public String list(Model model) throws Exception {
-        model.addAttribute("roles", roleService.getNotSuperAdmin());
-        model.addAttribute("pages", pageService.listNotEmptyUrlPages());
-        return String.format("%s/%s", PREFIX, "list");
+    @ApiOperation(value = "获取指定角色id的所有菜单")
+    @ApiImplicitParam(name = "sysRoleId", value = "角色id", required = true, dataType = "String")
+    @PostMapping("do-get-menus")
+    public Result<List<SysMenuDto>> doGetMenus(@RequestParam(value = "sysRoleId") Long sysRoleId) throws Exception {
+        List<SysMenuDto> allMenus = menuService.list();
+        List<SysMenuDto> menus = permissionService.listPermissionMenusByRoleId(sysRoleId);
+        allMenus.removeAll(menus);
+        return Result.ok(allMenus.stream().filter(p -> StringUtils.isNotEmpty(p.getUrl())).collect(Collectors.toList()));
     }
 
-    @GetMapping("add")
-    public String add(Model model) throws Exception {
-        model.addAttribute("roles", roleService.getNotSuperAdmin());
-        return String.format("%s/%s", PREFIX, "add");
-    }
-
-    @PostMapping("do-get-pages")
-    @ResponseBody
-    public Result<List<SysPageDto>> doGetPages(@RequestParam(value = "sysRoleId") Long sysRoleId) throws Exception {
-        List<SysPageDto> allPages = pageService.list();
-        List<SysPageDto> pages = permissionService.listPermissionPagesByRoleId(sysRoleId);
-        allPages.removeAll(pages);
-        return Result.ok(allPages.stream().filter(p -> StringUtils.isNotEmpty(p.getUrl())).collect(Collectors.toList()));
-    }
-
+    @ApiOperation(value = "获取权限信息列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "sysRoleId", value = "角色ID", required = false, dataType = "Long"),
+            @ApiImplicitParam(name = "sysMenuId", value = "菜单ID", required = false, dataType = "Long")
+    })
     @PostMapping("do-list")
-    @ResponseBody
-    public Result<List<PermissionVo>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "sysRoleId", required = false) Long sysRoleId, @RequestParam(value = "sysPageId", required = false) Long sysPageId) throws Exception {
-        IPage<PermissionVo> list = permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
+    public Result<List<PermissionVo>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "sysRoleId", required = false) Long sysRoleId, @RequestParam(value = "sysMenuId", required = false) Long sysMenuId) throws Exception {
+        IPage<PermissionVo> list = permissionService.list(pageNum, pageSize, sysRoleId, sysMenuId);
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
+    @ApiOperation(value = "添加权限")
     @PostMapping("do-add")
-    @ResponseBody
-    public Result<?> doAdd(@RequestParam(value = "sysRoleId") Long sysRoleId, @RequestParam(value = "sysPageId") Long sysPageId, @RequestParam(value = "insert", defaultValue = "false") Boolean insert, @RequestParam(value = "delete", defaultValue = "false") Boolean delete, @RequestParam(value = "update", defaultValue = "false") Boolean update, @RequestParam(value = "select", defaultValue = "false") Boolean select) {
-        SysPermissionDto authPermission = new SysPermissionDto();
-        authPermission.setSysRoleId(sysRoleId);
-        authPermission.setSysPageId(sysPageId);
-        authPermission.setCanInsert(insert);
-        authPermission.setCanDelete(delete);
-        authPermission.setCanUpdate(update);
-        authPermission.setCanSelect(select);
-        permissionService.insert(authPermission);
+    public Result<?> doAdd(SysPermissionDto sysPermissionDto) {
+        permissionService.insert(sysPermissionDto);
         return Result.ok();
     }
 
-    @PostMapping("do-edit")
-    @ResponseBody
-    public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type, @RequestParam(value = "hasPermission") Boolean hasPermission) {
+    @ApiOperation(value = "更新权限")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "权限id", required = true, dataType = "Long"),
+            @ApiImplicitParam(name = "type", value = "权限类型(1:INSERT; 2:UPDATE; 3:DELETE; 4:SELECT)", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "hasPermission", value = "是否拥有该项权限", required = true, dataType = "Boolean")
+    })
+    @PostMapping("do-update")
+    public Result<?> doUpdate(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type, @RequestParam(value = "hasPermission") Boolean hasPermission) {
         SysPermissionDto dbAdminPermission = permissionService.getById(id);
         if (dbAdminPermission != null) {
             Operation operation = Operation.get(type);
@@ -117,8 +107,9 @@ public class PermissionController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "删除权限")
+    @ApiImplicitParam(name = "ids", value = "权限id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
-    @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         permissionService.removeByIds(new HashSet<>(idList));

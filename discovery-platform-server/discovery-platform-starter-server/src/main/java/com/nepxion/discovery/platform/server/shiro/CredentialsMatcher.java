@@ -18,19 +18,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.service.PageService;
+import com.nepxion.discovery.platform.server.service.MenuService;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class CredentialsMatcher extends SimpleCredentialsMatcher {
     private static final Logger LOG = LoggerFactory.getLogger(CredentialsMatcher.class);
     @Autowired
-    private PageService pageService;
+    private MenuService menuService;
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         AdminVo adminVo = (AdminVo) info.getPrincipals().getPrimaryPrincipal();
         try {
-            pageService.fillPages(adminVo);
+            menuService.fillPages(adminVo);
         } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return false;

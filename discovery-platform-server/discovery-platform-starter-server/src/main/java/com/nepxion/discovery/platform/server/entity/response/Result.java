@@ -13,6 +13,8 @@ package com.nepxion.discovery.platform.server.entity.response;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -112,7 +114,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> error(T data) {
-        return error(ResultCode.ERROR.getCode(), "", data);
+        return error(ResultCode.ERROR.getCode(), StringUtils.EMPTY, data);
     }
 
     public static <T> Result<T> error(String error) {

@@ -220,7 +220,7 @@
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {
-                    admin.post("do-edit", {"data": JSON.stringify(data)}, function () {
+                    admin.post("do-update", {"data": JSON.stringify(data)}, function () {
                         layer.open({
                             type: 2,
                             title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑调用分支',

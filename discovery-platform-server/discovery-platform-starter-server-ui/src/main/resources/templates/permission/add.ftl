@@ -17,10 +17,10 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">页面名称</label>
+        <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-inline">
-            <select id="sysPageId" name="sysPageId" lay-filter="sysPageId" lay-verify="required">
-                <option value="">请选择页面</option>
+            <select id="sysMenuId" name="sysMenuId" lay-filter="sysMenuId" lay-verify="required">
+                <option value="">请选择菜单</option>
             </select>
         </div>
     </div>
@@ -63,13 +63,13 @@
 
         form.on('select(sysRoleId)', function (data) {
             const sysRoleId = data.value;
-            $("select[name=sysPageId]").html("<option value=\"\">请选择页面</option>");
-            admin.post("do-get-pages", {'sysRoleId': sysRoleId}, function (res) {
+            $("select[name=sysMenuId]").html("<option value=\"\">请选择页面</option>");
+            admin.post("do-get-menus", {'sysRoleId': sysRoleId}, function (res) {
                 $.each(res.data, function (key, val) {
                     const option = $("<option>").val(val.id).text(val.name);
-                    $("select[name=sysPageId]").append(option);
+                    $("select[name=sysMenuId]").append(option);
                 });
-                $('#sysPageId option:eq(1)').attr('selected', 'selected');
+                $('#sysMenuId option:eq(1)').attr('selected', 'selected');
                 layui.form.render('select');
             });
         });

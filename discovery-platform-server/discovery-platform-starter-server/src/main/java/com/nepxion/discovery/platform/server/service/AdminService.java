@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.console.resource.AuthenticationResource;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
+import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 
 public interface AdminService extends AuthenticationResource {
@@ -30,22 +31,9 @@ public interface AdminService extends AuthenticationResource {
 
     boolean changePassword(Long id, String oldPassword, String newPassword) throws Exception;
 
-    boolean insert(LoginMode loginMode,
-                   Long roleId,
-                   String username,
-                   String password,
-                   String name,
-                   String phoneNumber,
-                   String email,
-                   String remark) throws Exception;
+    boolean insert(LoginMode loginMode, AdminPo adminPo) throws Exception;
 
-    boolean update(Long id,
-                   Long roleId,
-                   String username,
-                   String name,
-                   String phoneNumber,
-                   String email,
-                   String remark) throws Exception;
+    boolean update(AdminPo adminPo) throws Exception;
 
     IPage<AdminVo> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) throws Exception;
 

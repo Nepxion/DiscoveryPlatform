@@ -26,8 +26,8 @@ public class SysPermissionDto extends BaseEntity {
     @TableField(value = "`sys_role_id`")
     private Long sysRoleId;
 
-    @TableField(value = "`sys_page_id`")
-    private Long sysPageId;
+    @TableField(value = "`sys_menu_id`")
+    private Long sysMenuId;
 
     @TableField(value = "`can_insert`")
     private Boolean canInsert;
@@ -49,12 +49,12 @@ public class SysPermissionDto extends BaseEntity {
         this.sysRoleId = sysRoleId;
     }
 
-    public Long getSysPageId() {
-        return sysPageId;
+    public Long getSysMenuId() {
+        return sysMenuId;
     }
 
-    public void setSysPageId(Long sysPageId) {
-        this.sysPageId = sysPageId;
+    public void setSysMenuId(Long sysMenuId) {
+        this.sysMenuId = sysMenuId;
     }
 
     public Boolean getCanInsert() {

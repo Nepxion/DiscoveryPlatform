@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.ldap.configuration;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -36,7 +37,7 @@ import com.nepxion.discovery.platform.server.ldap.service.LdapService;
 import com.taobao.text.Color;
 
 @Configuration
-@EnableConfigurationProperties({PlatformLdapProperties.class})
+@EnableConfigurationProperties({ PlatformLdapProperties.class })
 public class PlatformLdapAutoConfiguration {
     static {
         LogoBanner logoBanner = new LogoBanner(PlatformLdapAutoConfiguration.class, "/com/nepxion/ldap/resource/logo.txt", "Welcome to Nepxion", 4, 5, new Color[]{Color.red, Color.green, Color.cyan, Color.blue}, true);
@@ -45,6 +46,7 @@ public class PlatformLdapAutoConfiguration {
 
     @Autowired
     private LdapProperties ldapProperties;
+
     @Autowired
     private Environment environment;
 
@@ -56,9 +58,9 @@ public class PlatformLdapAutoConfiguration {
         Map<String, Object> config = new HashMap<>();
         config.put("java.naming.ldap.attributes.binary", "objectGUID");
         contextSource.setCacheEnvironmentProperties(false);
-        contextSource.setUrls(this.ldapProperties.determineUrls(this.environment));
-        contextSource.setUserDn(this.ldapProperties.getUsername());
-        contextSource.setPassword(this.ldapProperties.getPassword());
+        contextSource.setUrls(ldapProperties.determineUrls(environment));
+        contextSource.setUserDn(ldapProperties.getUsername());
+        contextSource.setPassword(ldapProperties.getPassword());
         contextSource.setPooled(true);
         contextSource.setBaseEnvironmentProperties(config);
         return contextSource;

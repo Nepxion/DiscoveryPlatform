@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -61,7 +62,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         queryWrapper.lambda()
                 .eq(SysPageDto::getUrl, "")
                 .orderByAsc(SysPageDto::getName);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,19 +73,19 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         queryWrapper.lambda()
                 .ne(SysPageDto::getUrl, "")
                 .orderByAsc(SysPageDto::getName);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     @TransactionReader
     @Override
     public IPage<PageVo> list(String name, Integer pageNum, Integer pageSize) {
-        return this.baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
+        return baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
     }
 
     @TransactionReader
     @Override
     public Long getMaxOrder(Long parentId) {
-        return this.baseMapper.getMaxOrder(parentId);
+        return baseMapper.getMaxOrder(parentId);
     }
 
     @TransactionWriter
@@ -117,22 +118,22 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         queryWrapper.lambda()
                 .eq(SysPageDto::getIsMenu, 1)
                 .orderByAsc(SysPageDto::getParentId, SysPageDto::getOrder);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     private List<PageVo> listPermissionPages(Long adminId) {
-        return this.baseMapper.listPermissionPages(adminId);
+        return baseMapper.listPermissionPages(adminId);
     }
 
     private List<PageVo> getPages(AdminVo adminVo) {
-        List<SysPageDto> allPages = this.listSysPages();
+        List<SysPageDto> allPages = listSysPages();
         Map<Long, SysPageDto> allPageMap = toMap(allPages);
 
         // 非顶级集合
         List<PageVo> nonRootPageList = new ArrayList<>();
         // 顶级集合
         List<PageVo> rootPageList = new ArrayList<>();
-        List<PageVo> pageVoList = this.listPermissionPages(adminVo.getId());
+        List<PageVo> pageVoList = listPermissionPages(adminVo.getId());
 
         Map<Long, PageVo> permission = new HashMap<>((int) (0.75 / pageVoList.size()));
         for (PageVo pageVo : pageVoList) {
@@ -209,11 +210,7 @@ public class MySqlPageService extends ServiceImpl<MySqlPageMapper, SysPageDto> i
         }
     }
 
-    private void getChild(AdminVo adminVo,
-                          Map<Long, PageVo> permission,
-                          PageVo parentPage,
-                          List<PageVo> childrenPageList,
-                          Set<Long> set) {
+    private void getChild(AdminVo adminVo, Map<Long, PageVo> permission, PageVo parentPage, List<PageVo> childrenPageList, Set<Long> set) {
         List<PageVo> childList = Lists.newArrayList();
         childrenPageList.stream().//
                 filter(p -> !set.contains(p.getId())). // 判断是否已循环过当前对象

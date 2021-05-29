@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -33,7 +34,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     public List<SysRoleDto> listOrderByName() {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().orderByAsc(SysRoleDto::getName);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +45,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         queryWrapper.lambda()
                 .eq(SysRoleDto::getSuperAdmin, false)
                 .orderByAsc(SysRoleDto::getRowCreateTime);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     @SuppressWarnings("unchecked")
@@ -56,13 +57,13 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         if (StringUtils.isNotEmpty(name)) {
             sysRoleLambdaQueryWrapper.like(SysRoleDto::getName, name);
         }
-        return this.page(new Page<>(), queryWrapper);
+        return page(new Page<>(), queryWrapper);
     }
 
     @TransactionWriter
     @Override
     public void insert(String name, Boolean superAdmin, String remark) {
-        SysRoleDto sysRole = this.getByUserName(name);
+        SysRoleDto sysRole = getByUserName(name);
         if (sysRole != null) {
             throw new BusinessException(String.format("角色名[%s]已存在", name));
         }
@@ -70,20 +71,17 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         sysRole.setName(name);
         sysRole.setSuperAdmin(superAdmin);
         sysRole.setRemark(remark);
-        this.save(sysRole);
+        save(sysRole);
     }
 
     @TransactionWriter
     @Override
-    public void update(Long id,
-                       String name,
-                       Boolean superAdmin,
-                       String remark) {
+    public void update(Long id, String name, Boolean superAdmin, String remark) {
         if (StringUtils.isEmpty(name) && superAdmin == null && StringUtils.isEmpty(remark)) {
             throw new BusinessException("请输入要更新的内容");
         }
 
-        SysRoleDto sysRole = this.getById(id);
+        SysRoleDto sysRole = getById(id);
         if (sysRole == null) {
             throw new BusinessException(String.format("角色[%s]不存在", name));
         }
@@ -91,7 +89,7 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
         sysRole.setName(name);
         sysRole.setSuperAdmin(superAdmin);
         sysRole.setRemark(remark);
-        this.updateById(sysRole);
+        updateById(sysRole);
     }
 
     @Override
@@ -107,6 +105,6 @@ public class MySqlRoleService extends ServiceImpl<MySqlRoleMapper, SysRoleDto> i
     private SysRoleDto getByUserName(String name) {
         QueryWrapper<SysRoleDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SysRoleDto::getName, name);
-        return this.getOne(queryWrapper);
+        return getOne(queryWrapper);
     }
 }

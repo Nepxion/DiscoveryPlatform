@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -33,19 +34,19 @@ public class MySqlPermissionService extends ServiceImpl<MySqlPermissionMapper, S
     @TransactionReader
     @Override
     public List<SysPageDto> listPermissionPagesByRoleId(Long sysRoleId) {
-        return this.baseMapper.listPermissionPagesByRoleId(sysRoleId);
+        return baseMapper.listPermissionPagesByRoleId(sysRoleId);
     }
 
     @TransactionReader
     @Override
     public IPage<PermissionVo> list(Integer pageNum, Integer pageSize, Long sysRoleId, Long sysPageId) {
-        return this.baseMapper.list(new Page<>(pageNum, pageSize), sysRoleId, sysPageId);
+        return baseMapper.list(new Page<>(pageNum, pageSize), sysRoleId, sysPageId);
     }
 
     @TransactionWriter
     @Override
     public void insert(SysPermissionDto sysPermission) {
-        this.save(sysPermission);
+        save(sysPermission);
     }
 
     @TransactionWriter

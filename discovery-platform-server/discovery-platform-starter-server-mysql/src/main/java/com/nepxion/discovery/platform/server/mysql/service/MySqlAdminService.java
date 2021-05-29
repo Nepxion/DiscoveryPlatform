@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -43,8 +44,10 @@ import com.nepxion.discovery.platform.server.tool.CommonTool;
 public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private DicService dicService;
+
     private static final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
 
     @TransactionReader
@@ -53,7 +56,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             return false;
         }
-        SysAdminDto sysAdmin = this.getByUserName(username);
+        SysAdminDto sysAdmin = getByUserName(username);
         if (sysAdmin == null) {
             return false;
         }
@@ -70,14 +73,14 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     @TransactionReader
     @Override
     public AdminVo getAdminByUserName(String username) throws Exception {
-        SysAdminDto sysAdmin = this.getByUserName(username);
+        SysAdminDto sysAdmin = getByUserName(username);
         if (sysAdmin == null) {
             return null;
         }
 
         AdminVo adminVo = new AdminVo();
         BeanUtils.copyProperties(adminVo, sysAdmin);
-        adminVo.setSysRole(this.roleService.getById(adminVo.getSysRoleId()));
+        adminVo.setSysRole(roleService.getById(adminVo.getSysRoleId()));
         return adminVo;
     }
 
@@ -87,13 +90,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda()
                 .eq(SysAdminDto::getUsername, username);
-        return this.getOne(queryWrapper);
+        return getOne(queryWrapper);
     }
 
     @TransactionWriter
     @Override
     public boolean changePassword(Long id, String oldPassword, String newPassword) {
-        SysAdminDto sysAdmin = this.getById(id);
+        SysAdminDto sysAdmin = getById(id);
         if (sysAdmin == null) {
             return false;
         }
@@ -106,20 +109,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         updateWrapper.lambda()
                 .eq(SysAdminDto::getId, id)
                 .set(SysAdminDto::getPassword, newPassword);
-        return this.update(updateWrapper);
+        return update(updateWrapper);
     }
 
     @TransactionWriter
     @Override
-    public boolean insert(LoginMode loginMode,
-                          Long roleId,
-                          String username,
-                          String password,
-                          String name,
-                          String phoneNumber,
-                          String email,
-                          String remark) {
-        SysAdminDto sysAdmin = this.getByUserName(username);
+    public boolean insert(LoginMode loginMode, Long roleId, String username, String password, String name, String phoneNumber, String email, String remark) {
+        SysAdminDto sysAdmin = getByUserName(username);
         if (sysAdmin != null) {
             throw new BusinessException(String.format("用户名[%s]已存在", username));
         }
@@ -133,19 +129,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         sysAdmin.setPhoneNumber(phoneNumber);
         sysAdmin.setEmail(email);
         sysAdmin.setRemark(remark);
-        return this.save(sysAdmin);
+        return save(sysAdmin);
     }
 
     @TransactionWriter
     @Override
-    public boolean update(Long id,
-                          Long roleId,
-                          String username,
-                          String name,
-                          String phoneNumber,
-                          String email,
-                          String remark) {
-        SysAdminDto sysAdmin = this.getById(id);
+    public boolean update(Long id, Long roleId, String username, String name, String phoneNumber, String email, String remark) {
+        SysAdminDto sysAdmin = getById(id);
         if (sysAdmin == null) {
             return false;
         }
@@ -171,13 +161,13 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
         if (remark != null) {
             lambdaUpdateWrapper.set(SysAdminDto::getRemark, remark);
         }
-        return this.update(updateWrapper);
+        return update(updateWrapper);
     }
 
     @TransactionReader
     @Override
     public IPage<AdminVo> list(LoginMode loginMode, String name, Integer pageNum, Integer pageSize) {
-        return this.baseMapper.list(new Page<>(pageNum, pageSize), loginMode.getCode(), name);
+        return baseMapper.list(new Page<>(pageNum, pageSize), loginMode.getCode(), name);
     }
 
     @TransactionReader
@@ -185,7 +175,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     public List<AdminVo> search(String keyword, Integer pageNum, Integer pageSize) {
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().like(SysAdminDto::getName, keyword);
-        Page<SysAdminDto> page = this.page(new Page<>(pageNum, pageSize), queryWrapper);
+        Page<SysAdminDto> page = page(new Page<>(pageNum, pageSize), queryWrapper);
         return CommonTool.toVoList(page.getRecords(), AdminVo.class);
     }
 
@@ -194,7 +184,7 @@ public class MySqlAdminService extends ServiceImpl<MySqlAdminMapper, SysAdminDto
     public List<SysAdminDto> getByRoleId(Long roleId) {
         QueryWrapper<SysAdminDto> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(SysAdminDto::getSysRoleId, roleId);
-        return this.list(queryWrapper);
+        return list(queryWrapper);
     }
 
     @TransactionReader

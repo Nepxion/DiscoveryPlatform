@@ -43,7 +43,7 @@ import com.taobao.text.Color;
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[]{ Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformMySqlConstant.MYSQL_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 

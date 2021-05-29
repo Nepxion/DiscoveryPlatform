@@ -40,7 +40,7 @@ import com.taobao.text.Color;
 @EnableConfigurationProperties({ PlatformLdapProperties.class })
 public class PlatformLdapAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformLdapAutoConfiguration.class, "/com/nepxion/ldap/resource/logo.txt", "Welcome to Nepxion", 4, 5, new Color[]{Color.red, Color.green, Color.cyan, Color.blue}, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformLdapAutoConfiguration.class, "/com/nepxion/ldap/resource/logo.txt", "Welcome to Nepxion", 4, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformLdapConstant.LDAP_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 

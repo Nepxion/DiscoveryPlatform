@@ -13,11 +13,12 @@ import java.util.Date;
 
 import org.springframework.core.convert.converter.Converter;
 
-import cn.hutool.core.date.DateUtil;
+import com.nepxion.discovery.platform.server.tool.DateTool;
 
 public class CustomDateConverter implements Converter<String, Date> {
+
     @Override
-    public Date convert(String source) {
-        return DateUtil.parse(source);
+    public Date convert(String value) {
+        return DateTool.parse(value);
     }
 }

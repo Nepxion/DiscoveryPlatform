@@ -25,7 +25,6 @@
         <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>
         <unirest.version>3.11.11</unirest.version>
-        <hutool.version>5.6.5</hutool.version>
         <commons.codec.version>1.15</commons.codec.version>
 
         <java.version>1.8</java.version>
@@ -148,12 +147,6 @@
                 <groupId>com.konghq</groupId>
                 <artifactId>unirest-java</artifactId>
                 <version>${unirest.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
             </dependency>
 
             <dependency>

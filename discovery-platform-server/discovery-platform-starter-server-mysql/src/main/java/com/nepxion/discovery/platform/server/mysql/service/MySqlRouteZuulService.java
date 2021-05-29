@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.mysql.service;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -15,13 +16,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
-import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -40,6 +41,7 @@ import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import com.nepxion.discovery.platform.server.tool.DateTool;
 
 public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
@@ -152,7 +154,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
             return;
         }
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
-            routeZuulDto.setRouteId("zl_".concat(RandomUtil.randomString(15)));
+            routeZuulDto.setRouteId(String.format("zl_%s_%s", DateTool.getSequence(), UUID.randomUUID()));
         }
         routeZuulDto.setOperation(Operation.INSERT.getCode());
         routeZuulDto.setPublish(false);
@@ -175,7 +177,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     @TransactionWriter
     @Override
     public void enable(Long id,
-            boolean enabled) {
+                       boolean enabled) {
         RouteZuulDto routeZuulDto = this.getById(id);
         routeZuulDto.setEnabled(enabled);
         this.update(routeZuulDto);
@@ -208,8 +210,8 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
     }
 
     private void addKV(Map<String, List<RouteZuulDto>> map,
-            String key,
-            RouteZuulDto value) {
+                       String key,
+                       RouteZuulDto value) {
         if (map.containsKey(key)) {
             map.get(key).add(value);
         } else {

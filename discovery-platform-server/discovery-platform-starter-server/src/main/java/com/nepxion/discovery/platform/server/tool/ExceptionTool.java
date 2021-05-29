@@ -5,29 +5,27 @@ package com.nepxion.discovery.platform.server.tool;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
 
-import org.apache.commons.lang3.StringUtils;
+import java.io.PrintStream;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
+import org.springframework.util.FastByteArrayOutputStream;
 
 public class ExceptionTool {
     public static String getRootCauseMessage(Throwable throwable) {
-        Throwable rootCause = ExceptionUtil.getRootCause(throwable);
-        if (rootCause == null) {
-            return StringUtils.EMPTY;
+        if (throwable.getCause() != null) {
+            return getRootCauseMessage(throwable.getCause());
         }
-        return rootCause.getMessage() == null ? rootCause.toString() : rootCause.getMessage();
-    }
-
-    public static String getMessage(Throwable throwable) {
-        return ExceptionUtil.getMessage(throwable);
+        return throwable.getMessage() == null ? throwable.toString() : throwable.getMessage();
     }
 
     public static String getStackTrace(Throwable throwable) {
-        return ExceptionUtil.stacktraceToString(throwable);
+        FastByteArrayOutputStream result = new FastByteArrayOutputStream();
+        throwable.printStackTrace(new PrintStream(result));
+        return result.toString().trim();
     }
 
     public static String getStackTraceInHtml(Throwable throwable) {

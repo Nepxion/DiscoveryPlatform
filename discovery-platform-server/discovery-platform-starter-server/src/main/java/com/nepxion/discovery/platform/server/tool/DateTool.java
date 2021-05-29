@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.tool;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +20,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 public class DateTool {
+    private static final DateFormat SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
     private static final List<DateFormat> DATE_FORMAT_LIST = Arrays.asList(
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"),
             new SimpleDateFormat("yyyy-MM-dd hh:mm"),
@@ -44,4 +55,9 @@ public class DateTool {
         }
         return result;
     }
+
+    public static String getSequence() {
+        return SEQUENCE_FORMAT.format(new Date());
+    }
+
 }

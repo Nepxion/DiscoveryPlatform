@@ -5,6 +5,7 @@ package com.nepxion.discovery.platform.server.tool;
  * <p>Description: Nepxion Discovery</p>
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
+ *
  * @author Ning Zhang
  * @version 1.0
  */
@@ -26,6 +27,14 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 public class CommonTool {
     private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
     private static final String SALT = "PEgASuS";
+
+    public static void sleep(final long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (Exception e) {
+            LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+        }
+    }
 
     public static String getVersion() {
         return System.getProperty("version", PlatformConstant.PLATFORM_VERSION);

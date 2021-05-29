@@ -36,7 +36,7 @@ public class IndexController {
     @Autowired
     private AdminService adminService;
 
-    @GetMapping(value = {PlatformConstant.PLATFORM})
+    @GetMapping(value = { PlatformConstant.PLATFORM })
     public String login(Model model) {
         model.addAttribute("version", CommonTool.getVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
@@ -63,9 +63,7 @@ public class IndexController {
 
     @PostMapping("do-login")
     @ResponseBody
-    public Result<?> doLogin(@RequestParam(name = "username") String username,
-                             @RequestParam(name = "password") String password,
-                             @RequestParam(name = "remember", defaultValue = "false") Boolean remember) {
+    public Result<?> doLogin(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "remember", defaultValue = "false") Boolean remember) {
         try {
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
@@ -81,21 +79,15 @@ public class IndexController {
 
     @PostMapping("do-change-password")
     @ResponseBody
-    public Result<?> doChangePassword(AdminVo adminVo,
-                                      @RequestParam(name = "oldPassword") String oldPassword,
-                                      @RequestParam(name = "password") String newPassword) throws Exception {
-        this.adminService.changePassword(adminVo.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
+    public Result<?> doChangePassword(AdminVo adminVo, @RequestParam(name = "oldPassword") String oldPassword, @RequestParam(name = "password") String newPassword) throws Exception {
+        adminService.changePassword(adminVo.getId(), CommonTool.hash(oldPassword), CommonTool.hash(newPassword));
         return Result.ok();
     }
 
     @PostMapping("do-edit-info")
     @ResponseBody
-    public Result<?> doEditInfo(AdminVo adminVo,
-                                @RequestParam(name = "name") String name,
-                                @RequestParam(name = "phoneNumber") String phoneNumber,
-                                @RequestParam(name = "email") String email,
-                                @RequestParam(name = "remark") String remark) throws Exception {
-        this.adminService.update(adminVo.getId(), null, null, name, phoneNumber, email, remark);
+    public Result<?> doEditInfo(AdminVo adminVo, @RequestParam(name = "name") String name, @RequestParam(name = "phoneNumber") String phoneNumber, @RequestParam(name = "email") String email, @RequestParam(name = "remark") String remark) throws Exception {
+        adminService.update(adminVo.getId(), null, null, name, phoneNumber, email, remark);
         return Result.ok();
     }
 

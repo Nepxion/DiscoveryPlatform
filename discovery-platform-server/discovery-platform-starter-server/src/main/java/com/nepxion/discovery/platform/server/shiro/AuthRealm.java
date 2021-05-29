@@ -39,11 +39,11 @@ public class AuthRealm extends AuthorizingRealm {
         String password = new String(usernamePasswordToken.getPassword());
         AdminVo adminVo;
         try {
-            if (!this.adminService.authenticate(username, password)) {
+            if (!adminService.authenticate(username, password)) {
                 return null;
             }
-            adminVo = this.adminService.getAdminByUserName(username);
-            if (this.adminService.isSuperAdmin(adminVo.getUsername())) {
+            adminVo = adminService.getAdminByUserName(username);
+            if (adminService.isSuperAdmin(adminVo.getUsername())) {
                 adminVo.getSysRole().setSuperAdmin(true);
             } else {
                 adminVo.getSysRole().setSuperAdmin(false);

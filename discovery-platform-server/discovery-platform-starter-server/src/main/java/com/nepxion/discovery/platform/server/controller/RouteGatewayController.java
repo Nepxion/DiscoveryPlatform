@@ -69,8 +69,7 @@ public class RouteGatewayController {
     }
 
     @GetMapping("edit")
-    public String edit(Model model,
-                       @RequestParam(name = "id") Long id) {
+    public String edit(Model model, @RequestParam(name = "id") Long id) {
         RouteGatewayDto routeGateway = this.routeGatewayService.getById(id);
         routeGateway.setPredicates(CommonTool.formatTextarea(routeGateway.getPredicates()));
         routeGateway.setUserPredicates(CommonTool.formatTextarea(routeGateway.getUserPredicates()));
@@ -85,9 +84,7 @@ public class RouteGatewayController {
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<RouteGatewayDto>> doList(@RequestParam(value = "page") Integer pageNum,
-                                                @RequestParam(value = "limit") Integer pageSize,
-                                                @RequestParam(value = "description", required = false) String description) {
+    public Result<List<RouteGatewayDto>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "description", required = false) String description) {
         IPage<RouteGatewayDto> page = this.routeGatewayService.page(description, pageNum, pageSize);
         for (RouteGatewayDto record : page.getRecords()) {
             record.setMetadata(record.getMetadata().replaceAll(PlatformConstant.ROW_SEPARATOR, ", "));
@@ -124,28 +121,28 @@ public class RouteGatewayController {
     @PostMapping("do-add")
     @ResponseBody
     public Result<?> doAdd(RouteGatewayDto routeGateway) {
-        this.routeGatewayService.insert(routeGateway);
+        routeGatewayService.insert(routeGateway);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
     public Result<?> doEdit(RouteGatewayDto routeGateway) {
-        this.routeGatewayService.update(routeGateway);
+        routeGatewayService.update(routeGateway);
         return Result.ok();
     }
 
     @PostMapping("do-enable")
     @ResponseBody
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
-        this.routeGatewayService.enable(id, true);
+        routeGatewayService.enable(id, true);
         return Result.ok();
     }
 
     @PostMapping("do-disable")
     @ResponseBody
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
-        this.routeGatewayService.enable(id, false);
+        routeGatewayService.enable(id, false);
         return Result.ok();
     }
 
@@ -153,15 +150,14 @@ public class RouteGatewayController {
     @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.routeGatewayService.logicDelete(new HashSet<>(idList));
+        routeGatewayService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }
 
     @PostMapping("do-publish")
     @ResponseBody
     public Result<?> doPublish() throws Exception {
-        this.routeGatewayService.publish();
+        routeGatewayService.publish();
         return Result.ok();
     }
-
 }

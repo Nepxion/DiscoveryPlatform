@@ -24,7 +24,7 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
         if (!(applicationContext instanceof AnnotationConfigApplicationContext)) {
-            LogoBanner logoBanner = new LogoBanner(PlatformApplicationContextInitializer.class, "/com/nepxion/platform/resource/logo.txt", "Welcome to Nepxion", 8, 5, new Color[]{Color.red, Color.green, Color.cyan, Color.blue, Color.yellow, Color.magenta, Color.red, Color.green}, true);
+            LogoBanner logoBanner = new LogoBanner(PlatformApplicationContextInitializer.class, "/com/nepxion/platform/resource/logo.txt", "Welcome to Nepxion", 8, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow, Color.magenta, Color.red, Color.green }, true);
 
             NepxionBanner.show(logoBanner, new Description(BannerConstant.VERSION + ":", PlatformConstant.PLATFORM_VERSION, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
         }

@@ -55,45 +55,40 @@ public class AdminController {
 
     @GetMapping("add")
     public String add(Model model) throws Exception {
-        model.addAttribute("roles", this.roleService.listOrderByName());
+        model.addAttribute("roles", roleService.listOrderByName());
 
-        if (this.loginAdapter.getLoginMode() == LoginMode.DATABASE) {
+        if (loginAdapter.getLoginMode() == LoginMode.DATABASE) {
             return String.format("%s/%s", PREFIX, "add");
         }
-        if (this.loginAdapter.getLoginMode() == LoginMode.LDAP) {
+        if (loginAdapter.getLoginMode() == LoginMode.LDAP) {
             return String.format("%s/%s", PREFIX, "addldap");
         }
-        throw new BusinessException(String.format("暂不支持登录模式[%s]", this.loginAdapter.getLoginMode()));
+        throw new BusinessException(String.format("暂不支持登录模式[%s]", loginAdapter.getLoginMode()));
     }
 
     @GetMapping("edit")
-    public String edit(Model model,
-                       @RequestParam(name = "id") Long id) throws Exception {
-        model.addAttribute("admin", this.adminService.getById(id));
-        model.addAttribute("roles", this.roleService.listOrderByName());
-        model.addAttribute("loginMode", this.loginAdapter.getLoginMode());
+    public String edit(Model model, @RequestParam(name = "id") Long id) throws Exception {
+        model.addAttribute("admin", adminService.getById(id));
+        model.addAttribute("roles", roleService.listOrderByName());
+        model.addAttribute("loginMode", loginAdapter.getLoginMode());
         return String.format("%s/%s", PREFIX, "edit");
     }
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<AdminVo>> doList(@RequestParam(value = "name", required = false) String name,
-                                        @RequestParam(value = "page") Integer pageNum,
-                                        @RequestParam(value = "limit") Integer pageSize) throws Exception {
-        IPage<AdminVo> adminPage = this.adminService.list(this.loginAdapter.getLoginMode(), name, pageNum, pageSize);
+    public Result<List<AdminVo>> doList(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize) throws Exception {
+        IPage<AdminVo> adminPage = adminService.list(loginAdapter.getLoginMode(), name, pageNum, pageSize);
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
 
     @PostMapping("do-reset-password")
     @ResponseBody
     public Result<?> doResetPassword(@RequestParam(value = "id") Long id) throws Exception {
-        SysAdminDto sysAdmin = this.adminService.getById(id);
+        SysAdminDto sysAdmin = adminService.getById(id);
         if (sysAdmin == null) {
             return Result.error(String.format("用户[id=%s]不存在", id));
         }
-        if (this.adminService.changePassword(id,
-                sysAdmin.getPassword(),
-                CommonTool.hash(PlatformConstant.DEFAULT_ADMIN_PASSWORD))) {
+        if (adminService.changePassword(id, sysAdmin.getPassword(), CommonTool.hash(PlatformConstant.DEFAULT_ADMIN_PASSWORD))) {
             return Result.ok();
         } else {
             return Result.error("密码修改失败");
@@ -102,27 +97,15 @@ public class AdminController {
 
     @PostMapping("do-add")
     @ResponseBody
-    public Result<?> doAdd(@RequestParam(value = "roleId") Long roleId,
-                           @RequestParam(value = "username") String username,
-                           @RequestParam(value = "password", defaultValue = "") String password,
-                           @RequestParam(value = "name") String name,
-                           @RequestParam(value = "phoneNumber") String phoneNumber,
-                           @RequestParam(value = "email") String email,
-                           @RequestParam(value = "remark") String remark) throws Exception {
-        this.adminService.insert(this.loginAdapter.getLoginMode(), roleId, username, password, name, phoneNumber, email, remark);
+    public Result<?> doAdd(@RequestParam(value = "roleId") Long roleId, @RequestParam(value = "username") String username, @RequestParam(value = "password", defaultValue = "") String password, @RequestParam(value = "name") String name, @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email, @RequestParam(value = "remark") String remark) throws Exception {
+        adminService.insert(loginAdapter.getLoginMode(), roleId, username, password, name, phoneNumber, email, remark);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> doEdit(@RequestParam(value = "id") Long id,
-                            @RequestParam(value = "roleId") Long roleId,
-                            @RequestParam(value = "username") String username,
-                            @RequestParam(value = "name") String name,
-                            @RequestParam(value = "phoneNumber") String phoneNumber,
-                            @RequestParam(value = "email") String email,
-                            @RequestParam(value = "remark") String remark) throws Exception {
-        this.adminService.update(id, roleId, username, name, phoneNumber, email, remark);
+    public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "roleId") Long roleId, @RequestParam(value = "username") String username, @RequestParam(value = "name") String name, @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "email") String email, @RequestParam(value = "remark") String remark) throws Exception {
+        adminService.update(id, roleId, username, name, phoneNumber, email, remark);
         return Result.ok();
     }
 
@@ -130,7 +113,7 @@ public class AdminController {
     @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.adminService.removeByIds(new HashSet<>(idList));
+        adminService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 
@@ -140,6 +123,6 @@ public class AdminController {
         if (StringUtils.isEmpty(keyword.trim())) {
             return Result.ok();
         }
-        return Result.ok(this.adminService.search(keyword, 0, 10));
+        return Result.ok(adminService.search(keyword, 0, 10));
     }
 }

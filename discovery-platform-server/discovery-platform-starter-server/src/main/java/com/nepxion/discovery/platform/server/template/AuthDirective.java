@@ -64,8 +64,7 @@ public abstract class AuthDirective {
         return false;
     }
 
-    private PageVo getByUri(List<PageVo> pageVoList,
-                            String uri) {
+    private PageVo getByUri(List<PageVo> pageVoList, String uri) {
         for (PageVo pageVo : pageVoList) {
             if (pageVo.getUrl().equals(uri)) {
                 return pageVo;
@@ -77,10 +76,7 @@ public abstract class AuthDirective {
     }
 
     protected enum Operation {
-        INSERT,
-        DELETE,
-        UPDATE,
-        SELECT
+        INSERT, DELETE, UPDATE, SELECT
     }
 
     private interface HandlePermission {

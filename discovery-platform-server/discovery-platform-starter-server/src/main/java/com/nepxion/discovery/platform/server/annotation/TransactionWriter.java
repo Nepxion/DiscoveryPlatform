@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.transaction.annotation.Transactional;
 
-@Target({ElementType.METHOD})
+@Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Transactional(rollbackFor = Exception.class, timeout = 30)

@@ -40,8 +40,10 @@ public class PermissionController {
 
     @Autowired
     private PermissionService permissionService;
+
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private PageService pageService;
 
@@ -69,23 +71,14 @@ public class PermissionController {
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<PermissionVo>> doList(@RequestParam(value = "page") Integer pageNum,
-                                             @RequestParam(value = "limit") Integer pageSize,
-                                             @RequestParam(value = "sysRoleId", required = false) Long sysRoleId,
-                                             @RequestParam(value = "sysPageId", required = false) Long sysPageId) throws Exception {
+    public Result<List<PermissionVo>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "sysRoleId", required = false) Long sysRoleId, @RequestParam(value = "sysPageId", required = false) Long sysPageId) throws Exception {
         IPage<PermissionVo> list = this.permissionService.list(pageNum, pageSize, sysRoleId, sysPageId);
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
-
     @PostMapping("do-add")
     @ResponseBody
-    public Result<?> doAdd(@RequestParam(value = "sysRoleId") Long sysRoleId,
-                           @RequestParam(value = "sysPageId") Long sysPageId,
-                           @RequestParam(value = "insert", defaultValue = "false") Boolean insert,
-                           @RequestParam(value = "delete", defaultValue = "false") Boolean delete,
-                           @RequestParam(value = "update", defaultValue = "false") Boolean update,
-                           @RequestParam(value = "select", defaultValue = "false") Boolean select) {
+    public Result<?> doAdd(@RequestParam(value = "sysRoleId") Long sysRoleId, @RequestParam(value = "sysPageId") Long sysPageId, @RequestParam(value = "insert", defaultValue = "false") Boolean insert, @RequestParam(value = "delete", defaultValue = "false") Boolean delete, @RequestParam(value = "update", defaultValue = "false") Boolean update, @RequestParam(value = "select", defaultValue = "false") Boolean select) {
         SysPermissionDto authPermission = new SysPermissionDto();
         authPermission.setSysRoleId(sysRoleId);
         authPermission.setSysPageId(sysPageId);
@@ -93,15 +86,13 @@ public class PermissionController {
         authPermission.setCanDelete(delete);
         authPermission.setCanUpdate(update);
         authPermission.setCanSelect(select);
-        this.permissionService.insert(authPermission);
+        permissionService.insert(authPermission);
         return Result.ok();
     }
 
     @PostMapping("do-edit")
     @ResponseBody
-    public Result<?> doEdit(@RequestParam(value = "id") Long id,
-                            @RequestParam(value = "type") String type,
-                            @RequestParam(value = "hasPermission") Boolean hasPermission) {
+    public Result<?> doEdit(@RequestParam(value = "id") Long id, @RequestParam(value = "type") String type, @RequestParam(value = "hasPermission") Boolean hasPermission) {
         SysPermissionDto dbAdminPermission = this.permissionService.getById(id);
         if (dbAdminPermission != null) {
             switch (type.toLowerCase()) {
@@ -118,7 +109,7 @@ public class PermissionController {
                     dbAdminPermission.setCanSelect(hasPermission);
                     break;
             }
-            this.permissionService.updateById(dbAdminPermission);
+            permissionService.updateById(dbAdminPermission);
         }
         return Result.ok();
     }
@@ -127,7 +118,7 @@ public class PermissionController {
     @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.permissionService.removeByIds(new HashSet<>(idList));
+        permissionService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 }

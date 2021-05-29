@@ -36,7 +36,6 @@ public class PageController {
     @Autowired
     private PageService pageService;
 
-
     @GetMapping("list")
     public String list() {
         return String.format("%s/%s", PREFIX, "list");
@@ -49,8 +48,7 @@ public class PageController {
     }
 
     @RequestMapping("edit")
-    public String edit(Model model,
-                       @RequestParam(value = "id") Long id) throws Exception {
+    public String edit(Model model, @RequestParam(value = "id") Long id) throws Exception {
         model.addAttribute("page", this.pageService.getById(id));
         model.addAttribute("pages", this.pageService.listEmptyUrlPages());
         return String.format("%s/%s", PREFIX, "edit");
@@ -58,10 +56,8 @@ public class PageController {
 
     @PostMapping("do-list")
     @ResponseBody
-    public Result<List<PageVo>> doList(@RequestParam(value = "page") Integer pageNum,
-                                       @RequestParam(value = "limit") Integer pageSize,
-                                       @RequestParam(value = "name", required = false) String name) throws Exception {
-        IPage<PageVo> page = this.pageService.list(name, pageNum, pageSize);
+    public Result<List<PageVo>> doList(@RequestParam(value = "page") Integer pageNum, @RequestParam(value = "limit") Integer pageSize, @RequestParam(value = "name", required = false) String name) throws Exception {
+        IPage<PageVo> page = pageService.list(name, pageNum, pageSize);
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
@@ -106,7 +102,7 @@ public class PageController {
     @ResponseBody
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        this.pageService.removeByIds(new HashSet<>(idList));
+        pageService.removeByIds(new HashSet<>(idList));
         return Result.ok();
     }
 }

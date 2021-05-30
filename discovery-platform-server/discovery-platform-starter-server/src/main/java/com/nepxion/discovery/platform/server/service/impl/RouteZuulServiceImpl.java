@@ -37,14 +37,15 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
-import com.nepxion.discovery.platform.server.mapper.MySqlRouteZuulMapper;
+import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
+import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class RouteZuulServiceImpl extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
+public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
-    private RouteServiceImpl mySqlRouteService;
+    private RouteService routeService;
 
     @Autowired
     private ServiceResource serviceResource;
@@ -157,7 +158,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<MySqlRouteZuulMapper, Rout
             return;
         }
 
-        Integer nextMaxCreateTimesInDayOfZuul = mySqlRouteService.getNextMaxCreateTimesInDayOfZuul();
+        Integer nextMaxCreateTimesInDayOfZuul = routeService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
             routeZuulDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfZuul));
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.nepxion.discovery.platform.server.mapper.MySqlAdminMapper">
+<mapper namespace="com.nepxion.discovery.platform.server.mapper.AdminMapper">
 
     <select id="list" resultType="com.nepxion.discovery.platform.server.entity.vo.AdminVo">
         SELECT `admin`.`id` AS `id`,

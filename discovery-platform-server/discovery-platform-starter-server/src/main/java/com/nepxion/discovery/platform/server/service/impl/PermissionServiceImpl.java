@@ -21,10 +21,10 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
-import com.nepxion.discovery.platform.server.mapper.MySqlPermissionMapper;
+import com.nepxion.discovery.platform.server.mapper.PermissionMapper;
 import com.nepxion.discovery.platform.server.service.PermissionService;
 
-public class PermissionServiceImpl extends ServiceImpl<MySqlPermissionMapper, SysPermissionDto> implements PermissionService {
+public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, SysPermissionDto> implements PermissionService {
     @TransactionReader
     @Override
     public SysPermissionDto getById(Long id) {

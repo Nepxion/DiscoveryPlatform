@@ -24,7 +24,7 @@ import com.nepxion.banner.Description;
 import com.nepxion.banner.LogoBanner;
 import com.nepxion.banner.NepxionBanner;
 import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
-import com.nepxion.discovery.platform.server.mapper.MySqlAdminMapper;
+import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.mysql.adapter.PlatformMySqlLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.constant.PlatformMySqlConstant;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
@@ -32,7 +32,7 @@ import com.nepxion.discovery.platform.server.mysql.tool.PlatformMySqlTool;
 import com.taobao.text.Color;
 
 @Configuration
-@MapperScan(basePackageClasses = MySqlAdminMapper.class)
+@MapperScan(basePackageClasses = AdminMapper.class)
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {

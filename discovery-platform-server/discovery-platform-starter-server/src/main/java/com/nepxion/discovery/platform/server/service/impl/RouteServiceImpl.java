@@ -14,18 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
-import com.nepxion.discovery.platform.server.mapper.MySqlRouteMapper;
+import com.nepxion.discovery.platform.server.mapper.RouteMapper;
+import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.tool.MybatisPlusTool;
 
-public class RouteServiceImpl {
+public class RouteServiceImpl implements RouteService {
     @Autowired
-    private MySqlRouteMapper mySqlRouteMapper;
+    private RouteMapper routeMapper;
 
     public Integer getNextMaxCreateTimesInDayOfGateway() {
-        return mySqlRouteMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteGatewayDto.class));
+        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteGatewayDto.class));
     }
 
     public Integer getNextMaxCreateTimesInDayOfZuul() {
-        return mySqlRouteMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteZuulDto.class));
+        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteZuulDto.class));
     }
 }

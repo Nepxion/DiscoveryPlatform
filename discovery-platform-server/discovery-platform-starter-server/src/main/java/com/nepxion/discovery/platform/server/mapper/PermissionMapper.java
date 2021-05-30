@@ -22,7 +22,7 @@ import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 
 @Mapper
-public interface MySqlPermissionMapper extends BaseMapper<SysPermissionDto> {
+public interface PermissionMapper extends BaseMapper<SysPermissionDto> {
     List<SysMenuDto> listPermissionMenusByRoleId(@Param("sysRoleId") Long sysRoleId);
 
     IPage<PermissionVo> list(IPage<PermissionVo> result, @Param("sysRoleId") Long sysRoleId, @Param("sysMenuId") Long sysMenuId);

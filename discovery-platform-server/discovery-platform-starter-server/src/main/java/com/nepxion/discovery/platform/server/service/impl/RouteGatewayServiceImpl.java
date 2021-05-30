@@ -37,14 +37,14 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
-import com.nepxion.discovery.platform.server.mapper.MySqlRouteGatewayMapper;
+import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class RouteGatewayServiceImpl extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
+public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
-    private RouteServiceImpl mySqlRouteService;
+    private RouteServiceImpl routeService;
 
     @Autowired
     private ServiceResource serviceResource;
@@ -169,7 +169,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<MySqlRouteGatewayMapper
             return;
         }
 
-        Integer nextMaxCreateTimesInDayOfGateway = mySqlRouteService.getNextMaxCreateTimesInDayOfGateway();
+        Integer nextMaxCreateTimesInDayOfGateway = routeService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
             routeGatewayDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfGateway));
         }

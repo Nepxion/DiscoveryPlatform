@@ -13,9 +13,9 @@ package com.nepxion.discovery.platform.server.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
+import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 
 @Mapper
-public interface MySqlDicMapper extends BaseMapper<SysDicDto> {
+public interface RouteZuulMapper extends BaseMapper<RouteZuulDto> {
 
 }

@@ -16,6 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 
 @Mapper
-public interface MySqlRoleMapper extends BaseMapper<SysRoleDto> {
+public interface RoleMapper extends BaseMapper<SysRoleDto> {
 
 }

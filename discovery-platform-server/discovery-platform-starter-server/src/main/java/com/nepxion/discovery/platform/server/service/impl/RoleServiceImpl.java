@@ -24,10 +24,10 @@ import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 import com.nepxion.discovery.platform.server.exception.PlatformException;
-import com.nepxion.discovery.platform.server.mapper.MySqlRoleMapper;
+import com.nepxion.discovery.platform.server.mapper.RoleMapper;
 import com.nepxion.discovery.platform.server.service.RoleService;
 
-public class RoleServiceImpl extends ServiceImpl<MySqlRoleMapper, SysRoleDto> implements RoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, SysRoleDto> implements RoleService {
     @SuppressWarnings("unchecked")
     @TransactionReader
     @Override

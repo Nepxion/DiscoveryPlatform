@@ -16,6 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 
 @Mapper
-public interface MySqlRouteGatewayMapper extends BaseMapper<RouteGatewayDto> {
+public interface RouteGatewayMapper extends BaseMapper<RouteGatewayDto> {
 
 }

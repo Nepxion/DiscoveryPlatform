@@ -36,13 +36,13 @@ import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.exception.PlatformException;
-import com.nepxion.discovery.platform.server.mapper.MySqlAdminMapper;
+import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.DicService;
 import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
-public class AdminServiceImpl extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
+public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {
     @Autowired
     private RoleService roleService;
 
@@ -67,8 +67,7 @@ public class AdminServiceImpl extends ServiceImpl<MySqlAdminMapper, SysAdminDto>
 
     @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
-        AuthenticationEntity authenticationEntity = new AuthenticationEntity();
-        return authenticationEntity;
+        return new AuthenticationEntity();
     }
 
     @TransactionReader

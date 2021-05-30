@@ -21,7 +21,7 @@
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:void(0)" style="cursor: default">
-                            <span>当前版本:&nbsp;${version}</span>
+                            <span>版本:&nbsp;${version}</span>
                         </a>
                     </li>
                 </ul>

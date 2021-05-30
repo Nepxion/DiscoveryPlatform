@@ -32,7 +32,7 @@
                 </div>
                 <div class="layui-form-item">
                     <button id="btnSubmit" name="btnSubmit" class="layui-btn layui-btn-fluid" lay-submit
-                            lay-filter="btnSubmit">登 入
+                            lay-filter="btnSubmit">登 录
                     </button>
                 </div>
             </div>
@@ -40,9 +40,17 @@
     </div>
 
     <div class="layui-trans layadmin-user-login-footer">
-        <p>© ${year} <a href="https://github.com/ZhangNingPegasus/middleware" target="_blank">Pegasus
-                (zhangningkid@163.com)</a></p>
-        <p>当前版本:&nbsp;${version}</p>
+        <p>${year}-2050 © <a href="http://www.nepxion.com" target="_blank">Nepxion Studio</a> Apache License</p>
+        <p>
+          <a href="https://github.com/Nepxion" tppabs="#" target="_blank">GitHub代码</a>
+          <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank">Gitee代码</a>
+          <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank">Maven仓库</a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/Pegasus.jpg" tppabs="#" target="_blank">微信</a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E9%92%89%E9%92%89.jpg" tppabs="#" target="_blank">钉钉</a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E5%85%AC%E4%BC%97%E5%8F%B7.jpg" tppabs="#" target="_blank">公众号</a>
+          <a href="mailto:zhangningkid@163.com" tppabs="#">邮箱</a>
+         </p>
+        <p>版本:&nbsp;${version}</p>
     </div>
 
     <script src="${ctx}/layuiadmin/layui/layui.js"></script>

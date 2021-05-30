@@ -63,7 +63,7 @@
                         </div>
                         <div class="layui-tab-item">
                              <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
-                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;MyPredicate={"key":"value"}&#13;Cookie={"name":"color","regexp":"blue"}'
+                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;MyPredicate={"key":"value"}'
                                        style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                     </div>

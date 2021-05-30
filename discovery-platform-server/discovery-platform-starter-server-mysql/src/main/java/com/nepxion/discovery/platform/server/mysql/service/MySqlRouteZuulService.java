@@ -40,6 +40,7 @@ import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
 public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
@@ -158,7 +159,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
         Integer nextMaxCreateTimesInDayOfZuul = mySqlRouteService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
-            routeZuulDto.setRouteId(mySqlRouteService.getRouteId(nextMaxCreateTimesInDayOfZuul));
+            routeZuulDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfZuul));
         }
         routeZuulDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfZuul);
         routeZuulDto.setOperation(Operation.INSERT.getCode());

@@ -14,9 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nepxion.discovery.platform.server.exception.PlatformException;
 
-public final class SequenceTool {
-    private static final int MAX_SEQUENCE = 99999;
-    private static final long MAX_TOLERATE_TIME_DIFFERENCE_MILLISECONDS = 1000;
+public class SequenceTool {
+    public static final int MAX_SEQUENCE = 99999;
+    public static final int MAX_ID_LENGTH = 4;
+    public static final long MAX_TOLERATE_TIME_DIFFERENCE_MILLISECONDS = 1000;
+
     private static long lastMilliseconds;
     private static long sequence = 0;
 
@@ -38,7 +40,7 @@ public final class SequenceTool {
         return Long.parseLong(String.valueOf(currentMilliseconds).concat(StringUtils.leftPad(String.valueOf(sequence), 5, "0")));
     }
 
-    private static boolean waitTolerateTimeDifferenceIfNeed(long currentMilliseconds) {
+    public static boolean waitTolerateTimeDifferenceIfNeed(long currentMilliseconds) {
         if (lastMilliseconds <= currentMilliseconds) {
             return false;
         } else {
@@ -51,10 +53,21 @@ public final class SequenceTool {
         }
     }
 
-    private static long waitUntilNextTime(long lastTime) {
+    public static long waitUntilNextTime(long lastTime) {
         long result;
         for (result = System.currentTimeMillis(); result <= lastTime; result = System.currentTimeMillis()) {
         }
         return result;
+    }
+
+    public static String getSequenceId(int nextMaxCreateTimesInDay) {
+        return getSequenceId(null, nextMaxCreateTimesInDay);
+    }
+
+    public static String getSequenceId(String prefix, int nextMaxCreateTimesInDay) {
+        if (StringUtils.isEmpty(prefix)) {
+            return String.format("%s-%s", DateTool.getDataSequence(), StringUtils.leftPad(String.valueOf(nextMaxCreateTimesInDay), MAX_ID_LENGTH, "0"));
+        }
+        return String.format("%s-%s-%s", prefix, DateTool.getDataSequence(), StringUtils.leftPad(String.valueOf(nextMaxCreateTimesInDay), MAX_ID_LENGTH, "0"));
     }
 }

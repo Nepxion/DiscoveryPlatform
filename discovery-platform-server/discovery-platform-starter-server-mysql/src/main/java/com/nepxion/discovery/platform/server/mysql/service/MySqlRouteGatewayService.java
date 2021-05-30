@@ -40,6 +40,7 @@ import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
 public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
@@ -170,7 +171,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
         Integer nextMaxCreateTimesInDayOfGateway = mySqlRouteService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
-            routeGatewayDto.setRouteId(mySqlRouteService.getRouteId(nextMaxCreateTimesInDayOfGateway));
+            routeGatewayDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfGateway));
         }
         routeGatewayDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfGateway);
         routeGatewayDto.setOperation(Operation.INSERT.getCode());

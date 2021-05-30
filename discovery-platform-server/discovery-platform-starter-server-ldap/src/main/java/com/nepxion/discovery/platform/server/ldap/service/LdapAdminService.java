@@ -28,11 +28,10 @@ import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
 
 public class LdapAdminService implements AdminService {
-    private final LdapService ldapService;
-    private final AdminService adminService;
+    private LdapService ldapService;
+    private AdminService adminService;
 
-    public LdapAdminService(LdapService ldapService,
-                            AdminService adminService) {
+    public LdapAdminService(LdapService ldapService, AdminService adminService) {
         this.ldapService = ldapService;
         this.adminService = adminService;
     }

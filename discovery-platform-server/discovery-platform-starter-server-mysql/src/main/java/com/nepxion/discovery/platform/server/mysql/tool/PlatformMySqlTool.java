@@ -23,8 +23,8 @@ import org.springframework.lang.Nullable;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-public class DataSourceTool {
-    private static final Logger LOG = LoggerFactory.getLogger(DataSourceTool.class);
+public class PlatformMySqlTool {
+    private static final Logger LOG = LoggerFactory.getLogger(PlatformMySqlTool.class);
 
     private static final String DATA_BASE_URL = "jdbc:mysql://%s/%s?allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&useUnicode=true&autoReconnect=true&allowMultiQueries=true&useSSL=false&rewriteBatchedStatements=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
     private static final String ZIPKIN_MYSQL8_INTERCEPTOR = "queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=%s";
@@ -35,7 +35,7 @@ public class DataSourceTool {
     private static final String DRIVER_CLASS_NAME = com.mysql.cj.jdbc.Driver.class.getCanonicalName();
 
     public static DataSource createHikariDataSource(String poolName, String host, String port, String databaseName, String userName, String password, Integer minIdle, Integer maximum, @Nullable PostProcessor postProcessor) {
-        Parameter parameter = DataSourceTool.generateParameter(poolName, host, port, databaseName, postProcessor);
+        Parameter parameter = generateParameter(poolName, host, port, databaseName, postProcessor);
         HikariDataSource result = new HikariDataSource();
         if (StringUtils.isNotEmpty(parameter.getPoolName())) {
             result.setPoolName(parameter.getPoolName()); //连接池名称
@@ -143,7 +143,7 @@ public class DataSourceTool {
         result.setHost(host);
         result.setPort(port);
         result.setDatabaseName(databaseName);
-        result.setUrl(String.format(DATA_BASE_URL, DataSourceTool.getDbUrl(host, port), databaseName));
+        result.setUrl(String.format(DATA_BASE_URL, getDbUrl(host, port), databaseName));
         if (postProcessor != null) {
             result = postProcessor.after(result);
         }

@@ -28,7 +28,7 @@ import com.nepxion.discovery.platform.server.mapper.MySqlAdminMapper;
 import com.nepxion.discovery.platform.server.mysql.adapter.PlatformMySqlLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.constant.PlatformMySqlConstant;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
-import com.nepxion.discovery.platform.server.mysql.tool.DataSourceTool;
+import com.nepxion.discovery.platform.server.mysql.tool.PlatformMySqlTool;
 import com.taobao.text.Color;
 
 @Configuration
@@ -36,7 +36,7 @@ import com.taobao.text.Color;
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[]{ Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformMySqlConstant.MYSQL_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 
@@ -46,7 +46,7 @@ public class PlatformMySqlAutoConfiguration {
     @Bean
     @Primary
     public DataSource dataSource() {
-        return DataSourceTool.createHikariDataSource(
+        return PlatformMySqlTool.createHikariDataSource(
                 platformMySqlProperties.getHost(),
                 platformMySqlProperties.getPort(),
                 platformMySqlProperties.getName(),

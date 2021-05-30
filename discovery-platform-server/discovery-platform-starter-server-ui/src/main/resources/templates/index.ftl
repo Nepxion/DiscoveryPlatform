@@ -21,7 +21,7 @@
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:void(0)" style="cursor: default">
-                            <span>版本:&nbsp;${version}</span>
+                            <span>Nepxion 云原生集成管理平台</span>
                         </a>
                     </li>
                 </ul>

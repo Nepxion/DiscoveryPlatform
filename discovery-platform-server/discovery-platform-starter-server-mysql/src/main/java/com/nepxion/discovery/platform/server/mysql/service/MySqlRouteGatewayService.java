@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,9 +40,11 @@ import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-import com.nepxion.discovery.platform.server.tool.DateTool;
 
 public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
+    @Autowired
+    private MySqlRouteService mySqlRouteService;
+
     @Autowired
     private ServiceResource serviceResource;
 
@@ -74,7 +75,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
                 toDeleteList.add(routeGatewayDto);
                 addKV(unusedMap, routeGatewayDto.getGatewayName(), routeGatewayDto);
                 continue;
-            } else if (!routeGatewayDto.getEnabled()) {
+            } else if (!routeGatewayDto.getEnableFlag()) {
                 addKV(unusedMap, routeGatewayDto.getGatewayName(), routeGatewayDto);
                 toUpdateList.add(routeGatewayDto);
                 continue;
@@ -166,9 +167,12 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
         if (routeGatewayDto == null) {
             return;
         }
+
+        Integer nextMaxCreateTimesInDayOfGateway = mySqlRouteService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
-            routeGatewayDto.setRouteId(String.format("%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
+            routeGatewayDto.setRouteId(mySqlRouteService.getRouteId("gw", nextMaxCreateTimesInDayOfGateway));
         }
+        routeGatewayDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfGateway);
         routeGatewayDto.setOperation(Operation.INSERT.getCode());
         routeGatewayDto.setPublishFlag(false);
         routeGatewayDto.setDeleteFlag(false);
@@ -189,9 +193,9 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
     @TransactionWriter
     @Override
-    public void enable(Long id, boolean enabled) {
+    public void enable(Long id, boolean enableFlag) {
         RouteGatewayDto routeGatewayDto = getById(id);
-        routeGatewayDto.setEnabled(enabled);
+        routeGatewayDto.setEnableFlag(enableFlag);
         update(routeGatewayDto);
     }
 

@@ -53,9 +53,6 @@ public class RouteGatewayDto extends BaseStateEntity {
     @TableField(value = "`service_name`")
     private String serviceName;
 
-    @TableField(value = "`enabled`")
-    private Boolean enabled;
-
     @TableField(value = "`description`")
     private String description;
 
@@ -138,14 +135,6 @@ public class RouteGatewayDto extends BaseStateEntity {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getDescription() {

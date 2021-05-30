@@ -92,8 +92,8 @@ public class RouteGatewayController {
     }
 
     @ApiOperation(value = "添加Spring Cloud Gateway网关的路由")
-    @PostMapping("do-add")
-    public Result<?> doAdd(RouteGatewayDto routeGateway) {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(RouteGatewayDto routeGateway) {
         routeGatewayService.insert(routeGateway);
         return Result.ok();
     }

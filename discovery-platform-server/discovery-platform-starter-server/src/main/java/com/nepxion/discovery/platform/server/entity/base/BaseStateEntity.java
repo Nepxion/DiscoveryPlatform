@@ -20,8 +20,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 public class BaseStateEntity extends BaseEntity {
     private static final long serialVersionUID = 2636994153216571320L;
 
+    @TableField(value = "`create_times_in_day`")
+    private Integer createTimesInDay;
+
     @TableField(value = "`operation`")
     private Integer operation;
+
+    @TableField(value = "`enable_flag`")
+    private Boolean enableFlag;
 
     @TableField(value = "`publish_flag`")
     private Boolean publishFlag = false;
@@ -29,12 +35,28 @@ public class BaseStateEntity extends BaseEntity {
     @TableField(value = "`delete_flag`")
     private Boolean deleteFlag = false;
 
+    public Integer getCreateTimesInDay() {
+        return createTimesInDay;
+    }
+
+    public void setCreateTimesInDay(Integer createTimesInDay) {
+        this.createTimesInDay = createTimesInDay;
+    }
+
     public Integer getOperation() {
         return operation;
     }
 
     public void setOperation(Integer operation) {
         this.operation = operation;
+    }
+
+    public Boolean getEnableFlag() {
+        return enableFlag;
+    }
+
+    public void setEnableFlag(Boolean enableFlag) {
+        this.enableFlag = enableFlag;
     }
 
     public Boolean getPublishFlag() {

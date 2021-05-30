@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,9 +40,11 @@ import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-import com.nepxion.discovery.platform.server.tool.DateTool;
 
 public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
+    @Autowired
+    private MySqlRouteService mySqlRouteService;
+
     @Autowired
     private ServiceResource serviceResource;
 
@@ -74,7 +75,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
                 toDeleteList.add(routeZuulDto);
                 addKV(unusedMap, routeZuulDto.getGatewayName(), routeZuulDto);
                 continue;
-            } else if (!routeZuulDto.getEnabled()) {
+            } else if (!routeZuulDto.getEnableFlag()) {
                 addKV(unusedMap, routeZuulDto.getGatewayName(), routeZuulDto);
                 toUpdateList.add(routeZuulDto);
                 continue;
@@ -154,9 +155,12 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
         if (routeZuulDto == null) {
             return;
         }
+
+        Integer nextMaxCreateTimesInDayOfZuul = mySqlRouteService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
-            routeZuulDto.setRouteId(String.format("%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
+            routeZuulDto.setRouteId(mySqlRouteService.getRouteId("zl", nextMaxCreateTimesInDayOfZuul));
         }
+        routeZuulDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfZuul);
         routeZuulDto.setOperation(Operation.INSERT.getCode());
         routeZuulDto.setPublishFlag(false);
         routeZuulDto.setDeleteFlag(false);
@@ -177,9 +181,9 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
     @TransactionWriter
     @Override
-    public void enable(Long id, boolean enabled) {
+    public void enable(Long id, boolean enableFlag) {
         RouteZuulDto routeZuulDto = getById(id);
-        routeZuulDto.setEnabled(enabled);
+        routeZuulDto.setEnableFlag(enableFlag);
         update(routeZuulDto);
     }
 

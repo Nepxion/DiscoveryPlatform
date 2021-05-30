@@ -50,9 +50,6 @@ public class RouteZuulDto extends BaseStateEntity {
     @TableField(value = "`custom_sensitive_headers`")
     private Boolean customSensitiveHeaders;
 
-    @TableField(value = "`enabled`")
-    private Boolean enabled;
-
     @TableField(value = "`description`")
     private String description;
 
@@ -126,14 +123,6 @@ public class RouteZuulDto extends BaseStateEntity {
 
     public void setCustomSensitiveHeaders(Boolean customSensitiveHeaders) {
         this.customSensitiveHeaders = customSensitiveHeaders;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getDescription() {

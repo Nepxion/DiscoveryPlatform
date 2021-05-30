@@ -29,7 +29,7 @@ public interface RouteGatewayService {
 
     void update(RouteGatewayDto routeGatewayDto);
 
-    void enable(Long id, boolean enabled);
+    void enable(Long id, boolean enableFlag);
 
     void logicDelete(Collection<Long> ids);
 

@@ -96,9 +96,10 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `metadata`                  VARCHAR(2048)                   NOT NULL COMMENT '路由元数据',
     `order`                     INT(0) UNSIGNED                 NOT NULL COMMENT '路由执行顺序',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '所属的服务名称(即: 服务的spring.application.name)',
-    `enabled`                   TINYINT(1)                      NOT NULL COMMENT '是否启用. 0: 禁用; 1:启用',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '描述信息',
+    `create_times_in_day`       INT(0) UNSIGNED                 NOT NULL COMMENT '一天内创建路由的次数',
     `operation`                 INT(0) UNSIGNED                 NOT NULL COMMENT '最后一次执行的操作类型. 1: INSERT; 2:UPDATE; 3:DELETE',
+    `enable_flag`               TINYINT(1)                      NOT NULL COMMENT '是否启用. 0: 禁用; 1:启用',
     `publish_flag`              TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否发布. 0: 未发布; 1:已发布',
     `delete_flag`               TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否删除. 0: 未删除; 1: 已删除',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
@@ -119,9 +120,10 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `retryable`                 TINYINT(1)                      NULL COMMENT '路由是否进行重试',
     `sensitive_headers`         VARCHAR(256)                    NOT NULL COMMENT '过滤客户端附带的headers, 用逗号分隔',
     `custom_sensitive_headers`  TINYINT(1)                      NOT NULL COMMENT '',
-    `enabled`                   TINYINT(1)                      NOT NULL COMMENT '是否启用',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '描述信息',
+    `create_times_in_day`       INT(0) UNSIGNED                 NOT NULL COMMENT '一天内创建路由的次数',
     `operation`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型. 1: INSERT; 2:UPDATE; 3:DELETE',
+    `enable_flag`               TINYINT(1)                      NOT NULL COMMENT '是否启用',
     `publish_flag`              TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否发布. 0: 未发布; 1:已发布',
     `delete_flag`               TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否删除. 0: 未删除; 1: 已删除',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
@@ -166,7 +168,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (19, 'Nacos', '/discovery/list', b'1', b'0', b'0', '', 18, 1, 'Consul注册中心');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (20, '配置中心', '', b'1', b'0', b'0', 'layui-icon-survey', 0, 7, '配置中心');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (21, 'Apollo', '/apollo/list', b'1', b'0', b'0', '', 20, 1, 'Consul注册中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (21, 'Apollo', 'http://106.54.227.205/', b'1', b'0', b'0', '', 20, 1, 'Apollo注册中心. apollo/admin');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (22, '监控中心', '', b'1', b'0', b'0', 'layui-icon-app', 0, 8, '监控中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (23, 'Spring Boot Admin', '/sba/list', b'1', b'0', b'0', '', 22, 1, 'Spring Boot Admin');

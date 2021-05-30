@@ -81,8 +81,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否启用</label>
             <div class="layui-input-block">
-                <input type="radio" name="enabled" value="true" title="启用" checked>
-                <input type="radio" name="enabled" value="false" title="禁用">
+                <input type="radio" name="enableFlag" value="true" title="启用" checked>
+                <input type="radio" name="enableFlag" value="false" title="禁用">
             </div>
         </div>
 

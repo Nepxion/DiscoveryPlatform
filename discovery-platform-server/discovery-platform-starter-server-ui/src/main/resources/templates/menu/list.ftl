@@ -126,7 +126,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('do-add', field, function () {
+                                admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

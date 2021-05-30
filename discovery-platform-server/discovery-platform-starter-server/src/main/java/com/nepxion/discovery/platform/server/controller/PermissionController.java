@@ -73,8 +73,8 @@ public class PermissionController {
     }
 
     @ApiOperation(value = "添加权限")
-    @PostMapping("do-add")
-    public Result<?> doAdd(PermissionPo permissionPo) {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(PermissionPo permissionPo) {
         SysPermissionDto sysPermissionDto = new SysPermissionDto();
         sysPermissionDto.setSysRoleId(permissionPo.getSysRoleId());
         sysPermissionDto.setSysMenuId(permissionPo.getSysMenuId());

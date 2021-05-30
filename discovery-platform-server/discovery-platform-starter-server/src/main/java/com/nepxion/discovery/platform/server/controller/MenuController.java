@@ -48,8 +48,8 @@ public class MenuController {
     }
 
     @ApiOperation(value = "添加菜单")
-    @PostMapping("do-add")
-    public Result<?> doAdd(MenuPo menuPo) throws Exception {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(MenuPo menuPo) throws Exception {
         if (menuPo.getDefaultFlag() == null) {
             menuPo.setDefaultFlag(false);
         }

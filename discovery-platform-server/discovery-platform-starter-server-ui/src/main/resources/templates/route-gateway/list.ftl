@@ -30,7 +30,7 @@
 
                     {{#  if(d.publishFlag){ }}
 
-                    {{#  if(d.enabled){ }}
+                    {{#  if(d.enableFlag){ }}
                     <span class="layui-badge layui-bg-green"><b>已启用</b></span>
                     {{#  } else { }}
                     <span class="layui-badge"><b>已禁用</b></span>
@@ -87,7 +87,7 @@
                     <@update>
                         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
                                     class="layui-icon layui-icon-edit"></i>编辑</a>
-                        {{#  if(d.enabled){ }}
+                        {{#  if(d.enableFlag){ }}
                         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">
                             <i class="layui-icon layui-icon-logout"></i>禁用</a>
                         {{#  } else { }}
@@ -164,7 +164,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('do-add', field, function () {
+                                admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
                                     layer.close(index);

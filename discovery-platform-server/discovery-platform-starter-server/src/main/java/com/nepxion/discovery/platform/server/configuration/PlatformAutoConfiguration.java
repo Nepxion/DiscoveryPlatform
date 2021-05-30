@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,7 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulController;
 import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
+import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.service.impl.AdminServiceImpl;
 import com.nepxion.discovery.platform.server.service.impl.DicServiceImpl;
@@ -46,6 +48,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
+@MapperScan(basePackageClasses = AdminMapper.class)
 @EnableConfigurationProperties({ PlatformServerProperties.class })
 public class PlatformAutoConfiguration {
     @Bean

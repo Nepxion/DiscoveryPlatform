@@ -12,7 +12,6 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
 
 import javax.sql.DataSource;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,6 @@ import com.nepxion.banner.Description;
 import com.nepxion.banner.LogoBanner;
 import com.nepxion.banner.NepxionBanner;
 import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
-import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.mysql.adapter.PlatformMySqlLoginAdapter;
 import com.nepxion.discovery.platform.server.mysql.constant.PlatformMySqlConstant;
 import com.nepxion.discovery.platform.server.mysql.properties.PlatformMySqlProperties;
@@ -32,11 +30,10 @@ import com.nepxion.discovery.platform.server.mysql.tool.PlatformMySqlTool;
 import com.taobao.text.Color;
 
 @Configuration
-@MapperScan(basePackageClasses = AdminMapper.class)
 @EnableConfigurationProperties({ PlatformMySqlProperties.class })
 public class PlatformMySqlAutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[]{ Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformMySqlConstant.MYSQL_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 

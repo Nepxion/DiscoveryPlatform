@@ -27,6 +27,11 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>discovery-plugin-framework-starter-parser</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>eventbus-aop-starter</artifactId>
         </dependency>
 

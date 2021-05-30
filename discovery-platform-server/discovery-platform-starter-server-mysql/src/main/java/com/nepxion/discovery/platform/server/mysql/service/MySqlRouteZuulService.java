@@ -158,7 +158,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
 
         Integer nextMaxCreateTimesInDayOfZuul = mySqlRouteService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
-            routeZuulDto.setRouteId(mySqlRouteService.getRouteId("zl", nextMaxCreateTimesInDayOfZuul));
+            routeZuulDto.setRouteId(mySqlRouteService.getRouteId(nextMaxCreateTimesInDayOfZuul));
         }
         routeZuulDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfZuul);
         routeZuulDto.setOperation(Operation.INSERT.getCode());

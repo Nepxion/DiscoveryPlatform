@@ -170,7 +170,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
 
         Integer nextMaxCreateTimesInDayOfGateway = mySqlRouteService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
-            routeGatewayDto.setRouteId(mySqlRouteService.getRouteId("gw", nextMaxCreateTimesInDayOfGateway));
+            routeGatewayDto.setRouteId(mySqlRouteService.getRouteId(nextMaxCreateTimesInDayOfGateway));
         }
         routeGatewayDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfGateway);
         routeGatewayDto.setOperation(Operation.INSERT.getCode());

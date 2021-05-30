@@ -19,7 +19,7 @@
                                     <input type="text" name="username" value="${admin.username}" readonly
                                            class="layui-input">
                                 </div>
-                                <div class="layui-form-mid layui-word-aux">不可修改。用于后台登入名</div>
+                                <div class="layui-form-mid layui-word-aux">不可修改。用于后台登录名</div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">姓名</label>

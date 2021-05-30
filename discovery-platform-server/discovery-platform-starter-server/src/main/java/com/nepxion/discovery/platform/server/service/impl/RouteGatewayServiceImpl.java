@@ -42,9 +42,9 @@ import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class MySqlRouteGatewayServiceImpl extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
+public class RouteGatewayServiceImpl extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
-    private MySqlRouteServiceImpl mySqlRouteService;
+    private RouteServiceImpl mySqlRouteService;
 
     @Autowired
     private ServiceResource serviceResource;

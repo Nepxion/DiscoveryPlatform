@@ -42,7 +42,7 @@ import com.nepxion.discovery.platform.server.service.DicService;
 import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
-public class MySqlAdminServiceImpl extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
+public class AdminServiceImpl extends ServiceImpl<MySqlAdminMapper, SysAdminDto> implements AdminService, InitializingBean {
     @Autowired
     private RoleService roleService;
 

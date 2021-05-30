@@ -37,7 +37,7 @@ import com.nepxion.discovery.platform.server.mapper.MySqlMenuMapper;
 import com.nepxion.discovery.platform.server.service.MenuService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
-public class MySqlMenuServiceImpl extends ServiceImpl<MySqlMenuMapper, SysMenuDto> implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MySqlMenuMapper, SysMenuDto> implements MenuService {
     @TransactionReader
     @Override
     public List<SysMenuDto> list() {

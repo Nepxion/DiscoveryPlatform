@@ -42,9 +42,9 @@ import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class MySqlRouteZuulServiceImpl extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
+public class RouteZuulServiceImpl extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
-    private MySqlRouteServiceImpl mySqlRouteService;
+    private RouteServiceImpl mySqlRouteService;
 
     @Autowired
     private ServiceResource serviceResource;

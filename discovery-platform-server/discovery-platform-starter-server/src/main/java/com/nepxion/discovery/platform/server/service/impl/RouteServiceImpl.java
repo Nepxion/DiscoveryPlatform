@@ -17,7 +17,7 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.MySqlRouteMapper;
 import com.nepxion.discovery.platform.server.tool.MybatisPlusTool;
 
-public class MySqlRouteServiceImpl {
+public class RouteServiceImpl {
     @Autowired
     private MySqlRouteMapper mySqlRouteMapper;
 

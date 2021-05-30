@@ -16,7 +16,7 @@ import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
 import com.nepxion.discovery.platform.server.mapper.MySqlDicMapper;
 import com.nepxion.discovery.platform.server.service.DicService;
 
-public class MySqlDicServiceImpl extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
+public class DicServiceImpl extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
     @Override
     public String getByName(String name) {
         QueryWrapper<SysDicDto> queryWrapper = new QueryWrapper<>();

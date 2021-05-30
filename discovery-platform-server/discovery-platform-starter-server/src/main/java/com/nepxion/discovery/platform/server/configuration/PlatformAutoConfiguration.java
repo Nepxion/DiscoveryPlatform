@@ -34,14 +34,14 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
-import com.nepxion.discovery.platform.server.service.impl.MySqlAdminServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlDicServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlMenuServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlPermissionServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlRoleServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlRouteGatewayServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlRouteServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MySqlRouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.AdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.DicServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MenuServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.PermissionServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.RoleServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.RouteGatewayServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.RouteServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.RouteZuulServiceImpl;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
@@ -129,43 +129,43 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public MySqlAdminServiceImpl mysqlAdminService() {
-        return new MySqlAdminServiceImpl();
+    public AdminServiceImpl adminService() {
+        return new AdminServiceImpl();
     }
 
     @Bean
-    public MySqlDicServiceImpl mysqlDicService() {
-        return new MySqlDicServiceImpl();
+    public DicServiceImpl dicService() {
+        return new DicServiceImpl();
     }
 
     @Bean
-    public MySqlMenuServiceImpl mySqlMenuService() {
-        return new MySqlMenuServiceImpl();
+    public MenuServiceImpl menuService() {
+        return new MenuServiceImpl();
     }
 
     @Bean
-    public MySqlPermissionServiceImpl mysqlPermissionService() {
-        return new MySqlPermissionServiceImpl();
+    public PermissionServiceImpl permissionService() {
+        return new PermissionServiceImpl();
     }
 
     @Bean
-    public MySqlRoleServiceImpl mysqlRoleService() {
-        return new MySqlRoleServiceImpl();
+    public RoleServiceImpl roleService() {
+        return new RoleServiceImpl();
     }
 
     @Bean
-    public MySqlRouteServiceImpl mySqlRouteService() {
-        return new MySqlRouteServiceImpl();
+    public RouteServiceImpl routeService() {
+        return new RouteServiceImpl();
     }
 
     @Bean
-    public MySqlRouteGatewayServiceImpl mysqlRouteGatewayService() {
-        return new MySqlRouteGatewayServiceImpl();
+    public RouteGatewayServiceImpl routeGatewayService() {
+        return new RouteGatewayServiceImpl();
     }
 
     @Bean
-    public MySqlRouteZuulServiceImpl mySqlRouteZuulService() {
-        return new MySqlRouteZuulServiceImpl();
+    public RouteZuulServiceImpl routeZuulService() {
+        return new RouteZuulServiceImpl();
     }
 
     @Bean

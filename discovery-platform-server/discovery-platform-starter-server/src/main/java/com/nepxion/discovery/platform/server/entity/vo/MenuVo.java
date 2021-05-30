@@ -29,8 +29,8 @@ public class MenuVo extends BaseEntity {
     @TableField("`url`")
     private String url;
 
-    @TableField("`menu_flag`")
-    private Boolean menuFlag;
+    @TableField("`show_flag`")
+    private Boolean showFlag;
 
     @TableField(value = "`default_flag`")
     private Boolean defaultFlag;
@@ -84,12 +84,12 @@ public class MenuVo extends BaseEntity {
         this.url = url;
     }
 
-    public Boolean getMenuFlag() {
-        return menuFlag;
+    public Boolean getShowFlag() {
+        return showFlag;
     }
 
-    public void setMenuFlag(Boolean menuFlag) {
-        this.menuFlag = menuFlag;
+    public void setShowFlag(Boolean showFlag) {
+        this.showFlag = showFlag;
     }
 
     public Boolean getDefaultFlag() {

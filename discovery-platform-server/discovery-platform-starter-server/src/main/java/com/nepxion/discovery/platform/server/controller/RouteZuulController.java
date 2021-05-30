@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(RouteZuulController.PREFIX)
 public class RouteZuulController {
-    public static final String PREFIX = "routezuul";
+    public static final String PREFIX = "route-zuul";
 
     @Autowired
     private ServiceResource serviceResource;

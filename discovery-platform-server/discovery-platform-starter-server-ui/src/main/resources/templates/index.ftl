@@ -56,8 +56,7 @@
                             <#list admin.permissions as page>
                                 <li data-name="config" class="layui-nav-item <#if page_index==0>layui-nav-itemed</#if>">
                                     <#if page.blankFlag>
-                                        <a href="${ctx}${page.url}" target="_blank" lay-direction="2"
-                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>">
+                                        <a href="${ctx}${page.url}" target="_blank" lay-direction="2" lay-tips="${page.description}">
                                             <i class="layui-icon ${page.iconClass}"></i><cite>${page.name}</cite>
                                         </a>
                                     <#else>

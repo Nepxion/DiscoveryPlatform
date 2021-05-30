@@ -48,8 +48,8 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
-@MapperScan(basePackageClasses = AdminMapper.class)
 @EnableConfigurationProperties({ PlatformServerProperties.class })
+@MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {

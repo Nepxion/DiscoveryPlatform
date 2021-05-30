@@ -39,12 +39,13 @@ import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
+import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
 public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
-    private RouteServiceImpl routeService;
+    private RouteService routeService;
 
     @Autowired
     private ServiceResource serviceResource;

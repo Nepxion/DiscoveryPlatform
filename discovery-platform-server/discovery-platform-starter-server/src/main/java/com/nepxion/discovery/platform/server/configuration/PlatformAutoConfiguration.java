@@ -20,6 +20,8 @@ import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
+import com.nepxion.discovery.platform.server.controller.DashboardController;
+import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
 import com.nepxion.discovery.platform.server.controller.IndexPageController;
 import com.nepxion.discovery.platform.server.controller.MenuController;
@@ -62,6 +64,12 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public DashboardPageController dashboardPageController() {
+        return new DashboardPageController();
+    }
+
+
+    @Bean
     public AdminPageController adminPageController() {
         return new AdminPageController();
     }
@@ -94,6 +102,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulPageController routeZuulPageController() {
         return new RouteZuulPageController();
+    }
+
+    @Bean
+    public DashboardController dashboardController() {
+        return new DashboardController();
     }
 
     @Bean

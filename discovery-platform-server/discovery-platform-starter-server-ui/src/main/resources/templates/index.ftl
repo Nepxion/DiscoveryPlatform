@@ -82,7 +82,11 @@
                                                 </dd>
                                             <#else>
                                                 <dd>
-                                                    <a lay-href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    <#if child.blankFlag>
+                                                        <a href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    <#else>
+                                                        <a lay-href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    </#if>
                                                 </dd>
                                             </#if>
                                         </dl>

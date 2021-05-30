@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.service;
+package com.nepxion.discovery.platform.server.service.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -37,14 +37,14 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteZuulMapper;
+import com.nepxion.discovery.platform.server.mapper.MySqlRouteZuulMapper;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
+public class MySqlRouteZuulServiceImpl extends ServiceImpl<MySqlRouteZuulMapper, RouteZuulDto> implements RouteZuulService {
     @Autowired
-    private MySqlRouteService mySqlRouteService;
+    private MySqlRouteServiceImpl mySqlRouteService;
 
     @Autowired
     private ServiceResource serviceResource;

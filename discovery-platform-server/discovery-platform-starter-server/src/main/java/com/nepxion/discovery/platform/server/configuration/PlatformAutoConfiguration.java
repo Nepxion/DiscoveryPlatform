@@ -34,6 +34,14 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.service.impl.MySqlAdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlDicServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlMenuServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlPermissionServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlRoleServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlRouteGatewayServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlRouteServiceImpl;
+import com.nepxion.discovery.platform.server.service.impl.MySqlRouteZuulServiceImpl;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
@@ -118,6 +126,46 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulController routeZuulController() {
         return new RouteZuulController();
+    }
+
+    @Bean
+    public MySqlAdminServiceImpl mysqlAdminService() {
+        return new MySqlAdminServiceImpl();
+    }
+
+    @Bean
+    public MySqlDicServiceImpl mysqlDicService() {
+        return new MySqlDicServiceImpl();
+    }
+
+    @Bean
+    public MySqlMenuServiceImpl mySqlMenuService() {
+        return new MySqlMenuServiceImpl();
+    }
+
+    @Bean
+    public MySqlPermissionServiceImpl mysqlPermissionService() {
+        return new MySqlPermissionServiceImpl();
+    }
+
+    @Bean
+    public MySqlRoleServiceImpl mysqlRoleService() {
+        return new MySqlRoleServiceImpl();
+    }
+
+    @Bean
+    public MySqlRouteServiceImpl mySqlRouteService() {
+        return new MySqlRouteServiceImpl();
+    }
+
+    @Bean
+    public MySqlRouteGatewayServiceImpl mysqlRouteGatewayService() {
+        return new MySqlRouteGatewayServiceImpl();
+    }
+
+    @Bean
+    public MySqlRouteZuulServiceImpl mySqlRouteZuulService() {
+        return new MySqlRouteZuulServiceImpl();
     }
 
     @Bean

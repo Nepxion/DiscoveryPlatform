@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.mapper;
+package com.nepxion.discovery.platform.server.mapper;
 
 /**
  * <p>Title: Nepxion Discovery</p>

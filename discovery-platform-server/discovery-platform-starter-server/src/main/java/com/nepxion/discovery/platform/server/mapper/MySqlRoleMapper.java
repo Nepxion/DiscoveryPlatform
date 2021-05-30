@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.mapper;
+package com.nepxion.discovery.platform.server.mapper;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -13,9 +13,9 @@ package com.nepxion.discovery.platform.server.mysql.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
+import com.nepxion.discovery.platform.server.entity.dto.SysRoleDto;
 
 @Mapper
-public interface MySqlRouteGatewayMapper extends BaseMapper<RouteGatewayDto> {
+public interface MySqlRoleMapper extends BaseMapper<SysRoleDto> {
 
 }

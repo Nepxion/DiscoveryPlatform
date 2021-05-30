@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.service;
+package com.nepxion.discovery.platform.server.service.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -37,14 +37,14 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlRouteGatewayMapper;
+import com.nepxion.discovery.platform.server.mapper.MySqlRouteGatewayMapper;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 
-public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
+public class MySqlRouteGatewayServiceImpl extends ServiceImpl<MySqlRouteGatewayMapper, RouteGatewayDto> implements RouteGatewayService {
     @Autowired
-    private MySqlRouteService mySqlRouteService;
+    private MySqlRouteServiceImpl mySqlRouteService;
 
     @Autowired
     private ServiceResource serviceResource;

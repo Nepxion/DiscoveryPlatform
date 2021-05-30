@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.service;
+package com.nepxion.discovery.platform.server.service.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -13,10 +13,10 @@ package com.nepxion.discovery.platform.server.mysql.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlDicMapper;
+import com.nepxion.discovery.platform.server.mapper.MySqlDicMapper;
 import com.nepxion.discovery.platform.server.service.DicService;
 
-public class MySqlDicService extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
+public class MySqlDicServiceImpl extends ServiceImpl<MySqlDicMapper, SysDicDto> implements DicService {
     @Override
     public String getByName(String name) {
         QueryWrapper<SysDicDto> queryWrapper = new QueryWrapper<>();

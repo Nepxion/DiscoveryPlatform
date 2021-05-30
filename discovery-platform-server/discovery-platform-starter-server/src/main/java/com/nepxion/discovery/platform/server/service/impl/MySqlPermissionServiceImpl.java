@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.mysql.service;
+package com.nepxion.discovery.platform.server.service.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -21,10 +21,10 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
-import com.nepxion.discovery.platform.server.mysql.mapper.MySqlPermissionMapper;
+import com.nepxion.discovery.platform.server.mapper.MySqlPermissionMapper;
 import com.nepxion.discovery.platform.server.service.PermissionService;
 
-public class MySqlPermissionService extends ServiceImpl<MySqlPermissionMapper, SysPermissionDto> implements PermissionService {
+public class MySqlPermissionServiceImpl extends ServiceImpl<MySqlPermissionMapper, SysPermissionDto> implements PermissionService {
     @TransactionReader
     @Override
     public SysPermissionDto getById(Long id) {

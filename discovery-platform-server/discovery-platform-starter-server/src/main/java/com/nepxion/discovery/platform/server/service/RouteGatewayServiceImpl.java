@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -38,8 +38,6 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
-import com.nepxion.discovery.platform.server.service.RouteGatewayService;
-import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 

@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.RouteMapper;
-import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.tool.MybatisPlusTool;
 
 public class RouteServiceImpl implements RouteService {

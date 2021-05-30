@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -38,8 +38,6 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
-import com.nepxion.discovery.platform.server.service.RouteService;
-import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
 

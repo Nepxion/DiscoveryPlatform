@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
 import com.nepxion.discovery.platform.server.mapper.DicMapper;
-import com.nepxion.discovery.platform.server.service.DicService;
 
 public class DicServiceImpl extends ServiceImpl<DicMapper, SysDicDto> implements DicService {
     @Override

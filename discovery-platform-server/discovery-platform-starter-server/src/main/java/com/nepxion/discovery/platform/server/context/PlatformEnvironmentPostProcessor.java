@@ -38,7 +38,7 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         }
 
         Properties properties = new Properties();
-
+        addDefaultConfig(configurableEnvironment, properties, "spring.messages.encoding", "UTF-8");
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.allow-request-override", true);
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.check-template-location", true);
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.suffix", ".ftl");

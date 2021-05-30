@@ -148,8 +148,8 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (5, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 2, 3, '流量侦测');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (6, '路由配置', '', b'1', b'0', b'0', 'layui-icon-website', 0, 3, '路由配置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (7, 'Gateway网关', '/route-gateway/list', b'1', b'0', b'0', '', 6, 1, 'Spring Cloud Gateway路由配置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (8, 'Zuul网关', '/route-zuul/list', b'1', b'0', b'0', '', 6, 2, 'Zuul路由配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (7, 'Gateway网关路由', '/route-gateway/list', b'1', b'0', b'0', '', 6, 1, 'Spring Cloud Gateway路由配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (8, 'Zuul网关路由', '/route-zuul/list', b'1', b'0', b'0', '', 6, 2, 'Zuul路由配置');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '服务管理', '', b'1', b'0', b'0', 'layui-icon-template-1', 0, 4, '服务管理');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '流量染色启动', '/service/list', b'1', b'0', b'0', '', 9, 1, '启动的时候把-Dmetadata.version加上去，类似于运维侧的功能');
@@ -175,26 +175,24 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (26, '限流中心', '', b'1', b'0', b'0', 'layui-icon-transfer', 0, 9, '限流中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (27, 'Sentinel', '/sentinel/list', b'1', b'0', b'0', '', 26, 1, 'Sentinel');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (28, 'Resilience4J', '/r4j/list', b'1', b'0', b'0', '', 26, 2, 'Resilience4J');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (29, 'Hystrix', '/hystrix/list', b'1', b'0', b'0', '', 26, 3, 'Hystrix');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (30, '日志中心', '', b'1', b'0', b'0', 'layui-icon-list', 0, 10, '日志中心');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (31, 'Kibana', '/kibana/list', b'1', b'0', b'0', '', 30, 1, 'Kibana');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (28, '日志中心', '', b'1', b'0', b'0', 'layui-icon-list', 0, 10, '日志中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (29, 'Kibana', '/kibana/list', b'1', b'0', b'0', '', 28, 1, 'Kibana');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (32, '告警中心', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警中心');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (33, '灰度蓝绿变更告警', '/blue-green-change-warning/list', b'1', b'0', b'0', '', 32, 1, '灰度蓝绿变更告警');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (34, '灰度蓝绿不一致告警', '/blue-green-warning/list', b'1', b'0', b'0', '', 32, 2, '灰度蓝绿不一致告警');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (35, '网关路由不一致告警', '/route-warning/list', b'1', b'0', b'0', '', 32, 3, '网关路由不一致告警');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (30, '告警中心', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (31, '灰度蓝绿变更告警', '/blue-green-change-warning/list', b'1', b'0', b'0', '', 30, 1, '灰度蓝绿变更告警');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (32, '灰度蓝绿不一致告警', '/blue-green-warning/list', b'1', b'0', b'0', '', 30, 2, '灰度蓝绿不一致告警');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (33, '网关路由不一致告警', '/route-warning/list', b'1', b'0', b'0', '', 30, 3, '网关路由不一致告警');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (36, '文档中心', '', b'1', b'0', b'0', 'layui-icon-read', 0, 12, '文档中心');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (37, 'Swagger文档', 'http://127.0.0.1:10010/doc.html', b'1', b'0', b'1', '', 36, 1, 'Swagger文档');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (34, '文档中心', '', b'1', b'0', b'0', 'layui-icon-read', 0, 12, '文档中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (35, 'Swagger文档', 'http://127.0.0.1:10010/doc.html', b'1', b'0', b'1', '', 34, 1, 'Swagger文档');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (38, '系统设置', '', b'1', b'0', b'0', 'layui-icon-set', 0, 13, '系统设置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (39, '页面配置', '/menu/list', b'1', b'0', b'0', '', 38, 1, '页面配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (36, '系统配置', '', b'1', b'0', b'0', 'layui-icon-set', 0, 13, '系统设置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (37, '页面配置', '/menu/list', b'1', b'0', b'0', '', 36, 1, '页面配置');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (40, '权限设置', '', b'1', b'0', b'0', 'layui-icon-password', 0, 14, '权限设置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (41, '管理员配置', '/admin/list', b'1', b'0', b'0', '', 40, 1, '管理员配置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (42, '角色管理', '/role/list', b'1', b'0', b'0', '', 40, 2, '角色管理');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (43, '权限管理', '/permission/list', b'1', b'0', b'0', '', 40, 3, '权限管理');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (38, '授权配置', '', b'1', b'0', b'0', 'layui-icon-password', 0, 14, '权限设置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (39, '管理员配置', '/admin/list', b'1', b'0', b'0', '', 38, 1, '管理员配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (40, '角色配置', '/role/list', b'1', b'0', b'0', '', 38, 2, '角色管理');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (41, '权限配置', '/permission/list', b'1', b'0', b'0', '', 38, 3, '权限管理');
 
 INSERT IGNORE INTO `sys_dic`(`id`, `name`, `value`, `description`) VALUES (1, 'super_admin', '', ' 超级管理员的登陆账号, 多个用逗号分隔');

@@ -58,6 +58,7 @@ public class ShiroAutoConfiguration {
         filterChainDefinitionMap.put(bean.getLoginUrl(), "anon"); // 登录页面
         filterChainDefinitionMap.put("/instances", "anon"); //
         filterChainDefinitionMap.put("/login", "anon"); // 登录页面
+        filterChainDefinitionMap.put("/error", "anon"); // 错误逻辑
         filterChainDefinitionMap.put("/logout", "anon"); // 登录逻辑
         filterChainDefinitionMap.put("/do-login", "anon"); // 登录逻辑
         filterChainDefinitionMap.put("/do-quit", "anon"); // 登出逻辑

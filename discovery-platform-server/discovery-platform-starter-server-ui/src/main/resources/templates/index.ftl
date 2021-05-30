@@ -61,9 +61,8 @@
                                         </a>
                                     <#else>
                                         <a href="javascript:"
-                                                <#if page.url!=''> lay-href="${ctx}${page.url}"</#if>
-                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>"
-                                           lay-direction="2"
+                                                <#if page.url!=''> lay-href="${ctx}${page.url}" </#if>
+                                           lay-tips="${page.description}" lay-direction="2"
                                                 <#if page.url==(admin.defaultPage)!'_blank'> class="layui-this"</#if>
                                         >
                                             <i class="layui-icon ${page.iconClass}"></i><cite>${page.name}</cite>

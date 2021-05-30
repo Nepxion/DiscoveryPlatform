@@ -142,7 +142,7 @@ INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (2, '研发人员', 0, '研发人员');
 
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1, 'DashBoard', '/dashboard/list', b'1', b'1', b'0', 'layui-icon-chart-screen', 0, 1, 'DashBoard');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1, 'DashBoard', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-chart-screen', 0, 1, 'DashBoard');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, 'Spring Cloud服务发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3, '蓝绿发布', '/blue-green/list', b'1', b'0', b'0', '', 2, 1, '蓝绿发布');

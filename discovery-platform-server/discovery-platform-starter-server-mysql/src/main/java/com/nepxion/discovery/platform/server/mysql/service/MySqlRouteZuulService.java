@@ -155,7 +155,7 @@ public class MySqlRouteZuulService extends ServiceImpl<MySqlRouteZuulMapper, Rou
             return;
         }
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
-            routeZuulDto.setRouteId(String.format("zl_%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
+            routeZuulDto.setRouteId(String.format("%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
         }
         routeZuulDto.setOperation(Operation.INSERT.getCode());
         routeZuulDto.setPublishFlag(false);

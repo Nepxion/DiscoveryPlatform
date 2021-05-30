@@ -167,7 +167,7 @@ public class MySqlRouteGatewayService extends ServiceImpl<MySqlRouteGatewayMappe
             return;
         }
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
-            routeGatewayDto.setRouteId(String.format("gw_%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
+            routeGatewayDto.setRouteId(String.format("%s_%s", DateTool.getSequence(), UUID.randomUUID().toString().replaceAll("-", StringUtils.EMPTY)));
         }
         routeGatewayDto.setOperation(Operation.INSERT.getCode());
         routeGatewayDto.setPublishFlag(false);

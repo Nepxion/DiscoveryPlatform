@@ -63,7 +63,7 @@
                         </div>
                         <div class="layui-tab-item">
                              <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
-                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;Path={"_genkey_0":"/a/**", "_genkey_1":"/b/**"}&#13;Authentication={"secretKey":"abc"}&#13;Cookie={"name":"color","regexp":"blue"}'
+                                       placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;Authentication={"secretKey":"access token"}&#13;Cookie={"name":"color","regexp":"blue"}'
                                        style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="layui-tab-item">
                                    <textarea id="userFilters" name="userFilters" class="layui-input" autocomplete="off"
-                                             placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;StripPrefix={"_genkey_0":"1"}&#13;Authentication={"secretKey":"access token"}'
+                                             placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;Authentication={"secretKey":"access token"}'
                                              style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
                         </div>
                     </div>

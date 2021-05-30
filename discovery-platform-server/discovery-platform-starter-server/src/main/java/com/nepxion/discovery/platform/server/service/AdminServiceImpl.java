@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -37,9 +37,6 @@ import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
-import com.nepxion.discovery.platform.server.service.AdminService;
-import com.nepxion.discovery.platform.server.service.DicService;
-import com.nepxion.discovery.platform.server.service.RoleService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {

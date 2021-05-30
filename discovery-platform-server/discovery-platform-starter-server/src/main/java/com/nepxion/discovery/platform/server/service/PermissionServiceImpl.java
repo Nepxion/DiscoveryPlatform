@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -22,7 +22,6 @@ import com.nepxion.discovery.platform.server.entity.dto.SysMenuDto;
 import com.nepxion.discovery.platform.server.entity.dto.SysPermissionDto;
 import com.nepxion.discovery.platform.server.entity.vo.PermissionVo;
 import com.nepxion.discovery.platform.server.mapper.PermissionMapper;
-import com.nepxion.discovery.platform.server.service.PermissionService;
 
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, SysPermissionDto> implements PermissionService {
     @TransactionReader

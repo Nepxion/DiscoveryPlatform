@@ -38,14 +38,14 @@ import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
-import com.nepxion.discovery.platform.server.service.impl.AdminServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.DicServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.MenuServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.PermissionServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.RoleServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.RouteGatewayServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.RouteServiceImpl;
-import com.nepxion.discovery.platform.server.service.impl.RouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.DicServiceImpl;
+import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
+import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
+import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration

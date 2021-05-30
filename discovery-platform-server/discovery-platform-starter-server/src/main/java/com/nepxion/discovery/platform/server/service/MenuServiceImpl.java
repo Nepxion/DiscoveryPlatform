@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service.impl;
+package com.nepxion.discovery.platform.server.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -34,7 +34,6 @@ import com.nepxion.discovery.platform.server.entity.po.MenuPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.MenuVo;
 import com.nepxion.discovery.platform.server.mapper.MenuMapper;
-import com.nepxion.discovery.platform.server.service.MenuService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, SysMenuDto> implements MenuService {

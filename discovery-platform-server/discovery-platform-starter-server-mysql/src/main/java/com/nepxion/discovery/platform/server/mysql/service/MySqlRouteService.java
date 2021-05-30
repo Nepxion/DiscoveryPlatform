@@ -20,7 +20,6 @@ import com.nepxion.discovery.platform.server.tool.DateTool;
 import com.nepxion.discovery.platform.server.tool.MybatisPlusTool;
 
 public class MySqlRouteService {
-
     @Autowired
     private MySqlRouteMapper mySqlRouteMapper;
 
@@ -35,5 +34,4 @@ public class MySqlRouteService {
     public String getRouteId(String prefix, Integer nextMaxCreateTimesInDay) {
         return String.format("%s_%s_%s", prefix, DateTool.getDataSequence(), StringUtils.leftPad(String.valueOf(nextMaxCreateTimesInDay), 3, "0"));
     }
-
 }

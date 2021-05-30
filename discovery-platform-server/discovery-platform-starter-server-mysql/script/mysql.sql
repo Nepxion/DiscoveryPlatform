@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `sys_admin`
 (
     `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `login_mode`                INT UNSIGNED                    NOT NULL COMMENT '角色类型(1:DB 2:LDAP)',
+    `login_mode`                INT UNSIGNED                    NOT NULL COMMENT '登录类型(1:database 2:ldap)',
     `sys_role_id`               BIGINT UNSIGNED                 NOT NULL COMMENT '角色id(sys_role表的主键)',
     `username`                  VARCHAR(64)                     NOT NULL COMMENT '管理员的登陆用户名',
     `password`                  VARCHAR(128)                    NOT NULL COMMENT '管理员的登陆密码',

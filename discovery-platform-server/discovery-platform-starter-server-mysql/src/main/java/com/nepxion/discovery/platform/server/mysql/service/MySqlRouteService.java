@@ -33,7 +33,7 @@ public class MySqlRouteService {
     }
 
     public String getRouteId(String prefix, Integer nextMaxCreateTimesInDay) {
-        return String.format("%s_%s_%s", prefix, DateTool.getDataSequence(), StringUtils.leftPad(String.valueOf(nextMaxCreateTimesInDay), 5, "0"));
+        return String.format("%s_%s_%s", prefix, DateTool.getDataSequence(), StringUtils.leftPad(String.valueOf(nextMaxCreateTimesInDay), 3, "0"));
     }
 
 }

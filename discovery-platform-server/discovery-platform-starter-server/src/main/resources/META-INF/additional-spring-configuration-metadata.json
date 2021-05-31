@@ -17,6 +17,18 @@
       "type": "java.lang.String",
       "defaultValue": "Discovery Platform",
       "description": "The short name of platform server."
+    },
+    {
+      "name": "platform.server.init-script-path",
+      "type": "java.lang.String",
+      "defaultValue": "META-INF/schema.sql",
+      "description": "The datasource init script path."
+    },
+    {
+      "name": "platform.server.init-script-enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "The datasource init script enabled."
     }
   ]
 }

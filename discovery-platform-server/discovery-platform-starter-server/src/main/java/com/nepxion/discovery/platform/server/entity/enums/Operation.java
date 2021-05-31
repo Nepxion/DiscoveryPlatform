@@ -19,6 +19,11 @@ public enum Operation {
     private int code;
     private String name;
 
+    Operation(int code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     public int getCode() {
         return code;
     }
@@ -27,13 +32,7 @@ public enum Operation {
         return name;
     }
 
-    Operation(int code,
-              String name) {
-        this.code = code;
-        this.name = name;
-    }
-
-    public static Operation get(Integer code) {
+    public static Operation get(int code) {
         for (Operation item : Operation.values()) {
             if (item.getCode() == code) {
                 return item;

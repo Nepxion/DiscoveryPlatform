@@ -27,7 +27,6 @@ public class PlatformMySqlTool {
     private static final Logger LOG = LoggerFactory.getLogger(PlatformMySqlTool.class);
 
     private static final String DATA_BASE_URL = "jdbc:mysql://%s/%s?allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&useUnicode=true&autoReconnect=true&allowMultiQueries=true&useSSL=false&rewriteBatchedStatements=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
-    private static final String ZIPKIN_MYSQL8_INTERCEPTOR = "queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=%s";
     private static final String CONNECTION_TEST_QUERY = "SELECT 1";
     private static final String CONNECTION_INIT_SQL = "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci";
     private static final int MIN_IDLE = 10;
@@ -69,17 +68,6 @@ public class PlatformMySqlTool {
 
     public static DataSource createHikariDataSource(String host, String port, String databaseName, String userName, String password) {
         return createHikariDataSource(null, host, port, databaseName, userName, password, MIN_IDLE, MAXIMUM, null);
-    }
-
-    public static Parameter registerZipkinForMySql8(Parameter parameter) {
-        String name = StringUtils.isEmpty(parameter.getPoolName()) ? parameter.getDatabaseName() : parameter.getPoolName();
-        if (StringUtils.isEmpty(name)) {
-            name = Thread.currentThread().getName();
-        }
-        String zipkinServiceName = String.format("MYSQL_%s", name).toUpperCase();
-        String suffix = String.format(ZIPKIN_MYSQL8_INTERCEPTOR, zipkinServiceName);
-        parameter.setUrl(parameter.getUrl().concat(String.format("&%s", suffix)));
-        return parameter;
     }
 
     public static void close(DataSource dataSource) {

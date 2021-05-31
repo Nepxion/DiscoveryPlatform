@@ -25,7 +25,7 @@ import com.taobao.text.Color;
 @Configuration
 public class PlatformH2AutoConfiguration {
     static {
-        LogoBanner logoBanner = new LogoBanner(PlatformH2AutoConfiguration.class, "/com/nepxion/h2/resource/logo.txt", "Welcome to Nepxion", 9, 5, new Color[] { Color.red, Color.green }, true);
+        LogoBanner logoBanner = new LogoBanner(PlatformH2AutoConfiguration.class, "/com/nepxion/h2/resource/logo.txt", "Welcome to Nepxion", 2, 5, new Color[] { Color.red, Color.green }, true);
         NepxionBanner.show(logoBanner, new Description("Plugin:", PlatformH2Constant.H2_TYPE, 0, 1), new Description(BannerConstant.GITHUB + ":", BannerConstant.NEPXION_GITHUB + "/Discovery", 0, 1));
     }
 

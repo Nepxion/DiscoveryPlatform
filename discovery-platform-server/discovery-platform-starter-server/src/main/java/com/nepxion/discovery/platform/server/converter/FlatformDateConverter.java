@@ -16,8 +16,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.nepxion.discovery.platform.server.tool.DateTool;
 
-public class CustomDateConverter implements Converter<String, Date> {
-
+public class FlatformDateConverter implements Converter<String, Date> {
     @Override
     public Date convert(String value) {
         return DateTool.parse(value);

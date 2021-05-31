@@ -26,9 +26,7 @@ public class PlatformLdapApplicationContextInitializer implements ApplicationCon
             @Override
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
                 if (bean instanceof AdminService) {
-                    return new LdapAdminService(
-                            applicationContext.getBean(LdapService.class),
-                            (AdminService) bean);
+                    return new LdapAdminService(applicationContext.getBean(LdapService.class), (AdminService) bean);
                 }
                 return super.postProcessAfterInitialization(bean, beanName);
             }

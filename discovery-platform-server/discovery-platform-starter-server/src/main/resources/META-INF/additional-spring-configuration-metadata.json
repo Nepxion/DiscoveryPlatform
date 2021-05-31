@@ -29,6 +29,12 @@
       "type": "java.lang.Boolean",
       "defaultValue": false,
       "description": "The datasource init script enabled."
+    },
+    {
+      "name": "platform.server.init-script-logger",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "The datasource init script logger."
     }
   ]
 }

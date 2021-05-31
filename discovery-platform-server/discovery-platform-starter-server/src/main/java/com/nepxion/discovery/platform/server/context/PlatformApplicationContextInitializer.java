@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
@@ -67,26 +66,31 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
     }
 
     private void initializeScript(DataSourceProperties dataSourceProperties, PlatformServerProperties platformServerProperties) {
-        String jdbcUrl = StringUtils.replace(dataSourceProperties.getUrl(), "/platform?", "?");
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(dataSourceProperties.getUrl(), dataSourceProperties.getUsername(), dataSourceProperties.getPassword());
 
             ScriptRunner scriptRunner = new ScriptRunner(connection);
-            scriptRunner.setLogWriter(null);
+            if (!platformServerProperties.isInitScriptLogger()) {
+                scriptRunner.setLogWriter(null);
+            }
 
             String initScriptPath = platformServerProperties.getInitScriptPath();
 
             Resources.setCharset(StandardCharsets.UTF_8);
             Reader reader = Resources.getResourceAsReader(initScriptPath);
 
-            LOG.info("Execute platform database script path: {}", initScriptPath);
+            LOG.info("----- Initialize Platform Script Information -----");
+
+            LOG.info("Execute platform script path: {}", initScriptPath);
 
             scriptRunner.runScript(reader);
+
+            LOG.info("--------------------------------------------------");
         } catch (SQLException e) {
             LOG.error("Failed to get Connection", e);
         } catch (IOException e) {
-            LOG.error("Failed to get database script", e);
+            LOG.error("Failed to get script", e);
         } catch (Exception e) {
             LOG.error("Failed to initialize database script", e);
         } finally {

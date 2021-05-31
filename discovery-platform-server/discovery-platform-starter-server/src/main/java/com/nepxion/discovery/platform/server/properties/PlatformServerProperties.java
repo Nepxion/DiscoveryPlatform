@@ -20,6 +20,7 @@ public class PlatformServerProperties {
 
     private String initScriptPath = "META-INF/schema.sql";
     private boolean initScriptEnabled = false;
+    private boolean initScriptLogger = false;
 
     public String getTitle() {
         return title;
@@ -59,5 +60,13 @@ public class PlatformServerProperties {
 
     public void setInitScriptEnabled(boolean initScriptEnabled) {
         this.initScriptEnabled = initScriptEnabled;
+    }
+
+    public boolean isInitScriptLogger() {
+        return initScriptLogger;
+    }
+
+    public void setInitScriptLogger(boolean initScriptLogger) {
+        this.initScriptLogger = initScriptLogger;
     }
 }

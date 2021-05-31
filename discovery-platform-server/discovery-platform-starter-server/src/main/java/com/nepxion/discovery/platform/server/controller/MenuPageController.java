@@ -22,7 +22,6 @@ import com.nepxion.discovery.platform.server.service.MenuService;
 @Controller
 @RequestMapping(MenuController.PREFIX)
 public class MenuPageController {
-
     @Autowired
     private MenuService menuService;
 

@@ -61,11 +61,6 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         }
     }
 
-    @Override
-    public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
-    }
-
     private void addDefaultConfig(ConfigurableEnvironment configurableEnvironment, Properties properties, String name, Object value) {
         try {
             String oldProperty = configurableEnvironment.getProperty(name);
@@ -75,5 +70,10 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         } catch (IllegalArgumentException exception) {
             LOG.error(ExceptionTool.getRootCauseMessage(exception), exception);
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }

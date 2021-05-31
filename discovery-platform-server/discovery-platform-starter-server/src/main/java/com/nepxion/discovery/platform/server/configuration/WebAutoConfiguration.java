@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.nepxion.discovery.platform.server.converter.FlatformDateConverter;
+import com.nepxion.discovery.platform.server.converter.PlatformDateConverter;
 import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
 import com.nepxion.discovery.platform.server.resolver.LoginArgumentResolver;
 
@@ -83,7 +83,7 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new FlatformDateConverter());
+        registry.addConverter(new PlatformDateConverter());
         super.addFormatters(registry);
     }
 

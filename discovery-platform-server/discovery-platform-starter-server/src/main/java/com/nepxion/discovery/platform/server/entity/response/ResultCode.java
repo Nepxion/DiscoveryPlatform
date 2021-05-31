@@ -22,27 +22,25 @@ public enum ResultCode {
     DATABASE_EXCEPTION(100013L, false, "数据库访问异常(数据库异常)");
 
     private Long code;
-    private String description;
     private Boolean success;
+    private String description;
+
+    ResultCode(Long code, Boolean success, String description) {
+        this.code = code;
+        this.success = success;
+        this.description = description;
+    }
 
     public Long getCode() {
         return code;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public Boolean getSuccess() {
         return success;
     }
 
-    ResultCode(long code,
-               Boolean success,
-               String description) {
-        this.code = code;
-        this.success = success;
-        this.description = description;
+    public String getDescription() {
+        return description;
     }
 
     public static ResultCode get(Long code) {

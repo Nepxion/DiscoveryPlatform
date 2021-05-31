@@ -115,7 +115,6 @@ public class LdapAdminService implements AdminService {
         return adminService.list(loginMode, name, pageNum, pageSize);
     }
 
-
     @Override
     public List<SysAdminDto> getByRoleId(Long roleId) throws Exception {
         return adminService.getByRoleId(roleId);

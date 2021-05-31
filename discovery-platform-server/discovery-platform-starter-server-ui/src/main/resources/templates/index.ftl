@@ -19,10 +19,14 @@
                             <i class="layui-icon layui-icon-refresh-3"></i>
                         </a>
                     </li>
-                    <li class="layui-nav-item" lay-unselect>
-                        <a href="javascript:void(0)" style="cursor: default">
-                            <span>Nepxion 云原生集成管理平台</span>
+                    <li class="layui-nav-item" style="width: 40px" lay-unselect>
+                        <a href="javascript:" title="文档">
+                            <i class="layui-icon layui-icon-template-1"></i>
                         </a>
+                        <dl class="layui-nav-child" style="text-align: center;width: 120px">
+                            <dd><a href="http://nepxion.com/discovery" target="_blank">解决方案</a></dd>
+                            <dd><a href="http://nepxion.com/polaris" target="_blank">操作手册</a></dd>
+                        </dl>
                     </li>
                 </ul>
                 <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
@@ -31,7 +35,7 @@
                             <i class="layui-icon layui-icon-screen-full"></i>
                         </a>
                     </li>
-                    <li class="layui-nav-item" style="margin-right: 10px" lay-unselect>
+                    <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
                         <a href="javascript:">
                             <cite>${admin.name}</cite>
                         </a>
@@ -39,7 +43,7 @@
                             <dd><a lay-href="${ctx}/info">基本资料</a></dd>
                             <dd><a lay-href="${ctx}/password">修改密码</a></dd>
                             <hr>
-                            <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                            <dd layadmin-event="logout" style=""><a>退出</a></dd>
                         </dl>
                     </li>
                 </ul>

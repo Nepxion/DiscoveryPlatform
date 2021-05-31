@@ -69,12 +69,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-jwt</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-ldap</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -82,12 +76,6 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-mysql</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-shiro</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

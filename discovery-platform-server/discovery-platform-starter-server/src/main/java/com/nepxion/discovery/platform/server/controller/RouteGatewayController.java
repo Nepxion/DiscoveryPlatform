@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(RouteGatewayController.PREFIX)
 public class RouteGatewayController {
-    public static final String PREFIX = "routegateway";
+    public static final String PREFIX = "route-gateway";
 
     @Autowired
     private ServiceResource serviceResource;
@@ -92,8 +92,8 @@ public class RouteGatewayController {
     }
 
     @ApiOperation(value = "添加Spring Cloud Gateway网关的路由")
-    @PostMapping("do-add")
-    public Result<?> doAdd(RouteGatewayDto routeGateway) {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(RouteGatewayDto routeGateway) {
         routeGatewayService.insert(routeGateway);
         return Result.ok();
     }

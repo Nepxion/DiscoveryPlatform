@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(RouteZuulController.PREFIX)
 public class RouteZuulController {
-    public static final String PREFIX = "routezuul";
+    public static final String PREFIX = "route-zuul";
 
     @Autowired
     private ServiceResource serviceResource;
@@ -89,8 +89,8 @@ public class RouteZuulController {
     }
 
     @ApiOperation(value = "添加Zuul网关的路由")
-    @PostMapping("do-add")
-    public Result<?> doAdd(RouteZuulDto routeZuulDto) {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(RouteZuulDto routeZuulDto) {
         routeZuulService.insert(routeZuulDto);
         return Result.ok();
     }

@@ -20,7 +20,9 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 public class DateTool {
-    private static final DateFormat SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    private static final DateFormat DATA_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    private static final DateFormat TIME_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+
     private static final List<DateFormat> DATE_FORMAT_LIST = Arrays.asList(
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"),
             new SimpleDateFormat("yyyy-MM-dd hh:mm"),
@@ -56,8 +58,11 @@ public class DateTool {
         return result;
     }
 
-    public static String getSequence() {
-        return SEQUENCE_FORMAT.format(new Date());
+    public static String getDataSequence() {
+        return DATA_SEQUENCE_FORMAT.format(new Date());
     }
 
+    public static String getTimeSequence() {
+        return TIME_SEQUENCE_FORMAT.format(new Date());
+    }
 }

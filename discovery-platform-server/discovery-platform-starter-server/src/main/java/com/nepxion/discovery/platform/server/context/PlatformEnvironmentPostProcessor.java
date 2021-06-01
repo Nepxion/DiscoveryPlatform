@@ -38,7 +38,7 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         }
 
         Properties properties = new Properties();
-
+        addDefaultConfig(configurableEnvironment, properties, "spring.messages.encoding", "UTF-8");
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.allow-request-override", true);
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.check-template-location", true);
         addDefaultConfig(configurableEnvironment, properties, "spring.freemarker.suffix", ".ftl");
@@ -61,11 +61,6 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         }
     }
 
-    @Override
-    public int getOrder() {
-        return Ordered.HIGHEST_PRECEDENCE;
-    }
-
     private void addDefaultConfig(ConfigurableEnvironment configurableEnvironment, Properties properties, String name, Object value) {
         try {
             String oldProperty = configurableEnvironment.getProperty(name);
@@ -75,5 +70,10 @@ public class PlatformEnvironmentPostProcessor implements EnvironmentPostProcesso
         } catch (IllegalArgumentException exception) {
             LOG.error(ExceptionTool.getRootCauseMessage(exception), exception);
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }

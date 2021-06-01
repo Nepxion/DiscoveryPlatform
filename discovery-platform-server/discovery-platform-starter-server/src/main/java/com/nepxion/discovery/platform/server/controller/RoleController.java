@@ -52,8 +52,8 @@ public class RoleController {
     }
 
     @ApiOperation(value = "添加角色")
-    @PostMapping("do-add")
-    public Result<?> doAdd(SysRoleDto sysRoleDto) throws Exception {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(SysRoleDto sysRoleDto) throws Exception {
         roleService.insert(sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getDescription());
         return Result.ok();
     }

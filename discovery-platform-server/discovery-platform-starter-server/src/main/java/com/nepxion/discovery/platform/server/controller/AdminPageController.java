@@ -26,7 +26,6 @@ import com.nepxion.discovery.platform.server.service.RoleService;
 @Controller
 @RequestMapping(AdminController.PREFIX)
 public class AdminPageController {
-
     @Autowired
     private AdminService adminService;
 

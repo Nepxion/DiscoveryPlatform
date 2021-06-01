@@ -19,13 +19,9 @@
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
 
-        <mysql.connector.version>8.0.25</mysql.connector.version>
         <mybatis.plus.version>3.4.3</mybatis.plus.version>
-        <hikaricp.version>4.0.3</hikaricp.version>
         <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>
-        <unirest.version>3.11.11</unirest.version>
-        <commons.codec.version>1.15</commons.codec.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -73,12 +69,6 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-jwt</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-ldap</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -91,32 +81,14 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-platform-starter-server-shiro</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-platform-starter-server-ui</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.connector.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.zaxxer</groupId>
-                <artifactId>HikariCP</artifactId>
-                <version>${hikaricp.version}</version>
             </dependency>
 
             <dependency>
@@ -141,18 +113,6 @@
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-web</artifactId>
                 <version>${shiro.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.konghq</groupId>
-                <artifactId>unirest-java</artifactId>
-                <version>${unirest.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${commons.codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

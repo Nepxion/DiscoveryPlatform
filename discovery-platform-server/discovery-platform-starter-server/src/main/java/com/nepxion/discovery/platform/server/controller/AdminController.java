@@ -68,8 +68,8 @@ public class AdminController {
     }
 
     @ApiOperation(value = "添加管理员")
-    @PostMapping("do-add")
-    public Result<?> doAdd(AdminPo adminPo) throws Exception {
+    @PostMapping("do-insert")
+    public Result<?> doInsert(AdminPo adminPo) throws Exception {
         adminService.insert(loginAdapter.getLoginMode(), adminPo);
         return Result.ok();
     }

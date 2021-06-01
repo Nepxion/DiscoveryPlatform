@@ -29,7 +29,7 @@ public interface RouteZuulService {
 
     void update(RouteZuulDto routeZuulDto);
 
-    void enable(Long id, boolean enabled);
+    void enable(Long id, boolean enableFlag);
 
     void logicDelete(Collection<Long> ids);
 

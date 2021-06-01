@@ -19,10 +19,14 @@
                             <i class="layui-icon layui-icon-refresh-3"></i>
                         </a>
                     </li>
-                    <li class="layui-nav-item" lay-unselect>
-                        <a href="javascript:void(0)" style="cursor: default">
-                            <span>当前版本:&nbsp;${version}</span>
+                    <li class="layui-nav-item" style="width: 40px" lay-unselect>
+                        <a href="javascript:" title="文档">
+                            <i class="layui-icon layui-icon-template-1"></i>
                         </a>
+                        <dl class="layui-nav-child" style="text-align: center;width: 120px">
+                            <dd><a href="http://nepxion.com/discovery" target="_blank">解决方案</a></dd>
+                            <dd><a href="http://nepxion.com/polaris" target="_blank">操作手册</a></dd>
+                        </dl>
                     </li>
                 </ul>
                 <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
@@ -31,7 +35,7 @@
                             <i class="layui-icon layui-icon-screen-full"></i>
                         </a>
                     </li>
-                    <li class="layui-nav-item" style="margin-right: 10px" lay-unselect>
+                    <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
                         <a href="javascript:">
                             <cite>${admin.name}</cite>
                         </a>
@@ -39,7 +43,7 @@
                             <dd><a lay-href="${ctx}/info">基本资料</a></dd>
                             <dd><a lay-href="${ctx}/password">修改密码</a></dd>
                             <hr>
-                            <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+                            <dd layadmin-event="logout" style=""><a>退出</a></dd>
                         </dl>
                     </li>
                 </ul>
@@ -56,15 +60,13 @@
                             <#list admin.permissions as page>
                                 <li data-name="config" class="layui-nav-item <#if page_index==0>layui-nav-itemed</#if>">
                                     <#if page.blankFlag>
-                                        <a href="${ctx}${page.url}" target="_blank" lay-direction="2"
-                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>">
+                                        <a href="${ctx}${page.url}" target="_blank" lay-direction="2" lay-tips="${page.description}">
                                             <i class="layui-icon ${page.iconClass}"></i><cite>${page.name}</cite>
                                         </a>
                                     <#else>
                                         <a href="javascript:"
-                                                <#if page.url!=''> lay-href="${ctx}${page.url}"</#if>
-                                           lay-tips="<#if page.description!=''>${page.description}<#else>${page.name}</#if>"
-                                           lay-direction="2"
+                                                <#if page.url!=''> lay-href="${ctx}${page.url}" </#if>
+                                           lay-tips="${page.description}" lay-direction="2"
                                                 <#if page.url==(admin.defaultPage)!'_blank'> class="layui-this"</#if>
                                         >
                                             <i class="layui-icon ${page.iconClass}"></i><cite>${page.name}</cite>
@@ -84,7 +86,11 @@
                                                 </dd>
                                             <#else>
                                                 <dd>
-                                                    <a lay-href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    <#if child.blankFlag>
+                                                        <a href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    <#else>
+                                                        <a lay-href="${ctx}${child.url}" target="_blank">${child.name}</a>
+                                                    </#if>
                                                 </dd>
                                             </#if>
                                         </dl>

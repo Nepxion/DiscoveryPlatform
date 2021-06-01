@@ -18,7 +18,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 
 public class RouteGatewayVo implements Serializable {
@@ -71,25 +70,11 @@ public class RouteGatewayVo implements Serializable {
         private static final long serialVersionUID = 2600817965821067952L;
 
         public String getUserPredicatesJson() {
-            return getUserJson(getUserPredicates());
+            return toClausesJson(getUserPredicates());
         }
 
         public String getUserFiltersJson() {
-            return getUserJson(getUserFilters());
-        }
-
-        private <T extends Clause> String getUserJson(List<T> clauseList) {
-            StringBuilder userFilterStringBuilder = new StringBuilder();
-
-            for (Clause clause : clauseList) {
-                userFilterStringBuilder.append(String.format("%s=%s, ", clause.getName(), JsonUtil.toJson(clause.getArgs())));
-            }
-
-            if (userFilterStringBuilder.length() > 0) {
-                userFilterStringBuilder.delete(userFilterStringBuilder.length() - 2, userFilterStringBuilder.length());
-            }
-
-            return userFilterStringBuilder.toString();
+            return toClausesJson(getUserFilters());
         }
     }
 }

@@ -22,8 +22,8 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label"><a href="https://www.layui.com/doc/element/icon.html" target="_blank"
-                                           title="点击可查看菜单图标帮助文档"><i>菜单图标</i></a></label>
+        <label class="layui-form-label">
+            <a href="https://www.layui.com/doc/element/icon.html" target="_blank" title="点击可查看菜单图标帮助文档"><i>菜单图标</i></a></label>
         <div class="layui-input-inline" style="width:250px">
             <input value="${menu.iconClass}" placeholder="请填写菜单图标" type="text" name="iconClass" autocomplete="off"
                    class="layui-input">
@@ -35,7 +35,7 @@
             <select name="parentId" lay-verify="" style="z-index: 99999">
                 <option value="0"> - 请选择顶级菜单 -</option>
                 <#list menus as m>
-                    <option value="${m.id}" <#if m.id==menu.parentId>selected="selected"</#if>>${menu.name}</option>
+                    <option value="${m.id}" <#if m.id==menu.parentId>selected="selected"</#if>>${m.name}</option>
                 </#list>
             </select>
         </div>

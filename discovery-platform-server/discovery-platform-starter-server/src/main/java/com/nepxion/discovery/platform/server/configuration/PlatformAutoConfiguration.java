@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,8 @@ import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
+import com.nepxion.discovery.platform.server.controller.DashboardController;
+import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
 import com.nepxion.discovery.platform.server.controller.IndexPageController;
 import com.nepxion.discovery.platform.server.controller.MenuController;
@@ -33,12 +36,22 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulController;
 import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
+import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.DicServiceImpl;
+import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
+import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
+import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
 @EnableConfigurationProperties({ PlatformServerProperties.class })
+@MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {
@@ -49,6 +62,12 @@ public class PlatformAutoConfiguration {
     public ModelAdvice modelAdvice() {
         return new ModelAdvice();
     }
+
+    @Bean
+    public DashboardPageController dashboardPageController() {
+        return new DashboardPageController();
+    }
+
 
     @Bean
     public AdminPageController adminPageController() {
@@ -86,6 +105,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public DashboardController dashboardController() {
+        return new DashboardController();
+    }
+
+    @Bean
     public AdminController adminController() {
         return new AdminController();
     }
@@ -118,6 +142,46 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulController routeZuulController() {
         return new RouteZuulController();
+    }
+
+    @Bean
+    public AdminServiceImpl adminService() {
+        return new AdminServiceImpl();
+    }
+
+    @Bean
+    public DicServiceImpl dicService() {
+        return new DicServiceImpl();
+    }
+
+    @Bean
+    public MenuServiceImpl menuService() {
+        return new MenuServiceImpl();
+    }
+
+    @Bean
+    public PermissionServiceImpl permissionService() {
+        return new PermissionServiceImpl();
+    }
+
+    @Bean
+    public RoleServiceImpl roleService() {
+        return new RoleServiceImpl();
+    }
+
+    @Bean
+    public RouteServiceImpl routeService() {
+        return new RouteServiceImpl();
+    }
+
+    @Bean
+    public RouteGatewayServiceImpl routeGatewayService() {
+        return new RouteGatewayServiceImpl();
+    }
+
+    @Bean
+    public RouteZuulServiceImpl routeZuulService() {
+        return new RouteZuulServiceImpl();
     }
 
     @Bean

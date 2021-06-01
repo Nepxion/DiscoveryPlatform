@@ -17,6 +17,11 @@ public enum LoginMode {
     private int code;
     private String name;
 
+    LoginMode(int code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     public int getCode() {
         return code;
     }
@@ -25,13 +30,7 @@ public enum LoginMode {
         return name;
     }
 
-    LoginMode(int code,
-              String name) {
-        this.code = code;
-        this.name = name;
-    }
-
-    public static LoginMode get(Integer code) {
+    public static LoginMode get(int code) {
         for (LoginMode item : LoginMode.values()) {
             if (item.getCode() == code) {
                 return item;

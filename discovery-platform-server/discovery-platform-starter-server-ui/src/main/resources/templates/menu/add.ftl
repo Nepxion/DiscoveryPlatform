@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label"><a href="https://www.layui.com/doc/element/icon.html" target="_blank"
-                                           title="点击可查看菜单图标帮助文档"><i>菜单图标</i></a></label>
+        <label class="layui-form-label">
+            <a href="https://www.layui.com/doc/element/icon.html" target="_blank" title="点击可查看菜单图标帮助文档"><i>菜单图标</i></a></label>
         <div class="layui-input-inline" style="width:250px">
             <input type="text" name="iconClass" placeholder="请填写菜单图标" autocomplete="off" class="layui-input">
         </div>

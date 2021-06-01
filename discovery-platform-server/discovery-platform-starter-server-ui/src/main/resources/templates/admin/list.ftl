@@ -110,7 +110,7 @@
                                     });
                                     return;
                                 }
-                                admin.post('do-add', field, function () {
+                                admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

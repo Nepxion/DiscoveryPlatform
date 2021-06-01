@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nepxion.discovery.platform.server.mapper.MenuMapper">
+
+    <select id="list" resultType="com.nepxion.discovery.platform.server.entity.vo.MenuVo">
+        SELECT `menu`.`id`,
+        `menu`.`name`,
+        `menu`.`url`,
+        `menu`.`show_flag`,
+        `menu`.`default_flag`,
+        `menu`.`blank_flag`,
+        `menu`.`icon_class`,
+        `menu`.`parent_id`,
+        `parent`.`name` AS `parent_name`,
+        `menu`.`order`,
+        `menu`.`description`
+        FROM `sys_menu` `menu`
+        LEFT OUTER JOIN `sys_menu` `parent` ON `menu`.`parent_id` = `parent`.`id`
+        <where>
+            <if test="name!=null and name!=''">
+                `menu`.`name` LIKE CONCAT('%', #{name}, '%')
+            </if>
+        </where>
+        ORDER BY `menu`.`parent_id` ASC, `menu`.`order` ASC
+    </select>
+
+    <select id="getMaxOrder" resultType="java.lang.Long">
+        SELECT IFNULL(MAX(`order`), 0)
+        FROM `sys_menu`
+        WHERE `parent_id` = #{parentId}
+    </select>
+
+    <select id="listPermissionMenus" resultType="com.nepxion.discovery.platform.server.entity.vo.MenuVo">
+        SELECT `menu`.`id`,
+               `menu`.`name`,
+               `menu`.`url`,
+               `menu`.`show_flag`,
+               `menu`.`default_flag`,
+               `menu`.`icon_class`,
+               `menu`.`parent_id`,
+               `parent`.`name` AS `parent_name`,
+               `menu`.`order`,
+               `menu`.`description`,
+               `p`.`can_insert`,
+               `p`.`can_delete`,
+               `p`.`can_update`,
+               `p`.`can_select`
+        FROM `sys_menu` `menu`
+                 LEFT OUTER JOIN `sys_permission` `p` ON `menu`.`id` = `p`.`sys_menu_id`
+                 LEFT OUTER JOIN `sys_role` `r` ON `r`.`id` = `p`.`sys_role_id`
+                 LEFT OUTER JOIN `sys_admin` `a` ON `a`.`sys_role_id` = `r`.`id`
+                 LEFT OUTER JOIN `sys_menu` `parent` ON `menu`.`parent_id` = `parent`.`id`
+        WHERE `a`.`id` = #{adminId}
+    </select>
+</mapper>

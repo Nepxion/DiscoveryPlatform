@@ -94,7 +94,7 @@
                 },
                 {field: 'description', title: '描述信息'}
                 <@select>
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 80}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                 </@select>
             ]]
         });
@@ -126,7 +126,7 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                admin.post('do-add', field, function () {
+                                admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

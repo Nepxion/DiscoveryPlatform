@@ -171,7 +171,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
                                 console.log(field);
-                                admin.post('do-add', field, function () {
+                                admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     layer.close(index);
                                 }, function (result) {

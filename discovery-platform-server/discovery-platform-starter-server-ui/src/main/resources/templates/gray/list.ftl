@@ -115,7 +115,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增调用分支',
                         content: 'toadd',
-                        area: ['1200px', '820px'],
+                        area: ['100%', '100%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -174,7 +174,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-rss" style="color: #1E9FFF;"></i>&nbsp;测试灰度调用链路',
                         content: 'toglobalinspect',
-                        area: ['960px', '750px'],
+                        area: ['80%', '100%'],
                         btn: ['取消'],
                         closeBtn: 0,
                         resize: false
@@ -225,7 +225,7 @@
                             type: 2,
                             title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑调用分支',
                             content: 'toedit',
-                            area: ['1200px', '820px'],
+                            area: ['100%', '100%'],
                             btn: admin.BUTTONS,
                             resize: false,
                             yes: function (index, layero) {

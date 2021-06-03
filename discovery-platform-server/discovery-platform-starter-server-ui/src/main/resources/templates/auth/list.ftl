@@ -93,7 +93,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增权限',
                         content: 'toadd?appId=' + appId,
-                        area: ['1200px', '98%'],
+                        area: ['1200px', '700px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {

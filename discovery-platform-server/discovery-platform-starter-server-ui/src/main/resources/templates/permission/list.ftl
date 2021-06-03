@@ -162,7 +162,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加权限',
                         content: 'add',
-                        area: ['450px', '98%'],
+                        area: ['450px', '445px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {

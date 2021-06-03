@@ -205,7 +205,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-rss" style="color: #1E9FFF;"></i>&nbsp;测试调用链路',
                         content: 'toinspect?data=' + escape(JSON.stringify(service)),
-                        area: ['960px', '98%'],
+                        area: ['960px', '700px'],
                         btn: ['取消'],
                         closeBtn: 0,
                         resize: false

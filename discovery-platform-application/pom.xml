@@ -41,16 +41,16 @@
         </dependency>
 
         <!-- 3.MySQL数据库插件 -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-mysql</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- 4.H2内存数据库插件 -->
-        <!-- <dependency>
+         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-h2</artifactId>
-        </dependency> -->
+        </dependency>
 
         <!-- 5. Ldap插件 -->
         <!-- <dependency>

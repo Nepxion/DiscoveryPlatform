@@ -28,19 +28,19 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 自增主键
      */
-    @TableId(value = "`id`", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 记录创建时间
      */
-    @TableField(value = "`create_time`")
+    @TableField(value = "create_time")
     private Date createTime;
 
     /**
      * 最后一次修改时间
      */
-    @TableField(value = "`update_time`")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     public Long getId() {

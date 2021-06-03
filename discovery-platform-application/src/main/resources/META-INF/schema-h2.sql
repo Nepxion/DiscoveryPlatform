@@ -154,9 +154,10 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (8, 'Zuul网关路由', '/route-zuul/list', b'1', b'0', b'0', '', 6, 2, 'Zuul路由配置');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '服务管理', '', b'1', b'0', b'0', 'layui-icon-template-1', 0, 4, '服务管理');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '流量染色启动', '/service/list1', b'1', b'0', b'0', '', 9, 1, '启动的时候把-Dmetadata.version加上去，类似于运维侧的功能');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (11, '服务拉入拉出', '/service/list2', b'1', b'0', b'0', '', 9, 1, '服务从注册中心生效和注销');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (12, '服务负载屏蔽', '/service/list3', b'1', b'0', b'0', '', 9, 2, '服务负载屏蔽');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '服务染色启动', '/service/list1', b'1', b'0', b'0', '', 9, 1, '服务通过元数据染色方式启动');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (11, '服务拉入拉出', '/service/list2', b'1', b'0', b'0', '', 9, 1, '服务从注册中心注册和注销');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (12, '服务无损屏蔽', '/service/list3', b'1', b'0', b'0', '', 9, 2, '服务无损屏蔽');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (12, '服务批量下线', '/service/list3', b'1', b'0', b'0', '', 9, 2, '服务批量下线');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (13, '安全管理', '', b'1', b'0', b'0', 'layui-icon-app', 0, 5, '安全管理');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (14, '应用列表', '/app/list', b'1', b'0', b'0', '', 13, 1, '应用列表');

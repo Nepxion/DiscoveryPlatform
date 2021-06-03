@@ -19,22 +19,27 @@
       "description": "The short name of platform server."
     },
     {
-      "name": "platform.server.init-script-path",
+      "name": "platform.datasource.type",
+      "type": "java.lang.String",
+      "description": "The type of platform datasource."
+    },
+    {
+      "name": "platform.datasource.init-script-path",
       "type": "java.lang.String",
       "defaultValue": "META-INF/schema.sql",
-      "description": "The datasource init script path."
+      "description": "The init script path of platform datasource."
     },
     {
-      "name": "platform.server.init-script-enabled",
+      "name": "platform.datasource.init-script-enabled",
       "type": "java.lang.Boolean",
       "defaultValue": false,
-      "description": "The datasource init script enabled."
+      "description": "The init script enabled of platform datasource."
     },
     {
-      "name": "platform.server.init-script-logger",
+      "name": "platform.datasource.init-script-logger",
       "type": "java.lang.Boolean",
       "defaultValue": false,
-      "description": "The datasource init script logger."
+      "description": "The init script logger of platform datasource."
     }
   ]
 }

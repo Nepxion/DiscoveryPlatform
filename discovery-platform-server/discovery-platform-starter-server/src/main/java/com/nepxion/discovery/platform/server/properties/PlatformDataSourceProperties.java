@@ -14,9 +14,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("platform.datasource")
 public class PlatformDataSourceProperties {
+    private String type;
     private String initScriptPath = "META-INF/schema.sql";
     private boolean initScriptEnabled = false;
     private boolean initScriptLogger = false;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getInitScriptPath() {
         return initScriptPath;

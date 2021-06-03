@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `sys_admin`
     INDEX `idx_sys_admin_sys_role_id` (`sys_role_id`)
 ) COMMENT ='管理员信息';
 
-
 CREATE TABLE IF NOT EXISTS `sys_menu`
 (
     `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -36,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
 ) COMMENT ='菜单配置';
 
 
-
 CREATE TABLE IF NOT EXISTS `sys_permission`
 (
     `id`                         BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -52,8 +50,6 @@ CREATE TABLE IF NOT EXISTS `sys_permission`
     UNIQUE INDEX `idx_sys_role_id_menu_id` (`sys_role_id`, `sys_menu_id`)
 ) COMMENT ='用户权限信息';
 
-
-
 CREATE TABLE IF NOT EXISTS `sys_role`
 (
     `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -65,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `sys_role`
     PRIMARY KEY (`id`),
     UNIQUE INDEX `idx_sys_role_name` (`name`)
 ) COMMENT ='角色信息';
-
 
 CREATE TABLE IF NOT EXISTS `sys_dic`
 (
@@ -79,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
     UNIQUE INDEX `idx_sys_dic_name`(`name`) USING BTREE,
     INDEX `idx_sys_admin_sys_role_id`(`value`) USING BTREE
 ) COMMENT ='字典信息';
-
 
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -103,8 +97,7 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
-    ) COMMENT = 'Gateway网关的路由信息';
-
+) COMMENT = 'Gateway网关的路由信息';
 
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -127,14 +120,13 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
-    ) COMMENT = 'Zuul网关的路由信息';
+) COMMENT = 'Zuul网关的路由信息';
 
 
-INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`)VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@sjb.com', '超级管理员');
+INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`)VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');
 
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (1, '超级管理员', 1, '超级管理员, 拥有最高权限');
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (2, '研发人员', 0, '研发人员');
-
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10000, 'DashBoard', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-chart-screen', 0, 1, 'DashBoard');
 

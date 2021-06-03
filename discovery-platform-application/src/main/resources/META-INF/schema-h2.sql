@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `sys_admin`
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_sys_admin_username` (`username`)
-    );
+);
 CREATE INDEX IF NOT EXISTS idx_sys_admin_sys_role_id ON sys_admin (`sys_role_id`);
 
 CREATE TABLE IF NOT EXISTS `sys_menu`
@@ -32,10 +32,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`)
 );
-
 CREATE INDEX IF NOT EXISTS idx_sys_menu_idx_url ON sys_menu (`url`);
-
-
 
 CREATE TABLE IF NOT EXISTS `sys_permission`
 (
@@ -50,8 +47,7 @@ CREATE TABLE IF NOT EXISTS `sys_permission`
     `update_time`                DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_sys_role_id_menu_id` (`sys_role_id`, `sys_menu_id`)
-) ;
-
+);
 
 CREATE TABLE IF NOT EXISTS `sys_role`
 (
@@ -65,8 +61,6 @@ CREATE TABLE IF NOT EXISTS `sys_role`
     UNIQUE KEY `idx_sys_role_name` (`name`)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS `sys_dic`
 (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -78,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
     PRIMARY KEY (`id`) ,
     UNIQUE KEY `idx_sys_dic_name`(`name`)
 );
-
 CREATE INDEX IF NOT EXISTS idx_sys_admin_sys_role_id ON sys_dic (`value`);
 
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
@@ -103,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_route_gateway_route_id`(`route_id`)
-) ;
+);
 
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -127,7 +120,6 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_route_zuul_route_id`(`route_id`)
 );
-
 
 
 insert INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`)

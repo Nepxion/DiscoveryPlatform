@@ -47,7 +47,7 @@
         </dependency>-->
 
         <!-- 4.H2内存数据库插件 -->
-         <dependency>
+        <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-h2</artifactId>
         </dependency>

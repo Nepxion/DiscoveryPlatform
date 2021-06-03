@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.h2.configuration;
  * @version 1.0
  */
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,6 +24,7 @@ import com.nepxion.discovery.platform.server.h2.constant.PlatformH2Constant;
 import com.taobao.text.Color;
 
 @Configuration
+@ConditionalOnProperty(name = "platform.datasource.type", havingValue = PlatformH2Constant.H2_TYPE)
 public class PlatformH2AutoConfiguration {
     static {
         LogoBanner logoBanner = new LogoBanner(PlatformH2AutoConfiguration.class, "/com/nepxion/h2/resource/logo.txt", "Welcome to Nepxion", 2, 5, new Color[] { Color.red, Color.green }, true);

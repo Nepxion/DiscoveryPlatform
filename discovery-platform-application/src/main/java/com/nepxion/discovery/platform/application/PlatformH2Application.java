@@ -11,15 +11,18 @@ package com.nepxion.discovery.platform.application;
  * @version 1.0
  */
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
+
 import org.springframework.boot.SpringApplication;
 
 import com.nepxion.discovery.platform.server.annotation.EnablePlatformServer;
-import de.codecentric.boot.admin.server.config.EnableAdminServer;
 
 @EnablePlatformServer
 @EnableAdminServer
-public class PlatformApplication {
+public class PlatformH2Application {
     public static void main(String[] args) {
-        SpringApplication.run(PlatformApplication.class, args);
+        System.setProperty("spring.profiles.active", "h2");
+
+        SpringApplication.run(PlatformH2Application.class, args);
     }
 }

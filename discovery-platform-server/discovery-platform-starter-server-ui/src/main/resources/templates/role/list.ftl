@@ -98,7 +98,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增角色',
                         content: 'add',
-                        area: ['880px', '650px'],
+                        area: ['880px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -153,9 +153,9 @@
                 } else if (obj.event === 'edit') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑主题',
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑角色',
                         content: 'edit?id=' + data.id,
-                        area: ['880px', '400px'],
+                        area: ['880px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {

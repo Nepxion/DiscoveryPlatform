@@ -37,6 +37,7 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
+import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
@@ -50,7 +51,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @EnableEventBus
-@EnableConfigurationProperties({ PlatformServerProperties.class })
+@EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class })
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean

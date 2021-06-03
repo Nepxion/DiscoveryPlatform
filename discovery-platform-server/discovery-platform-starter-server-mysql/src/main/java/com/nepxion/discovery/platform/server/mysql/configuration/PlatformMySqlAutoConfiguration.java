@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.mysql.configuration;
  * @version 1.0
  */
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,6 +24,7 @@ import com.nepxion.discovery.platform.server.mysql.constant.PlatformMySqlConstan
 import com.taobao.text.Color;
 
 @Configuration
+@ConditionalOnProperty(name = "platform.datasource.type", havingValue = PlatformMySqlConstant.MYSQL_TYPE)
 public class PlatformMySqlAutoConfiguration {
     static {
         LogoBanner logoBanner = new LogoBanner(PlatformMySqlAutoConfiguration.class, "/com/nepxion/mysql/resource/logo.txt", "Welcome to Nepxion", 5, 5, new Color[] { Color.red, Color.green, Color.cyan, Color.blue, Color.yellow }, true);

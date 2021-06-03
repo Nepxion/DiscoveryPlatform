@@ -34,7 +34,7 @@ import com.nepxion.banner.Description;
 import com.nepxion.banner.LogoBanner;
 import com.nepxion.banner.NepxionBanner;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
-import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
+import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.taobao.text.Color;
 
 public class PlatformApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -52,11 +52,11 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
             @Override
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
                 if (bean instanceof DataSourceProperties) {
-                    PlatformServerProperties platformServerProperties = applicationContext.getBean(PlatformServerProperties.class);
-                    if (platformServerProperties.isInitScriptEnabled()) {
+                    PlatformDataSourceProperties platformDataSourceProperties = applicationContext.getBean(PlatformDataSourceProperties.class);
+                    if (platformDataSourceProperties.isInitScriptEnabled()) {
                         DataSourceProperties dataSourceProperties = (DataSourceProperties) bean;
 
-                        initializeScript(dataSourceProperties, platformServerProperties);
+                        initializeScript(dataSourceProperties, platformDataSourceProperties);
                     }
                 }
 
@@ -65,17 +65,17 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
         });
     }
 
-    private void initializeScript(DataSourceProperties dataSourceProperties, PlatformServerProperties platformServerProperties) {
+    private void initializeScript(DataSourceProperties dataSourceProperties, PlatformDataSourceProperties platformDataSourceProperties) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(dataSourceProperties.getUrl(), dataSourceProperties.getUsername(), dataSourceProperties.getPassword());
 
             ScriptRunner scriptRunner = new ScriptRunner(connection);
-            if (!platformServerProperties.isInitScriptLogger()) {
+            if (!platformDataSourceProperties.isInitScriptLogger()) {
                 scriptRunner.setLogWriter(null);
             }
 
-            String initScriptPath = platformServerProperties.getInitScriptPath();
+            String initScriptPath = platformDataSourceProperties.getInitScriptPath();
 
             Resources.setCharset(StandardCharsets.UTF_8);
             Reader reader = Resources.getResourceAsReader(initScriptPath);

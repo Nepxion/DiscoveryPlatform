@@ -18,10 +18,6 @@ public class PlatformServerProperties {
     private String fullName = "Nepxion Platform";
     private String shortName = "Nepxion Platform";
 
-    private String initScriptPath = "META-INF/schema.sql";
-    private boolean initScriptEnabled = false;
-    private boolean initScriptLogger = false;
-
     public String getTitle() {
         return title;
     }
@@ -44,29 +40,5 @@ public class PlatformServerProperties {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
-    }
-
-    public String getInitScriptPath() {
-        return initScriptPath;
-    }
-
-    public void setInitScriptPath(String initScriptPath) {
-        this.initScriptPath = initScriptPath;
-    }
-
-    public boolean isInitScriptEnabled() {
-        return initScriptEnabled;
-    }
-
-    public void setInitScriptEnabled(boolean initScriptEnabled) {
-        this.initScriptEnabled = initScriptEnabled;
-    }
-
-    public boolean isInitScriptLogger() {
-        return initScriptLogger;
-    }
-
-    public void setInitScriptLogger(boolean initScriptLogger) {
-        this.initScriptLogger = initScriptLogger;
     }
 }

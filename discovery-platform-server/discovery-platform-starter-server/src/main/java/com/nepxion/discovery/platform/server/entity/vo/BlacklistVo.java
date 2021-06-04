@@ -12,12 +12,14 @@ package com.nepxion.discovery.platform.server.entity.vo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.nepxion.discovery.common.util.StringUtil;
 import com.nepxion.discovery.platform.server.entity.po.BlacklistPo;
 
 public class BlacklistVo implements Serializable {
@@ -25,7 +27,7 @@ public class BlacklistVo implements Serializable {
 
     private String host;
     private String port;
-    private List<BlacklistPo> blacklists;
+    private List<BlacklistPoVo> blacklists;
 
     public String getHost() {
         return host;
@@ -43,11 +45,11 @@ public class BlacklistVo implements Serializable {
         this.port = port;
     }
 
-    public List<BlacklistPo> getBlacklists() {
+    public List<BlacklistPoVo> getBlacklists() {
         return blacklists;
     }
 
-    public void setBlacklists(List<BlacklistPo> blacklists) {
+    public void setBlacklists(List<BlacklistPoVo> blacklists) {
         this.blacklists = blacklists;
     }
 
@@ -64,5 +66,17 @@ public class BlacklistVo implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    public static class BlacklistPoVo extends BlacklistPo {
+        private static final long serialVersionUID = -2816083419230413910L;
+
+        public Map<String, List<String>> getIdMap() {
+            return StringUtil.splitToComplexMap(getIdValue());
+        }
+
+        public Map<String, List<String>> getAddressMap() {
+            return StringUtil.splitToComplexMap(getAddressValue());
+        }
     }
 }

@@ -27,7 +27,7 @@ public class BlacklistVo implements Serializable {
 
     private String host;
     private String port;
-    private List<BlacklistPoVo> blacklists;
+    private BlacklistPoVo blacklist;
 
     public String getHost() {
         return host;
@@ -45,12 +45,12 @@ public class BlacklistVo implements Serializable {
         this.port = port;
     }
 
-    public List<BlacklistPoVo> getBlacklists() {
-        return blacklists;
+    public BlacklistPoVo getBlacklist() {
+        return blacklist;
     }
 
-    public void setBlacklists(List<BlacklistPoVo> blacklists) {
-        this.blacklists = blacklists;
+    public void setBlacklist(BlacklistPoVo blacklist) {
+        this.blacklist = blacklist;
     }
 
     @Override

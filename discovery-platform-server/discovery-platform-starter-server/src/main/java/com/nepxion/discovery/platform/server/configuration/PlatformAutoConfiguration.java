@@ -47,6 +47,10 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
+import com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser;
+import com.nepxion.discovery.plugin.framework.parser.PluginConfigParser;
+import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigDeparser;
+import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigParser;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
@@ -54,6 +58,26 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class })
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
+    @Bean
+    public PluginConfigParser pluginConfigParser() {
+        return new XmlConfigParser();
+    }
+
+    @Bean
+    public PluginConfigDeparser pluginConfigDeparser() {
+        return new XmlConfigDeparser();
+    }
+
+    @Bean
+    public PlatformPublisher platformPublisher() {
+        return new PlatformPublisher();
+    }
+
+    @Bean
+    public PlatformSubscriber platformSubscriber() {
+        return new PlatformSubscriber();
+    }
+
     @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {
         return new ExceptionControllerAdvice();
@@ -68,7 +92,6 @@ public class PlatformAutoConfiguration {
     public DashboardPageController dashboardPageController() {
         return new DashboardPageController();
     }
-
 
     @Bean
     public AdminPageController adminPageController() {
@@ -183,15 +206,5 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulServiceImpl routeZuulService() {
         return new RouteZuulServiceImpl();
-    }
-
-    @Bean
-    public PlatformPublisher platformPublisher() {
-        return new PlatformPublisher();
-    }
-
-    @Bean
-    public PlatformSubscriber platformSubscriber() {
-        return new PlatformSubscriber();
     }
 }

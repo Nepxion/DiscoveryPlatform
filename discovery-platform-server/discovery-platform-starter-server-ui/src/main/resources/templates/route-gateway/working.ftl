@@ -123,20 +123,20 @@
                                     {type: 'numbers', title: '序号', width: 100},
                                     {field: 'uri', title: '目标地址', width: 300},
                                     {field: 'predicates', title: '断言器', width: 300},
-                                    {field: 'userPredicatesJson', title: '自定义断言器', width: 300},
-                                    {field: 'filters', title: '过滤器', width: 300},
-                                    {field: 'userFiltersJson', title: '自定义过滤器', width: 300},
                                     {
-                                        field: 'metadata', title: '元数据', width: 300,
-                                        templet: function (d) {
-                                            let r = "";
-                                            $.each(d.metadata, function (k, v) {
-                                                r = (r + k + "=" + v + ", ");
-                                            });
-                                            if (r != "") {
-                                                r = r.substr(0, r.length - 2);
-                                            }
-                                            return r;
+                                        title: '自定义断言器', width: 300, templet: function (d) {
+                                            return mapArrayToJson(d.userPredicates, 'name', 'args');
+                                        }
+                                    },
+                                    {field: 'filters', title: '过滤器', width: 300},
+                                    {
+                                        title: '自定义过滤器', width: 300, templet: function (d) {
+                                            return mapArrayToJson(d.userFilters, 'name', 'args');
+                                        }
+                                    },
+                                    {
+                                        title: '元数据', width: 300, templet: function (d) {
+                                            return mapToJson(d.metadata);
                                         }
                                     },
                                     {field: 'order', title: '执行顺序', align: 'center', width: 120}
@@ -157,6 +157,10 @@
                     table.reload('grid', {'data': []});
                 }
             }
+
+            <#if (gatewayNames?size==1) >
+            chooseSelectOption('gatewayName', 1);
+            </#if>
         });
     </script>
     </body>

@@ -30,6 +30,7 @@ import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
+import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.RouteGatewayVo;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
@@ -77,7 +78,7 @@ public class RouteGatewayController {
             RouteGatewayVo routeGatewayVo = new RouteGatewayVo();
             routeGatewayVo.setHost(resultEntity.getHost());
             routeGatewayVo.setPort(String.valueOf(resultEntity.getPort()));
-            routeGatewayVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteGatewayVo.RouteGatewayPoVo>>() {
+            routeGatewayVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteGatewayPo>>() {
             }));
             result.add(routeGatewayVo);
         }

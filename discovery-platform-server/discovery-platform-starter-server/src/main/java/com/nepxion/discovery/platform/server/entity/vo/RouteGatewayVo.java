@@ -25,7 +25,7 @@ public class RouteGatewayVo implements Serializable {
 
     private String host;
     private String port;
-    private List<RouteGatewayPoVo> routes;
+    private List<RouteGatewayPo> routes;
 
     public String getHost() {
         return host;
@@ -43,11 +43,11 @@ public class RouteGatewayVo implements Serializable {
         this.port = port;
     }
 
-    public List<RouteGatewayPoVo> getRoutes() {
+    public List<RouteGatewayPo> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RouteGatewayPoVo> routes) {
+    public void setRoutes(List<RouteGatewayPo> routes) {
         this.routes = routes;
     }
 
@@ -64,17 +64,5 @@ public class RouteGatewayVo implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-
-    public static class RouteGatewayPoVo extends RouteGatewayPo {
-        private static final long serialVersionUID = 2600817965821067952L;
-
-        public String getUserPredicatesJson() {
-            return toClausesJson(getUserPredicates());
-        }
-
-        public String getUserFiltersJson() {
-            return toClausesJson(getUserFilters());
-        }
     }
 }

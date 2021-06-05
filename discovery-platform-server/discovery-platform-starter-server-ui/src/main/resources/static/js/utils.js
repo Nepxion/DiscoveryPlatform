@@ -108,3 +108,60 @@ function execRowspan(fieldName, index, flag) {
         }
     }
 };
+
+function mapArrayToJson(map, key, value) {
+    const $ = layui.$;
+    let result = '';
+    $.each(map, function (index, item) {
+        result = result + item[key] + '=' + JSON.stringify(item[value]) + ', ';
+    });
+    if (result.length > 0) {
+        return result.slice(0, result.length - 2);
+    } else {
+        return result;
+    }
+}
+
+function mapToJson(map) {
+    const $ = layui.$;
+    let result = "";
+    $.each(map, function (k, v) {
+        result = (result + k + "=" + v + ", ");
+    });
+
+    if (result.length > 0) {
+        return result.slice(0, result.length - 2);
+    } else {
+        return result;
+    }
+}
+
+function chooseSelectOption(id, index) {
+    const $ = layui.$;
+    $('#' + id).siblings('div.layui-form-select').find('dl dd[lay-value=' + getSelectOptionValue(id, index) + ']').click();
+    layui.form.render('select');
+}
+
+function getSelectOptionIndex(id, value) {
+    const $ = layui.$;
+    let result = -1;
+    $.each($('#' + id).siblings('div.layui-form-select').find('dl dd'), function (i, item) {
+        if ($(item).attr('lay-value') == value) {
+            result = index;
+            return result;
+        }
+    });
+    return result;
+}
+
+function getSelectOptionValue(id, index) {
+    const $ = layui.$;
+    let result = '';
+    $.each($('#' + id).siblings('div.layui-form-select').find('dl dd'), function (i, item) {
+        if (i == index) {
+            result = $(item).attr('lay-value');
+            return result;
+        }
+    });
+    return result;
+}

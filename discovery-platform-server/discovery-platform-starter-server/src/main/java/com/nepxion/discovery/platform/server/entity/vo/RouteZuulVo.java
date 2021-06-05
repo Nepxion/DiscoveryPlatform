@@ -18,14 +18,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
+import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 
 public class RouteZuulVo implements Serializable {
     private static final long serialVersionUID = 6158905002253940456L;
 
     private String host;
     private String port;
-    private List<RouteZuulPo> routes;
+    private List<ZuulStrategyRouteEntity> routes;
 
     public String getHost() {
         return host;
@@ -43,11 +43,11 @@ public class RouteZuulVo implements Serializable {
         this.port = port;
     }
 
-    public List<RouteZuulPo> getRoutes() {
+    public List<ZuulStrategyRouteEntity> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RouteZuulPo> routes) {
+    public void setRoutes(List<ZuulStrategyRouteEntity> routes) {
         this.routes = routes;
     }
 

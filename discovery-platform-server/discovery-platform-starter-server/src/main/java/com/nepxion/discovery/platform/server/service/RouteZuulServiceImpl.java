@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
@@ -36,7 +37,6 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
-import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
@@ -69,7 +69,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         List<RouteZuulDto> toDeleteList = new ArrayList<>(routeZuulDtoList.size());
         Map<String, List<RouteZuulDto>> unusedMap = new HashMap<>();
 
-        Map<String, List<RouteZuulPo>> newGatewayRouteMap = new HashMap<>();
+        Map<String, List<ZuulStrategyRouteEntity>> newGatewayRouteMap = new HashMap<>();
         for (RouteZuulDto routeZuulDto : routeZuulDtoList) {
             if (routeZuulDto.getDeleteFlag()) {
                 toDeleteList.add(routeZuulDto);
@@ -83,22 +83,22 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
 
             toUpdateList.add(routeZuulDto);
 
-            RouteZuulPo routeZuulPo = new RouteZuulPo();
-            routeZuulPo.setId(routeZuulDto.getRouteId());
-            routeZuulPo.setServiceId(routeZuulDto.getServiceId());
-            routeZuulPo.setPath(routeZuulDto.getPath());
-            routeZuulPo.setUrl(routeZuulDto.getUrl());
-            routeZuulPo.setStripPrefix(routeZuulDto.getStripPrefix());
-            routeZuulPo.setRetryable(routeZuulDto.getRetryable());
-            routeZuulPo.setSensitiveHeaders(new HashSet<>(CommonTool.split(routeZuulDto.getSensitiveHeaders(), ",")));
-            routeZuulPo.setCustomSensitiveHeaders(routeZuulDto.getCustomSensitiveHeaders());
+            ZuulStrategyRouteEntity zuulStrategyRouteEntity = new ZuulStrategyRouteEntity();
+            zuulStrategyRouteEntity.setId(routeZuulDto.getRouteId());
+            zuulStrategyRouteEntity.setServiceId(routeZuulDto.getServiceId());
+            zuulStrategyRouteEntity.setPath(routeZuulDto.getPath());
+            zuulStrategyRouteEntity.setUrl(routeZuulDto.getUrl());
+            zuulStrategyRouteEntity.setStripPrefix(routeZuulDto.getStripPrefix());
+            zuulStrategyRouteEntity.setRetryable(routeZuulDto.getRetryable());
+            zuulStrategyRouteEntity.setSensitiveHeaders(new HashSet<>(CommonTool.split(routeZuulDto.getSensitiveHeaders(), ",")));
+            zuulStrategyRouteEntity.setCustomSensitiveHeaders(routeZuulDto.getCustomSensitiveHeaders());
 
             if (newGatewayRouteMap.containsKey(routeZuulDto.getGatewayName())) {
-                newGatewayRouteMap.get(routeZuulDto.getGatewayName()).add(routeZuulPo);
+                newGatewayRouteMap.get(routeZuulDto.getGatewayName()).add(zuulStrategyRouteEntity);
             } else {
-                List<RouteZuulPo> routeGatewayPoList = new ArrayList<>();
-                routeGatewayPoList.add(routeZuulPo);
-                newGatewayRouteMap.put(routeZuulDto.getGatewayName(), routeGatewayPoList);
+                List<ZuulStrategyRouteEntity> zuulStrategyRouteEntityList = new ArrayList<>();
+                zuulStrategyRouteEntityList.add(zuulStrategyRouteEntity);
+                newGatewayRouteMap.put(routeZuulDto.getGatewayName(), zuulStrategyRouteEntityList);
             }
         }
 
@@ -106,10 +106,10 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
             for (Map.Entry<String, List<RouteZuulDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
                 String group = serviceResource.getGroup(gatewayName);
-                updateConfig(gatewayName, group, new ArrayList<RouteZuulPo>());
+                updateConfig(gatewayName, group, new ArrayList<ZuulStrategyRouteEntity>());
             }
         } else {
-            for (Map.Entry<String, List<RouteZuulPo>> pair : newGatewayRouteMap.entrySet()) {
+            for (Map.Entry<String, List<ZuulStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
                 String group = serviceResource.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());

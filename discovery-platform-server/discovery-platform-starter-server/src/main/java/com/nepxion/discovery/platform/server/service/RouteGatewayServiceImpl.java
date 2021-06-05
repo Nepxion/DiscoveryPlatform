@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.common.entity.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
@@ -36,7 +37,6 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
-import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
 import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.SequenceTool;
@@ -60,7 +60,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
             List<String> gatewayNameList = serviceResource.getGatewayList(GATEWAY_TYPE);
             for (String gatewayName : gatewayNameList) {
                 String group = serviceResource.getGroup(gatewayName);
-                updateConfig(gatewayName, group, new ArrayList<RouteGatewayPo>());
+                updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
             return;
         }
@@ -69,7 +69,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         List<RouteGatewayDto> toDeleteList = new ArrayList<>(routeGatewayDtoList.size());
         Map<String, List<RouteGatewayDto>> unusedMap = new HashMap<>();
 
-        Map<String, List<RouteGatewayPo>> newGatewayRouteMap = new HashMap<>();
+        Map<String, List<GatewayStrategyRouteEntity>> newGatewayRouteMap = new HashMap<>();
         for (RouteGatewayDto routeGatewayDto : routeGatewayDtoList) {
             if (routeGatewayDto.getDeleteFlag()) {
                 toDeleteList.add(routeGatewayDto);
@@ -83,34 +83,34 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
 
             toUpdateList.add(routeGatewayDto);
 
-            RouteGatewayPo routeGatewayPo = new RouteGatewayPo();
-            routeGatewayPo.setId(routeGatewayDto.getRouteId());
-            routeGatewayPo.setUri(routeGatewayDto.getUri());
+            GatewayStrategyRouteEntity gatewayStrategyRouteEntity = new GatewayStrategyRouteEntity();
+            gatewayStrategyRouteEntity.setId(routeGatewayDto.getRouteId());
+            gatewayStrategyRouteEntity.setUri(routeGatewayDto.getUri());
 
             if (StringUtils.isNotEmpty(routeGatewayDto.getPredicates())) {
-                routeGatewayPo.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
+                gatewayStrategyRouteEntity.setPredicates(Arrays.asList(routeGatewayDto.getPredicates().split(PlatformConstant.ROW_SEPARATOR)));
             }
             if (StringUtils.isNotEmpty(routeGatewayDto.getUserPredicates())) {
-                List<RouteGatewayPo.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), RouteGatewayPo.Predicate.class);
-                routeGatewayPo.setUserPredicates(predicateList);
+                List<GatewayStrategyRouteEntity.Predicate> predicateList = parse(routeGatewayDto.getUserPredicates(), GatewayStrategyRouteEntity.Predicate.class);
+                gatewayStrategyRouteEntity.setUserPredicates(predicateList);
             }
             if (StringUtils.isNotEmpty(routeGatewayDto.getFilters())) {
-                routeGatewayPo.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
+                gatewayStrategyRouteEntity.setFilters(Arrays.asList(routeGatewayDto.getFilters().split(PlatformConstant.ROW_SEPARATOR)));
             }
             if (StringUtils.isNotEmpty(routeGatewayDto.getUserFilters())) {
-                List<RouteGatewayPo.Filter> filterList = parse(routeGatewayDto.getUserFilters(), RouteGatewayPo.Filter.class);
-                routeGatewayPo.setUserFilters(filterList);
+                List<GatewayStrategyRouteEntity.Filter> filterList = parse(routeGatewayDto.getUserFilters(), GatewayStrategyRouteEntity.Filter.class);
+                gatewayStrategyRouteEntity.setUserFilters(filterList);
             }
 
-            routeGatewayPo.setOrder(routeGatewayDto.getOrder());
-            routeGatewayPo.setMetadata(CommonTool.asMap(routeGatewayDto.getMetadata(), PlatformConstant.ROW_SEPARATOR));
+            gatewayStrategyRouteEntity.setOrder(routeGatewayDto.getOrder());
+            gatewayStrategyRouteEntity.setMetadata(CommonTool.asMap(routeGatewayDto.getMetadata(), PlatformConstant.ROW_SEPARATOR));
 
             if (newGatewayRouteMap.containsKey(routeGatewayDto.getGatewayName())) {
-                newGatewayRouteMap.get(routeGatewayDto.getGatewayName()).add(routeGatewayPo);
+                newGatewayRouteMap.get(routeGatewayDto.getGatewayName()).add(gatewayStrategyRouteEntity);
             } else {
-                List<RouteGatewayPo> routeGatewayPoList = new ArrayList<>();
-                routeGatewayPoList.add(routeGatewayPo);
-                newGatewayRouteMap.put(routeGatewayDto.getGatewayName(), routeGatewayPoList);
+                List<GatewayStrategyRouteEntity> gatewayStrategyRouteEntityList = new ArrayList<>();
+                gatewayStrategyRouteEntityList.add(gatewayStrategyRouteEntity);
+                newGatewayRouteMap.put(routeGatewayDto.getGatewayName(), gatewayStrategyRouteEntityList);
             }
         }
 
@@ -118,10 +118,10 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
             for (Map.Entry<String, List<RouteGatewayDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
                 String group = serviceResource.getGroup(gatewayName);
-                updateConfig(gatewayName, group, new ArrayList<RouteGatewayPo>());
+                updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
         } else {
-            for (Map.Entry<String, List<RouteGatewayPo>> pair : newGatewayRouteMap.entrySet()) {
+            for (Map.Entry<String, List<GatewayStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
                 String group = serviceResource.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());
@@ -236,7 +236,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends RouteGatewayPo.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
+    private <T extends GatewayStrategyRouteEntity.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);
         for (String item : all) {

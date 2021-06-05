@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.entity.ResultEntity;
+import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.RouteResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
-import com.nepxion.discovery.platform.server.entity.po.RouteZuulPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.RouteZuulVo;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
@@ -74,7 +74,7 @@ public class RouteZuulController {
             RouteZuulVo routeZuulVo = new RouteZuulVo();
             routeZuulVo.setHost(resultEntity.getHost());
             routeZuulVo.setPort(String.valueOf(resultEntity.getPort()));
-            routeZuulVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteZuulPo>>() {
+            routeZuulVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<ZuulStrategyRouteEntity>>() {
             }));
             result.add(routeZuulVo);
         }

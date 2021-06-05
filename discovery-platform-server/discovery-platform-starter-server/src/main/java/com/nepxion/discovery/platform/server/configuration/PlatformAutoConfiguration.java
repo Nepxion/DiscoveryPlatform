@@ -64,7 +64,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
-    public DiscoveryService springCloudService() {
+    public DiscoveryService discoveryService() {
         return new DiscoveryService();
     }
 

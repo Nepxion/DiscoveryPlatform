@@ -144,6 +144,7 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         }
     }
 
+    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public IPage<BlacklistDto> page(String description, Integer pageNum, Integer pageSize) {
@@ -164,6 +165,7 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         return super.getById(id);
     }
 
+    @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
     public void insert(BlacklistDto blacklistDto) throws Exception {

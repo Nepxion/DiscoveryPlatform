@@ -140,7 +140,6 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     INDEX `idx_service_name`(`service_name`) USING BTREE
 ) COMMENT = '服务无损屏蔽信息';
 
-
 INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`)VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');
 
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (1, '超级管理员', 1, '超级管理员, 拥有最高权限');

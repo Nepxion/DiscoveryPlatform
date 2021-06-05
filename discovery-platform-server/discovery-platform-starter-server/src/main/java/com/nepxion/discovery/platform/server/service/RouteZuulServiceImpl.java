@@ -44,7 +44,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
     private RouteService routeService;
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @TransactionWriter
     @Override
@@ -52,9 +52,9 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         List<RouteZuulDto> routeZuulDtoList = list();
 
         if (CollectionUtils.isEmpty(routeZuulDtoList)) {
-            List<String> gatewayNameList = discoveryService.getGatewayNames(GATEWAY_TYPE);
+            List<String> gatewayNameList = platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE);
             for (String gatewayName : gatewayNameList) {
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<RouteZuulDto>());
             }
             return;
@@ -100,13 +100,13 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteZuulDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<ZuulStrategyRouteEntity>());
             }
         } else {
             for (Map.Entry<String, List<ZuulStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -205,7 +205,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
 
     private void updateConfig(String gatewayName, String group, Object config) throws Exception {
         String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-        discoveryService.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
+        platformDiscoveryAdapter.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
     private void addKV(Map<String, List<RouteZuulDto>> map, String key, RouteZuulDto value) {

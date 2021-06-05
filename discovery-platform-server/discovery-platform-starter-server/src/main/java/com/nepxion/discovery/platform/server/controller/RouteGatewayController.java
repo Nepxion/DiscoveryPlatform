@@ -32,7 +32,7 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.RouteGatewayVo;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
@@ -46,7 +46,7 @@ public class RouteGatewayController {
     public static final String PREFIX = "route-gateway";
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private RouteResource routeResource;
@@ -89,7 +89,7 @@ public class RouteGatewayController {
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-gateway-names")
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(discoveryService.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
     }
 
     @ApiOperation("添加Spring Cloud Gateway网关的路由")

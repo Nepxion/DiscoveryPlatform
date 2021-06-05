@@ -41,16 +41,16 @@ import com.nepxion.discovery.platform.server.mapper.BlacklistMapper;
 
 public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, BlacklistDto> implements BlacklistService {
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Override
     public void publish() throws Exception {
         List<BlacklistDto> blacklistDtoList = list();
         if (CollectionUtils.isEmpty(blacklistDtoList)) {
-            List<String> gatewayNameList = discoveryService.getGatewayNames();
+            List<String> gatewayNameList = platformDiscoveryAdapter.getGatewayNames();
             for (String gatewayName : gatewayNameList) {
-                String group = discoveryService.getGroup(gatewayName);
-                discoveryService.updateRemoteConfig(group, gatewayName, discoveryService.ruleEntityToXml(new RuleEntity()));
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
+                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, platformDiscoveryAdapter.ruleEntityToXml(new RuleEntity()));
             }
             return;
         }
@@ -87,8 +87,8 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         if (CollectionUtils.isEmpty(newBlackListMap)) {
             for (Map.Entry<String, List<BlacklistDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = discoveryService.getGroup(gatewayName);
-                discoveryService.updateRemoteConfig(group, gatewayName, discoveryService.ruleEntityToXml(new RuleEntity()));
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
+                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, platformDiscoveryAdapter.ruleEntityToXml(new RuleEntity()));
             }
         } else {
             for (Map.Entry<String, List<BlacklistDto>> entry : newBlackListMap.entrySet()) {
@@ -101,13 +101,13 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
                         addKV(addressMap, blacklistDto.getServiceName(), blacklistDto.getServiceAddress());
                     }
                 }
-                String group = discoveryService.getGroup(gatewayName);
-                String remoteConfig = discoveryService.getRemoteConfig(group, gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
+                String remoteConfig = platformDiscoveryAdapter.getRemoteConfig(group, gatewayName);
                 RuleEntity ruleEntity;
                 if (StringUtils.isEmpty(remoteConfig)) {
                     ruleEntity = new RuleEntity();
                 } else {
-                    ruleEntity = discoveryService.xmlToRuleEntity(remoteConfig);
+                    ruleEntity = platformDiscoveryAdapter.xmlToRuleEntity(remoteConfig);
                 }
                 StrategyBlacklistEntity strategyBlacklistEntity = new StrategyBlacklistEntity();
                 strategyBlacklistEntity.setIdValue(null);
@@ -127,8 +127,8 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
                     strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(map));
                 }
                 ruleEntity.setStrategyBlacklistEntity(strategyBlacklistEntity);
-                String config = discoveryService.ruleEntityToXml(ruleEntity);
-                discoveryService.updateRemoteConfig(group, gatewayName, config);
+                String config = platformDiscoveryAdapter.ruleEntityToXml(ruleEntity);
+                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, config);
             }
         }
 

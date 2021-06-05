@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
@@ -27,7 +27,7 @@ import com.nepxion.discovery.platform.server.tool.CommonTool;
 public class RouteGatewayPageController {
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private RouteGatewayService routeGatewayService;
@@ -39,14 +39,14 @@ public class RouteGatewayPageController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
         return String.format("%s/%s", RouteGatewayController.PREFIX, "working");
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", discoveryService.getServiceNames());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", RouteGatewayController.PREFIX, "add");
     }
 
@@ -58,8 +58,8 @@ public class RouteGatewayPageController {
         routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
         routeGateway.setUserFilters(CommonTool.formatTextarea(routeGateway.getUserFilters()));
         routeGateway.setMetadata(CommonTool.formatTextarea(routeGateway.getMetadata()));
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", discoveryService.getServiceNames());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         model.addAttribute("route", routeGateway);
         return String.format("%s/%s", RouteGatewayController.PREFIX, "edit");
     }

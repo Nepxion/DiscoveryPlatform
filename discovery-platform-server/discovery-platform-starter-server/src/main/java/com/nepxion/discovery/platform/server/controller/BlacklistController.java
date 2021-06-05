@@ -28,7 +28,7 @@ import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.BlacklistService;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -41,7 +41,7 @@ public class BlacklistController {
     public static final String PREFIX = "blacklist";
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private BlacklistService blacklistService;
@@ -58,7 +58,7 @@ public class BlacklistController {
     public Result<List<String>> doListServiceUUID(@RequestParam("serviceName") String serviceName) {
         List<String> result = new ArrayList<>();
 
-        List<InstanceEntity> instanceList = discoveryService.getInstanceList(serviceName);
+        List<InstanceEntity> instanceList = platformDiscoveryAdapter.getInstanceList(serviceName);
         for (InstanceEntity instanceEntity : instanceList) {
             String uuid = instanceEntity.getMetadata().get(DiscoveryMetaDataConstant.SPRING_APPLICATION_UUID);
             if (StringUtils.isEmpty(uuid)) {
@@ -74,7 +74,7 @@ public class BlacklistController {
     @PostMapping("do-list-service-address")
     public Result<List<String>> doListServiceAddress(@RequestParam("serviceName") String serviceName) {
         List<String> result = new ArrayList<>();
-        List<InstanceEntity> instanceList = discoveryService.getInstanceList(serviceName);
+        List<InstanceEntity> instanceList = platformDiscoveryAdapter.getInstanceList(serviceName);
         for (InstanceEntity instanceEntity : instanceList) {
             result.add(String.format("%s:%s", instanceEntity.getHost(), instanceEntity.getPort()));
         }

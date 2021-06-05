@@ -25,7 +25,7 @@ import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigParser;
 
-public class DiscoveryService {
+public class PlatformDiscoveryAdapter {
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String springApplicationName;
 

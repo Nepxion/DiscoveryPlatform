@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 
 @Controller
 @RequestMapping(RouteZuulController.PREFIX)
 public class RouteZuulPageController {
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private RouteZuulService routeZuulService;
@@ -37,21 +37,21 @@ public class RouteZuulPageController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
         return String.format("%s/%s", RouteZuulController.PREFIX, "working");
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", discoveryService.getServiceNames());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", RouteZuulController.PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", discoveryService.getServiceNames());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         model.addAttribute("route", routeZuulService.getById(id));
         return String.format("%s/%s", RouteZuulController.PREFIX, "edit");
     }

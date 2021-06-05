@@ -16,14 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 
 @Controller
 @RequestMapping(BlacklistController.PREFIX)
 public class BlacklistPageController {
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @GetMapping("list")
     public String list() {
@@ -32,8 +32,8 @@ public class BlacklistPageController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", discoveryService.getServiceNames());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlacklistController.PREFIX, "add");
     }
 }

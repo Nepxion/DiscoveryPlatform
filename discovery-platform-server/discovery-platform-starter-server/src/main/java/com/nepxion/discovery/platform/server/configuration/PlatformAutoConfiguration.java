@@ -51,7 +51,7 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigParser;
 import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigDeparser;
@@ -64,8 +64,8 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
-    public DiscoveryService discoveryService() {
-        return new DiscoveryService();
+    public PlatformDiscoveryAdapter platformDiscoveryAdapter() {
+        return new PlatformDiscoveryAdapter();
     }
 
     @Bean

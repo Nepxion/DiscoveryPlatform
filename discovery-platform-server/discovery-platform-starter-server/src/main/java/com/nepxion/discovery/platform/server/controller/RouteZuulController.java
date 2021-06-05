@@ -32,7 +32,7 @@ import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.RouteZuulVo;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
-import com.nepxion.discovery.platform.server.service.DiscoveryService;
+import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +45,7 @@ public class RouteZuulController {
     public static final String PREFIX = "route-zuul";
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private RouteResource routeResource;
@@ -85,7 +85,7 @@ public class RouteZuulController {
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-gateway-names")
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
     }
 
     @ApiOperation("添加Zuul网关的路由")

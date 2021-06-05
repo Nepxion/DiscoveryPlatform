@@ -44,7 +44,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
     private RouteService routeService;
 
     @Autowired
-    private DiscoveryService discoveryService;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
 
     @TransactionWriter
@@ -53,9 +53,9 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         List<RouteGatewayDto> routeGatewayDtoList = list();
 
         if (CollectionUtils.isEmpty(routeGatewayDtoList)) {
-            List<String> gatewayNameList = discoveryService.getGatewayNames(GATEWAY_TYPE);
+            List<String> gatewayNameList = platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE);
             for (String gatewayName : gatewayNameList) {
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
             return;
@@ -113,13 +113,13 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteGatewayDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
         } else {
             for (Map.Entry<String, List<GatewayStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = discoveryService.getGroup(gatewayName);
+                String group = platformDiscoveryAdapter.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -218,7 +218,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
 
     private void updateConfig(String gatewayName, String group, Object config) throws Exception {
         String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-        discoveryService.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
+        platformDiscoveryAdapter.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
     private void addKV(Map<String, List<RouteGatewayDto>> map, String key, RouteGatewayDto value) {

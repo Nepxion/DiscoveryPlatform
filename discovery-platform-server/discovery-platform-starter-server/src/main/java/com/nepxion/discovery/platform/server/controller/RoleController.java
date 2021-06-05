@@ -44,28 +44,28 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @ApiOperation(value = "获取角色信息列表")
+    @ApiOperation("获取角色信息列表")
     @PostMapping("do-list")
     public Result<List<SysRoleDto>> doList(ListSearchNamePo listSearchNamePo) throws Exception {
         IPage<SysRoleDto> sysAdmins = roleService.list(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(sysAdmins.getRecords(), sysAdmins.getTotal());
     }
 
-    @ApiOperation(value = "添加角色")
+    @ApiOperation("添加角色")
     @PostMapping("do-insert")
     public Result<?> doInsert(SysRoleDto sysRoleDto) throws Exception {
         roleService.insert(sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getDescription());
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新角色")
+    @ApiOperation("更新角色")
     @PostMapping("do-update")
     public Result<?> doUpdate(SysRoleDto sysRoleDto) throws Exception {
         roleService.update(sysRoleDto.getId(), sysRoleDto.getName(), sysRoleDto.getSuperAdmin(), sysRoleDto.getDescription());
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除角色")
+    @ApiOperation("删除角色")
     @ApiImplicitParam(name = "ids", value = "角色id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) throws Exception {

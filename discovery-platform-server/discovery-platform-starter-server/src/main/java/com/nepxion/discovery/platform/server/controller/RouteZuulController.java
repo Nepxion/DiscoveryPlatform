@@ -27,12 +27,12 @@ import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.RouteResource;
-import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.entity.vo.RouteZuulVo;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
+import com.nepxion.discovery.platform.server.service.DiscoveryService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +45,7 @@ public class RouteZuulController {
     public static final String PREFIX = "route-zuul";
 
     @Autowired
-    private ServiceResource serviceResource;
+    private DiscoveryService discoveryService;
 
     @Autowired
     private RouteResource routeResource;
@@ -53,14 +53,14 @@ public class RouteZuulController {
     @Autowired
     private RouteZuulService routeZuulService;
 
-    @ApiOperation(value = "获取Zuul网关的路由信息列表")
+    @ApiOperation("获取Zuul网关的路由信息列表")
     @PostMapping("do-list")
     public Result<List<RouteZuulDto>> doList(ListSearchGatewayPo listSearchGatewayPo) {
         IPage<RouteZuulDto> page = routeZuulService.page(listSearchGatewayPo.getDescription(), listSearchGatewayPo.getPage(), listSearchGatewayPo.getLimit());
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
-    @ApiOperation(value = "获取Zuul网关正在工作的路由信息")
+    @ApiOperation("获取Zuul网关正在工作的路由信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
     public Result<List<RouteZuulVo>> doListWorking(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
@@ -81,28 +81,28 @@ public class RouteZuulController {
         return Result.ok(result);
     }
 
-    @ApiOperation(value = "获取所有Zuul网关的名称")
+    @ApiOperation("获取所有Zuul网关的名称")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-gateway-names")
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        return Result.ok(discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
     }
 
-    @ApiOperation(value = "添加Zuul网关的路由")
+    @ApiOperation("添加Zuul网关的路由")
     @PostMapping("do-insert")
     public Result<?> doInsert(RouteZuulDto routeZuulDto) {
         routeZuulService.insert(routeZuulDto);
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新Zuul网关的路由")
+    @ApiOperation("更新Zuul网关的路由")
     @PostMapping("do-update")
     public Result<?> doUpdate(RouteZuulDto routeZuulDto) {
         routeZuulService.update(routeZuulDto);
         return Result.ok();
     }
 
-    @ApiOperation(value = "启用Zuul网关的路由")
+    @ApiOperation("启用Zuul网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
@@ -110,7 +110,7 @@ public class RouteZuulController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "禁用Zuul网关的路由")
+    @ApiOperation("禁用Zuul网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
@@ -118,7 +118,7 @@ public class RouteZuulController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除Zuul网关的路由")
+    @ApiOperation("删除Zuul网关的路由")
     @ApiImplicitParam(name = "ids", value = "路由id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
@@ -127,7 +127,7 @@ public class RouteZuulController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "发布Zuul网关的路由")
+    @ApiOperation("发布Zuul网关的路由")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         routeZuulService.publish();

@@ -20,6 +20,8 @@ import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
+import com.nepxion.discovery.platform.server.controller.BlacklistController;
+import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
@@ -40,6 +42,8 @@ import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.BlacklistService;
+import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
@@ -47,6 +51,7 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.service.DiscoveryService;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser;
 import com.nepxion.discovery.plugin.framework.parser.PluginConfigParser;
 import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigDeparser;
@@ -58,6 +63,11 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class })
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
+    @Bean
+    public DiscoveryService springCloudService() {
+        return new DiscoveryService();
+    }
+
     @Bean
     public PluginConfigParser pluginConfigParser() {
         return new XmlConfigParser();
@@ -129,6 +139,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlacklistPageController blacklistPageController() {
+        return new BlacklistPageController();
+    }
+
+    @Bean
     public DashboardController dashboardController() {
         return new DashboardController();
     }
@@ -169,6 +184,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlacklistController blacklistController() {
+        return new BlacklistController();
+    }
+
+    @Bean
     public AdminServiceImpl adminService() {
         return new AdminServiceImpl();
     }
@@ -206,5 +226,10 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulServiceImpl routeZuulService() {
         return new RouteZuulServiceImpl();
+    }
+
+    @Bean
+    public BlacklistService blacklistService() {
+        return new BlacklistServiceImpl();
     }
 }

@@ -40,14 +40,14 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @ApiOperation(value = "获取菜单信息列表")
+    @ApiOperation("获取菜单信息列表")
     @PostMapping("do-list")
     public Result<List<MenuVo>> doList(ListSearchNamePo listSearchNamePo) throws Exception {
         IPage<MenuVo> menuVoIPage = menuService.list(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(menuVoIPage.getRecords(), menuVoIPage.getTotal());
     }
 
-    @ApiOperation(value = "添加菜单")
+    @ApiOperation("添加菜单")
     @PostMapping("do-insert")
     public Result<?> doInsert(MenuPo menuPo) throws Exception {
         if (menuPo.getDefaultFlag() == null) {
@@ -65,7 +65,7 @@ public class MenuController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新菜单")
+    @ApiOperation("更新菜单")
     @PostMapping("do-update")
     public Result<?> doUpdate(MenuPo menuPo) throws Exception {
         SysMenuDto dbSysMenuDto = menuService.getById(menuPo.getId());
@@ -84,7 +84,7 @@ public class MenuController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除菜单")
+    @ApiOperation("删除菜单")
     @ApiImplicitParam(name = "ids", value = "菜单id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {

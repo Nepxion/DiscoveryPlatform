@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
+import com.nepxion.discovery.platform.server.service.DiscoveryService;
 
 @Controller
 @RequestMapping(RouteZuulController.PREFIX)
 public class RouteZuulPageController {
 
     @Autowired
-    private ServiceResource serviceResource;
+    private DiscoveryService discoveryService;
 
     @Autowired
     private RouteZuulService routeZuulService;
@@ -37,21 +37,21 @@ public class RouteZuulPageController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
         return String.format("%s/%s", RouteZuulController.PREFIX, "working");
     }
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", serviceResource.getServices());
+        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", discoveryService.getServiceNames());
         return String.format("%s/%s", RouteZuulController.PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        model.addAttribute("gatewayNames", serviceResource.getGatewayList(RouteZuulService.GATEWAY_TYPE));
-        model.addAttribute("serviceNames", serviceResource.getServices());
+        model.addAttribute("gatewayNames", discoveryService.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+        model.addAttribute("serviceNames", discoveryService.getServiceNames());
         model.addAttribute("route", routeZuulService.getById(id));
         return String.format("%s/%s", RouteZuulController.PREFIX, "edit");
     }

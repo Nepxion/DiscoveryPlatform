@@ -26,11 +26,14 @@ public class BlacklistDto extends BaseStateEntity {
     @TableField(value = "`gateway_name`")
     private String gatewayName;
 
-    @TableField(value = "`blacklist_id`")
-    private String blacklistId;
+    @TableField(value = "`service_name`")
+    private String serviceName;
 
-    @TableField(value = "`blacklist_address`")
-    private String blacklistAddress;
+    @TableField(value = "`service_uuid`")
+    private String serviceUUID;
+
+    @TableField(value = "`service_address`")
+    private String serviceAddress;
 
     @TableField(value = "`description`")
     private String description;
@@ -43,20 +46,28 @@ public class BlacklistDto extends BaseStateEntity {
         this.gatewayName = gatewayName;
     }
 
-    public String getBlacklistId() {
-        return blacklistId;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setBlacklistId(String blacklistId) {
-        this.blacklistId = blacklistId;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public String getBlacklistAddress() {
-        return blacklistAddress;
+    public String getServiceUUID() {
+        return serviceUUID;
     }
 
-    public void setBlacklistAddress(String blacklistAddress) {
-        this.blacklistAddress = blacklistAddress;
+    public void setServiceUUID(String serviceUUID) {
+        this.serviceUUID = serviceUUID;
+    }
+
+    public String getServiceAddress() {
+        return serviceAddress;
+    }
+
+    public void setServiceAddress(String serviceAddress) {
+        this.serviceAddress = serviceAddress;
     }
 
     public String getDescription() {

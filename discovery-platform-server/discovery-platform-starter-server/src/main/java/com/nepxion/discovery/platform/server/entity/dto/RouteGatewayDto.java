@@ -56,6 +56,8 @@ public class RouteGatewayDto extends BaseStateEntity {
     @TableField(value = "`description`")
     private String description;
 
+    @TableField(value = "`create_times_in_day`")
+    private Integer createTimesInDay;
 
     public String getRouteId() {
         return routeId;
@@ -143,6 +145,14 @@ public class RouteGatewayDto extends BaseStateEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCreateTimesInDay() {
+        return createTimesInDay;
+    }
+
+    public void setCreateTimesInDay(Integer createTimesInDay) {
+        this.createTimesInDay = createTimesInDay;
     }
 
     @Override

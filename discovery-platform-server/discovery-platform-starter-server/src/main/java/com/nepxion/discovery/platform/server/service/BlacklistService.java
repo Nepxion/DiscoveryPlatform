@@ -22,7 +22,7 @@ public interface BlacklistService {
 
     BlacklistDto getById(Long id);
 
-    void insert(BlacklistDto blacklistDto);
+    void insert(BlacklistDto blacklistDto) throws Exception;
 
     void update(BlacklistDto blacklistDto);
 

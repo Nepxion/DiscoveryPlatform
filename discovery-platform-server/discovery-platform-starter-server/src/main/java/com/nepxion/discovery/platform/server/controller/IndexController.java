@@ -35,7 +35,7 @@ public class IndexController {
     @Autowired
     private AdminService adminService;
 
-    @ApiOperation(value = "执行管理员登录系统")
+    @ApiOperation("执行管理员登录系统")
     @PostMapping("do-login")
     public Result<?> doLogin(LoginPo loginPo) {
         try {
@@ -51,14 +51,14 @@ public class IndexController {
         }
     }
 
-    @ApiOperation(value = "修改管理员的登录密码")
+    @ApiOperation("修改管理员的登录密码")
     @PostMapping("do-change-password")
     public Result<?> doChangePassword(AdminVo adminVo, ChangePasswordPo changePasswordPo) throws Exception {
         adminService.changePassword(adminVo.getId(), CommonTool.hash(changePasswordPo.getOldPassword()), CommonTool.hash(changePasswordPo.getPassword()));
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新管理员的信息")
+    @ApiOperation("更新管理员的信息")
     @PostMapping("do-update-info")
     public Result<?> doUpdateInfo(AdminVo adminVo, AdminPo adminPo) throws Exception {
         adminPo.setId(adminVo.getId());
@@ -66,7 +66,7 @@ public class IndexController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "执行管理员退出系统逻辑")
+    @ApiOperation("执行管理员退出系统逻辑")
     @PostMapping("do-quit")
     public Result<?> doQuit() {
         Subject subject = SecurityUtils.getSubject();

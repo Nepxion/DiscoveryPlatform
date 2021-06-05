@@ -29,8 +29,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
-import com.nepxion.discovery.console.resource.ConfigResource;
-import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
@@ -46,10 +44,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
     private RouteService routeService;
 
     @Autowired
-    private ServiceResource serviceResource;
-
-    @Autowired
-    private ConfigResource configResource;
+    private DiscoveryService discoveryService;
 
     @TransactionWriter
     @Override
@@ -57,9 +52,9 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         List<RouteZuulDto> routeZuulDtoList = list();
 
         if (CollectionUtils.isEmpty(routeZuulDtoList)) {
-            List<String> gatewayNameList = serviceResource.getGatewayList(GATEWAY_TYPE);
+            List<String> gatewayNameList = discoveryService.getGatewayNames(GATEWAY_TYPE);
             for (String gatewayName : gatewayNameList) {
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<RouteZuulDto>());
             }
             return;
@@ -105,13 +100,13 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteZuulDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<ZuulStrategyRouteEntity>());
             }
         } else {
             for (Map.Entry<String, List<ZuulStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -135,7 +130,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
         QueryWrapper<RouteZuulDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RouteZuulDto> lambda = queryWrapper.lambda().orderByAsc(RouteZuulDto::getCreateTime);
         if (StringUtils.isNotEmpty(description)) {
-            lambda.eq(RouteZuulDto::getDescription, description);
+            lambda.like(RouteZuulDto::getDescription, description);
         }
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
@@ -210,7 +205,7 @@ public class RouteZuulServiceImpl extends ServiceImpl<RouteZuulMapper, RouteZuul
 
     private void updateConfig(String gatewayName, String group, Object config) throws Exception {
         String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-        configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
+        discoveryService.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
     private void addKV(Map<String, List<RouteZuulDto>> map, String key, RouteZuulDto value) {

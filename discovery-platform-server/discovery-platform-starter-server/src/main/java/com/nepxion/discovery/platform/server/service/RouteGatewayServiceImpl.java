@@ -29,8 +29,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.entity.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
-import com.nepxion.discovery.console.resource.ConfigResource;
-import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
@@ -46,10 +44,8 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
     private RouteService routeService;
 
     @Autowired
-    private ServiceResource serviceResource;
+    private DiscoveryService discoveryService;
 
-    @Autowired
-    private ConfigResource configResource;
 
     @TransactionWriter
     @Override
@@ -57,9 +53,9 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         List<RouteGatewayDto> routeGatewayDtoList = list();
 
         if (CollectionUtils.isEmpty(routeGatewayDtoList)) {
-            List<String> gatewayNameList = serviceResource.getGatewayList(GATEWAY_TYPE);
+            List<String> gatewayNameList = discoveryService.getGatewayNames(GATEWAY_TYPE);
             for (String gatewayName : gatewayNameList) {
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
             return;
@@ -117,13 +113,13 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         if (CollectionUtils.isEmpty(newGatewayRouteMap)) {
             for (Map.Entry<String, List<RouteGatewayDto>> pair : unusedMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, new ArrayList<GatewayStrategyRouteEntity>());
             }
         } else {
             for (Map.Entry<String, List<GatewayStrategyRouteEntity>> pair : newGatewayRouteMap.entrySet()) {
                 String gatewayName = pair.getKey();
-                String group = serviceResource.getGroup(gatewayName);
+                String group = discoveryService.getGroup(gatewayName);
                 updateConfig(gatewayName, group, pair.getValue());
             }
         }
@@ -147,7 +143,7 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
         QueryWrapper<RouteGatewayDto> queryWrapper = new QueryWrapper<>();
         LambdaQueryWrapper<RouteGatewayDto> lambda = queryWrapper.lambda().orderByAsc(RouteGatewayDto::getCreateTime);
         if (StringUtils.isNotEmpty(description)) {
-            lambda.eq(RouteGatewayDto::getDescription, description);
+            lambda.like(RouteGatewayDto::getDescription, description);
         }
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
@@ -217,12 +213,12 @@ public class RouteGatewayServiceImpl extends ServiceImpl<RouteGatewayMapper, Rou
     @TransactionWriter
     @Override
     public void delete(Collection<Long> ids) {
-        removeByIds(ids);
+        super.removeByIds(ids);
     }
 
     private void updateConfig(String gatewayName, String group, Object config) throws Exception {
         String serviceId = gatewayName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-        configResource.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
+        discoveryService.updateRemoteConfig(group, serviceId, JsonUtil.toPrettyJson(config));
     }
 
     private void addKV(Map<String, List<RouteGatewayDto>> map, String key, RouteGatewayDto value) {

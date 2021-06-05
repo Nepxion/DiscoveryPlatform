@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
-import com.nepxion.discovery.platform.server.service.PlatformDiscoveryAdapter;
 
 @Controller
 @RequestMapping(RouteZuulController.PREFIX)

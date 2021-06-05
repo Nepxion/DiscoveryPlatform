@@ -1,4 +1,4 @@
-package com.nepxion.discovery.platform.server.service;
+package com.nepxion.discovery.platform.server.adapter;
 
 /**
  * <p>Title: Nepxion Discovery</p>

@@ -35,7 +35,6 @@ public class BlacklistDto extends BaseStateEntity {
     @TableField(value = "`description`")
     private String description;
 
-
     public String getServiceName() {
         return serviceName;
     }

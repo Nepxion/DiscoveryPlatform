@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.adapter;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Ning Zhang
+ * @version 1.0
+ */
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,16 +31,6 @@ import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
 
 public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseStateEntity> extends ServiceImpl<M, T> implements BasePublishService<T> {
     @TransactionReader
@@ -77,8 +77,7 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
     }
 
     @TransactionWriter
-    protected void publish(Collection<String> gatewayNameCollection,
-                           PublishAction<T> publishAction) throws Exception {
+    protected void publish(Collection<String> gatewayNameCollection, PublishAction<T> publishAction) throws Exception {
         Set<String> gatewayNameSet = new HashSet<>(gatewayNameCollection);
         List<T> toBePublishList = list();
 

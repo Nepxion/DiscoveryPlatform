@@ -42,7 +42,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
 
     @Override
     public void publish() throws Exception {
-        this.publish(platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE),
+        publish(platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE),
                 new PublishAction<RouteZuulDto>() {
                     @Override
                     public Object process(RouteZuulDto routeZuulDto) {

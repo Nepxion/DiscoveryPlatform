@@ -96,6 +96,7 @@ public class CommonTool {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> List<T> parseList(String value, String separate, Class<T> tClass) {
         String[] array = value.split(separate);
         List<T> result = new ArrayList<>(array.length);
@@ -108,6 +109,7 @@ public class CommonTool {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> List<T> split(String value, String separator, Class<T> clazz) {
         if (StringUtils.isNotEmpty(value)) {
             List<T> result = new ArrayList<>();

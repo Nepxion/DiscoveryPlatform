@@ -43,7 +43,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
 
     @Override
     public void publish() throws Exception {
-        this.publish(platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE),
+        publish(platformDiscoveryAdapter.getGatewayNames(GATEWAY_TYPE),
                 new PublishAction<RouteGatewayDto>() {
                     @Override
                     public Object process(RouteGatewayDto routeGatewayDto) throws Exception {
@@ -114,6 +114,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
         save(routeGatewayDto);
     }
 
+    @SuppressWarnings("unchecked")
     private <T extends GatewayStrategyRouteEntity.Clause> List<T> parse(String value, Class<T> tClass) throws Exception {
         List<T> result = new ArrayList<>();
         String[] all = value.split(PlatformConstant.ROW_SEPARATOR);

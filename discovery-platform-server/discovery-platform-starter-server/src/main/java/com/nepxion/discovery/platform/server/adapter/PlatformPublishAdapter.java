@@ -123,13 +123,13 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         }
 
         if (!CollectionUtils.isEmpty(toDeleteList)) {
-            this.removeByIds(toDeleteList.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
+            removeByIds(toDeleteList.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
         }
         if (!CollectionUtils.isEmpty(toUpdateList)) {
             for (T t : toUpdateList) {
                 t.setPublishFlag(true);
             }
-            this.updateBatchById(toUpdateList, toUpdateList.size());
+            updateBatchById(toUpdateList, toUpdateList.size());
         }
     }
 

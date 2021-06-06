@@ -41,7 +41,7 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
 
     @Override
     public void publish() throws Exception {
-        this.publish(platformDiscoveryAdapter.getGatewayNames(),
+        publish(platformDiscoveryAdapter.getGatewayNames(),
                 new PublishAction<BlacklistDto>() {
                     @Override
                     public Object process(BlacklistDto blacklistDto) {
@@ -108,6 +108,7 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
     public void insert(BlacklistDto blacklistDto) throws Exception {

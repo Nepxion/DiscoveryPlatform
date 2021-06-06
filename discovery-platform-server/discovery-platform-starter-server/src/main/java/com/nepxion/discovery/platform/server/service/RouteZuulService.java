@@ -15,21 +15,16 @@ import java.util.Collection;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.console.entity.GatewayType;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
+import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
-public interface RouteZuulService {
+public interface RouteZuulService extends BasePublishService<RouteZuulDto> {
     GatewayType GATEWAY_TYPE = GatewayType.ZUUL;
 
     void publish() throws Exception;
 
     IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize);
 
-    RouteZuulDto getById(Long id);
-
     void insert(RouteZuulDto routeZuulDto);
-
-    void update(RouteZuulDto routeZuulDto);
-
-    void enable(Long id, boolean enableFlag);
 
     void logicDelete(Collection<Long> ids);
 

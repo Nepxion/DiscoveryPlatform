@@ -23,9 +23,6 @@ import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 public class BlacklistDto extends BaseStateEntity {
     private static final long serialVersionUID = 7349466331174113582L;
 
-    @TableField(value = "`gateway_name`")
-    private String gatewayName;
-
     @TableField(value = "`service_name`")
     private String serviceName;
 
@@ -38,13 +35,6 @@ public class BlacklistDto extends BaseStateEntity {
     @TableField(value = "`description`")
     private String description;
 
-    public String getGatewayName() {
-        return gatewayName;
-    }
-
-    public void setGatewayName(String gatewayName) {
-        this.gatewayName = gatewayName;
-    }
 
     public String getServiceName() {
         return serviceName;

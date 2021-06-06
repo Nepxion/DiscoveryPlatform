@@ -26,9 +26,6 @@ public class RouteGatewayDto extends BaseStateEntity {
     @TableField(value = "`route_id`")
     private String routeId;
 
-    @TableField(value = "`gateway_name`")
-    private String gatewayName;
-
     @TableField(value = "`uri`")
     private String uri;
 
@@ -65,14 +62,6 @@ public class RouteGatewayDto extends BaseStateEntity {
 
     public void setRouteId(String routeId) {
         this.routeId = routeId;
-    }
-
-    public String getGatewayName() {
-        return gatewayName;
-    }
-
-    public void setGatewayName(String gatewayName) {
-        this.gatewayName = gatewayName;
     }
 
     public String getUri() {

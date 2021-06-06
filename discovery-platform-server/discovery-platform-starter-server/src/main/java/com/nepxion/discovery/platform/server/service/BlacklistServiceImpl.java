@@ -11,14 +11,10 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,125 +23,80 @@ import org.springframework.util.CollectionUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyBlacklistEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.common.util.StringUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
+import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
-import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
-import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.mapper.BlacklistMapper;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
 
-public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, BlacklistDto> implements BlacklistService {
+public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper, BlacklistDto> implements BlacklistService {
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Override
     public void publish() throws Exception {
-        List<BlacklistDto> blacklistDtoList = list();
-        if (CollectionUtils.isEmpty(blacklistDtoList)) {
-            List<String> gatewayNameList = platformDiscoveryAdapter.getGatewayNames();
-            for (String gatewayName : gatewayNameList) {
-                String group = platformDiscoveryAdapter.getGroup(gatewayName);
-                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, platformDiscoveryAdapter.ruleEntityToXml(new RuleEntity()));
-            }
-            return;
-        }
-        List<BlacklistDto> toUpdateList = new ArrayList<>(blacklistDtoList.size());
-        List<BlacklistDto> toDeleteList = new ArrayList<>(blacklistDtoList.size());
-        Map<String, List<BlacklistDto>> unusedMap = new HashMap<>();
-
-        Map<String, Set<String>> uuidMap = new LinkedHashMap<>();
-        Map<String, Set<String>> addressMap = new LinkedHashMap<>();
-        Map<String, List<BlacklistDto>> newBlackListMap = new HashMap<>();
-
-        for (BlacklistDto blacklistDto : blacklistDtoList) {
-            if (blacklistDto.getDeleteFlag()) {
-                toDeleteList.add(blacklistDto);
-                addKV(unusedMap, blacklistDto.getGatewayName(), blacklistDto);
-                continue;
-            } else if (!blacklistDto.getEnableFlag()) {
-                toUpdateList.add(blacklistDto);
-                addKV(unusedMap, blacklistDto.getGatewayName(), blacklistDto);
-                continue;
-            }
-            toUpdateList.add(blacklistDto);
-            String gatewayName = blacklistDto.getGatewayName();
-
-            if (newBlackListMap.containsKey(gatewayName)) {
-                newBlackListMap.get(gatewayName).add(blacklistDto);
-            } else {
-                List<BlacklistDto> blacklistDtoArrayList = new ArrayList<>();
-                blacklistDtoArrayList.add(blacklistDto);
-                newBlackListMap.put(gatewayName, blacklistDtoArrayList);
-            }
-        }
-
-        if (CollectionUtils.isEmpty(newBlackListMap)) {
-            for (Map.Entry<String, List<BlacklistDto>> pair : unusedMap.entrySet()) {
-                String gatewayName = pair.getKey();
-                String group = platformDiscoveryAdapter.getGroup(gatewayName);
-                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, platformDiscoveryAdapter.ruleEntityToXml(new RuleEntity()));
-            }
-        } else {
-            for (Map.Entry<String, List<BlacklistDto>> entry : newBlackListMap.entrySet()) {
-                String gatewayName = entry.getKey();
-                for (BlacklistDto blacklistDto : entry.getValue()) {
-                    if (!StringUtils.isEmpty(blacklistDto.getServiceUUID())) {
-                        addKV(uuidMap, blacklistDto.getServiceName(), blacklistDto.getServiceUUID());
+        this.publish(platformDiscoveryAdapter.getGatewayNames(),
+                new PublishAction<BlacklistDto>() {
+                    @Override
+                    public Object process(BlacklistDto blacklistDto) {
+                        return blacklistDto;
                     }
-                    if (!StringUtils.isEmpty(blacklistDto.getServiceAddress())) {
-                        addKV(addressMap, blacklistDto.getServiceName(), blacklistDto.getServiceAddress());
+
+                    @Override
+                    public void publishEmptyConfig(String gatewayName) throws Exception {
+                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
+                        ruleEntity.setStrategyBlacklistEntity(new StrategyBlacklistEntity());
+                        platformDiscoveryAdapter.publishConfig(gatewayName, platformDiscoveryAdapter.ruleEntityToXml(ruleEntity));
+                    }
+
+                    @Override
+                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
+                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
+                        StrategyBlacklistEntity strategyBlacklistEntity = new StrategyBlacklistEntity();
+                        strategyBlacklistEntity.setIdValue(null);
+                        strategyBlacklistEntity.setAddressValue(null);
+
+                        Map<String, Set<String>> uuidMap = new LinkedHashMap<>(configList.size());
+                        Map<String, Set<String>> addressMap = new LinkedHashMap<>(configList.size());
+
+                        for (Object item : configList) {
+                            BlacklistDto blacklistDto = (BlacklistDto) item;
+                            if (!StringUtils.isEmpty(blacklistDto.getServiceUUID())) {
+                                CommonTool.addKVForSet(uuidMap, blacklistDto.getGatewayName(), blacklistDto.getServiceUUID());
+                            }
+                            if (!StringUtils.isEmpty(blacklistDto.getServiceAddress())) {
+                                CommonTool.addKVForSet(addressMap, blacklistDto.getGatewayName(), blacklistDto.getServiceAddress());
+                            }
+                        }
+
+                        if (!CollectionUtils.isEmpty(uuidMap)) {
+                            Map<String, List<String>> map = new LinkedHashMap<>();
+                            for (Map.Entry<String, Set<String>> pair : uuidMap.entrySet()) {
+                                map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
+                            }
+                            strategyBlacklistEntity.setIdValue(StringUtil.convertToComplexString(map));
+                        }
+
+                        if (!CollectionUtils.isEmpty(addressMap)) {
+                            Map<String, List<String>> map = new LinkedHashMap<>();
+                            for (Map.Entry<String, Set<String>> pair : addressMap.entrySet()) {
+                                map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
+                            }
+                            strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(map));
+                        }
+                        ruleEntity.setStrategyBlacklistEntity(strategyBlacklistEntity);
+                        platformDiscoveryAdapter.publishConfig(gatewayName, ruleEntity);
                     }
                 }
-                String group = platformDiscoveryAdapter.getGroup(gatewayName);
-                String remoteConfig = platformDiscoveryAdapter.getRemoteConfig(group, gatewayName);
-                RuleEntity ruleEntity;
-                if (StringUtils.isEmpty(remoteConfig)) {
-                    ruleEntity = new RuleEntity();
-                } else {
-                    ruleEntity = platformDiscoveryAdapter.xmlToRuleEntity(remoteConfig);
-                }
-                StrategyBlacklistEntity strategyBlacklistEntity = new StrategyBlacklistEntity();
-                strategyBlacklistEntity.setIdValue(null);
-                strategyBlacklistEntity.setAddressValue(null);
-                if (!CollectionUtils.isEmpty(uuidMap)) {
-                    Map<String, List<String>> map = new LinkedHashMap<>();
-                    for (Map.Entry<String, Set<String>> pair : uuidMap.entrySet()) {
-                        map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
-                    }
-                    strategyBlacklistEntity.setIdValue(StringUtil.convertToComplexString(map));
-                }
-                if (!CollectionUtils.isEmpty(addressMap)) {
-                    Map<String, List<String>> map = new LinkedHashMap<>();
-                    for (Map.Entry<String, Set<String>> pair : addressMap.entrySet()) {
-                        map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
-                    }
-                    strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(map));
-                }
-                ruleEntity.setStrategyBlacklistEntity(strategyBlacklistEntity);
-                String config = platformDiscoveryAdapter.ruleEntityToXml(ruleEntity);
-                platformDiscoveryAdapter.updateRemoteConfig(group, gatewayName, config);
-            }
-        }
-
-        if (!CollectionUtils.isEmpty(toDeleteList)) {
-            delete(toDeleteList.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
-        }
-
-        if (!CollectionUtils.isEmpty(toUpdateList)) {
-            for (BlacklistDto blacklistDto : toUpdateList) {
-                blacklistDto.setPublishFlag(true);
-            }
-            updateBatchById(toUpdateList, toUpdateList.size());
-        }
+        );
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public IPage<BlacklistDto> page(String description, Integer pageNum, Integer pageSize) {
@@ -157,16 +108,6 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @TransactionReader
-    @Override
-    public BlacklistDto getById(Long id) {
-        if (id == null) {
-            return null;
-        }
-        return super.getById(id);
-    }
-
-    @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
     public void insert(BlacklistDto blacklistDto) throws Exception {
@@ -178,16 +119,12 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         List<Map<String, String>> uuidList = JsonUtil.fromJson(blacklistDto.getServiceUUID(), List.class);
         for (Map<String, String> map : uuidList) {
             for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = new BlacklistDto();
+                BlacklistDto item = prepareInsert(new BlacklistDto());
                 item.setServiceName(pair.getKey());
                 item.setServiceUUID(pair.getValue());
                 item.setGatewayName(blacklistDto.getGatewayName());
                 item.setDescription(blacklistDto.getDescription());
                 item.setServiceAddress(StringUtils.EMPTY);
-                item.setOperation(Operation.INSERT.getCode());
-                item.setEnableFlag(true);
-                item.setPublishFlag(false);
-                item.setDeleteFlag(false);
                 blacklistDtoList.add(item);
             }
         }
@@ -195,81 +132,15 @@ public class BlacklistServiceImpl extends ServiceImpl<BlacklistMapper, Blacklist
         List<Map<String, String>> addressList = JsonUtil.fromJson(blacklistDto.getServiceAddress(), List.class);
         for (Map<String, String> map : addressList) {
             for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = new BlacklistDto();
+                BlacklistDto item = prepareInsert(new BlacklistDto());
                 item.setServiceName(pair.getKey());
                 item.setServiceAddress(pair.getValue());
                 item.setGatewayName(blacklistDto.getGatewayName());
                 item.setDescription(blacklistDto.getDescription());
                 item.setServiceUUID(StringUtils.EMPTY);
-                item.setOperation(Operation.INSERT.getCode());
-                item.setEnableFlag(true);
-                item.setPublishFlag(false);
-                item.setDeleteFlag(false);
                 blacklistDtoList.add(item);
             }
         }
-
-        super.saveBatch(blacklistDtoList);
-    }
-
-    @TransactionWriter
-    @Override
-    public void update(BlacklistDto blacklistDto) {
-        if (blacklistDto == null) {
-            return;
-        }
-        blacklistDto.setPublishFlag(false);
-        blacklistDto.setDeleteFlag(false);
-        blacklistDto.setOperation(Operation.UPDATE.getCode());
-        updateById(blacklistDto);
-    }
-
-    @TransactionWriter
-    @Override
-    public void enable(Long id, boolean enableFlag) {
-        BlacklistDto blacklistDto = getById(id);
-        blacklistDto.setEnableFlag(enableFlag);
-        update(blacklistDto);
-    }
-
-    @TransactionWriter
-    @Override
-    public void logicDelete(Collection<Long> ids) {
-        for (Long id : ids) {
-            BlacklistDto blacklistDto = getById(id);
-            if (blacklistDto == null) {
-                continue;
-            }
-            blacklistDto.setDeleteFlag(true);
-            blacklistDto.setPublishFlag(false);
-            blacklistDto.setOperation(Operation.DELETE.getCode());
-            updateById(blacklistDto);
-        }
-    }
-
-    @TransactionWriter
-    @Override
-    public void delete(Collection<Long> ids) {
-        super.removeByIds(ids);
-    }
-
-    private void addKV(Map<String, Set<String>> map, String serviceName, String value) {
-        if (map.containsKey(serviceName)) {
-            map.get(serviceName).add(value);
-        } else {
-            Set<String> sets = new LinkedHashSet<>();
-            sets.add(value);
-            map.put(serviceName, sets);
-        }
-    }
-
-    private void addKV(Map<String, List<BlacklistDto>> map, String key, BlacklistDto blacklistDto) {
-        if (map.containsKey(key)) {
-            map.get(key).add(blacklistDto);
-        } else {
-            List<BlacklistDto> blacklistDtoList = new ArrayList<>();
-            blacklistDtoList.add(blacklistDto);
-            map.put(key, blacklistDtoList);
-        }
+        saveBatch(blacklistDtoList);
     }
 }

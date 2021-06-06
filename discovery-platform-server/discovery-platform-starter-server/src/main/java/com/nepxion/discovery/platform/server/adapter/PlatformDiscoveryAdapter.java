@@ -13,6 +13,7 @@ package com.nepxion.discovery.platform.server.adapter;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -71,16 +72,33 @@ public class PlatformDiscoveryAdapter {
         return springApplicationName;
     }
 
-    public String getGroup(String serviceName) {
+    public String getGroupName(String serviceName) {
         return serviceResource.getGroup(serviceName);
     }
 
-    public String getRemoteConfig(String groupName, String serviceName) throws Exception {
-        return configResource.getRemoteConfig(groupName, serviceName);
+    public RuleEntity getConfig(String serviceName) throws Exception {
+        String groupName = getGroupName(serviceName);
+        String remoteConfig = getConfigForString(groupName, serviceName);
+        RuleEntity ruleEntity;
+        if (StringUtils.isEmpty(remoteConfig)) {
+            ruleEntity = new RuleEntity();
+        } else {
+            ruleEntity = xmlToRuleEntity(remoteConfig);
+        }
+        return ruleEntity;
     }
 
-    public void updateRemoteConfig(String groupName, String serviceName, String config) throws Exception {
-        configResource.updateRemoteConfig(groupName, serviceName, config);
+    public void publishConfig(String groupName, String gatewayName, String config) throws Exception {
+        configResource.updateRemoteConfig(groupName, gatewayName, config);
+    }
+
+    public void publishConfig(String gatewayName, String config) throws Exception {
+        String groupName = getGroupName(gatewayName);
+        publishConfig(groupName, gatewayName, config);
+    }
+
+    public void publishConfig(String gatewayName, RuleEntity ruleEntity) throws Exception {
+        publishConfig(gatewayName, ruleEntityToXml(ruleEntity));
     }
 
     public RuleEntity xmlToRuleEntity(String config) {
@@ -89,5 +107,9 @@ public class PlatformDiscoveryAdapter {
 
     public String ruleEntityToXml(RuleEntity ruleEntity) {
         return pluginConfigDeparser.deparse(ruleEntity);
+    }
+
+    private String getConfigForString(String groupName, String serviceName) throws Exception {
+        return configResource.getRemoteConfig(groupName, serviceName);
     }
 }

@@ -52,7 +52,7 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
                     public void publishEmptyConfig(String gatewayName) throws Exception {
                         RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
                         ruleEntity.setStrategyBlacklistEntity(new StrategyBlacklistEntity());
-                        platformDiscoveryAdapter.publishConfig(gatewayName, platformDiscoveryAdapter.ruleEntityToXml(ruleEntity));
+                        platformDiscoveryAdapter.publishConfig(gatewayName, ruleEntity);
                     }
 
                     @Override

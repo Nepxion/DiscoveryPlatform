@@ -52,10 +52,6 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
-import com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser;
-import com.nepxion.discovery.plugin.framework.parser.PluginConfigParser;
-import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigDeparser;
-import com.nepxion.discovery.plugin.framework.parser.xml.XmlConfigParser;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
@@ -66,16 +62,6 @@ public class PlatformAutoConfiguration {
     @Bean
     public PlatformDiscoveryAdapter platformDiscoveryAdapter() {
         return new PlatformDiscoveryAdapter();
-    }
-
-    @Bean
-    public PluginConfigParser pluginConfigParser() {
-        return new XmlConfigParser();
-    }
-
-    @Bean
-    public PluginConfigDeparser pluginConfigDeparser() {
-        return new XmlConfigDeparser();
     }
 
     @Bean

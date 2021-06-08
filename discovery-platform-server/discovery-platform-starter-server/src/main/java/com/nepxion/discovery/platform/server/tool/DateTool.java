@@ -17,11 +17,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 
 public class DateTool {
     private static final DateFormat DATA_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
     private static final DateFormat TIME_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+
 
     private static final List<DateFormat> DATE_FORMAT_LIST = Arrays.asList(
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"),
@@ -65,4 +67,18 @@ public class DateTool {
     public static String getTimeSequence() {
         return TIME_SEQUENCE_FORMAT.format(new Date());
     }
+
+    public static String beginOfDay(){
+      	return  DateUtil.formatDateTime(DateUtil.beginOfDay(new Date()));
+	}
+
+	public static String getEndOfDay(){
+	  	return DateUtil.formatDateTime(DateUtil.endOfDay(new Date()));
+	}
+
+	public static void main(String[] args) {
+	  	System.out.println(beginOfDay());
+	  	System.out.println(getEndOfDay());
+	}
+
 }

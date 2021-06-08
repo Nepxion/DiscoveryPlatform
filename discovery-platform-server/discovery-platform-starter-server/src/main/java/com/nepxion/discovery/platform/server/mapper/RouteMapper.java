@@ -15,5 +15,5 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface RouteMapper {
-    Integer getNextMaxCreateTimesInDay(@Param("tableName") String tableName);
+    Integer getNextMaxCreateTimesInDay(@Param("tableName") String tableName,@Param("startTime") String startTime,@Param("endTime") String endTime);
 }

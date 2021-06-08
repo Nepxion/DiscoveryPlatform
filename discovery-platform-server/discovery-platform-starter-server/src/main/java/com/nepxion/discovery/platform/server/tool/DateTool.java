@@ -75,10 +75,9 @@ public class DateTool {
     }
 
     public static String getEndOfDay() {
-        Calendar cal=Calendar.getInstance();
-        cal.add(Calendar.DATE,1);
-        Date time=cal.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        Date time = cal.getTime();
         return TIME_DAY.format(time) + PlatformConstant.TIME;
     }
-
 }

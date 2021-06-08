@@ -18,8 +18,6 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.RouteMapper;
 import com.nepxion.discovery.platform.server.tool.MybatisPlusTool;
 
-import javax.xml.crypto.Data;
-
 public class RouteServiceImpl implements RouteService {
     @Autowired
     private RouteMapper routeMapper;
@@ -28,13 +26,13 @@ public class RouteServiceImpl implements RouteService {
     public Integer getNextMaxCreateTimesInDayOfGateway() {
         String startTime = DateTool.beginOfDay();
         String endTime = DateTool.getEndOfDay();
-        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteGatewayDto.class),startTime,endTime);
+        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteGatewayDto.class), startTime, endTime);
     }
 
-  	@Override
+    @Override
     public Integer getNextMaxCreateTimesInDayOfZuul() {
-		String startTime = DateTool.beginOfDay();
-		String endTime = DateTool.getEndOfDay();
-        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteZuulDto.class),startTime,endTime);
+        String startTime = DateTool.beginOfDay();
+        String endTime = DateTool.getEndOfDay();
+        return routeMapper.getNextMaxCreateTimesInDay(MybatisPlusTool.getTableName(RouteZuulDto.class), startTime, endTime);
     }
 }

@@ -7,7 +7,7 @@
         SELECT IFNULL(MAX(`create_times_in_day`), 0) + 1
         FROM ${tableName}
         WHERE  <![CDATA[ create_time >= #{startTime} ]]>
-          <![CDATA[ and create_time <= #{endTime} ]]>
+          <![CDATA[ and create_time < #{endTime} ]]>
     </select>
 
 </mapper>

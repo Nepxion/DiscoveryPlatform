@@ -14,10 +14,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 
 public class DateTool {
     private static final DateFormat DATA_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
@@ -68,11 +71,14 @@ public class DateTool {
     }
 
     public static String beginOfDay() {
-        return TIME_DAY.format(new Date()) + " 00:00:00";
+        return TIME_DAY.format(new Date()) + PlatformConstant.TIME;
     }
 
     public static String getEndOfDay() {
-        return TIME_DAY.format(new Date()) + " 23:59:59";
+        Calendar cal=Calendar.getInstance();
+        cal.add(Calendar.DATE,1);
+        Date time=cal.getTime();
+        return TIME_DAY.format(time) + PlatformConstant.TIME;
     }
 
 }

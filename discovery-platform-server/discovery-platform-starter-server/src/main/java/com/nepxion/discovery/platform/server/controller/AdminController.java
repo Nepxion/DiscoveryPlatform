@@ -46,14 +46,14 @@ public class AdminController {
     @Autowired
     private PlatformLoginAdapter loginAdapter;
 
-    @ApiOperation(value = "获取管理员信息列表")
+    @ApiOperation("获取管理员信息列表")
     @PostMapping("do-list")
     public Result<List<AdminVo>> doList(ListSearchNamePo listSearchNamePo) throws Exception {
         IPage<AdminVo> adminPage = adminService.list(loginAdapter.getLoginMode(), listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(adminPage.getRecords(), adminPage.getTotal());
     }
 
-    @ApiOperation(value = "重置管理员的密码")
+    @ApiOperation("重置管理员的密码")
     @PostMapping("do-reset-password")
     public Result<?> doResetPassword(AdminPo adminPo) throws Exception {
         SysAdminDto sysAdmin = adminService.getById(adminPo.getId());
@@ -67,21 +67,21 @@ public class AdminController {
         }
     }
 
-    @ApiOperation(value = "添加管理员")
+    @ApiOperation("添加管理员")
     @PostMapping("do-insert")
     public Result<?> doInsert(AdminPo adminPo) throws Exception {
         adminService.insert(loginAdapter.getLoginMode(), adminPo);
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新管理员的信息")
+    @ApiOperation("更新管理员的信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(AdminPo adminPo) throws Exception {
         adminService.update(adminPo);
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除管理员")
+    @ApiOperation("删除管理员")
     @ApiImplicitParam(name = "ids", value = "管理员的id, 多个用逗号隔开", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
@@ -90,7 +90,7 @@ public class AdminController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "根据关键字查询管理员信息")
+    @ApiOperation("根据关键字查询管理员信息")
     @ApiImplicitParam(name = "keyword", value = "查询关键字", required = false, dataType = "String")
     @PostMapping("do-search")
     public Result<List<AdminVo>> doSearch(@RequestParam(value = "keyword", defaultValue = StringUtils.EMPTY) String keyword) {

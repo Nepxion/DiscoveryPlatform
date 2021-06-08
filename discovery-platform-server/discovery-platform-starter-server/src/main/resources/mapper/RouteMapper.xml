@@ -6,7 +6,8 @@
     <select id="getNextMaxCreateTimesInDay" resultType="java.lang.Integer">
         SELECT IFNULL(MAX(`create_times_in_day`), 0) + 1
         FROM ${tableName}
-        WHERE to_days(`create_time`) = to_days(now())
+        WHERE  <![CDATA[ create_time >= #{startTime} ]]>
+          <![CDATA[ and create_time < #{endTime} ]]>
     </select>
 
 </mapper>

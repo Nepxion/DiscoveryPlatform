@@ -20,7 +20,7 @@
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
 
-        <mybatis.plus.version>3.4.3</mybatis.plus.version>
+        <mybatis.plus.version>3.4.2</mybatis.plus.version>
         <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>
 

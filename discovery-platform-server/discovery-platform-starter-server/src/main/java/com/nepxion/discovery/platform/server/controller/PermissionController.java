@@ -49,7 +49,7 @@ public class PermissionController {
     @Autowired
     private MenuService menuService;
 
-    @ApiOperation(value = "获取指定角色id的所有菜单")
+    @ApiOperation("获取指定角色id的所有菜单")
     @ApiImplicitParam(name = "sysRoleId", value = "角色id", required = true, dataType = "String")
     @PostMapping("do-get-menus")
     public Result<List<SysMenuDto>> doGetMenus(@RequestParam(value = "sysRoleId") Long sysRoleId) throws Exception {
@@ -59,7 +59,7 @@ public class PermissionController {
         return Result.ok(allMenus.stream().filter(p -> StringUtils.isNotEmpty(p.getUrl())).collect(Collectors.toList()));
     }
 
-    @ApiOperation(value = "获取权限信息列表")
+    @ApiOperation("获取权限信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "页码", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", required = true, dataType = "Integer"),
@@ -72,7 +72,7 @@ public class PermissionController {
         return Result.ok(list.getRecords(), list.getTotal());
     }
 
-    @ApiOperation(value = "添加权限")
+    @ApiOperation("添加权限")
     @PostMapping("do-insert")
     public Result<?> doInsert(PermissionPo permissionPo) {
         SysPermissionDto sysPermissionDto = new SysPermissionDto();
@@ -86,7 +86,7 @@ public class PermissionController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新权限")
+    @ApiOperation("更新权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限id", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "type", value = "权限类型(1:INSERT; 2:UPDATE; 3:DELETE; 4:SELECT)", required = true, dataType = "String"),
@@ -116,7 +116,7 @@ public class PermissionController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除权限")
+    @ApiOperation("删除权限")
     @ApiImplicitParam(name = "ids", value = "权限id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {

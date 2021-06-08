@@ -102,6 +102,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>com.nepxion.discovery.platform.application.PlatformMySqlApplication</mainClass>
                     <layout>JAR</layout>
                     <layers>
                         <enabled>true</enabled>

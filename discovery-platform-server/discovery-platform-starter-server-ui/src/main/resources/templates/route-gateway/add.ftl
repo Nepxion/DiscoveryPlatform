@@ -170,9 +170,8 @@
                 }
             });
 
-            <#if (serviceNames?size==0) >
-            $('#gatewayName option:eq(1)').attr('selected', 'selected');
-            layui.form.render('select');
+            <#if (gatewayNames?size==1) >
+            chooseSelectOption('gatewayName', 1);
             </#if>
         });
     </script>

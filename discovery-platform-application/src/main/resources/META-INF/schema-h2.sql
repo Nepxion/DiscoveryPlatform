@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
     `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
     `name`                      VARCHAR(64)                     NOT NULL COMMENT '菜单名称',
     `url`                       VARCHAR(128)                    NOT NULL COMMENT '菜单的链接跳转地址',
-    `show_flag`                 TINYINT(1)                      NOT NULL COMMENT '菜单是否出现在菜单栏',
-    `default_flag`              TINYINT(1)                      NOT NULL COMMENT '是否是默认菜单页(只允许有一个默认页，如果设置多个，以第一个为准)',
-    `blank_flag`                TINYINT(1)                      NOT NULL COMMENT '是否新开窗口打开页面',
+    `show_flag`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '菜单是否出现在菜单栏',
+    `default_flag`              TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否是默认菜单页(只允许有一个默认页，如果设置多个，以第一个为准)',
+    `blank_flag`                TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否新开窗口打开页面',
     `icon_class`                VARCHAR(64)                     NOT NULL COMMENT '图标样式',
     `parent_id`                 BIGINT(20) UNSIGNED             NOT NULL COMMENT '父级id(即本表的主键id)',
     `order`                     BIGINT(128) UNSIGNED            NOT NULL COMMENT '顺序号(值越小, 排名越靠前)',
@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS `sys_permission`
     `id`                         BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
     `sys_role_id`                BIGINT UNSIGNED                 NOT NULL COMMENT 'sys_role的主键id',
     `sys_menu_id`                BIGINT UNSIGNED                 NOT NULL COMMENT 'sys_menu的主键id',
-    `can_insert`                 TINYINT(1)                      NOT NULL COMMENT '是否能新增(true:能, false:不能)',
-    `can_delete`                 TINYINT(1)                      NOT NULL COMMENT '是否能删除(true:能, false:不能)',
-    `can_update`                 TINYINT(1)                      NOT NULL COMMENT '是否能修改(true:能, false:不能)',
-    `can_select`                 TINYINT(1)                      NOT NULL COMMENT '是否能读取(true:能, false:不能)',
+    `can_insert`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否能新增(true:能, false:不能)',
+    `can_delete`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否能删除(true:能, false:不能)',
+    `can_update`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否能修改(true:能, false:不能)',
+    `can_select`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否能读取(true:能, false:不能)',
     `create_time`                DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`                DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `sys_role`
 (
     `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
     `name`                      VARCHAR(64)                     NOT NULL COMMENT '角色名称',
-    `super_admin`               TINYINT(1)                      NOT NULL COMMENT '是否是超级管理员(1:是, 0:否)',
+    `super_admin`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否是超级管理员(1:是, 0:否)',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '角色描述信息',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
@@ -89,9 +89,9 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `description`               VARCHAR(64)                     NOT NULL COMMENT '描述信息',
     `create_times_in_day`       INT(0) UNSIGNED                 NOT NULL COMMENT '一天内创建路由的次数',
     `operation`                 INT(0) UNSIGNED                 NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
-    `enable_flag`               TINYINT(1)                      NOT NULL COMMENT '是否启用(0:禁用, 1:启用)',
-    `publish_flag`              TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
-    `delete_flag`               TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
+    `enable_flag`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否启用(0:禁用, 1:启用)',
+    `publish_flag`              TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
+    `delete_flag`               TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
@@ -105,22 +105,21 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `service_id`                VARCHAR(128)                    NOT NULL COMMENT '服务id',
     `path`                      VARCHAR(128)                    NOT NULL COMMENT '转发目标路径',
     `url`                       VARCHAR(128)                    NOT NULL COMMENT '转发目标uri',
-    `strip_prefix`              TINYINT(1)                      NOT NULL COMMENT '代理前缀默认会从请求路径中移除，通过该设置关闭移除功能',
-    `retryable`                 TINYINT(1)                      NULL COMMENT '路由是否进行重试',
+    `strip_prefix`              TINYINT(1) UNSIGNED             NOT NULL COMMENT '代理前缀默认会从请求路径中移除，通过该设置关闭移除功能',
+    `retryable`                 TINYINT(1) UNSIGNED             NULL COMMENT '路由是否进行重试',
     `sensitive_headers`         VARCHAR(256)                    NOT NULL COMMENT '过滤客户端附带的headers, 用逗号分隔',
-    `custom_sensitive_headers`  TINYINT(1)                      NOT NULL COMMENT '',
+    `custom_sensitive_headers`  TINYINT(1) UNSIGNED             NOT NULL COMMENT '',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '描述信息',
     `create_times_in_day`       INT(0) UNSIGNED                 NOT NULL COMMENT '一天内创建路由的次数',
     `operation`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
-    `enable_flag`               TINYINT(1)                      NOT NULL COMMENT '是否启用',
-    `publish_flag`              TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
-    `delete_flag`               TINYINT(1)                      NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
+    `enable_flag`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否启用',
+    `publish_flag`              TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
+    `delete_flag`               TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_route_zuul_route_id`(`route_id`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -129,10 +128,10 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `service_uuid`              VARCHAR(64)                     NOT NULL COMMENT '服务的uuid',
     `service_address`           VARCHAR(64)                     NOT NULL COMMENT '服务的host:port',
     `description`               VARCHAR(128)                    NOT NULL COMMENT '服务无损屏蔽的描述信息',
-    `operation`                 TINYINT(1)              NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
-    `enable_flag`               TINYINT(1)              NOT NULL COMMENT '是否启用',
-    `publish_flag`              TINYINT(1)              NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
-    `delete_flag`               TINYINT(1)              NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
+    `operation`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
+    `enable_flag`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否启用',
+    `publish_flag`              TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
+    `delete_flag`               TINYINT(1) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`)
@@ -160,7 +159,7 @@ INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 3, '服务管理', '', '1', '0', '0', 'layui-icon-template-1', 0, 4, '服务管理' where not exists (select * from sys_menu where id = 3);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 301, '服务染色启动', '/service/list1', '1', '0', '0', '', 3, 1, '服务通过元数据染色方式启动' where not exists (select * from sys_menu where id = 301);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 302, '服务拉入拉出', '/service/list2', '1', '0', '0', '', 3, 2, '服务从注册中心注册和注销' where not exists (select * from sys_menu where id = 302);
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 303, '服务无损屏蔽', '/service/list3', '1', '0', '0', '', 3, 3, '服务无损屏蔽' where not exists (select * from sys_menu where id = 303);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 303, '服务无损屏蔽', '/blacklist/list', '1', '0', '0', '', 3, 3, '服务无损屏蔽' where not exists (select * from sys_menu where id = 303);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 304, '服务批量下线', '/service/list4', '1', '0', '0', '', 3, 4, '服务批量下线' where not exists (select * from sys_menu where id = 304);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 4, '安全管理', '', '1', '0', '0', 'layui-icon-app', 0, 5, '安全管理' where not exists (select * from sys_menu where id = 4);

@@ -181,7 +181,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (8, '限流中心', '', b'1', b'0', b'0', 'layui-icon-transfer', 0, 9, '限流中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (801, 'Sentinel', 'http://127.0.0.1:8075', b'1', b'0', b'1', '', 8, 1, 'Sentinel限流中心');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '日志中心', '', b'1', b'0', b'0', 'layui-icon-list', 0, 10, '日志中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '日志中心', '', b'1', b'0', b'0', 'layui-icon-form', 0, 10, '日志中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (901, 'Kibana', 'http://127.0.0.1:5601 ', b'1', b'0', b'1', '', 9, 1, 'Kibana日志中心');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '告警中心', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警中心');

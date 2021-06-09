@@ -181,7 +181,7 @@ INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 8, '限流中心', '', '1', '0', '0', 'layui-icon-transfer', 0, 9, '限流中心' where not exists (select * from sys_menu where id = 8);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 801, 'Sentinel', 'http://127.0.0.1:8075', '1', '0', '1', '', 8, 1, 'Sentinel限流中心' where not exists (select * from sys_menu where id = 801);
 
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 9, '日志中心', '', '1', '0', '0', 'layui-icon-list', 0, 10, '日志中心' where not exists (select * from sys_menu where id = 9);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 9, '日志中心', '', '1', '0', '0', 'layui-icon-form', 0, 10, '日志中心' where not exists (select * from sys_menu where id = 9);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 901, 'Kibana', 'http://127.0.0.1:5601 ', '1', '0', '1', '', 9, 1, 'Kibana日志中心' where not exists (select * from sys_menu where id = 901);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10, '告警中心', '', '1', '0', '0', 'layui-icon-about', 0, 11, '告警中心' where not exists (select * from sys_menu where id = 10);

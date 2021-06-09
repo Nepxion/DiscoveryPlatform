@@ -35,6 +35,18 @@
                             <i class="layui-icon layui-icon-screen-full"></i>
                         </a>
                     </li>
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:" title="当前使用的注册中心">
+                            <i class="layui-icon layui-icon-flag"></i>
+                            <cite>Nacos</cite>
+                        </a>
+                    </li>
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:" title="当前使用的配置中心">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>Nacos</cite>
+                        </a>
+                    </li>
                     <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
                         <a href="javascript:">
                             <cite>${admin.name}</cite>

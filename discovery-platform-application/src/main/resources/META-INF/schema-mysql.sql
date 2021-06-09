@@ -170,7 +170,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (5, '注册中心', '', b'1', b'0', b'0', 'layui-icon-flag', 0, 6, '注册中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (501, 'Nacos', 'http://127.0.0.1:8848/nacos', b'1', b'0', b'1', '', 5, 1, 'Nacos注册中心');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (6, '配置中心', '', b'1', b'0', b'0', 'layui-icon-survey', 0, 7, '配置中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (6, '配置中心', '', b'1', b'0', b'0', 'layui-icon-component', 0, 7, '配置中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (601, 'Apollo', 'http://106.54.227.205/', b'1', b'0', b'1', '', 6, 1, 'Apollo配置中心');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (7, '监控中心', '', b'1', b'0', b'0', 'layui-icon-app', 0, 8, '监控中心');

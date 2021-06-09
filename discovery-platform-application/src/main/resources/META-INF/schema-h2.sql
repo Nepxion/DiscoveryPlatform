@@ -170,7 +170,7 @@ INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 5, '注册中心', '', '1', '0', '0', 'layui-icon-flag', 0, 6, '注册中心' where not exists (select * from sys_menu where id = 5);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 501, 'Nacos', 'http://127.0.0.1:8848/nacos', '1', '0', '1', '', 5, 1, 'Nacos注册中心' where not exists (select * from sys_menu where id = 501);
 
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 6, '配置中心', '', '1', '0', '0', 'layui-icon-survey', 0, 7, '配置中心' where not exists (select * from sys_menu where id = 6);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 6, '配置中心', '', '1', '0', '0', 'layui-icon-component', 0, 7, '配置中心' where not exists (select * from sys_menu where id = 6);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 601, 'Apollo', 'http://106.54.227.205/', '1', '0', '1', '', 6, 1, 'Apollo配置中心' where not exists (select * from sys_menu where id = 601);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 7, '监控中心', '', '1', '0', '0', 'layui-icon-app', 0, 8, '监控中心' where not exists (select * from sys_menu where id = 7);

@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
-import com.nepxion.discovery.console.entity.GatewayType;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.RuleResource;
 import com.nepxion.discovery.console.resource.ServiceResource;

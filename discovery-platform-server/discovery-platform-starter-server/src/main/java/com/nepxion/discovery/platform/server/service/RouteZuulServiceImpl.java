@@ -21,13 +21,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -70,7 +70,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
 
                     private void updateConfig(String serviceName, Object config) throws Exception {
                         String groupName = platformDiscoveryAdapter.getGroupName(serviceName);
-                        String serviceId = serviceName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
+                        String serviceId = serviceName.concat("-").concat(DiscoveryConstant.DYNAMIC_ROUTE_KEY);
                         platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config));
                     }
                 });

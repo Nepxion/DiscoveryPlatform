@@ -21,7 +21,6 @@ import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.console.resource.ConfigResource;
-import com.nepxion.discovery.console.resource.RuleResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 
 public class PlatformDiscoveryAdapter {
@@ -33,9 +32,6 @@ public class PlatformDiscoveryAdapter {
 
     @Autowired
     private ConfigResource configResource;
-
-    @Autowired
-    private RuleResource ruleResource;
 
     public List<InstanceEntity> getInstanceList(String serviceName) {
         List<InstanceEntity> instanceList = serviceResource.getInstanceList(serviceName);
@@ -72,11 +68,15 @@ public class PlatformDiscoveryAdapter {
     }
 
     public RuleEntity getConfig(String serviceName) throws Exception {
-        return ruleResource.getRemoteRuleEntity(serviceName);
+        String group = serviceResource.getGroup(serviceName);
+
+        return configResource.getRemoteRuleEntity(group, serviceName);
     }
 
     public void publishConfig(String serviceName, RuleEntity ruleEntity) throws Exception {
-        ruleResource.updateRemoteRuleEntity(serviceName, ruleEntity);
+        String group = serviceResource.getGroup(serviceName);
+
+        configResource.updateRemoteRuleEntity(group, serviceName, ruleEntity);
     }
 
     public void publishConfig(String groupName, String serviceName, String config) throws Exception {

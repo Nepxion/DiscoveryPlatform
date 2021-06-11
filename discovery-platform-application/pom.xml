@@ -19,7 +19,17 @@
     </properties>
 
     <dependencies>
-        <!-- 1.控制台 -->
+        <!-- 1.注册中心插件 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!-- <groupId>org.springframework.cloud</groupId> -->
+            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
+        </dependency>
+
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
@@ -30,29 +40,19 @@
             <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
         </dependency>
 
-        <!-- 2.服务注册 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <!-- <groupId>org.springframework.cloud</groupId> -->
-            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
-        </dependency>
-
-        <!-- 3.MySQL数据库 -->
+        <!-- 3.MySQL数据库插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-mysql</artifactId>
         </dependency>
 
-        <!-- 4.H2内存数据库 -->
+        <!-- 4.H2内存数据库插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-h2</artifactId>
         </dependency>
 
-        <!-- 5. Ldap认证 -->
+        <!-- 5. Ldap插件 -->
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-platform-starter-server-ldap</artifactId>

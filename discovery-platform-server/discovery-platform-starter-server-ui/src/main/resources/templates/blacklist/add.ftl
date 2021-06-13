@@ -96,8 +96,8 @@
                 loading: false,
                 cols: [[
                     {type: 'numbers', title: '序号', width: 50},
-                    {field: 'serviceName', title: '服务名单', unresize: true, templet: '#tServiceName', width: 250},
-                    {field: 'uuid', title: '服务实例UUD &nbsp; | &nbsp; IP地址端口', unresize: true, templet: '#tContent'},
+                    {field: 'serviceName', title: '服务名称', unresize: true, templet: '#tServiceName', width: 250},
+                    {field: 'uuid', title: '服务实例 [UUD&nbsp;|&nbsp;IP地址:端口]', unresize: true, templet: '#tContent'},
                     {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 130}
                 ]],
                 data: [newRow()]

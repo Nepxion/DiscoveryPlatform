@@ -114,6 +114,7 @@ public class BlacklistController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
+    @SuppressWarnings("unchecked")
     @ApiOperation("获取网关正在工作的黑名单信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
@@ -135,33 +136,38 @@ public class BlacklistController {
 
             if (strategyBlacklistEntity != null) {
                 String addressValue = strategyBlacklistEntity.getAddressValue();
-                Map<String, String> map = JsonUtil.fromJson(addressValue, Map.class);
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-                    for (String value : entry.getValue().split(DiscoveryConstant.SEPARATE)) {
-                        if (StringUtils.isEmpty(value)) {
-                            continue;
+                if (StringUtils.isNotEmpty(addressValue)) {
+                    Map<String, String> map = JsonUtil.fromJson(addressValue, Map.class);
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        for (String value : entry.getValue().split(DiscoveryConstant.SEPARATE)) {
+                            if (StringUtils.isEmpty(value)) {
+                                continue;
+                            }
+                            BlacklistVo blacklistVo = new BlacklistVo();
+                            blacklistVo.setGatewayName(gatewayName);
+                            blacklistVo.setServiceName(entry.getKey());
+                            blacklistVo.setServiceBlacklistType(BlacklistDto.Type.ADDRESS.getCode());
+                            blacklistVo.setServiceBlacklist(value);
+                            valueList.add(blacklistVo);
                         }
-                        BlacklistVo blacklistVo = new BlacklistVo();
-                        blacklistVo.setGatewayName(gatewayName);
-                        blacklistVo.setServiceName(entry.getKey());
-                        blacklistVo.setServiceBlacklistType(BlacklistDto.Type.ADDRESS.getCode());
-                        blacklistVo.setServiceBlacklist(value);
-                        valueList.add(blacklistVo);
                     }
                 }
+
                 String idValue = strategyBlacklistEntity.getIdValue();
-                map = JsonUtil.fromJson(idValue, Map.class);
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-                    for (String value : entry.getValue().split(DiscoveryConstant.SEPARATE)) {
-                        if (StringUtils.isEmpty(value)) {
-                            continue;
+                if (StringUtils.isNotEmpty(idValue)) {
+                    Map<String, String> map = JsonUtil.fromJson(idValue, Map.class);
+                    for (Map.Entry<String, String> entry : map.entrySet()) {
+                        for (String value : entry.getValue().split(DiscoveryConstant.SEPARATE)) {
+                            if (StringUtils.isEmpty(value)) {
+                                continue;
+                            }
+                            BlacklistVo blacklistVo = new BlacklistVo();
+                            blacklistVo.setGatewayName(gatewayName);
+                            blacklistVo.setServiceName(entry.getKey());
+                            blacklistVo.setServiceBlacklistType(BlacklistDto.Type.UUID.getCode());
+                            blacklistVo.setServiceBlacklist(value);
+                            valueList.add(blacklistVo);
                         }
-                        BlacklistVo blacklistVo = new BlacklistVo();
-                        blacklistVo.setGatewayName(gatewayName);
-                        blacklistVo.setServiceName(entry.getKey());
-                        blacklistVo.setServiceBlacklistType(BlacklistDto.Type.UUID.getCode());
-                        blacklistVo.setServiceBlacklist(value);
-                        valueList.add(blacklistVo);
                     }
                 }
             }

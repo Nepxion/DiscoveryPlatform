@@ -72,7 +72,7 @@
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin"
                                     lay-event="working"><i
-                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作路由
+                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的路由
                             </button>
                         </@select>
                         <@update>

@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '服务名称',
-    `service_blacklist_type`    INT(0) UNSIGNED                 NOT NULL COMMENT '黑名单类型. 1: UUID; 2: address',
+    `service_blacklist_type`    INT(0) UNSIGNED                 NOT NULL COMMENT '黑名单类型(1:UUID, 2:ADDRESS)',
     `service_blacklist`         VARCHAR(128)                    NOT NULL COMMENT '黑名单内容',
     `description`               VARCHAR(128)                    NOT NULL COMMENT '服务无损屏蔽的描述信息',
     `operation`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
@@ -145,7 +145,7 @@ INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `p
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (1, '超级管理员', 1, '超级管理员, 拥有最高权限');
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (2, '研发人员', 0, '研发人员');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10000, 'DashBoard', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-chart-screen', 0, 1, 'DashBoard');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10000, '主页', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-home', 0, 1, '主页');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, 'Spring Cloud服务发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (101, '蓝绿发布', '/blue-green/list', b'1', b'0', b'0', '', 1, 1, '蓝绿发布');
@@ -185,9 +185,8 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (901, 'Kibana', 'http://127.0.0.1:5601 ', b'1', b'0', b'1', '', 9, 1, 'Kibana日志中心');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '告警中心', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警中心');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1001, '灰度蓝绿变更告警', '/blue-green-change-warning/list', b'1', b'0', b'0', '', 10, 1, '灰度蓝绿变更告警');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1002, '灰度蓝绿不一致告警', '/blue-green-warning/list', b'1', b'0', b'0', '', 10, 2, '灰度蓝绿不一致告警');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1003, '网关路由不一致告警', '/route-warning/list', b'1', b'0', b'0', '', 10, 3, '网关路由不一致告警');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1001, '规则变更告警', '/blue-green-change-warning/list', b'1', b'0', b'0', '', 10, 1, '规则变更告警');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1002, '规则不一致告警', '/blue-green-warning/list', b'1', b'0', b'0', '', 10, 2, '规则不一致告警');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (11, '文档中心', '', b'1', b'0', b'0', 'layui-icon-read', 0, 12, '文档中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1101, 'Swagger', 'http://127.0.0.1:6001/swagger-ui.html', b'1', b'0', b'1', '', 11, 1, 'Swagger文档中心');

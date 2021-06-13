@@ -125,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '服务名称',
-    `service_uuid`              VARCHAR(64)                     NOT NULL COMMENT '服务的uuid',
-    `service_address`           VARCHAR(64)                     NOT NULL COMMENT '服务的host:port',
+    `service_blacklist_type`    INT(0) UNSIGNED                 NOT NULL COMMENT '黑名单类型(1:UUID, 2:ADDRESS)',
+    `service_blacklist`         VARCHAR(128)                    NOT NULL COMMENT '黑名单内容',
     `description`               VARCHAR(128)                    NOT NULL COMMENT '服务无损屏蔽的描述信息',
     `operation`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
     `enable_flag`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否启用',
@@ -145,7 +145,7 @@ SELECT 1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', 
 INSERT INTO `sys_role`(`id`, `name`, `super_admin`, `description`) select  1, '超级管理员', 1, '超级管理员, 拥有最高权限' where NOT EXISTS  (select * from sys_role where id = 1);
 INSERT INTO `sys_role`(`id`, `name`, `super_admin`, `description`) select 2, '研发人员', 0, '研发人员' where NOT EXISTS  (select * from sys_role where id = 2);
 
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10000, 'DashBoard', 'http://www.nepxion.com', '1', '1', '0', 'layui-icon-chart-screen', 0, 1, 'DashBoard' where not exists (select * from sys_menu where id = 10000);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10000, '主页', 'http://www.nepxion.com', '1', '1', '0', 'layui-icon-home', 0, 1, '主页' where not exists (select * from sys_menu where id = 10000);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1, '服务发布', '', '1', '0', '0', 'layui-icon-release', 0, 2, 'Spring Cloud服务发布' where not exists (select * from sys_menu where id = 12);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 101, '蓝绿发布', '/blue-green/list', '1', '0', '0', '', 1, 1, '蓝绿发布' where not exists (select * from sys_menu where id = 101);
@@ -185,9 +185,8 @@ INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 901, 'Kibana', 'http://127.0.0.1:5601 ', '1', '0', '1', '', 9, 1, 'Kibana日志中心' where not exists (select * from sys_menu where id = 901);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10, '告警中心', '', '1', '0', '0', 'layui-icon-about', 0, 11, '告警中心' where not exists (select * from sys_menu where id = 10);
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1001, '灰度蓝绿变更告警', '/blue-green-change-warning/list', '1', '0', '0', '', 10, 1, '灰度蓝绿变更告警' where not exists (select * from sys_menu where id = 1001);
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1002, '灰度蓝绿不一致告警', '/blue-green-warning/list', '1', '0', '0', '', 10, 2, '灰度蓝绿不一致告警' where not exists (select * from sys_menu where id = 1002);
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1003, '网关路由不一致告警', '/route-warning/list', '1', '0', '0', '', 10, 3, '网关路由不一致告警' where not exists (select * from sys_menu where id = 1003);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1001, '规则变更告警', '/blue-green-change-warning/list', '1', '0', '0', '', 10, 1, '规则变更告警' where not exists (select * from sys_menu where id = 1001);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1002, '规则不一致告警', '/blue-green-warning/list', '1', '0', '0', '', 10, 2, '规则不一致告警' where not exists (select * from sys_menu where id = 1002);
 
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 11, '文档中心', '', '1', '0', '0', 'layui-icon-read', 0, 12, '文档中心' where not exists (select * from sys_menu where id = 11);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 1101, 'Swagger', 'http://127.0.0.1:6001/swagger-ui.html', '1', '0', '1', '', 11, 1, 'Swagger文档中心' where not exists (select * from sys_menu where id = 1101);

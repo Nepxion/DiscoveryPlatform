@@ -37,13 +37,13 @@
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的注册中心">
-                            <i class="layui-icon layui-icon-flag"></i>
+                            <i class="layui-icon layui-icon-component"></i>
                             <cite>Nacos</cite>
                         </a>
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的配置中心">
-                            <i class="layui-icon layui-icon-component"></i>
+                            <i class="layui-icon layui-icon-note"></i>
                             <cite>Nacos</cite>
                         </a>
                     </li>

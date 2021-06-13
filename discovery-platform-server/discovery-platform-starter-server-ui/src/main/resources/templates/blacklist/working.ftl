@@ -14,7 +14,7 @@
                     <div class="layui-inline" style="width:350px">
                         <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>
-                            <option value="">请选择路由实例名称</option>
+                            <option value="">请选择网关名称</option>
                             <#list gatewayNames as gatewayName>
                                 <option value="${gatewayName}">${gatewayName}</option>
                             </#list>
@@ -71,7 +71,7 @@
                 admin.post("do-list-gateway-names", {}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="">请选择路由实例名称</option>');
+                    selGatewayName.html('<option value="">请选择网关名称</option>');
                     $.each(data, function (key, val) {
                         let option;
                         if (chooseGatewayName == val) {

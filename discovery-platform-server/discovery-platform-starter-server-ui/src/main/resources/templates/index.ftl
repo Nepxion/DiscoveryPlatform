@@ -21,7 +21,7 @@
                     </li>
                     <li class="layui-nav-item" style="width: 40px" lay-unselect>
                         <a href="javascript:" title="文档">
-                            <i class="layui-icon layui-icon-template-1"></i>
+                            <i class="layui-icon layui-icon-link"></i>
                         </a>
                         <dl class="layui-nav-child" style="text-align: center;width: 120px">
                             <dd><a href="http://nepxion.com/discovery" target="_blank">解决方案</a></dd>

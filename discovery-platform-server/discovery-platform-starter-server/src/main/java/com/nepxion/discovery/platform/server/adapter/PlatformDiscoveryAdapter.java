@@ -74,7 +74,7 @@ public class PlatformDiscoveryAdapter {
     }
 
     public String fromRuleEntity(RuleEntity ruleEntity) {
-        return configResource.deparse(ruleEntity);
+        return configResource.fromRuleEntity(ruleEntity);
     }
 
     public RuleEntity getConfig(String serviceName) throws Exception {
@@ -84,7 +84,6 @@ public class PlatformDiscoveryAdapter {
 
     public void publishConfig(String serviceName, RuleEntity ruleEntity) throws Exception {
         String group = serviceResource.getGroup(serviceName);
-
         configResource.updateRemoteRuleEntity(group, serviceName, ruleEntity);
     }
 
@@ -94,7 +93,6 @@ public class PlatformDiscoveryAdapter {
 
     public void publishConfig(String serviceName, String config) throws Exception {
         String groupName = getGroupName(serviceName);
-
         publishConfig(groupName, serviceName, config);
     }
 
@@ -117,6 +115,7 @@ public class PlatformDiscoveryAdapter {
         return toRuleEntity(configList.get(2));
     }
 
+    @SuppressWarnings("unchecked")
     private List<String> getRuleConfig(String serviceName) {
         List<ResultEntity> resultEntityList = viewConfig(serviceName);
         return JsonUtil.fromJson(resultEntityList.get(0).getResult(), List.class);

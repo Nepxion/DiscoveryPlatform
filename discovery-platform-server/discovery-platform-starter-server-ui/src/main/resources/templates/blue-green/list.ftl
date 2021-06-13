@@ -10,9 +10,9 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
-                    <div class="layui-inline">黑名单描述</div>
+                    <div class="layui-inline">路由描述</div>
                     <div class="layui-inline" style="width:500px">
-                        <input type="text" name="description" placeholder="请输入黑名单描述" autocomplete="off"
+                        <input type="text" name="description" placeholder="请输入路由描述" autocomplete="off"
                                class="layui-input">
                     </div>
                     <div class="layui-inline">
@@ -61,22 +61,23 @@
                         <@insert>
                             <button class="layui-btn layui-btn-sm layuiadmin-btn-admin"
                                     lay-event="add"><i
-                                        class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增黑名单
+                                        class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增路由
                             </button>
                         </@insert>
                         <@delete>
                             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
-                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除黑名单
+                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除路由
                             </button>
                         </@delete>
                         <@select>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
-                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的黑名单
+                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin"
+                                    lay-event="working"><i
+                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作路由
                             </button>
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布服务黑名单
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布<b>Spring Cloud Gateway</b>路由
                             </button>
                         </@update>
                     </div>
@@ -84,6 +85,8 @@
 
                 <script type="text/html" id="grid-bar">
                     <@update>
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                                    class="layui-icon layui-icon-edit"></i>编辑</a>
                         {{#  if(d.enableFlag){ }}
                         <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">
                             <i class="layui-icon layui-icon-logout"></i>禁用</a>
@@ -124,22 +127,15 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '网关名称', templet: '#colGatewayName', width: 300},
-                    {field: 'serviceName', title: '服务名称', width: 250},
-                    {
-                        field: 'serviceBlacklistType', title: '黑名单类型', width: 230, templet: function (d) {
-                            if (d.serviceBlacklistType == 1) {
-                                return "UUID";
-                            } else {
-                                return "IP地址和端口";
-                            }
-                            return d.serviceBlacklistType;
-                        }
-                    },
-                    {field: 'serviceBlacklist', title: '黑名单', width: 300},
-                    {field: 'description', title: '描述信息'}
+                    {title: '网关名称', templet: '#colGatewayName', width: 275},
+                    {field: 'uri', title: '目标地址', width: 250},
+                    {field: 'predicates', title: '断言器'},
+                    {field: 'filters', title: '过滤器', width: 150},
+                    {field: 'metadata', title: '元数据', width: 125},
+                    {field: 'order', title: '执行顺序', align: 'center', width: 100},
+                    {field: 'description', title: '路由描述', width: 150}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
                     </@select>
                 ]],
                 done: function (res) {
@@ -158,20 +154,16 @@
                 if (obj.event === 'add') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增黑名单',
+                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增<b>Spring Cloud Gateway</b>路由',
                         content: 'add',
-                        area: ['980px', '98%'],
+                        area: ['920px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
                             const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                submit = layero.find('iframe').contents().find('#' + submitID),
-                                source = layero.find('iframe').contents().find('#callback');
-                            source.click();
+                                submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                delete field['serviceName'];
-                                delete field['content'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -182,6 +174,15 @@
                             });
                             submit.trigger('click');
                         }
+                    });
+                } else if (obj.event === 'working') {
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作<b>Spring Cloud Gateway</b>路由',
+                        content: 'working',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['90%', '78%']
                     });
                 } else if (obj.event === 'del') {
                     const checkedId = admin.getCheckedData(table, obj, "id");
@@ -195,22 +196,13 @@
                     } else {
                         admin.error(admin.SYSTEM_PROMPT, admin.DEL_ERROR);
                     }
-                } else if (obj.event === 'working') {
-                    layer.open({
-                        type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的黑名单',
-                        content: 'working',
-                        shadeClose: true,
-                        shade: 0.8,
-                        area: ['90%', '82%']
-                    });
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布黑名单吗？', function (index) {
+                        layer.confirm('确定要发布路由吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '黑名单发布成功, 已立即生效');
+                                admin.success('系统提示', '路由发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });
@@ -220,8 +212,33 @@
 
             table.on('tool(grid)', function (obj) {
                 const data = obj.data;
-                if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用黑名单吗？', function (index) {
+                if (obj.event === 'edit') {
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>Spring Cloud Gateway</b>路由',
+                        content: 'edit?id=' + data.id,
+                        area: ['920px', '98%'],
+                        btn: admin.BUTTONS,
+                        resize: false,
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                submit = layero.find('iframe').contents().find('#' + submitID);
+                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
+                                const field = d.field;
+                                field.id = data.id;
+                                admin.post('do-update', field, function () {
+                                    table.reload('grid');
+                                    updateStatus(true);
+                                    layer.close(index);
+                                }, function (result) {
+                                    admin.error(admin.OPT_FAILURE, result.error);
+                                });
+                            });
+                            submit.trigger('click');
+                        }
+                    });
+                } else if (obj.event === 'disable') {
+                    layer.confirm('确定要禁用路由吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -231,7 +248,7 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用黑名单吗？', function (index) {
+                    layer.confirm('确定要启用路由吗？', function (index) {
                         admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);

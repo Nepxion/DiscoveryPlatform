@@ -211,7 +211,7 @@
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
-                        area: ['90%', '78%']
+                        area: ['90%', '82%']
                     });
                 } else if (obj.event === 'del') {
                     const checkedId = admin.getCheckedData(table, obj, 'id');

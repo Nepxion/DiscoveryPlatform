@@ -48,8 +48,12 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
             const table = layui.table, form = layui.form, $ = layui.$, admin = layui.admin, element = layui.element;
-            let chooseGatewayName = '';
+            let chooseGatewayName = '', tabIndex = -1;
             tableErrorHandler();
+
+            element.on('tab(tab)', function (obj) {
+                tabIndex = obj.index;
+            });
 
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'refresh') {
@@ -96,7 +100,10 @@
                             const tabId = 'tab_' + index;
                             const gridId = 'grid_' + index;
                             let showTitle = '', showContent = '';
-                            if (i == 0) {
+                            if (tabIndex < 0) {
+                                tabIndex = 0;
+                            }
+                            if (i == tabIndex) {
                                 showTitle = 'class="layui-this"';
                                 showContent = 'layui-show';
                             }
@@ -156,7 +163,7 @@
                         });
                         element.render();
 
-                        if (set.size == 1) {
+                        if (set.size <= 1) {
                             $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的路由信息一致&nbsp;</h3></span>');
                         } else {
                             $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的路由信息不一致, 请检查&nbsp;</h3></span>');

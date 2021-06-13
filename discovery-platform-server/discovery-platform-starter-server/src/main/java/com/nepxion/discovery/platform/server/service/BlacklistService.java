@@ -14,7 +14,6 @@ import java.util.Collection;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
-import com.nepxion.discovery.platform.server.entity.po.BlacklistPo;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
 public interface BlacklistService extends BasePublishService<BlacklistDto> {
@@ -22,7 +21,7 @@ public interface BlacklistService extends BasePublishService<BlacklistDto> {
 
     IPage<BlacklistDto> page(String description, Integer pageNum, Integer pageSize);
 
-    void insert(BlacklistPo blacklistPo) throws Exception;
+    void insert(BlacklistDto blacklistDto) throws Exception;
 
     void logicDelete(Collection<Long> ids);
 

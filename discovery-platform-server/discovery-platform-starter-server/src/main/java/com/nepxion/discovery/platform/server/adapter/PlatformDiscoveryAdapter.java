@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.common.entity.InstanceEntity;
+import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
+import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 
@@ -67,9 +69,16 @@ public class PlatformDiscoveryAdapter {
         return serviceResource.getGroup(serviceName);
     }
 
+    public RuleEntity toRuleEntity(String config) {
+        return configResource.toRuleEntity(config);
+    }
+
+    public String fromRuleEntity(RuleEntity ruleEntity) {
+        return configResource.deparse(ruleEntity);
+    }
+
     public RuleEntity getConfig(String serviceName) throws Exception {
         String group = serviceResource.getGroup(serviceName);
-
         return configResource.getRemoteRuleEntity(group, serviceName);
     }
 
@@ -87,5 +96,29 @@ public class PlatformDiscoveryAdapter {
         String groupName = getGroupName(serviceName);
 
         publishConfig(groupName, serviceName, config);
+    }
+
+    public List<ResultEntity> viewConfig(String serviceName) {
+        return configResource.viewConfig(serviceName);
+    }
+
+    public RuleEntity getLocalRuleConfig(String serviceName) {
+        List<String> configList = getRuleConfig(serviceName);
+        return toRuleEntity(configList.get(0));
+    }
+
+    public RuleEntity getGlobalRuleConfig(String serviceName) {
+        List<String> configList = getRuleConfig(serviceName);
+        return toRuleEntity(configList.get(1));
+    }
+
+    public RuleEntity getPartialRuleConfig(String serviceName) {
+        List<String> configList = getRuleConfig(serviceName);
+        return toRuleEntity(configList.get(2));
+    }
+
+    private List<String> getRuleConfig(String serviceName) {
+        List<ResultEntity> resultEntityList = viewConfig(serviceName);
+        return JsonUtil.fromJson(resultEntityList.get(0).getResult(), List.class);
     }
 }

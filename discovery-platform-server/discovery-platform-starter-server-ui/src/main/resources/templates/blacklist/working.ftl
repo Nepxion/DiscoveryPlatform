@@ -95,16 +95,16 @@
                         const data = result.data;
                         const set = new Set();
                         let index = 0;
-                        $.each(data, function (i, v) {
-                            set.add(JSON.stringify(v.routes));
-                            const tabTitle = v.host + ' : ' + v.port;
+                        $.each(data, function (a, v) {
+                            set.add(JSON.stringify(v));
+                            const tabTitle = a;
                             const tabId = 'tab_' + index;
                             const gridId = 'grid_' + index;
                             let showTitle = '', showContent = '';
                             if (tabIndex < 0) {
                                 tabIndex = 0;
                             }
-                            if (i == tabIndex) {
+                            if (index == tabIndex) {
                                 showTitle = 'class="layui-this"';
                                 showContent = 'layui-show';
                             }
@@ -114,7 +114,6 @@
                             index++;
 
                             element.render();
-
                             table.render({
                                 elem: '#' + gridId,
                                 cellMinWidth: 80,
@@ -127,36 +126,30 @@
                                     none: '暂无相关数据'
                                 },
                                 cols: [[
-                                    {type: 'numbers', title: '序号', width: 100},
-                                    {field: 'uri', title: '目标地址', width: 300},
-                                    {field: 'predicates', title: '断言器', width: 300},
+                                    {type: 'numbers', title: '序号', width: 50},
+                                    {field: 'gatewayName', title: '网关名称', width: 350},
+                                    {field: 'serviceName', title: '服务名称', width: 300},
                                     {
-                                        title: '自定义断言器', width: 300, templet: function (d) {
-                                            return mapArrayToJson(d.userPredicates, 'name', 'args');
+                                        field: 'serviceBlacklistType', title: '黑名单类型', width: 230, templet: function (d) {
+                                            if (d.serviceBlacklistType == 1) {
+                                                return "UUID";
+                                            } else {
+                                                return "IP地址和端口";
+                                            }
+                                            return d.serviceBlacklistType;
                                         }
                                     },
-                                    {field: 'filters', title: '过滤器', width: 300},
-                                    {
-                                        title: '自定义过滤器', width: 300, templet: function (d) {
-                                            return mapArrayToJson(d.userFilters, 'name', 'args');
-                                        }
-                                    },
-                                    {
-                                        title: '元数据', width: 300, templet: function (d) {
-                                            return mapToJson(d.metadata);
-                                        }
-                                    },
-                                    {field: 'order', title: '执行顺序', align: 'center', width: 120}
+                                    {field: 'serviceBlacklist', title: '黑名单'}
                                 ]],
-                                data: v.routes
+                                data: v
                             });
                         });
                         element.render();
 
                         if (set.size <= 1) {
-                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的路由信息一致&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的黑名单信息一致&nbsp;</h3></span>');
                         } else {
-                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的路由信息不一致, 请检查&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的黑名单信息不一致, 请检查&nbsp;</h3></span>');
                         }
                     });
                 } else {

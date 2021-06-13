@@ -26,11 +26,11 @@ public class BlacklistDto extends BaseStateEntity {
     @TableField(value = "`service_name`")
     private String serviceName;
 
-    @TableField(value = "`service_uuid`")
-    private String serviceUUID;
+    @TableField(value = "`service_blacklist_type`")
+    private Integer serviceBlacklistType;
 
-    @TableField(value = "`service_address`")
-    private String serviceAddress;
+    @TableField(value = "`service_blacklist`")
+    private String serviceBlacklist;
 
     @TableField(value = "`description`")
     private String description;
@@ -43,20 +43,20 @@ public class BlacklistDto extends BaseStateEntity {
         this.serviceName = serviceName;
     }
 
-    public String getServiceUUID() {
-        return serviceUUID;
+    public Integer getServiceBlacklistType() {
+        return serviceBlacklistType;
     }
 
-    public void setServiceUUID(String serviceUUID) {
-        this.serviceUUID = serviceUUID;
+    public void setServiceBlacklistType(Integer serviceBlacklistType) {
+        this.serviceBlacklistType = serviceBlacklistType;
     }
 
-    public String getServiceAddress() {
-        return serviceAddress;
+    public String getServiceBlacklist() {
+        return serviceBlacklist;
     }
 
-    public void setServiceAddress(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
+    public void setServiceBlacklist(String serviceBlacklist) {
+        this.serviceBlacklist = serviceBlacklist;
     }
 
     public String getDescription() {
@@ -80,5 +80,44 @@ public class BlacklistDto extends BaseStateEntity {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    public enum Type {
+        UUID(1, "UUID"),
+        ADDRESS(2, "ADDRESS");
+
+        private final int code;
+        private final String name;
+
+        Type(int code, String name) {
+            this.code = code;
+            this.name = name;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static Type get(int code) {
+            for (Type item : Type.values()) {
+                if (item.getCode() == code) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static Type get(String name) {
+            for (Type item : Type.values()) {
+                if (item.getName().equalsIgnoreCase(name)) {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }

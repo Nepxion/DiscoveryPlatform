@@ -27,15 +27,15 @@
             <div class="layui-input-inline">
                 <input type="text" id="description" name="description" class="layui-input" style="width: 800px"
                        placeholder="请输入该条黑名单的描述信息" autocomplete="off">
-                <input type="hidden" id="blacklist" name="blacklist"/>
+                <input type="hidden" id="serviceBlacklist" name="serviceBlacklist"/>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 90px">黑名单类型</label>
             <div class="layui-input-block">
-                <input type="radio" name="type" value="1" title="UUID黑名单" checked>
-                <input type="radio" name="type" value="2" title="IP地址和端口黑名单">
+                <input type="radio" name="serviceBlacklistType" value="1" title="UUID黑名单" checked>
+                <input type="radio" name="serviceBlacklistType" value="2" title="IP地址和端口黑名单">
             </div>
         </div>
 
@@ -186,7 +186,7 @@
                         }
                     }
                 });
-                $('#blacklist').val(JSON.stringify(r));
+                $('#serviceBlacklist').val(JSON.stringify(r));
             });
 
             <#if (gatewayNames?size==1) >

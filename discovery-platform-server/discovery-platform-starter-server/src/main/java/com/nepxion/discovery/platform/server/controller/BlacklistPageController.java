@@ -35,4 +35,10 @@ public class BlacklistPageController {
         model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlacklistController.PREFIX, "add");
     }
+
+    @GetMapping("working")
+    public String working(Model model) {
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
+        return String.format("%s/%s", BlacklistController.PREFIX, "working");
+    }
 }

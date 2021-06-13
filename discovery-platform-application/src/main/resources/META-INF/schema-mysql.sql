@@ -147,7 +147,7 @@ INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10000, '主页', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-home', 0, 1, '主页');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, 'Spring Cloud服务发布');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, '服务发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (101, '蓝绿发布', '/blue-green/list', b'1', b'0', b'0', '', 1, 1, '蓝绿发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (102, '灰度发布', '/gray/list', b'1', b'0', b'0', '', 1, 2, '灰度发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (103, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 1, 3, '流量侦测');
@@ -184,7 +184,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '日志中心', '', b'1', b'0', b'0', 'layui-icon-form', 0, 10, '日志中心');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (901, 'Kibana', 'http://127.0.0.1:5601 ', b'1', b'0', b'1', '', 9, 1, 'Kibana日志中心');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '告警中心', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警中心');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '告警管理', '', b'1', b'0', b'0', 'layui-icon-about', 0, 11, '告警管理');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1001, '规则变更告警', '/blue-green-change-warning/list', b'1', b'0', b'0', '', 10, 1, '规则变更告警');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (1002, '规则不一致告警', '/blue-green-warning/list', b'1', b'0', b'0', '', 10, 2, '规则不一致告警');
 

@@ -125,7 +125,7 @@
                     {field: 'serviceAddress', title: '服务地址', width: 250},
                     {field: 'description', title: '黑名单描述'}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 80}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                     </@select>
                 ]],
                 done: function (res) {

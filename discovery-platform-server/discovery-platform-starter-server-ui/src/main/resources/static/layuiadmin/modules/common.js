@@ -1,9 +1,16 @@
-;layui.define(function (e) {
+layui.define(function (e) {
     const i = (layui.$, layui.layer, layui.laytpl, layui.setter, layui.view, layui.admin);
     const $ = layui.$, admin = layui.admin;
     i.events.logout = function () {
-        admin.quit();
-    }, e('common', {});
+        i.req({
+            url: layui.setter.base + "json/user/logout.js", type: "get", data: {}, done: function () {
+                i.exit(function () {
+                    location.href = "user/login.html"
+                })
+            }
+        })
+    }, e("common", {});
+
 
     admin.SYSTEM_PROMPT = '系统提示';
     admin.OPT_SUCCESS = '操作成功';
@@ -111,7 +118,7 @@
     admin.getCheckedData = function (table, obj, field) {
         const checkStatus = table.checkStatus(obj.config.id);
         const data = checkStatus.data;
-        const result = new Array();
+        const result = [];
         if (data.length > 0) {
             for (let j = 0, len = data.length; j < len; j++) {
                 result.push(data[j][field]);
@@ -132,4 +139,5 @@
             }
         });
     }
+
 });

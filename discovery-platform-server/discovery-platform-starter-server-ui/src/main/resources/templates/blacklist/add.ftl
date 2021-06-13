@@ -32,6 +32,14 @@
         </div>
 
         <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 90px"></label>
+            <div class="layui-input-inline">
+                <input type="radio" name="type" value="uuid" title="UUID黑名单" checked>
+                <input type="radio" name="type" value="address" title="IP地址和端口黑名单">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
             <label class="layui-form-label">黑名单</label>
             <div class="layui-input-inline" style="width: 800px;margin-top:-12px">
                 <div class="layui-tab layui-tab-brief">

@@ -123,7 +123,7 @@
                     {field: 'serviceName', title: '服务名称', width: 250},
                     {field: 'serviceUUID', title: '服务UUID', width: 280},
                     {field: 'serviceAddress', title: '服务地址', width: 250},
-                    {field: 'description', title: '黑名单描述'}
+                    {field: 'description', title: '描述信息'}
                     <@select>
                     , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                     </@select>
@@ -156,6 +156,8 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                delete field['serviceName'];
+                                delete field['content'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);

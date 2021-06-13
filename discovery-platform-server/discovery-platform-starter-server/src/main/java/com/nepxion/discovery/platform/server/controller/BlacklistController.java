@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.common.constant.DiscoveryMetaDataConstant;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
+import com.nepxion.discovery.platform.server.entity.po.BlacklistPo;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.BlacklistService;
@@ -53,38 +53,19 @@ public class BlacklistController {
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
-    @ApiOperation("通过服务名称获取所有该服务实例的UUID")
-    @PostMapping("do-list-service-uuid")
-    public Result<List<String>> doListServiceUUID(@RequestParam("serviceName") String serviceName) {
-        List<String> result = new ArrayList<>();
-
-        List<InstanceEntity> instanceList = platformDiscoveryAdapter.getInstanceList(serviceName);
-        for (InstanceEntity instanceEntity : instanceList) {
-            String uuid = instanceEntity.getMetadata().get(DiscoveryMetaDataConstant.SPRING_APPLICATION_UUID);
-            if (StringUtils.isEmpty(uuid)) {
-                continue;
-            }
-            result.add(uuid);
+    @ApiOperation("通过服务名称获取所有该服务的信息")
+    @PostMapping("do-list-service-metadata")
+    public Result<List<InstanceEntity>> doListServiceMetadata(@RequestParam("serviceName") String serviceName) {
+        if (StringUtils.isEmpty(serviceName)) {
+            return Result.ok(new ArrayList<>());
         }
-
-        return Result.ok(result);
-    }
-
-    @ApiOperation("通过服务名称获取所有该服务实例的地址信息, 格式: ip:port")
-    @PostMapping("do-list-service-address")
-    public Result<List<String>> doListServiceAddress(@RequestParam("serviceName") String serviceName) {
-        List<String> result = new ArrayList<>();
-        List<InstanceEntity> instanceList = platformDiscoveryAdapter.getInstanceList(serviceName);
-        for (InstanceEntity instanceEntity : instanceList) {
-            result.add(String.format("%s:%s", instanceEntity.getHost(), instanceEntity.getPort()));
-        }
-        return Result.ok(result);
+        return Result.ok(platformDiscoveryAdapter.getInstanceList(serviceName));
     }
 
     @ApiOperation("添加黑名单")
     @PostMapping("do-insert")
-    public Result<?> doInsert(BlacklistDto blacklistDto) throws Exception {
-        blacklistService.insert(blacklistDto);
+    public Result<?> doInsert(BlacklistPo blacklistPo) throws Exception {
+        blacklistService.insert(blacklistPo);
         return Result.ok();
     }
 

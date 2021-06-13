@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
-import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 
 @Controller
 @RequestMapping(BlacklistController.PREFIX)
@@ -32,7 +31,7 @@ public class BlacklistPageController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
         model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlacklistController.PREFIX, "add");
     }

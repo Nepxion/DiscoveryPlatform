@@ -32,6 +32,7 @@ import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
+import com.nepxion.discovery.platform.server.entity.po.BlacklistPo;
 import com.nepxion.discovery.platform.server.mapper.BlacklistMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
@@ -68,10 +69,10 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
                         for (Object item : configList) {
                             BlacklistDto blacklistDto = (BlacklistDto) item;
                             if (!StringUtils.isEmpty(blacklistDto.getServiceUUID())) {
-                                CommonTool.addKVForSet(uuidMap, blacklistDto.getGatewayName(), blacklistDto.getServiceUUID());
+                                CommonTool.addKVForSet(uuidMap, blacklistDto.getServiceName(), blacklistDto.getServiceUUID());
                             }
                             if (!StringUtils.isEmpty(blacklistDto.getServiceAddress())) {
-                                CommonTool.addKVForSet(addressMap, blacklistDto.getGatewayName(), blacklistDto.getServiceAddress());
+                                CommonTool.addKVForSet(addressMap, blacklistDto.getServiceName(), blacklistDto.getServiceAddress());
                             }
                         }
 
@@ -108,39 +109,30 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
-    public void insert(BlacklistDto blacklistDto) throws Exception {
-        if (blacklistDto == null) {
+    public void insert(BlacklistPo blacklistPo) throws Exception {
+        if (blacklistPo == null) {
             return;
         }
         List<BlacklistDto> blacklistDtoList = new ArrayList<>();
 
-        List<Map<String, String>> uuidList = JsonUtil.fromJson(blacklistDto.getServiceUUID(), List.class);
-        for (Map<String, String> map : uuidList) {
-            for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = prepareInsert(new BlacklistDto());
-                item.setServiceName(pair.getKey());
-                item.setServiceUUID(pair.getValue());
-                item.setGatewayName(blacklistDto.getGatewayName());
-                item.setDescription(blacklistDto.getDescription());
-                item.setServiceAddress(StringUtils.EMPTY);
-                blacklistDtoList.add(item);
-            }
-        }
+        List<Map<String, String>> blacklistMap = JsonUtil.fromJson(blacklistPo.getBlacklist(), List.class);
+        for (Map<String, String> map : blacklistMap) {
+            BlacklistDto item = prepareInsert(new BlacklistDto());
+            item.setServiceName(map.get("serviceName"));
+            item.setGatewayName(blacklistPo.getGatewayName());
+            item.setDescription(blacklistPo.getDescription());
+            item.setServiceUUID(StringUtils.EMPTY);
+            item.setServiceAddress(StringUtils.EMPTY);
 
-        List<Map<String, String>> addressList = JsonUtil.fromJson(blacklistDto.getServiceAddress(), List.class);
-        for (Map<String, String> map : addressList) {
-            for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = prepareInsert(new BlacklistDto());
-                item.setServiceName(pair.getKey());
-                item.setServiceAddress(pair.getValue());
-                item.setGatewayName(blacklistDto.getGatewayName());
-                item.setDescription(blacklistDto.getDescription());
-                item.setServiceUUID(StringUtils.EMPTY);
-                blacklistDtoList.add(item);
+            if (blacklistPo.getType() == BlacklistPo.Type.UUID.getCode()) {
+                item.setServiceUUID(map.get("uuid"));
+            } else if (blacklistPo.getType() == BlacklistPo.Type.ADDRESS.getCode()) {
+                item.setServiceAddress(map.get("address"));
             }
+
+            blacklistDtoList.add(item);
         }
         saveBatch(blacklistDtoList);
     }

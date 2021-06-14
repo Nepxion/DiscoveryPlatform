@@ -68,8 +68,7 @@
                         <a class="layui-btn layui-btn-sm" lay-event="add">
                             <i class="layui-icon">&#xe654;</i></a>
                         <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="remove">
-                            <i class="layui-icon">&#xe640;</i></a>
-                        </button>
+                            <i class="layui-icon">&#xe67e;</i></a>
                     </@update>
                 </script>
             </div>

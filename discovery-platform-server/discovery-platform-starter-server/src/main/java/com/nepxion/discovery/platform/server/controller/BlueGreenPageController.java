@@ -17,27 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
-import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
-import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
-import com.nepxion.discovery.platform.server.exception.PlatformException;
-import com.nepxion.discovery.platform.server.service.AdminService;
-import com.nepxion.discovery.platform.server.service.RoleService;
+import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 
 @Controller
 @RequestMapping(BlueGreenController.PREFIX)
 public class BlueGreenPageController {
     @Autowired
-    private AdminService adminService;
-
-    @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PlatformLoginAdapter loginAdapter;
 
     @GetMapping("list")
     public String list() {
@@ -45,23 +33,19 @@ public class BlueGreenPageController {
     }
 
     @GetMapping("add")
-    public String add(Model model) throws Exception {
-        model.addAttribute("roles", roleService.listOrderByName());
-
-        if (loginAdapter.getLoginMode() == LoginMode.DATABASE) {
-            return String.format("%s/%s", BlueGreenController.PREFIX, "add");
-        }
-        if (loginAdapter.getLoginMode() == LoginMode.LDAP) {
-            return String.format("%s/%s", BlueGreenController.PREFIX, "addldap");
-        }
-        throw new PlatformException(String.format("暂不支持登录模式[%s]", loginAdapter.getLoginMode()));
+    public String add(Model model, @RequestParam("type") Integer type) throws Exception {
+        model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("type", BlueGreenDto.Type.get(type));
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
+        return String.format("%s/%s", BlueGreenController.PREFIX, "add");
     }
 
     @GetMapping("edit")
-    public String edit(Model model, @RequestParam(name = "id") Long id) throws Exception {
-        model.addAttribute("admin", adminService.getById(id));
-        model.addAttribute("roles", roleService.listOrderByName());
-        model.addAttribute("loginMode", loginAdapter.getLoginMode());
+    public String edit(Model model, @RequestParam(name = "id") Long id) {
+        model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
+        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
     }
 }

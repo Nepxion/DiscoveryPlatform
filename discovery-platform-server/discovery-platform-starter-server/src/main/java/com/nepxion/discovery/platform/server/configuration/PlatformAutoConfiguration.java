@@ -47,6 +47,8 @@ import com.nepxion.discovery.platform.server.properties.PlatformServerProperties
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
 import com.nepxion.discovery.platform.server.service.BlacklistService;
 import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
+import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
@@ -182,6 +184,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlueGreenController blueGreenController() {
+        return new BlueGreenController();
+    }
+
+    @Bean
     public AdminServiceImpl adminService() {
         return new AdminServiceImpl();
     }
@@ -227,7 +234,7 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public BlueGreenController blueGreenController() {
-        return new BlueGreenController();
+    public BlueGreenService blueGreenService() {
+        return new BlueGreenServiceImpl();
     }
 }

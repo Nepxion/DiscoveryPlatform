@@ -10,10 +10,9 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
-                    <div class="layui-inline">路由描述</div>
+                    <div class="layui-inline">蓝绿发布描述</div>
                     <div class="layui-inline" style="width:500px">
-                        <input type="text" name="description" placeholder="请输入路由描述" autocomplete="off"
-                               class="layui-input">
+                        <input type="text" name="description" placeholder="请输入蓝绿发布描述" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-inline">
                         <button id="search" class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="search">
@@ -59,25 +58,28 @@
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
-                            <button class="layui-btn layui-btn-sm layuiadmin-btn-admin"
-                                    lay-event="add"><i
-                                        class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增路由
-                            </button>
+                            <div class="layui-btn-group">
+                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
+                                    <i class="layui-icon layui-icon-share"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
+                                </button>
+                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addRegion">
+                                    <i class="layui-icon layui-icon-templeate-1"></i>&nbsp;&nbsp;新增<b>区域</b>蓝绿
+                                </button>
+                            </div>
                         </@insert>
                         <@delete>
-                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
-                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除路由
+                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" style="margin-left: 10px">
+                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿发布
                             </button>
                         </@delete>
                         <@select>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin"
-                                    lay-event="working"><i
-                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的路由
+                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
+                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿信息
                             </button>
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布<b>Spring Cloud Gateway</b>路由
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿信息
                             </button>
                         </@update>
                     </div>
@@ -129,11 +131,7 @@
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
                     {title: '网关名称', templet: '#colGatewayName', width: 275},
                     {field: 'uri', title: '目标地址', width: 250},
-                    {field: 'predicates', title: '断言器'},
-                    {field: 'filters', title: '过滤器', width: 150},
-                    {field: 'metadata', title: '元数据', width: 125},
-                    {field: 'order', title: '执行顺序', align: 'center', width: 100},
-                    {field: 'description', title: '路由描述', width: 150}
+                    {field: 'description', title: '描述信息', width: 150}
                     <@select>
                     , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
                     </@select>
@@ -151,34 +149,14 @@
             });
 
             table.on('toolbar(grid)', function (obj) {
-                if (obj.event === 'add') {
-                    layer.open({
-                        type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增<b>Spring Cloud Gateway</b>路由',
-                        content: 'add',
-                        area: ['920px', '98%'],
-                        btn: admin.BUTTONS,
-                        resize: false,
-                        yes: function (index, layero) {
-                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                submit = layero.find('iframe').contents().find('#' + submitID);
-                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                const field = data.field;
-                                admin.post('do-insert', field, function () {
-                                    table.reload('grid');
-                                    updateStatus(true);
-                                    layer.close(index);
-                                }, function (result) {
-                                    admin.error(admin.OPT_FAILURE, result.error);
-                                });
-                            });
-                            submit.trigger('click');
-                        }
-                    });
+                if (obj.event === 'addVersion') {
+                    toAddPage(1);
+                } else if (obj.event === 'addRegion') {
+                    toAddPage(2);
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作<b>Spring Cloud Gateway</b>路由',
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的蓝绿信息',
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
@@ -198,11 +176,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布路由吗？', function (index) {
+                        layer.confirm('确定要发布蓝绿信息吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '路由发布成功, 已立即生效');
+                                admin.success('系统提示', '蓝绿信息发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });
@@ -215,7 +193,7 @@
                 if (obj.event === 'edit') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>Spring Cloud Gateway</b>路由',
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿发布',
                         content: 'edit?id=' + data.id,
                         area: ['920px', '98%'],
                         btn: admin.BUTTONS,
@@ -238,7 +216,7 @@
                         }
                     });
                 } else if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用路由吗？', function (index) {
+                    layer.confirm('确定要禁用蓝绿发布吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -248,7 +226,7 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用路由吗？', function (index) {
+                    layer.confirm('确定要启用蓝绿发布吗？', function (index) {
                         admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -266,6 +244,48 @@
                 } else {
                     $("#btnPublish").addClass('layui-btn-disabled');
                 }
+            }
+
+            function toAddPage(type) {
+                let t = '';
+                if (type === 1) {
+                    t = '新增<b>版本</b>蓝绿';
+                } else if (type === 2) {
+                    t = '新增<b>区域</b>蓝绿';
+                }
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    content: 'add?type=' + type,
+                    area: ['1024px', '98%'],
+                    btn: admin.BUTTONS,
+                    resize: false,
+                    yes: function (index, layero) {
+                        const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                            submit = layero.find('iframe').contents().find('#' + submitID),
+                            source = layero.find('iframe').contents().find('#callback');
+                        source.click();
+                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                            const field = data.field;
+                            field['type'] = type;
+                            delete field['logic'];
+                            delete field['operator'];
+                            delete field['serviceName'];
+                            delete field['strategyServiceName'];
+                            delete field['strategyValue'];
+                            delete field['value'];
+                            console.log(field);
+                            admin.post('do-insert', field, function () {
+                                table.reload('grid');
+                                updateStatus(true);
+                                layer.close(index);
+                            }, function (result) {
+                                admin.error(admin.OPT_FAILURE, result.error);
+                            });
+                        });
+                        submit.trigger('click');
+                    }
+                });
             }
         });
     </script>

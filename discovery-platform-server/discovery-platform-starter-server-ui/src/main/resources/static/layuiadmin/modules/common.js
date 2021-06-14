@@ -2,13 +2,7 @@ layui.define(function (e) {
     const i = (layui.$, layui.layer, layui.laytpl, layui.setter, layui.view, layui.admin);
     const $ = layui.$, admin = layui.admin;
     i.events.logout = function () {
-        i.req({
-            url: layui.setter.base + "json/user/logout.js", type: "get", data: {}, done: function () {
-                i.exit(function () {
-                    location.href = "user/login.html"
-                })
-            }
-        })
+        admin.quit();
     }, e("common", {});
 
 

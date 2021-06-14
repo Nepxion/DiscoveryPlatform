@@ -30,16 +30,16 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 90px"></label>
+            <label class="layui-form-label">策略配置</label>
             <div class="layui-input-block">
                 <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                 <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe674;</i>添加条件策略</a>
-                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除选项卡</a>
+                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 90px"></label>
+            <label class="layui-form-label"></label>
             <div class="layui-input-block">
                 <div class="layui-tab layui-tab-brief" lay-filter="tab">
                     <ul id="tabTitle" class="layui-tab-title">
@@ -151,9 +151,6 @@
             </script>
 
             <div class="layui-row">
-                <div class="layui-col-md1" style="text-align: left">
-                    <label class="layui-form-label" style="width: 30px">条件</label>
-                </div>
                 <div class="layui-col-md8">
                     <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="请输入SPEL表达式" autocomplete="off">
                 </div>
@@ -273,7 +270,7 @@
                             {field: 'parameterName', title: '参数名', edit: 'text'},
                             {title: '运算符', templet: '#tOperator' + tabIndex, width: 100},
                             {field: 'value', title: '值', edit: 'text'},
-                            {title: '逻辑关系', templet: '#tLogic' + tabIndex, width: 100},
+                            {title: '关系', templet: '#tLogic' + tabIndex, width: 100},
                             {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', width: 100}
                         ]],
                         data: [newConditionRow()]

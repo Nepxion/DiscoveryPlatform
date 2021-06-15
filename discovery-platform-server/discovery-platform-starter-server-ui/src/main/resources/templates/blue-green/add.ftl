@@ -496,7 +496,7 @@
                     even: false,
                     loading: false,
                     cols: [[
-                        {type: 'numbers', title: '序号'},
+                        {type: 'numbers', title: '序号', width: 50},
                         {field: 'headerName', title: '请求头', edit: 'text'},
                         {
                             title: '操作符', align: 'center', width: 100, templet: function () {

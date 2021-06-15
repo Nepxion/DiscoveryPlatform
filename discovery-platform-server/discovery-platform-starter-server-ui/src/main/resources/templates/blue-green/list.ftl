@@ -60,26 +60,30 @@
                         <@insert>
                             <div class="layui-btn-group">
                                 <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
-                                    <i class="layui-icon layui-icon-share"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
                                 </button>
+                            </div>
+                        </@insert>
+                        <@insert>
+                            <div class="layui-btn-group">
                                 <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addRegion">
-                                    <i class="layui-icon layui-icon-templeate-1"></i>&nbsp;&nbsp;新增<b>区域</b>蓝绿
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>区域</b>蓝绿
                                 </button>
                             </div>
                         </@insert>
                         <@delete>
                             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" style="margin-left: 10px">
-                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿发布
+                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿
                             </button>
                         </@delete>
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
-                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿信息
+                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿
                             </button>
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿信息
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;蓝绿发布
                             </button>
                         </@update>
                     </div>

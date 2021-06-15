@@ -25,7 +25,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
             <div class="layui-input-inline" style="width: 850px">
-                <input type="text" name="description" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域    ')}蓝绿的描述信息" autocomplete="off">
+                <input type="text" name="description" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}蓝绿的描述信息" autocomplete="off">
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                 <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                 <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
                 <a id="btnParameterAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加内置参数</a>
-                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略或参数</a>                           
+                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略或参数</a>
             </div>
         </div>
 

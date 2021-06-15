@@ -56,4 +56,10 @@ public class BlueGreenController {
         }
         return Result.ok(platformDiscoveryAdapter.getInstanceList(serviceName));
     }
+
+    @ApiOperation("校验自定义表达式")
+    @PostMapping("validate-expression")
+    public Result<Boolean> validateExpression(@RequestParam("expression") String expression, @RequestParam("validation") String validation) {
+        return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
+    }
 }

@@ -150,16 +150,16 @@
                 </@update>
             </script>
 
-            <div class="layui-row" >
+            <div class="layui-row">
                 <div class="layui-col-md9">
                     <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
                 </div>
                 <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
                     <div class="layui-btn-group">
-                        <button class="layui-btn layui-btn-sm" lay-event="addVersion">
+                        <button class="layui-btn layui-btn-sm" id="btnAssemble$_INDEX_$" tag="$_INDEX_$">
                             <i class="layui-icon">&#xe656;</i>&nbsp;聚合条件
                         </button>
-                        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addRegion">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$" tag="$_INDEX_$">
                             <i class="layui-icon">&#xe672;</i>&nbsp;校验条件
                         </button>
                     </div>
@@ -257,6 +257,39 @@
                     $('#' + tabContentId).append($('#conditionTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                     element.render(TAB);
 
+                    $('#btnAssemble' + tabIndex).click(function () {
+                        alert($(this).attr('tag'));
+                    });
+
+                    $('#btnVerify' + tabIndex).click(function () {
+                        const index = $(this).attr('tag');
+                        const spelConditionId = 'spelCondition' + index;
+                        layer.open({
+                            type: 2,
+                            title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;检验条件',
+                            content: 'verify',
+                            area: ['860px', '230px'],
+                            btn: admin.BUTTONS,
+                            resize: false,
+                            yes: function (index, layero) {
+                                const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                    submit = layero.find('iframe').contents().find('#' + submitID);
+                                iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                    const field = data.field;
+                                    admin.post("validate-expression", {'expression': $('#' + spelConditionId).val(), 'validation': field.txtVerify}, function (result) {
+                                        if (result.data) {
+                                            admin.success("校验成功", "恭喜, 文本校验成功");
+                                        } else {
+                                            admin.error("校验失败", "很遗憾, 文本检验失败, 请重新输入后再试");
+                                        }
+                                        layer.close(index);
+                                    });
+                                });
+                                submit.trigger('click');
+                            }
+                        });
+                    });
+
                     table.render({
                         elem: '#' + gridCondition,
                         cellMinWidth: 80,
@@ -267,11 +300,11 @@
                         loading: false,
                         cols: [[
                             {type: 'numbers', title: '序号', width: 50},
-                            {field: 'parameterName', title: '参数名', edit: 'text', width: 252},
-                            {title: '运算符', templet: '#tOperator' + tabIndex, width: 100},
-                            {field: 'value', title: '值', edit: 'text', width: 252},
-                            {title: '关系', templet: '#tLogic' + tabIndex, width: 80},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', width: 110}
+                            {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 252},
+                            {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
+                            {field: 'value', title: '值', edit: 'text', unresize: true, width: 252},
+                            {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 80},
+                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                         ]],
                         data: [newConditionRow()]
                     });
@@ -282,6 +315,7 @@
                             gd.push(newConditionRow());
                             reload(gridCondition, gd);
                             reload(gridRoute);
+                            $('div[class="layui-table-mend"]').remove();
                         } else if (obj.event === 'removeCondition') {
                             if (gd.length > 1) {
                                 $.each(gd, function (i, item) {
@@ -291,6 +325,7 @@
                                 });
                                 reload(gridCondition, gd);
                                 reload(gridRoute);
+                                $('div[class="layui-table-mend"]').remove();
                             }
                         }
                     });
@@ -320,10 +355,10 @@
                         even: false,
                         loading: false,
                         cols: [[
-                            {type: 'numbers', title: '序号', width: 50},
-                            {templet: '#tServiceName' + tabIndex, title: '服务名', width: 323},
-                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, width: 323},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', width: 150}
+                            {type: 'numbers', title: '序号', unresize: true, width: 50},
+                            {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
+                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
+                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                         ]],
                         data: [newRouteRow()]
                     });
@@ -334,6 +369,7 @@
                             gd.push(newConditionRow());
                             reload(gridCondition);
                             reload(gridRoute, gd);
+                            $('div[class="layui-table-mend"]').remove();
                         } else if (obj.event === 'removeRoute') {
                             if (gd.length > 1) {
                                 $.each(gd, function (i, item) {
@@ -343,6 +379,7 @@
                                 });
                                 reload(gridCondition);
                                 reload(gridRoute, gd);
+                                $('div[class="layui-table-mend"]').remove();
                             }
                         } else if (obj.event === 'refreshRoute') {
 
@@ -404,10 +441,10 @@
                         even: false,
                         loading: false,
                         cols: [[
-                            {type: 'numbers', title: '序号', width: 50},
-                            {field: 'serviceName', templet: '#tStrategyServiceName', title: '服务名'},
-                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue'},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', width: 150}
+                            {type: 'numbers', title: '序号', unresize: true, width: 50},
+                            {field: 'serviceName', templet: '#tStrategyServiceName', unresize: true, title: '服务名'},
+                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
+                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                         ]],
                         data: [newRouteRow()]
                     });
@@ -417,6 +454,7 @@
                         if (obj.event === 'addRoute') {
                             gd.push(newRouteRow());
                             reload('gridStrategy', gd);
+                            $('div[class="layui-table-mend"]').remove();
                         } else if (obj.event === 'removeRoute') {
                             if (gd.length > 1) {
                                 $.each(gd, function (i, item) {
@@ -425,6 +463,7 @@
                                     }
                                 });
                                 reload('gridStrategy', gd);
+                                $('div[class="layui-table-mend"]').remove();
                             }
                         } else if (obj.event === 'refreshRoute') {
 
@@ -514,6 +553,7 @@
                     if (obj.event === 'addHeader') {
                         gd.push(newHeaderRow());
                         reload('gridHeader', gd);
+                        $('div[class="layui-table-mend"]').remove();
                     } else if (obj.event === 'removeHeader') {
                         if (gd.length > 1) {
                             $.each(gd, function (i, item) {
@@ -522,6 +562,7 @@
                                 }
                             });
                             reload('gridHeader', gd);
+                            $('div[class="layui-table-mend"]').remove();
                         }
                     }
                 });

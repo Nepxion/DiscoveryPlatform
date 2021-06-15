@@ -148,6 +148,7 @@
                 if (obj.event === 'add') {
                     gd.push(newRow());
                     reload(gd);
+                    $('div[class="layui-table-mend"]').remove();
                 } else if (obj.event === 'remove') {
                     if (gd.length > 1) {
                         $.each(gd, function (i, item) {
@@ -156,6 +157,7 @@
                             }
                         });
                         reload(gd);
+                        $('div[class="layui-table-mend"]').remove();
                     }
                 }
             });

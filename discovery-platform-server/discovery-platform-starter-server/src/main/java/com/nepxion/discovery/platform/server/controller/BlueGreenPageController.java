@@ -48,4 +48,9 @@ public class BlueGreenPageController {
         model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
     }
+
+    @GetMapping("verify")
+    public String verify() {
+        return String.format("%s/%s", BlueGreenController.PREFIX, "verify");
+    }
 }

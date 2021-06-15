@@ -24,10 +24,14 @@ import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
+import com.nepxion.discovery.console.resource.StrategyResource;
 
 public class PlatformDiscoveryAdapter {
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String springApplicationName;
+
+    @Autowired
+    private StrategyResource strategyResource;
 
     @Autowired
     private ServiceResource serviceResource;
@@ -115,7 +119,10 @@ public class PlatformDiscoveryAdapter {
         return toRuleEntity(configList.get(2));
     }
 
-    @SuppressWarnings("unchecked")
+    public boolean validateExpression(String expression, String validation) {
+        return strategyResource.validateExpression(expression, validation);
+    }
+
     private List<String> getRuleConfig(String serviceName) {
         List<ResultEntity> resultEntityList = viewConfig(serviceName);
         return JsonUtil.fromJson(resultEntityList.get(0).getResult(), List.class);

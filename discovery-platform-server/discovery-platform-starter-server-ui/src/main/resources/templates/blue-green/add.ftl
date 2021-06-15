@@ -132,9 +132,9 @@
             <script type="text/html" id="tLogic$_INDEX_$">
                 <select name='logic' lay-filter='logic' tag="$_INDEX_$" lay-search>
                     <option value="&&" {{ d.logic=='&&' ?
-                    'selected="selected"' : '' }}>AND</option>
+                    'selected="selected"' : '' }}>&&</option>
                     <option value="||" {{ d.logic=='||' ?
-                    'selected="selected"' : '' }}>OR</option>
+                    'selected="selected"' : '' }}>||</option>
                 </select>
             </script>
 

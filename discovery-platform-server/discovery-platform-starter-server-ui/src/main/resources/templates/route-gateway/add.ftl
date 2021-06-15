@@ -45,9 +45,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
-                    断言器
-                </a>
+                    断言器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
             <div class="layui-input-inline" style="width: 740px;margin-top:-20px">
                 <div class="layui-tab layui-tab-brief">
@@ -73,9 +71,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
-                    过滤器
-                </a>
+                    过滤器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
             <div class="layui-input-inline" style="width: 740px;margin-top:-40px">
                 <div class="layui-tab layui-tab-brief">

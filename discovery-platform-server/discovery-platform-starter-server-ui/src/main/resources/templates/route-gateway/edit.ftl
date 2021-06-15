@@ -56,12 +56,12 @@
                         <div class="layui-tab-item layui-show">
                              <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
                                        placeholder='请输入断言字符串（使用换行分隔）。例如：&#13;Path=/routeA/**,/routeB/**&#13;Header=type,animal&#13;Cookie=color,blue'
-                                       style="width: 740px;height:75px;resize: none;margin-left: -10px">${route.predicates}</textarea>
+                                       style="width: 740px;height:75px;resize: none">${route.predicates}</textarea>
                         </div>
                         <div class="layui-tab-item">
                              <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
                                        placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;MyPredicate={"key":"value"}'
-                                       style="width: 740px;height:75px;resize: none;margin-left: -10px">${route.userPredicates}</textarea>
+                                       style="width: 740px;height:75px;resize: none">${route.userPredicates}</textarea>
                         </div>
                     </div>
                 </div>
@@ -84,12 +84,12 @@
                         <div class="layui-tab-item layui-show">
                                   <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
                                             placeholder="请输入过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/routeA&#13;RewritePath=/routeB"
-                                            style="width: 740px;height:75px;resize: none;margin-left: -10px">${route.filters}</textarea>
+                                            style="width: 740px;height:75px;resize: none">${route.filters}</textarea>
                         </div>
                         <div class="layui-tab-item">
                                    <textarea id="userFilters" name="userFilters" class="layui-input" autocomplete="off"
                                              placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;MyFilter={"key":"value"}'
-                                             style="width: 740px;height:75px;resize: none;margin-left: -10px">${route.userFilters}</textarea>
+                                             style="width: 740px;height:75px;resize: none">${route.userFilters}</textarea>
                         </div>
                     </div>
                 </div>

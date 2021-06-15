@@ -261,7 +261,7 @@
                     type: 2,
                     title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
                     content: 'add?type=' + type,
-                    area: ['1000px', '98%'],
+                    area: ['1020px', '98%'],
                     btn: admin.BUTTONS,
                     resize: false,
                     yes: function (index, layero) {

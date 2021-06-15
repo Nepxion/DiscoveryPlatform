@@ -32,7 +32,7 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 90px">黑名单类型</label>
+            <label class="layui-form-label">黑名单类型</label>
             <div class="layui-input-block">
                 <input type="radio" name="serviceBlacklistType" value="1" title="UUID黑名单" checked>
                 <input type="radio" name="serviceBlacklistType" value="2" title="IP地址和端口黑名单">
@@ -40,8 +40,8 @@
         </div>
 
         <div class="layui-form-item">
-
-            <div class="layui-input-inline" style="width: 880px;margin-left:30px">
+            <label class="layui-form-label"">黑名单列表</label>
+            <div class="layui-input-inline" style="width: 800px">
                 <table class="layui-hide" id="grid" lay-filter="grid"></table>
 
                 <script type="text/html" id="tServiceName">

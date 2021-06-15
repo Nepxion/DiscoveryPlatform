@@ -34,8 +34,7 @@
             <div class="layui-input-block">
                 <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                 <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                <a id="btnParameterAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加内置参数</a>
-                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略或参数</a>
+                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
             </div>
         </div>
 
@@ -54,7 +53,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">内置参数</label>
 
-            <div class="layui-input-block">
+            <div class="layui-input-block" style="width: 850px">
                 <table class="layui-hide" id="gridHeader" lay-filter="gridHeader"></table>
 
                 <script type="text/html" id="grid-header-bar">
@@ -151,11 +150,11 @@
                 </@update>
             </script>
 
-            <div class="layui-row">
-                <div class="layui-col-md8">
+            <div class="layui-row" >
+                <div class="layui-col-md9">
                     <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
                 </div>
-                <div class="layui-col-md3" style="text-align:center;margin-top: 3px">
+                <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm" lay-event="addVersion">
                             <i class="layui-icon">&#xe656;</i>&nbsp;聚合条件
@@ -254,7 +253,7 @@
                     const gridCondition = 'gridCondition' + tabIndex;
                     const gridRoute = 'gridRoute' + tabIndex;
                     $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">蓝绿策略' + tabIndex + '</li>');
-                    $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                    $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item" style="width: 850px"></div>');
                     $('#' + tabContentId).append($('#conditionTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                     element.render(TAB);
 
@@ -268,11 +267,11 @@
                         loading: false,
                         cols: [[
                             {type: 'numbers', title: '序号', width: 50},
-                            {field: 'parameterName', title: '参数名', edit: 'text'},
+                            {field: 'parameterName', title: '参数名', edit: 'text', width: 252},
                             {title: '运算符', templet: '#tOperator' + tabIndex, width: 100},
-                            {field: 'value', title: '值', edit: 'text'},
-                            {title: '关系', templet: '#tLogic' + tabIndex, width: 100},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', width: 100}
+                            {field: 'value', title: '值', edit: 'text', width: 252},
+                            {title: '关系', templet: '#tLogic' + tabIndex, width: 80},
+                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', width: 110}
                         ]],
                         data: [newConditionRow()]
                     });
@@ -322,8 +321,8 @@
                         loading: false,
                         cols: [[
                             {type: 'numbers', title: '序号', width: 50},
-                            {templet: '#tServiceName' + tabIndex, title: '服务名'},
-                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex},
+                            {templet: '#tServiceName' + tabIndex, title: '服务名', width: 323},
+                            {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, width: 323},
                             {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', width: 150}
                         ]],
                         data: [newRouteRow()]
@@ -392,7 +391,7 @@
                         return;
                     }
                     $('#tabTitle').prepend('<li class="layui-this" lay-id="tabStrategy">兜底策略</li>');
-                    $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show"></div>');
+                    $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show" style="width: 850px"></div>');
                     $('#contentStrategy').append($('#strategyTemplate').html());
                     element.render(TAB);
                     element.tabChange(TAB, TAB_STRATEGY);
@@ -505,7 +504,7 @@
                             }
                         },
                         {field: 'value', title: '值', edit: 'text'},
-                        {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-header-bar', width: 100}
+                        {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-header-bar', width: 110}
                     ]],
                     data: [newHeaderRow()]
                 });

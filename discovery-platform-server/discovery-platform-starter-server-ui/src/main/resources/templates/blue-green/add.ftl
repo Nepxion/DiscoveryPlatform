@@ -52,7 +52,6 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">内置参数</label>
-
             <div class="layui-input-block" style="width: 850px">
                 <table class="layui-hide" id="gridHeader" lay-filter="gridHeader"></table>
 

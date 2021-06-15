@@ -33,8 +33,9 @@
             <label class="layui-form-label">策略配置</label>
             <div class="layui-input-block">
                 <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
-                <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe674;</i>添加条件策略</a>
-                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
+                <a id="btnParameterAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加内置参数</a>
+                <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略或参数</a>                           
             </div>
         </div>
 
@@ -152,7 +153,7 @@
 
             <div class="layui-row">
                 <div class="layui-col-md8">
-                    <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="请输入SPEL表达式" autocomplete="off">
+                    <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
                 </div>
                 <div class="layui-col-md3" style="text-align:center;margin-top: 3px">
                     <div class="layui-btn-group">
@@ -252,7 +253,7 @@
                     const tabContentId = 'tabContent' + tabIndex;
                     const gridCondition = 'gridCondition' + tabIndex;
                     const gridRoute = 'gridRoute' + tabIndex;
-                    $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">条件策略' + tabIndex + '</li>');
+                    $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">蓝绿策略' + tabIndex + '</li>');
                     $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                     $('#' + tabContentId).append($('#conditionTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                     element.render(TAB);

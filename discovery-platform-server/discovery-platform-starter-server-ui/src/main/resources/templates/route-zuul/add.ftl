@@ -35,8 +35,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">匹配路径</label>
-            <div class="layui-input-inline">
-                <input type="text" id="path" name="path" lay-verify="required" class="layui-input" style="width: 740px" placeholder="请输入匹配路径" lay-verify="required" autocomplete="off">
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" id="path" name="path" lay-verify="required" class="layui-input" placeholder="请输入匹配路径" lay-verify="required" autocomplete="off">
             </div>
         </div>
 
@@ -65,8 +65,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">自定义头</label>
-            <div class="layui-input-block">
-                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头（使用逗号分隔）。 例如：a,b,c" style="width: 740px;height:100px;resize: none"></textarea>
+            <div class="layui-input-block" style="width: 740px">
+                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头（使用逗号分隔）。 例如：a,b,c" style="height:100px;resize: none"></textarea>
             </div>
         </div>
 
@@ -88,8 +88,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">路由描述</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" id="description" name="description" class="layui-input" 
                        placeholder="请输入该条路由的描述信息" autocomplete="off">
             </div>
         </div>

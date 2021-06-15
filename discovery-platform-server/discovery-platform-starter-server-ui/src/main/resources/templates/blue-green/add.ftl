@@ -40,7 +40,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"></label>
-            <div class="layui-input-block">
+            <div class="layui-input-block" style="width: 850px">
                 <div class="layui-tab layui-tab-brief" lay-filter="tab">
                     <ul id="tabTitle" class="layui-tab-title">
                     </ul>
@@ -156,10 +156,10 @@
                 <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
                     <div class="layui-btn-group">
                         <button class="layui-btn layui-btn-sm" id="btnAssemble$_INDEX_$" tag="$_INDEX_$">
-                            <i class="layui-icon">&#xe656;</i>&nbsp;聚合条件
+                            <i class="layui-icon">&#xe674;</i>&nbsp;聚合条件
                         </button>
                         <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$" tag="$_INDEX_$">
-                            <i class="layui-icon">&#xe672;</i>&nbsp;校验条件
+                            <i class="layui-icon">&#x1005;</i>&nbsp;校验条件
                         </button>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
                 });
 
                 $('#btnRemove').click(function () {
-                    layer.confirm('确定要删除[' + tabSelectTitle + ']选项卡吗?', function (index) {
+                    layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                         element.tabDelete(TAB, tabSelect);
                         layer.close(index);
                     });
@@ -252,7 +252,7 @@
                     const gridCondition = 'gridCondition' + tabIndex;
                     const gridRoute = 'gridRoute' + tabIndex;
                     $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">蓝绿策略' + tabIndex + '</li>');
-                    $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item" style="width: 850px"></div>');
+                    $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                     $('#' + tabContentId).append($('#conditionTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                     element.render(TAB);
 
@@ -265,9 +265,9 @@
                         const spelConditionId = 'spelCondition' + index;
                         layer.open({
                             type: 2,
-                            title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;检验条件',
+                            title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
                             content: 'verify',
-                            area: ['860px', '230px'],
+                            area: ['850px', '230px'],
                             btn: admin.BUTTONS,
                             resize: false,
                             yes: function (index, layero) {
@@ -427,7 +427,7 @@
                         return;
                     }
                     $('#tabTitle').prepend('<li class="layui-this" lay-id="tabStrategy">兜底策略</li>');
-                    $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show" style="width: 850px"></div>');
+                    $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show"></div>');
                     $('#contentStrategy').append($('#strategyTemplate').html());
                     element.render(TAB);
                     element.tabChange(TAB, TAB_STRATEGY);

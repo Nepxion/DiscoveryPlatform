@@ -12,7 +12,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
-            <div class="layui-input-inline" style="width: 800px">
+            <div class="layui-input-inline" style="width: 1000px">
                 <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
                     <option value="">请选择网关名称</option>
                     <#list gatewayNames as gatewayName>
@@ -25,7 +25,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
             <div class="layui-input-inline">
-                <input type="text" id="description" name="description" class="layui-input" style="width: 800px"
+                <input type="text" id="description" name="description" class="layui-input" style="width: 1000px"
                        placeholder="请输入该条黑名单的描述信息" autocomplete="off">
                 <input type="hidden" id="serviceBlacklist" name="serviceBlacklist"/>
             </div>
@@ -41,7 +41,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label"">黑名单列表</label>
-            <div class="layui-input-inline" style="width: 800px">
+            <div class="layui-input-inline" style="width: 1000px">
                 <table class="layui-hide" id="grid" lay-filter="grid"></table>
 
                 <script type="text/html" id="tServiceName">
@@ -95,9 +95,9 @@
                 loading: false,
                 cols: [[
                     {type: 'numbers', title: '序号', width: 50},
-                    {field: 'serviceName', title: '服务名称', unresize: true, templet: '#tServiceName', width: 250},
-                    {field: 'uuid', title: '服务实例 [UUD&nbsp;|&nbsp;IP地址:端口]', unresize: true, templet: '#tContent'},
-                    {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 130}
+                    {field: 'serviceName', title: '服务名称', unresize: true, templet: '#tServiceName'},
+                    {field: 'uuid', title: '服务实例 [UUD&nbsp;|&nbsp;IP地址:端口]', unresize: true, templet: '#tContent', width: 460},
+                    {title: '操作', align: 'center', toolbar: '#grid-bar', width: 130}
                 ]],
                 data: [newRow()]
             });

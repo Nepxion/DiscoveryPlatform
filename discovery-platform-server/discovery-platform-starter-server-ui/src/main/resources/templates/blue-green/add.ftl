@@ -304,7 +304,7 @@
                             {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                             {field: 'value', title: '值', edit: 'text', unresize: true, width: 252},
                             {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 80},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
+                            {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                         ]],
                         data: [newConditionRow()]
                     });
@@ -358,7 +358,7 @@
                             {type: 'numbers', title: '序号', unresize: true, width: 50},
                             {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
                             {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                         ]],
                         data: [newRouteRow()]
                     });
@@ -444,7 +444,7 @@
                             {type: 'numbers', title: '序号', unresize: true, width: 50},
                             {field: 'serviceName', templet: '#tStrategyServiceName', unresize: true, title: '服务名'},
                             {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
-                            {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                         ]],
                         data: [newRouteRow()]
                     });
@@ -535,15 +535,15 @@
                     even: false,
                     loading: false,
                     cols: [[
-                        {type: 'numbers', title: '序号', width: 50},
-                        {field: 'headerName', title: '请求头', edit: 'text'},
+                        {type: 'numbers', title: '序号', unresize: true, width: 50},
+                        {field: 'headerName', title: '请求头', unresize: true, edit: 'text'},
                         {
-                            title: '操作符', align: 'center', width: 100, templet: function () {
+                            title: '操作符', align: 'center', unresize: true, width: 100, templet: function () {
                                 return '=';
                             }
                         },
-                        {field: 'value', title: '值', edit: 'text'},
-                        {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-header-bar', width: 110}
+                        {field: 'value', title: '值', unresize: true, edit: 'text'},
+                        {title: '操作', align: 'center', toolbar: '#grid-header-bar', unresize: true, width: 110}
                     ]],
                     data: [newHeaderRow()]
                 });

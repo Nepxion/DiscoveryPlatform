@@ -52,7 +52,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">内置参数</label>
-            <div class="layui-input-block" style="width: 850px">
+            <div class="layui-input-block" style="width: 850px;margin-top:-30px">
                 <table class="layui-hide" id="gridHeader" lay-filter="gridHeader"></table>
 
                 <script type="text/html" id="grid-header-bar">
@@ -165,8 +165,7 @@
                 </div>
             </div>
 
-            <hr/>
-            <span class="layui-badge layui-bg-blue">路由策略</span>
+            <span class="layui-badge layui-bg-blue" style="margin-top:15px;">路由策略</span>
 
             <table class="layui-hide" id="gridRoute$_INDEX_$" lay-filter="gridRoute$_INDEX_$"></table>
 

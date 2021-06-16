@@ -124,7 +124,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '网关名称', templet: '#colGatewayName', width: 300},
+                    {title: '入口名称', templet: '#colGatewayName', width: 300},
                     {field: 'serviceName', title: '服务名称', width: 250},
                     {
                         field: 'serviceBlacklistType', title: '黑名单类型', width: 230, templet: function (d) {

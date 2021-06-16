@@ -133,7 +133,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '网关名称', templet: '#colGatewayName', width: 275},
+                    {title: '入口名称', templet: '#colGatewayName', width: 275},
                     {field: 'uri', title: '目标地址', width: 250},
                     {field: 'description', title: '描述信息', width: 150}
                     <@select>

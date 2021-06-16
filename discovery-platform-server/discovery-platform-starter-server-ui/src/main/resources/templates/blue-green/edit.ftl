@@ -10,7 +10,7 @@
          style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">网关名称</label>
+            <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 740px">
                 <input type="text" readonly="readonly" id="gatewayName" name="gatewayName" lay-verify="required"
                        class="layui-input layui-disabled" style="width: 740px" value="${route.gatewayName}">

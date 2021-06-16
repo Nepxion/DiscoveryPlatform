@@ -65,7 +65,7 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const admin = layui.admin, $ = layui.$;
-            parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+            // parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
 
             $('#username').keydown(function (e) {
                 if ($('#username').val() !== '') {

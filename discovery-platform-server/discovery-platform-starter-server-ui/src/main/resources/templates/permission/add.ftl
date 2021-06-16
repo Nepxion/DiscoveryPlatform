@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">角色名称</label>
         <div class="layui-input-inline">
             <select id="sysRoleId" name="sysRoleId" lay-filter="sysRoleId" lay-verify="required">
@@ -16,7 +16,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-inline">
             <select id="sysMenuId" name="sysMenuId" lay-filter="sysMenuId" lay-verify="required">
@@ -24,28 +24,28 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">新增权限</label>
         <div class="layui-input-inline">
             <input checked="checked" type="checkbox" name="insert" lay-verify="required" class="layui-input"
                    title="新增权限">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">删除权限</label>
         <div class="layui-input-inline">
             <input checked="checked" type="checkbox" name="delete" lay-verify="required" class="layui-input"
                    title="删除权限">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">修改权限</label>
         <div class="layui-input-inline">
             <input checked="checked" type="checkbox" name="update" lay-verify="required" class="layui-input"
                    title="修改权限">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="height:36px">
         <label class="layui-form-label">查询权限</label>
         <div class="layui-input-inline">
             <input checked="checked" type="checkbox" name="select" lay-verify="required" class="layui-input"

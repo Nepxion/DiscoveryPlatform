@@ -118,7 +118,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加页面',
                         content: 'add',
-                        area: ['520px', '620px'],
+                        area: ['520px', '610px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -148,7 +148,7 @@
                     type: 2,
                     title: '<i class="layui-icon layui-icon-edit"></i>&nbsp;编辑页面',
                     content: 'edit?id=' + data.id,
-                    area: ['520px', '620px'],
+                    area: ['520px', '610px'],
                     btn: admin.BUTTONS,
                     resize: false,
                     yes: function (index, layero) {

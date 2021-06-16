@@ -8,7 +8,6 @@
     <input value="${menu.id}" type="hidden" name="id" lay-verify="required"/>
     <div class="layui-form-item">
         <label class="layui-form-label">页面名称</label>
-
         <div class="layui-input-inline" style="width:250px">
             <input value="${menu.name}" placeholder="请填写页面地址" type="text" name="name" lay-verify="required"
                    autocomplete="off" class="layui-input">
@@ -78,7 +77,7 @@
 </div>
 <script type="text/javascript">
     layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-        parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+        // parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
     });
 </script>
 </body>

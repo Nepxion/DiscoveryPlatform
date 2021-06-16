@@ -11,16 +11,16 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">接口名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" name="name" lay-verify="required" class="layui-input"
                        placeholder="请输入接口名称" autocomplete="off" value="${api.name}">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">请求方式</label>
-            <div class="layui-input-inline">
-                <input type="text" name="method" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" name="method" lay-verify="required" class="layui-input"
                        placeholder="请输入请求方式（多个用逗号分隔）" autocomplete="off" value="${api.method}">
             </div>
         </div>
@@ -40,8 +40,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">请求路径</label>
-            <div class="layui-input-inline">
-                <input type="text" name="path" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" name="path" lay-verify="required" class="layui-input"
                        placeholder="请输入请求路径" autocomplete="off" value="${api.path}">
             </div>
         </div>

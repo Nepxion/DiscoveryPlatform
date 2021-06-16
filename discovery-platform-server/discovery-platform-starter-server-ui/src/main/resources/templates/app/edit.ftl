@@ -17,28 +17,25 @@
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">Client Id</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <input type="text" name="clientId" lay-verify="required" class="layui-input layui-disabled"
-                                   style="width: 740px"
                                    autocomplete="off" value="${app.clientId}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">Client Secret</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <input type="text" name="clientSecret" lay-verify="required"
                                    class="layui-input layui-disabled"
-                                   style="width: 740px"
                                    autocomplete="off" value="${app.clientSecret}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">应用名称</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <input type="text" name="name" lay-verify="required" class="layui-input"
-                                   style="width: 740px"
                                    placeholder="请输入应用名称" autocomplete="off" value="${app.name}">
                         </div>
                     </div>
@@ -55,26 +52,26 @@
 
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">描述信息</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <textarea name="description" placeholder="请输入描述信息" class="layui-textarea"
-                                      style="resize: none;width: 740px;height:300px">${app.description}</textarea>
+                                      style="resize: none;height:300px">${app.description}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">Access Token</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <textarea id="accessToken" readonly="readonly" class="layui-textarea"
-                                      style="width: 740px;height: 100px;resize: none">${(ak.accessToken)!''}</textarea>
+                                      style="height: 100px;resize: none">${(ak.accessToken)!''}</textarea>
                         </div>
                     </div>
 
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width: 90px">过期时间（秒）</label>
-                        <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 740px">
                             <input type="text" id="expire" readonly="readonly" class="layui-input"
-                                   style="width: 740px" value="${(ak.expiresTime)!''}">
+                                   value="${(ak.expiresTime)!''}">
                         </div>
                     </div>
 

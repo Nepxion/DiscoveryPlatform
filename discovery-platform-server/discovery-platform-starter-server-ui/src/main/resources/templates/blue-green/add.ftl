@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-top:-25px">
             <label class="layui-form-label"></label>
             <div class="layui-input-block" style="width: 850px">
                 <div class="layui-tab layui-tab-brief" lay-filter="tab">
@@ -50,9 +50,9 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="margin-top:-25px">
             <label class="layui-form-label">内置参数</label>
-            <div class="layui-input-block" style="width: 850px;margin-top:-25px">
+            <div class="layui-input-block" style="width: 850px">
                 <table class="layui-hide" id="gridHeader" lay-filter="gridHeader"></table>
 
                 <script type="text/html" id="grid-header-bar">

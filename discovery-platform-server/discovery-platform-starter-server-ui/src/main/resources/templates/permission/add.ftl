@@ -59,7 +59,7 @@
 <script type="text/javascript">
     layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
         const admin = layui.admin, $ = layui.$, form = layui.form;
-        parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+        // parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
 
         form.on('select(sysRoleId)', function (data) {
             const sysRoleId = data.value;

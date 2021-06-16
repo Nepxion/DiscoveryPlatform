@@ -277,9 +277,9 @@
                                     const field = data.field;
                                     admin.post("validate-expression", {'expression': $('#' + spelConditionId).val(), 'validation': field.txtVerify}, function (result) {
                                         if (result.data) {
-                                            admin.success("校验成功", "恭喜, 文本校验成功");
+                                            admin.success("校验成功", "条件校验成功");
                                         } else {
-                                            admin.error("校验失败", "很遗憾, 文本检验失败, 请重新输入后再试");
+                                            admin.error("校验失败", "条件校验失败");
                                         }
                                         layer.close(index);
                                     });

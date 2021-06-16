@@ -11,9 +11,9 @@
          style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">待校验文本</label>
+            <label class="layui-form-label">校验参数</label>
             <div class="layui-input-inline" style="width: 700px">
-                <input type="text" name="txtVerify" class="layui-input" placeholder="请输入待校验的文本" autocomplete="off">
+                <input type="text" name="txtVerify" class="layui-input" placeholder="请输入待校验的参数，格式示例：a=1;b=1" autocomplete="off">
             </div>
         </div>
 

@@ -267,8 +267,8 @@
                             type: 2,
                             title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
                             content: 'verify',
-                            area: ['850px', '230px'],
-                            btn: admin.BUTTONS,
+                            area: ['630px', '250px'],
+                            btn: '关闭',
                             resize: false,
                             yes: function (index, layero) {
                                 const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',

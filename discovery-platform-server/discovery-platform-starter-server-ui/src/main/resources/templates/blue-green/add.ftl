@@ -265,23 +265,15 @@
                         layer.open({
                             type: 2,
                             title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
-                            content: 'verify',
-                            area: ['630px', '250px'],
+                            content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
+                            area: ['645px', '235px'],
                             btn: '关闭',
                             resize: false,
                             yes: function (index, layero) {
                                 const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
                                     submit = layero.find('iframe').contents().find('#' + submitID);
                                 iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                    const field = data.field;
-                                    admin.post("validate-expression", {'expression': $('#' + spelConditionId).val(), 'validation': field.txtVerify}, function (result) {
-                                        if (result.data) {
-                                            admin.success("校验成功", "条件校验成功");
-                                        } else {
-                                            admin.error("校验失败", "条件校验失败");
-                                        }
-                                        layer.close(index);
-                                    });
+                                    layer.close(index);
                                 });
                                 submit.trigger('click');
                             }

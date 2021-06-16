@@ -50,7 +50,8 @@ public class BlueGreenPageController {
     }
 
     @GetMapping("verify")
-    public String verify() {
+    public String verify(Model model, @RequestParam(name = "expression") String expression) {
+        model.addAttribute("expression", expression);
         return String.format("%s/%s", BlueGreenController.PREFIX, "verify");
     }
 }

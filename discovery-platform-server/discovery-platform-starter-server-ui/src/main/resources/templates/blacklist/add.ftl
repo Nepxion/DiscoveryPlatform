@@ -11,10 +11,10 @@
          style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
-            <label class="layui-form-label">网关名称</label>
+            <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 1000px">
                 <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
-                    <option value="">请选择网关名称</option>
+                    <option value="">请选择网关或者服务名称</option>
                     <#list gatewayNames as gatewayName>
                         <option value="${gatewayName}">${gatewayName}</option>
                     </#list>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.common.entity.ArithmeticType;
+import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 
@@ -35,6 +36,7 @@ public class BlueGreenPageController {
     @GetMapping("add")
     public String add(Model model, @RequestParam("type") Integer type) throws Exception {
         model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
         model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
         model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
@@ -44,6 +46,7 @@ public class BlueGreenPageController {
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
         model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("logics", RelationalType.values());
         model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
         model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlueGreenController.PREFIX, "edit");

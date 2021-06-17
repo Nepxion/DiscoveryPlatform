@@ -256,7 +256,17 @@
                     element.render(TAB);
 
                     $('#btnAssemble' + tabIndex).click(function () {
-                        alert($(this).attr('tag'));
+                        const index = $(this).attr('tag');
+                        const spelConditionId = 'spelCondition' + index;
+                        let spelExpress = '';
+
+                        const gd = table.cache[gridCondition];
+                        $.each(gd, function (index, item) {
+                            if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
+                                spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + item.logic + " ";
+                            }
+                        });
+                        $('#' + spelConditionId).val(spelExpress.substring(0, spelExpress.length - 4));
                     });
 
                     $('#btnVerify' + tabIndex).click(function () {
@@ -316,24 +326,35 @@
                                 reload(gridCondition, gd);
                                 reload(gridRoute);
                                 $('div[class="layui-table-mend"]').remove();
+                                const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                                $('#btnAssemble' + tabIndex).click();
                             }
                         }
                     });
 
+                    table.on('edit(' + gridCondition + ')', function (obj) {
+                        const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                        $('#btnAssemble' + tabIndex).click();
+                    });
+
                     form.on('select(operator)', function (obj) {
-                        const gridId = 'gridCondition' + $(obj.elem).attr('tag');
+                        const tabIndex = $(obj.elem).attr('tag');
+                        const gridId = 'gridCondition' + tabIndex;
                         const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                         const gd = table.cache[gridId];
                         gd[dataIndex]['operator'] = obj.value;
                         reload(gridId, gd);
+                        $('#btnAssemble' + tabIndex).click();
                     });
 
                     form.on('select(logic)', function (obj) {
-                        const gridId = 'gridCondition' + $(obj.elem).attr('tag');
+                        const tabIndex = $(obj.elem).attr('tag');
+                        const gridId = 'gridCondition' + tabIndex;
                         const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                         const gd = table.cache[gridId];
                         gd[dataIndex]['logic'] = obj.value;
                         reload(gridId, gd);
+                        $('#btnAssemble' + tabIndex).click();
                     });
 
                     table.render({
@@ -501,9 +522,9 @@
                     return {
                         'index': conditionCount,
                         'parameterName': '',
-                        'operator': '',
+                        'operator': '==',
                         'value': '',
-                        'logic': ''
+                        'logic': '&&'
                     };
                 }
 

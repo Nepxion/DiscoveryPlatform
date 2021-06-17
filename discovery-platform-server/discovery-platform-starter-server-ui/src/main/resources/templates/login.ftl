@@ -26,7 +26,6 @@
                            class="layui-input">
                 </div>
                 <div class="layui-form-item" style="margin-bottom: 20px;">
-
                 </div>
                 <div class="layui-form-item">
                     <button id="btnSubmit" name="btnSubmit" class="layui-btn layui-btn-fluid" lay-submit

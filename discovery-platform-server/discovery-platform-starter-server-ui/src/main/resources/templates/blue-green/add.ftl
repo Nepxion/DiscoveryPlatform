@@ -120,7 +120,7 @@
             <table class="layui-hide" id="gridCondition$_INDEX_$" lay-filter="gridCondition$_INDEX_$"></table>
 
             <script type="text/html" id="tOperator$_INDEX_$">
-                <select name='operator' lay-filter='operator' tag="$_INDEX_$" lay-search>
+                <select name='operator' lay-filter='operator' tag="$_INDEX_$">
                     <#list operators as operator>
                         <option value="${operator.value}" {{ d.operator=='${operator.value}' ?'selected="selected"' : '' }}>
                         ${operator.value}
@@ -130,7 +130,7 @@
             </script>
 
             <script type="text/html" id="tLogic$_INDEX_$">
-                <select name='logic' lay-filter='logic' tag="$_INDEX_$" lay-search>
+                <select name='logic' lay-filter='logic' tag="$_INDEX_$">
                     <#list logics as logic>
                         <option value="${logic.value}" {{ d.logic=='${logic.value}' ?'selected="selected"' : '' }}>
                         ${logic.value}

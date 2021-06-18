@@ -64,14 +64,14 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">自定义头</label>
+            <label class="layui-form-label">过滤敏感头</label>
             <div class="layui-input-block" style="width: 740px">
-                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头（使用逗号分隔）。 例如：a,b,c" style="height:100px;resize: none"></textarea>
+                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入敏感请求头（使用逗号分隔）。 例如：&#13;Cookie,Set-Cookie,Authorization" style="height:100px;resize: none"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">是否自定义</label>
+            <label class="layui-form-label">是否自定义敏感头</label>
             <div class="layui-input-block">
                 <input type="radio" name="customSensitiveHeaders" value="true" title="启用">
                 <input type="radio" name="customSensitiveHeaders" value="false" title="禁用" checked>

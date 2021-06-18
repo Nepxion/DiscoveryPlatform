@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.entity.FormatType;
 import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.common.entity.ResultEntity;
@@ -91,13 +92,13 @@ public class PlatformDiscoveryAdapter {
         configResource.updateRemoteRuleEntity(group, serviceName, ruleEntity);
     }
 
-    public void publishConfig(String groupName, String serviceName, String config) throws Exception {
-        configResource.updateRemoteConfig(groupName, serviceName, config);
+    public void publishConfig(String groupName, String serviceName, String config, FormatType formatType) throws Exception {
+        configResource.updateRemoteConfig(groupName, serviceName, config, formatType);
     }
 
-    public void publishConfig(String serviceName, String config) throws Exception {
+    public void publishConfig(String serviceName, String config, FormatType formatType) throws Exception {
         String groupName = getGroupName(serviceName);
-        publishConfig(groupName, serviceName, config);
+        publishConfig(groupName, serviceName, config, formatType);
     }
 
     public List<ResultEntity> viewConfig(String serviceName) {

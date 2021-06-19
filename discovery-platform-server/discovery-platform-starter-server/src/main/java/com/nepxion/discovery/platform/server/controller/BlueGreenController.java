@@ -57,6 +57,18 @@ public class BlueGreenController {
         return Result.ok(platformDiscoveryAdapter.getInstanceList(serviceName));
     }
 
+    @ApiOperation("获取所有网关的名称")
+    @PostMapping("do-list-portal-names")
+    public Result<List<String>> doListPortalNames() {
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
+    }
+
+    @ApiOperation("获取所有服务的名称")
+    @PostMapping("do-list-service-names")
+    public Result<List<String>> doListServiceNames() {
+        return Result.ok(platformDiscoveryAdapter.getServiceNames());
+    }
+
     @ApiOperation("校验自定义表达式")
     @PostMapping("validate-expression")
     public Result<Boolean> validateExpression(@RequestParam("expression") String expression, @RequestParam("validation") String validation) {

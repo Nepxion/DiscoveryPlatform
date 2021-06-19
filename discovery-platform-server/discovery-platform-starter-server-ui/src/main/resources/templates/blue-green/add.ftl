@@ -31,8 +31,8 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">描述信息</label>
-                <div class="layui-input-inline" style="width: 850px">
+                <label class="layui-form-label" style="margin-top: 15px">描述信息</label>
+                <div class="layui-input-inline" style="width: 850px;margin-top: 15px">
                     <input type="text" name="description" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}蓝绿的描述信息" autocomplete="off">
                 </div>
             </div>

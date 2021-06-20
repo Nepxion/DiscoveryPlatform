@@ -20,7 +20,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">入口名称</label>
-            <div class="layui-input-inline" style="width: 1015px">
+            <div class="layui-input-inline" style="width: 100px">
                 <div class="layui-row">
                     <div class="layui-col-md11">
                         <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>

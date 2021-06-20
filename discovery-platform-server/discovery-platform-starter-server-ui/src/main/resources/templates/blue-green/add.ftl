@@ -92,7 +92,7 @@
 
                 <script type="text/html" id="tStrategyServiceName">
                     <select name='strategyServiceName' lay-filter='strategyServiceName' lay-search>
-                        <option value="">请选择服务</option>
+                        <option value="">请选择服务名称</option>
                         {{# layui.each(d.serviceNameList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceName==item ?
                         'selected="selected"' : '' }}>

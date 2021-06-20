@@ -88,6 +88,8 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
 
                         switch (Objects.requireNonNull(portalType)) {
                             case GATEWAY:
+                                platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
+                                break;
                             case SERVICE:
                                 platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
                                 break;

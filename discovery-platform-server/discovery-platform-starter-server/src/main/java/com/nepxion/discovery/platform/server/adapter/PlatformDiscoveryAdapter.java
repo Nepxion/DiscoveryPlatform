@@ -11,27 +11,22 @@ package com.nepxion.discovery.platform.server.adapter;
  */
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.FormatType;
 import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
+import com.nepxion.discovery.common.entity.ServiceType;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.ConfigResource;
 import com.nepxion.discovery.console.resource.ServiceResource;
 import com.nepxion.discovery.console.resource.StrategyResource;
 
 public class PlatformDiscoveryAdapter {
-    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
-    private String springApplicationName;
-
     @Autowired
     private StrategyResource strategyResource;
 
@@ -42,37 +37,23 @@ public class PlatformDiscoveryAdapter {
     private ConfigResource configResource;
 
     public List<InstanceEntity> getInstanceList(String serviceName) {
-        List<InstanceEntity> instanceList = serviceResource.getInstanceList(serviceName);
-        instanceList.sort(Comparator.comparing(InstanceEntity::getServiceId));
-        return instanceList;
-    }
-
-    public List<String> getAllServiceNames() {
-        List<String> serviceNames = serviceResource.getServices();
-        serviceNames.remove(getSpringApplicationName());
-        serviceNames.sort(String::compareTo);
-        return serviceNames;
+        return serviceResource.getInstanceList(serviceName);
     }
 
     public List<String> getServiceNames() {
-        List<String> serviceNames = getAllServiceNames();
-        serviceNames.removeAll(serviceResource.getGateways());
-        serviceNames.sort(String::compareTo);
-        return serviceNames;
+        return serviceResource.getServiceList(Collections.singletonList(ServiceType.SERVICE));
     }
 
     public List<String> getGatewayNames() {
-        List<String> gatewayNames = serviceResource.getGateways();
-        gatewayNames.sort(String::compareTo);
-        return gatewayNames;
+        return serviceResource.getGateways();
     }
 
     public List<String> getGatewayNames(GatewayType gatewayType) {
         return serviceResource.getGatewayList(Collections.singletonList(gatewayType));
     }
 
-    public String getSpringApplicationName() {
-        return springApplicationName;
+    public List<String> getGroupNames() {
+        return serviceResource.getGroups();
     }
 
     public String getGroupName(String serviceName) {

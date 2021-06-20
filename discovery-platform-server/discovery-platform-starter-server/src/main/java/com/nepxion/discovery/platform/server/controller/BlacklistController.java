@@ -181,7 +181,7 @@ public class BlacklistController {
         return Result.ok(blacklistVoMap);
     }
 
-    @ApiOperation("获取所有网关的名称")
+    @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
     public Result<List<String>> doListPortalNames(@RequestParam("portalType") Integer portalTypeInt) {
         BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
@@ -194,8 +194,7 @@ public class BlacklistController {
                 result.addAll(platformDiscoveryAdapter.getServiceNames());
                 break;
             case GROUP:
-                List<String> serviceNames = platformDiscoveryAdapter.getAllServiceNames();
-                result.addAll(serviceNames.stream().map(serviceName -> platformDiscoveryAdapter.getGroupName(serviceName)).collect(Collectors.toList()));
+                result.addAll(platformDiscoveryAdapter.getGroupNames());
                 break;
         }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));

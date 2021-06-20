@@ -61,7 +61,7 @@ public class BlueGreenController {
         return Result.ok(platformDiscoveryAdapter.getInstanceList(serviceName));
     }
 
-    @ApiOperation("获取所有网关的名称")
+    @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
     public Result<List<String>> doListPortalNames(@RequestParam("portalType") Integer portalTypeInt) {
         BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
@@ -74,8 +74,7 @@ public class BlueGreenController {
                 result.addAll(platformDiscoveryAdapter.getServiceNames());
                 break;
             case GROUP:
-                List<String> serviceNames = platformDiscoveryAdapter.getAllServiceNames();
-                result.addAll(serviceNames.stream().map(serviceName -> platformDiscoveryAdapter.getGroupName(serviceName)).collect(Collectors.toList()));
+                result.addAll(platformDiscoveryAdapter.getGroupNames());
                 break;
         }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));

@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.adapter;
  * @version 1.0
  */
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,25 +40,16 @@ public class PlatformDiscoveryAdapter {
     @Autowired
     private ConfigResource configResource;
 
-    public List<InstanceEntity> getInstanceList() {
-        List<InstanceEntity> result = new ArrayList<>();
-        List<String> serviceNames = getServiceNames();
-        for (String serviceName : serviceNames) {
-            result.addAll(serviceResource.getInstanceList(serviceName));
-        }
-        result.sort(Comparator.comparing(InstanceEntity::getServiceId));
-        return result;
-    }
-
     public List<InstanceEntity> getInstanceList(String serviceName) {
         List<InstanceEntity> instanceList = serviceResource.getInstanceList(serviceName);
         instanceList.sort(Comparator.comparing(InstanceEntity::getServiceId));
         return instanceList;
     }
 
-    public List<String> getAllServiceNames() {
+    public List<String> getServiceNames() {
         List<String> serviceNames = serviceResource.getServices();
         serviceNames.remove(getSpringApplicationName());
+        serviceNames.removeAll(serviceResource.getGateways());
         serviceNames.sort(String::compareTo);
         return serviceNames;
     }
@@ -68,13 +58,6 @@ public class PlatformDiscoveryAdapter {
         List<String> gatewayNames = serviceResource.getGateways();
         gatewayNames.sort(String::compareTo);
         return gatewayNames;
-    }
-
-    public List<String> getServiceNames() {
-        List<String> serviceNames = getAllServiceNames();
-        serviceNames.removeAll(getGatewayNames());
-        serviceNames.sort(String::compareTo);
-        return serviceNames;
     }
 
     public List<String> getGatewayNames(GatewayType gatewayType) {
@@ -105,12 +88,8 @@ public class PlatformDiscoveryAdapter {
     }
 
     public void publishConfig(String serviceName, RuleEntity ruleEntity) throws Exception {
-        String groupName = serviceResource.getGroup(serviceName);
-        publishConfig(groupName, serviceName, ruleEntity);
-    }
-
-    public void publishConfig(String groupName, String serviceName, RuleEntity ruleEntity) throws Exception {
-        configResource.updateRemoteRuleEntity(groupName, serviceName, ruleEntity);
+        String group = serviceResource.getGroup(serviceName);
+        configResource.updateRemoteRuleEntity(group, serviceName, ruleEntity);
     }
 
     public void publishConfig(String groupName, String serviceName, String config, FormatType formatType) throws Exception {

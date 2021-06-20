@@ -9,7 +9,6 @@
 
     <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
          style="padding: 20px 30px 0 0;">
-
         <div class="layui-form-item">
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>

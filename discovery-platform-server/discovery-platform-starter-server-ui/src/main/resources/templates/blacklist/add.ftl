@@ -9,7 +9,6 @@
 
     <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin"
          style="padding: 20px 30px 0 0;">
-
         <div class="layui-form-item">
             <label class="layui-form-label">入口类型</label>
             <div class="layui-input-block">
@@ -21,7 +20,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">入口名称</label>
-            <div class="layui-input-inline" style="width: 1000px">
+            <div class="layui-input-inline" style="width: 1015px">
                 <div class="layui-row">
                     <div class="layui-col-md11">
                         <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
@@ -38,9 +37,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" class="layui-input" style="width: 1000px"
-                       placeholder="请输入该条黑名单的描述信息" autocomplete="off">
+            <div class="layui-input-inline" style="width: 1000px">
+                <input type="text" id="description" name="description" class="layui-input" placeholder="请输入该条黑名单的描述信息" autocomplete="off">
                 <input type="hidden" id="serviceBlacklist" name="serviceBlacklist"/>
             </div>
         </div>

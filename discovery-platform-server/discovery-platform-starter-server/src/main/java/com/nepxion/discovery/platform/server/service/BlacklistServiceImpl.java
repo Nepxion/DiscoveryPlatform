@@ -112,6 +112,7 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
     public void insert(BlacklistDto blacklistDto) throws Exception {

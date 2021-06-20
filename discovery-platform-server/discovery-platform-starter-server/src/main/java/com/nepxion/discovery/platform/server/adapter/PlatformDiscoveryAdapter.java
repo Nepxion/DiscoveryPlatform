@@ -129,6 +129,7 @@ public class PlatformDiscoveryAdapter {
         return toRuleEntity(configList.get(2));
     }
 
+    @SuppressWarnings("unchecked")
     private List<String> getRuleConfig(String serviceName) {
         List<ResultEntity> resultEntityList = viewConfig(serviceName);
         return JsonUtil.fromJson(resultEntityList.get(0).getResult(), List.class);

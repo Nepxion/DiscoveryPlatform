@@ -78,8 +78,8 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
-    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
-    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关)',
     `uri`                       VARCHAR(256)                    NOT NULL COMMENT '转发目标url',
     `predicates`                VARCHAR(2048)                   NOT NULL COMMENT '断言器字符串',
     `user_predicates`           VARCHAR(2048)                   NOT NULL COMMENT '自定义断言器字符串',
@@ -103,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
-    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
-    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关)',
     `service_id`                VARCHAR(128)                    NOT NULL COMMENT '服务id',
     `path`                      VARCHAR(128)                    NOT NULL COMMENT '转发目标路径',
     `url`                       VARCHAR(128)                    NOT NULL COMMENT '转发目标uri',
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
 CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
-    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '服务名称',
     `service_blacklist_type`    INT(0) UNSIGNED                 NOT NULL COMMENT '黑名单类型(1:UUID, 2:ADDRESS)',
     `service_blacklist`         VARCHAR(128)                    NOT NULL COMMENT '黑名单内容',
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
 CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
-    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
     `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '蓝绿发布发布策略类型(1:版本策略, 2:区域策略)',
     `strategy`                  TEXT                            NOT NULL COMMENT '蓝绿发布兜底服务编排',
     `condition`                 TEXT                            NOT NULL COMMENT '蓝绿发布条件编排',

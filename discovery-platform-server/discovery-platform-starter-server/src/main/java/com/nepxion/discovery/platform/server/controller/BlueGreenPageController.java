@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
-import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 
 @Controller
 @RequestMapping(BlueGreenController.PREFIX)
 public class BlueGreenPageController {
-    @Autowired
-    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
-
     @GetMapping("list")
     public String list() {
         return String.format("%s/%s", BlueGreenController.PREFIX, "list");

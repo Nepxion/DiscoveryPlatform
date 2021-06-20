@@ -41,8 +41,8 @@
                     {{#  } }}
                 </script>
 
-                <script type="text/html" id="colGatewayName">
-                    {{ d.gatewayName }} &nbsp;&nbsp;
+                <script type="text/html" id="colPortalName">
+                    {{ d.portalName }} &nbsp;&nbsp;
                     {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
@@ -124,7 +124,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '入口名称', templet: '#colGatewayName', width: 300},
+                    {title: '入口名称', templet: '#colPortalName', width: 300},
                     {field: 'serviceName', title: '服务名称', width: 250},
                     {
                         field: 'serviceBlacklistType', title: '黑名单类型', width: 230, templet: function (d) {

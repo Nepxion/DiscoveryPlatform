@@ -78,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
-    `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
     `uri`                       VARCHAR(256)                    NOT NULL COMMENT '转发目标url',
     `predicates`                VARCHAR(2048)                   NOT NULL COMMENT '断言器字符串',
     `user_predicates`           VARCHAR(2048)                   NOT NULL COMMENT '自定义断言器字符串',
@@ -102,7 +103,8 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
-    `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
     `service_id`                VARCHAR(128)                    NOT NULL COMMENT '服务id',
     `path`                      VARCHAR(128)                    NOT NULL COMMENT '转发目标路径',
     `url`                       VARCHAR(128)                    NOT NULL COMMENT '转发目标uri',
@@ -124,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
 
 CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '服务名称',
     `service_blacklist_type`    INT(0) UNSIGNED                 NOT NULL COMMENT '黑名单类型(1:UUID, 2:ADDRESS)',
     `service_blacklist`         VARCHAR(128)                    NOT NULL COMMENT '黑名单内容',
@@ -136,14 +139,15 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `idx_gateway_name`(`gateway_name`) USING BTREE,
+    INDEX `idx_gateway_name`(`portal_name`) USING BTREE,
     INDEX `idx_service_name`(`service_name`) USING BTREE
 ) COMMENT = '服务无损屏蔽信息';
 
 CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `gateway_name`              VARCHAR(128)                    NOT NULL COMMENT '网关名称',
-    `type`                      INT(0)                          NOT NULL COMMENT '蓝绿发布发布策略类型(1:版本策略, 2:区域策略)',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关蓝绿, 2:服务蓝绿, 3:组蓝绿)',
+    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '蓝绿发布发布策略类型(1:版本策略, 2:区域策略)',
     `strategy`                  TEXT                            NOT NULL COMMENT '蓝绿发布兜底服务编排',
     `condition`                 TEXT                            NOT NULL COMMENT '蓝绿发布条件编排',
     `route`                     TEXT                            NOT NULL COMMENT '蓝绿发布服务编排',
@@ -156,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `idx_gateway_name`(`gateway_name`) USING BTREE
+    UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
 ) COMMENT = '蓝绿发布信息';
 
 INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`)VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');

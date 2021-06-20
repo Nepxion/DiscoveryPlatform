@@ -11,7 +11,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <input type="text" readonly="readonly" id="gatewayName" name="gatewayName" lay-verify="required" class="layui-input layui-disabled" value="${route.gatewayName}">
+                <input type="text" readonly="readonly" id="portalName" name="portalName" lay-verify="required" class="layui-input layui-disabled" value="${route.portalName}">
             </div>
         </div>
 
@@ -105,7 +105,7 @@
             });
 
             <#if (gatewayNames?size==1) >
-            $('#gatewayName option:eq(1)').attr('selected', 'selected');
+            $('#portalName option:eq(1)').attr('selected', 'selected');
             layui.form.render('select');
             </#if>
 

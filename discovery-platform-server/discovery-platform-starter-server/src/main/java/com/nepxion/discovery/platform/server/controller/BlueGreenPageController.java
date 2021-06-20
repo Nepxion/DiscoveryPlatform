@@ -38,8 +38,6 @@ public class BlueGreenPageController {
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
-        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlueGreenController.PREFIX, "add");
     }
 
@@ -47,8 +45,6 @@ public class BlueGreenPageController {
     public String edit(Model model, @RequestParam(name = "id") Long id) {
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
     }
 

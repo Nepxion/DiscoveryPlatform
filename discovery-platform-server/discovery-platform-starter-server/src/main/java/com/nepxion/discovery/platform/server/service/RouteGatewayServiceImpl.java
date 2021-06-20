@@ -31,6 +31,7 @@ import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -73,13 +74,13 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
                     }
 
                     @Override
-                    public void publishEmptyConfig(String gatewayName) throws Exception {
-                        updateConfig(gatewayName, new ArrayList<GatewayStrategyRouteEntity>(0));
+                    public void publishEmptyConfig(String portalName) throws Exception {
+                        updateConfig(portalName, new ArrayList<GatewayStrategyRouteEntity>(0));
                     }
 
                     @Override
-                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
-                        updateConfig(gatewayName, configList);
+                    public void publishConfig(String portalName, List<Object> configList) throws Exception {
+                        updateConfig(portalName, configList);
                     }
 
                     private void updateConfig(String serviceName, Object config) throws Exception {
@@ -108,6 +109,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
         if (routeGatewayDto == null) {
             return;
         }
+        routeGatewayDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfGateway = routeService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
             routeGatewayDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfGateway));

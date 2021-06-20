@@ -279,6 +279,7 @@
                             delete field['strategyServiceName'];
                             delete field['strategyValue'];
                             delete field['value'];
+                            console.log(field);
                             admin.post('do-insert', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

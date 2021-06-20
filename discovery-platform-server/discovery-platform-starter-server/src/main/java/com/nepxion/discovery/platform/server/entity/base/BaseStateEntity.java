@@ -20,8 +20,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 public class BaseStateEntity extends BaseEntity {
     private static final long serialVersionUID = 2636994153216571320L;
 
-    @TableField(value = "`gateway_name`")
-    private String gatewayName;
+    @TableField(value = "`portal_name`")
+    private String portalName;
+
+    @TableField(value = "`portal_type`")
+    private Integer portalType;
 
     @TableField(value = "`operation`")
     private Integer operation;
@@ -35,12 +38,20 @@ public class BaseStateEntity extends BaseEntity {
     @TableField(value = "`delete_flag`")
     private Boolean deleteFlag = false;
 
-    public String getGatewayName() {
-        return gatewayName;
+    public String getPortalName() {
+        return portalName;
     }
 
-    public void setGatewayName(String gatewayName) {
-        this.gatewayName = gatewayName;
+    public void setPortalName(String portalName) {
+        this.portalName = portalName;
+    }
+
+    public Integer getPortalType() {
+        return portalType;
+    }
+
+    public void setPortalType(Integer portalType) {
+        this.portalType = portalType;
     }
 
     public Integer getOperation() {
@@ -88,5 +99,45 @@ public class BaseStateEntity extends BaseEntity {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    public enum PortalType {
+        GATEWAY(1, "网关"),
+        SERVICE(2, "服务"),
+        GROUP(3, "组");
+
+        private final int code;
+        private final String name;
+
+        PortalType(int code, String name) {
+            this.code = code;
+            this.name = name;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static PortalType get(int code) {
+            for (PortalType item : PortalType.values()) {
+                if (item.getCode() == code) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static PortalType get(String name) {
+            for (PortalType item : PortalType.values()) {
+                if (item.getName().equalsIgnoreCase(name)) {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }

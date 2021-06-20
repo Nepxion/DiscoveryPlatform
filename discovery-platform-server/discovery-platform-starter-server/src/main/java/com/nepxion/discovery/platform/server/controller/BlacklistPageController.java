@@ -31,7 +31,6 @@ public class BlacklistPageController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
         return String.format("%s/%s", BlacklistController.PREFIX, "add");
     }
 

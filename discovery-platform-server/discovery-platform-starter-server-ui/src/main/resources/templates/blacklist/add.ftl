@@ -11,14 +11,28 @@
          style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
+            <label class="layui-form-label">入口类型</label>
+            <div class="layui-input-block">
+                <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" checked>
+                <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型">
+                <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
             <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 1000px">
-                <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
-                    <option value="">请选择网关或者服务名称</option>
-                    <#list gatewayNames as gatewayName>
-                        <option value="${gatewayName}">${gatewayName}</option>
-                    </#list>
-                </select>
+                <div class="layui-row">
+                    <div class="layui-col-md11">
+                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
+                        </select>
+                    </div>
+                    <div class="layui-col-md1">
+                        <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                            <i class="layui-icon">&#xe669;</i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -46,10 +60,13 @@
 
                 <script type="text/html" id="tServiceName">
                     <select name='serviceName' lay-filter='serviceName' lay-search>
-                        <option value="">请选择服务名称</option>
-                        <#list serviceNames as serviceName>
-                            <option value="${serviceName}" {{ d.serviceName=='${serviceName}' ?'selected="selected"' : '' }}>${serviceName}</option>
-                        </#list>
+                        <option value="">请选择服务</option>
+                        {{# layui.each(d.serviceNameList, function(index, item){ }}
+                        <option value="{{ item }}" {{ d.serviceName==item ?
+                        'selected="selected"' : '' }}>
+                        {{ item }}
+                        </option>
+                        {{# }); }}
                     </select>
                 </script>
 
@@ -65,10 +82,17 @@
 
                 <script type="text/html" id="grid-bar">
                     <@update>
-                        <a class="layui-btn layui-btn-sm" lay-event="add">
-                            <i class="layui-icon">&#xe654;</i></a>
-                        <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="remove">
-                            <i class="layui-icon">&#xe67e;</i></a>
+                        <div class="layui-btn-group">
+                            <a class="layui-btn layui-btn-sm" lay-event="refresh">
+                                <i class="layui-icon">&#xe669;</i>
+                            </a>
+                            <a class="layui-btn layui-btn-sm" lay-event="add">
+                                <i class="layui-icon">&#xe654;</i>
+                            </a>
+                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="remove">
+                                <i class="layui-icon">&#xe67e;</i>
+                            </a>
+                        </div>
                     </@update>
                 </script>
             </div>
@@ -84,25 +108,59 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const admin = layui.admin, form = layui.form, $ = layui.$, table = layui.table;
-            let count = 0;
-            table.render({
-                elem: '#grid',
-                cellMinWidth: 80,
-                page: false,
-                limit: 99999999,
-                limits: [99999999],
-                even: false,
-                loading: false,
-                cols: [[
-                    {type: 'numbers', title: '序号', width: 50},
-                    {field: 'serviceName', title: '服务名称', unresize: true, templet: '#tServiceName'},
-                    {field: 'uuid', title: '服务实例 [UUD&nbsp;|&nbsp;IP地址:端口]', unresize: true, templet: '#tContent', width: 460},
-                    {title: '操作', align: 'center', toolbar: '#grid-bar', width: 130}
-                ]],
-                data: [newRow()]
+            let serviceNameList = [], portalType = 1, count = 0;
+
+            setTimeout(function () {
+                reloadPortalName(1);
+                table.render({
+                    elem: '#grid',
+                    cellMinWidth: 80,
+                    page: false,
+                    limit: 99999999,
+                    limits: [99999999],
+                    even: false,
+                    loading: false,
+                    cols: [[
+                        {type: 'numbers', title: '序号', width: 50},
+                        {field: 'serviceName', title: '服务名称', unresize: true, templet: '#tServiceName'},
+                        {field: 'uuid', title: '服务实例 [UUID&nbsp;|&nbsp;IP地址:端口]', unresize: true, templet: '#tContent', width: 440},
+                        {title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
+                    ]],
+                    data: [newRow()]
+                });
+            }, 100);
+
+            form.on('radio(portalType)', function (opt) {
+                portalType = opt.value;
+                reloadPortalName(portalType);
             });
 
+            $('#btnRefreshPortal').click(function () {
+                reloadPortalName();
+            });
+
+            function reloadPortalName() {
+                admin.post('do-list-portal-names', {'portalType': portalType}, function (result) {
+                    const selPortalName = $("select[name=portalName]");
+                    let portalTypeName = '';
+                    if (portalType == 1) {
+                        portalTypeName = '网关';
+                    } else if (portalType == 2) {
+                        portalTypeName = '服务';
+                    } else if (portalType == 3) {
+                        portalTypeName = '组';
+                    }
+                    selPortalName.html('<option value="">请选择' + portalTypeName + '名称</option>');
+                    $.each(result.data, function (key, val) {
+                        let option = $("<option>").val(val).text(val);
+                        selPortalName.append(option);
+                    });
+                    layui.form.render('select');
+                });
+            }
+
             function newRow() {
+                refreshServiceNames();
                 count++;
                 return {
                     'index': count,
@@ -110,7 +168,8 @@
                     'content': '',
                     'contents': [],
                     'uuid': '',
-                    'address': ''
+                    'address': '',
+                    'serviceNameList': serviceNameList
                 };
             }
 
@@ -159,8 +218,55 @@
                         reload(gd);
                         $('div[class="layui-table-mend"]').remove();
                     }
+                } else if (obj.event === 'refresh') {
+                    layer.load();
+                    let serviceName = '';
+                    refreshServiceNames();
+                    layer.closeAll('loading');
+                    $.each(gd, function (index, item) {
+                        if (item.index == obj.data.index) {
+                            item['serviceNameList'] = serviceNameList;
+                            serviceName = item['serviceName'];
+                            return;
+                        }
+                    });
+
+                    admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (result) {
+                        const contents = [];
+                        $.each(result.data, function (i, item) {
+                            contents.push({
+                                'uuid': item.metadata.spring_application_uuid,
+                                'host': item.host,
+                                'port': item.port
+                            });
+                        });
+
+                        $.each(gd, function (index, item) {
+                            if (item.index == obj.data.index) {
+                                item['serviceName'] = serviceName;
+                                item['uuid'] = '';
+                                item['contents'] = contents;
+                                return;
+                            }
+                        });
+
+                        reload(gd);
+                    });
                 }
             });
+
+            function refreshServiceNames() {
+                admin.postQuiet('do-list-service-names', {}, function (result) {
+                    const set = new Set();
+                    serviceNameList = [];
+                    $.each(result.data, function (index, item) {
+                        if (!set.has(item)) {
+                            set.add(item);
+                            serviceNameList.push(item);
+                        }
+                    });
+                }, null, false);
+            }
 
             function reload(data) {
                 $.each(data, function (i, d) {
@@ -189,10 +295,6 @@
                 });
                 $('#serviceBlacklist').val(JSON.stringify(r));
             });
-
-            <#if (gatewayNames?size==1) >
-            chooseSelectOption('gatewayName', 1);
-            </#if>
         });
     </script>
     </body>

@@ -11,10 +11,13 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,7 @@ import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyBlacklistEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
@@ -176,4 +180,31 @@ public class BlacklistController {
 
         return Result.ok(blacklistVoMap);
     }
+
+    @ApiOperation("获取所有网关的名称")
+    @PostMapping("do-list-portal-names")
+    public Result<List<String>> doListPortalNames(@RequestParam("portalType") Integer portalTypeInt) {
+        BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
+        List<String> result = new ArrayList<>();
+        switch (Objects.requireNonNull(portalType)) {
+            case GATEWAY:
+                result.addAll(platformDiscoveryAdapter.getGatewayNames());
+                break;
+            case SERVICE:
+                result.addAll(platformDiscoveryAdapter.getServiceNames());
+                break;
+            case GROUP:
+                List<String> serviceNames = platformDiscoveryAdapter.getAllServiceNames();
+                result.addAll(serviceNames.stream().map(serviceName -> platformDiscoveryAdapter.getGroupName(serviceName)).collect(Collectors.toList()));
+                break;
+        }
+        return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
+    }
+
+    @ApiOperation("获取所有服务的名称")
+    @PostMapping("do-list-service-names")
+    public Result<List<String>> doListServiceNames() {
+        return Result.ok(platformDiscoveryAdapter.getServiceNames());
+    }
+
 }

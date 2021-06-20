@@ -11,15 +11,20 @@
          style="padding: 20px 30px 0 0;">
 
         <div class="layui-form-item">
+            <div class="layui-form-item">
+                <label class="layui-form-label">入口类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" checked>
+                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型">
+                </div>
+            </div>
+
             <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 850px">
                 <div class="layui-row">
                     <div class="layui-col-md11">
-                        <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
-                            <option value="">请选择网关或者服务名称</option>
-                            <#list gatewayNames as gatewayName>
-                                <option value="${gatewayName}">${gatewayName}</option>
-                            </#list>
+                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
                         </select>
                     </div>
                     <div class="layui-col-md1">
@@ -183,7 +188,7 @@
 
                 <script type="text/html" id="tServiceName$_INDEX_$">
                     <select name='serviceName' lay-filter='serviceName' tag="$_INDEX_$" lay-search>
-                        <option value="">请选择服务</option>
+                        <option value="">请选择服务名称</option>
                         {{# layui.each(d.serviceNameList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceName==item ?
                         'selected="selected"' : '' }}>
@@ -231,13 +236,39 @@
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
                     const TAB = 'tab', TAB_CONDITION = 'tabCondition', TAB_STRATEGY = 'tabStrategy';
-                    let serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
+                    let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
 
                     setTimeout(function () {
+                        reloadPortalName(1);
                         addTabCondition();
                         addTabCondition();
                         addStrategy();
                     }, 100);
+
+                    form.on('radio(portalType)', function (opt) {
+                        portalType = opt.value;
+                        reloadPortalName(portalType);
+                    });
+
+                    function reloadPortalName() {
+                        admin.post('do-list-portal-names', {'portalType': portalType}, function (result) {
+                            const selPortalName = $("select[name=portalName]");
+                            let portalTypeName = '';
+                            if (portalType == 1) {
+                                portalTypeName = '网关';
+                            } else if (portalType == 2) {
+                                portalTypeName = '服务';
+                            } else if (portalType == 3) {
+                                portalTypeName = '组';
+                            }
+                            selPortalName.html('<option value="">请选择' + portalTypeName + '名称</option>');
+                            $.each(result.data, function (key, val) {
+                                let option = $("<option>").val(val).text(val);
+                                selPortalName.append(option);
+                            });
+                            layui.form.render('select');
+                        });
+                    }
 
                     $('#btnStrategyAdd').click(function () {
                         addStrategy();
@@ -255,17 +286,7 @@
                     });
 
                     $('#btnRefreshPortal').click(function () {
-                        admin.post('do-list-portal-names', {}, function (result) {
-                            const data = result.data;
-                            const selGatewayName = $("#gatewayName");
-                            selGatewayName.html('<option value="">请选择网关或者服务名称</option>');
-                            $.each(data, function (key, val) {
-                                let option;
-                                option = $("<option>").val(val).text(val);
-                                selGatewayName.append(option);
-                            });
-                            layui.form.render('select');
-                        });
+                        reloadPortalName();
                     });
 
                     element.on('tab(tab)', function () {
@@ -805,10 +826,6 @@
                         });
                         $('#header').val(JSON.stringify(dataHeader));
                     }
-
-                    <#if (gatewayNames?size==1) >
-                    chooseSelectOption('gatewayName', 1);
-                    </#if>
                 }
             );
         </script>

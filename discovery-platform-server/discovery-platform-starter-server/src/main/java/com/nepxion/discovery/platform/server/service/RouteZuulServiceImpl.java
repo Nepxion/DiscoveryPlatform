@@ -29,6 +29,7 @@ import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -60,13 +61,13 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
                     }
 
                     @Override
-                    public void publishEmptyConfig(String gatewayName) throws Exception {
-                        updateConfig(gatewayName, new ArrayList<ZuulStrategyRouteEntity>(0));
+                    public void publishEmptyConfig(String portalName) throws Exception {
+                        updateConfig(portalName, new ArrayList<ZuulStrategyRouteEntity>(0));
                     }
 
                     @Override
-                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
-                        updateConfig(gatewayName, configList);
+                    public void publishConfig(String portalName, List<Object> configList) throws Exception {
+                        updateConfig(portalName, configList);
                     }
 
                     private void updateConfig(String serviceName, Object config) throws Exception {
@@ -95,6 +96,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
         if (routeZuulDto == null) {
             return;
         }
+        routeZuulDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfZuul = routeService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
             routeZuulDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfZuul));

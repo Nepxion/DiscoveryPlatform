@@ -11,7 +11,10 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchNamePo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
@@ -59,8 +63,22 @@ public class BlueGreenController {
 
     @ApiOperation("获取所有网关的名称")
     @PostMapping("do-list-portal-names")
-    public Result<List<String>> doListPortalNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
+    public Result<List<String>> doListPortalNames(@RequestParam("portalType") Integer portalTypeInt) {
+        BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
+        List<String> result = new ArrayList<>();
+        switch (Objects.requireNonNull(portalType)) {
+            case GATEWAY:
+                result.addAll(platformDiscoveryAdapter.getGatewayNames());
+                break;
+            case SERVICE:
+                result.addAll(platformDiscoveryAdapter.getServiceNames());
+                break;
+            case GROUP:
+                List<String> serviceNames = platformDiscoveryAdapter.getAllServiceNames();
+                result.addAll(serviceNames.stream().map(serviceName -> platformDiscoveryAdapter.getGroupName(serviceName)).collect(Collectors.toList()));
+                break;
+        }
+        return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
     }
 
     @ApiOperation("获取所有服务的名称")

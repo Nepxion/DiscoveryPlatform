@@ -96,17 +96,17 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         for (T item : toBePublishList) {
             if (item.getDeleteFlag()) {
                 toDeleteList.add(item);
-                CommonTool.addKVForList(unusedMap, item.getGatewayName(), item);
+                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
                 continue;
             }
             if (!item.getEnableFlag()) {
                 toUpdateList.add(item);
-                CommonTool.addKVForList(unusedMap, item.getGatewayName(), item);
+                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
                 continue;
             }
             toUpdateList.add(item);
             Object object = publishAction.process(item);
-            CommonTool.addKVForList(usedMap, item.getGatewayName(), object);
+            CommonTool.addKVForList(usedMap, item.getPortalName(), object);
         }
 
         if (CollectionUtils.isEmpty(usedMap)) {
@@ -156,8 +156,8 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
     public interface PublishAction<T extends BaseStateEntity> {
         Object process(T t) throws Exception;
 
-        void publishEmptyConfig(String gatewayName) throws Exception;
+        void publishEmptyConfig(String portalName) throws Exception;
 
-        void publishConfig(String gatewayName, List<Object> configList) throws Exception;
+        void publishConfig(String portalName, List<Object> configList) throws Exception;
     }
 }

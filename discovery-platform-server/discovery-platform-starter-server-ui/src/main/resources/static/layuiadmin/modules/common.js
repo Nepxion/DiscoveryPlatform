@@ -14,9 +14,13 @@ layui.define(function (e) {
     admin.DEL_QUESTION = '确定要删除所选项吗?';
     admin.DEL_SUCCESS = '所选项已全部成功删除';
 
-    admin.postQuiet = function (url, data, success, error) {
+    admin.postQuiet = function (url, data, success, error, async) {
+        if (async == undefined) {
+            async = true;
+        }
         $.ajax({
             url: url,
+            async: async,
             type: 'POST',
             data: data,
             cache: false,
@@ -39,10 +43,14 @@ layui.define(function (e) {
         });
     };
 
-    admin.post = function (url, data, success, error) {
+    admin.post = function (url, data, success, error, async) {
         layer.load();
+        if (async == undefined) {
+            async = true;
+        }
         $.ajax({
             url: url,
+            async: async,
             type: 'POST',
             data: data,
             cache: false,

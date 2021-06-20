@@ -88,9 +88,12 @@
                 <script type="text/html" id="tStrategyServiceName">
                     <select name='strategyServiceName' lay-filter='strategyServiceName' lay-search>
                         <option value="">请选择服务</option>
-                        <#list serviceNames as serviceName>
-                            <option value="${serviceName}" {{ d.serviceName=='${serviceName}' ?'selected="selected"' : '' }}>${serviceName}</option>
-                        </#list>
+                        {{# layui.each(d.serviceNameList, function(index, item){ }}
+                        <option value="{{ item }}" {{ d.serviceName==item ?
+                        'selected="selected"' : '' }}>
+                        {{ item }}
+                        </option>
+                        {{# }); }}
                     </select>
                 </script>
 
@@ -181,11 +184,12 @@
                 <script type="text/html" id="tServiceName$_INDEX_$">
                     <select name='serviceName' lay-filter='serviceName' tag="$_INDEX_$" lay-search>
                         <option value="">请选择服务</option>
-                        <#list serviceNames as serviceName>
-                            <option value="${serviceName}" {{ d.serviceName=='${serviceName}' ?'selected="selected"' : '' }}>
-                            ${serviceName}
-                            </option>
-                        </#list>
+                        {{# layui.each(d.serviceNameList, function(index, item){ }}
+                        <option value="{{ item }}" {{ d.serviceName==item ?
+                        'selected="selected"' : '' }}>
+                        {{ item }}
+                        </option>
+                        {{# }); }}
                     </select>
                 </script>
 
@@ -227,11 +231,13 @@
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
                     const TAB = 'tab', TAB_CONDITION = 'tabCondition', TAB_STRATEGY = 'tabStrategy';
-                    let tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
+                    let serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
 
-                    addTabCondition();
-                    addTabCondition();
-                    addStrategy();
+                    setTimeout(function () {
+                        addTabCondition();
+                        addTabCondition();
+                        addStrategy();
+                    }, 100);
 
                     $('#btnStrategyAdd').click(function () {
                         addStrategy();
@@ -337,7 +343,6 @@
                             if (obj.event === 'addCondition') {
                                 gd.push(newConditionRow());
                                 reload(gridCondition, gd);
-                                reload(gridRoute);
                                 $('div[class="layui-table-mend"]').remove();
                             } else if (obj.event === 'removeCondition') {
                                 if (gd.length > 1) {
@@ -347,7 +352,6 @@
                                         }
                                     });
                                     reload(gridCondition, gd);
-                                    reload(gridRoute);
                                     $('div[class="layui-table-mend"]').remove();
                                     const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
                                     $('#btnAssemble' + tabIndex).click();
@@ -400,8 +404,7 @@
                         table.on('tool(' + gridRoute + ')', function (obj) {
                             const gd = table.cache[gridRoute];
                             if (obj.event === 'addRoute') {
-                                gd.push(newConditionRow());
-                                reload(gridCondition);
+                                gd.push(newRouteRow());
                                 reload(gridRoute, gd);
                                 $('div[class="layui-table-mend"]').remove();
                             } else if (obj.event === 'removeRoute') {
@@ -411,52 +414,44 @@
                                             gd.remove(item);
                                         }
                                     });
-                                    reload(gridCondition);
                                     reload(gridRoute, gd);
                                     $('div[class="layui-table-mend"]').remove();
                                 }
                             } else if (obj.event === 'refreshRoute') {
-                                const selServiceName = $(obj.tr).find('select[name="serviceName"]');
-                                const selValue = $(obj.tr).find('select[name="value"]');
+                                layer.load();
                                 let serviceName = '';
-                                admin.post('do-list-service-names', {}, function (result) {
-                                    const data = result.data;
-                                    selServiceName.html('<option value="">请选择服务</option>');
-                                    $.each(data, function (key, val) {
-                                        let option;
-                                        if (obj.data.serviceName == val) {
-                                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                                            serviceName = val;
-                                        } else {
-                                            option = $("<option>").val(val).text(val);
-                                        }
-                                        selServiceName.append(option);
-                                    });
-                                    console.log(data);
-                                    layui.form.render('select');
+                                refreshServiceNames();
+                                layer.closeAll('loading');
+                                $.each(gd, function (index, item) {
+                                    if (item.index == obj.data.index) {
+                                        item['serviceNameList'] = serviceNameList;
+                                        serviceName = item['serviceName'];
+                                        return;
+                                    }
+                                });
 
-                                    const index = $(obj.tr).find('select[name="value"]').attr('tag');
-                                    const gridId = 'gridRoute' + index;
-                                    selValue.html('<option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>');
-                                    admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
-                                        const vl = [], set = new Set();
-                                        $.each(r.data, function (index, item) {
-                                            <#if type=='VERSION'>
-                                            if (!set.has(item.version)) {
-                                                set.add(item.version);
-                                                vl.push(item.version);
-                                            }
-                                            <#else>
-                                            if (!set.has(item.region)) {
-                                                set.add(item.region);
-                                                vl.push(item.region);
-                                            }
-                                            </#if>
-                                        });
-                                        obj.data['valueList'] = vl;
-                                        reload(gridId, gd);
-                                        layui.form.render('select');
+                                admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
+                                    const vl = [], set = new Set();
+                                    $.each(r.data, function (index, item) {
+                                        <#if type=='VERSION'>
+                                        if (!set.has(item.version)) {
+                                            set.add(item.version);
+                                            vl.push(item.version);
+                                        }
+                                        <#else>
+                                        if (!set.has(item.region)) {
+                                            set.add(item.region);
+                                            vl.push(item.region);
+                                        }
+                                        </#if>
                                     });
+                                    $.each(gd, function (index, item) {
+                                        if (item.index == obj.data.index) {
+                                            item['valueList'] = vl;
+                                            return;
+                                        }
+                                    });
+                                    reload(gridRoute, gd);
                                 });
                             }
                         });
@@ -541,7 +536,41 @@
                                     $('div[class="layui-table-mend"]').remove();
                                 }
                             } else if (obj.event === 'refreshRoute') {
+                                layer.load();
+                                let serviceName = '';
+                                refreshServiceNames();
+                                layer.closeAll('loading');
+                                $.each(gd, function (index, item) {
+                                    if (item.index == obj.data.index) {
+                                        item['serviceNameList'] = serviceNameList;
+                                        serviceName = item['serviceName'];
+                                        return;
+                                    }
+                                });
 
+                                admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
+                                    const vl = [], set = new Set();
+                                    $.each(r.data, function (index, item) {
+                                        <#if type=='VERSION'>
+                                        if (!set.has(item.version)) {
+                                            set.add(item.version);
+                                            vl.push(item.version);
+                                        }
+                                        <#else>
+                                        if (!set.has(item.region)) {
+                                            set.add(item.region);
+                                            vl.push(item.region);
+                                        }
+                                        </#if>
+                                    });
+                                    $.each(gd, function (index, item) {
+                                        if (item.index == obj.data.index) {
+                                            item['valueList'] = vl;
+                                            return;
+                                        }
+                                    });
+                                    reload('gridStrategy', gd);
+                                });
                             }
                         });
 
@@ -593,12 +622,28 @@
                     }
 
                     function newRouteRow() {
+                        refreshServiceNames();
                         routeCount++;
                         return {
                             'index': routeCount,
                             'serviceName': '',
-                            'value': ''
+                            'value': '',
+                            'serviceNameList': serviceNameList,
+                            'valueList': []
                         };
+                    }
+
+                    function refreshServiceNames() {
+                        admin.postQuiet('do-list-service-names', {}, function (result) {
+                            const set = new Set();
+                            serviceNameList = [];
+                            $.each(result.data, function (index, item) {
+                                if (!set.has(item)) {
+                                    set.add(item);
+                                    serviceNameList.push(item);
+                                }
+                            });
+                        }, null, false);
                     }
 
                     table.render({

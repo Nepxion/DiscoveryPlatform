@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.adapter;
  * @version 1.0
  */
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -46,9 +47,15 @@ public class PlatformDiscoveryAdapter {
         return instanceList;
     }
 
-    public List<String> getServiceNames() {
+    public List<String> getAllServiceNames() {
         List<String> serviceNames = serviceResource.getServices();
         serviceNames.remove(getSpringApplicationName());
+        serviceNames.sort(String::compareTo);
+        return serviceNames;
+    }
+
+    public List<String> getServiceNames() {
+        List<String> serviceNames = getAllServiceNames();
         serviceNames.removeAll(serviceResource.getGateways());
         serviceNames.sort(String::compareTo);
         return serviceNames;
@@ -61,9 +68,7 @@ public class PlatformDiscoveryAdapter {
     }
 
     public List<String> getGatewayNames(GatewayType gatewayType) {
-        List<String> gatewayNames = serviceResource.getGatewayList(gatewayType);
-        gatewayNames.sort(String::compareTo);
-        return gatewayNames;
+        return serviceResource.getGatewayList(Collections.singletonList(gatewayType));
     }
 
     public String getSpringApplicationName() {
@@ -88,8 +93,12 @@ public class PlatformDiscoveryAdapter {
     }
 
     public void publishConfig(String serviceName, RuleEntity ruleEntity) throws Exception {
-        String group = serviceResource.getGroup(serviceName);
-        configResource.updateRemoteRuleEntity(group, serviceName, ruleEntity);
+        String groupName = serviceResource.getGroup(serviceName);
+        publishConfig(groupName, serviceName, ruleEntity);
+    }
+
+    public void publishConfig(String groupName, String serviceName, RuleEntity ruleEntity) throws Exception {
+        configResource.updateRemoteRuleEntity(groupName, serviceName, ruleEntity);
     }
 
     public void publishConfig(String groupName, String serviceName, String config, FormatType formatType) throws Exception {
@@ -120,7 +129,6 @@ public class PlatformDiscoveryAdapter {
         return toRuleEntity(configList.get(2));
     }
 
-    @SuppressWarnings("unchecked")
     private List<String> getRuleConfig(String serviceName) {
         List<ResultEntity> resultEntityList = viewConfig(serviceName);
         return JsonUtil.fromJson(resultEntityList.get(0).getResult(), List.class);

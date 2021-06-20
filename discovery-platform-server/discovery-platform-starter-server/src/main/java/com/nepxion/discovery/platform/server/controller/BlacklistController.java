@@ -118,7 +118,6 @@ public class BlacklistController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
-    @SuppressWarnings("unchecked")
     @ApiOperation("获取网关正在工作的黑名单信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")

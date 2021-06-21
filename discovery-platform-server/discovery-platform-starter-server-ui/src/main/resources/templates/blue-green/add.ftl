@@ -637,7 +637,7 @@
                             'parameterName': '',
                             'operator': '==',
                             'value': '',
-                            'logic': '&&'
+                            'logic': 'and'
                         };
                     }
 

@@ -17,13 +17,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
@@ -33,6 +36,9 @@ import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseStateEntity> extends ServiceImpl<M, T> implements BasePublishService<T> {
+    @Autowired
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+
     @TransactionReader
     public T getById(Serializable id) {
         if (id == null) {
@@ -83,7 +89,7 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
 
         if (CollectionUtils.isEmpty(toBePublishList)) {
             for (String gatewayName : gatewayNameSet) {
-                publishAction.publishEmptyConfig(gatewayName);
+                publishAction.publishEmptyConfig(gatewayName, null);
             }
             return;
         }
@@ -111,8 +117,7 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
 
         if (CollectionUtils.isEmpty(usedMap)) {
             for (Map.Entry<String, List<T>> entry : unusedMap.entrySet()) {
-                String gatewayName = entry.getKey();
-                publishAction.publishEmptyConfig(gatewayName);
+                publishAction.publishEmptyConfig(entry.getKey(), entry.getValue());
             }
         } else {
             for (Map.Entry<String, List<Object>> entry : usedMap.entrySet()) {
@@ -153,10 +158,22 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         return t;
     }
 
+    protected void publishConfig(BaseStateEntity.PortalType portalType, String portalName, RuleEntity ruleEntity) throws Exception {
+        switch (Objects.requireNonNull(portalType)) {
+            case GATEWAY:
+            case SERVICE:
+                platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
+                break;
+            case GROUP:
+                platformDiscoveryAdapter.publishConfig(portalName, portalName, ruleEntity);
+                break;
+        }
+    }
+
     public interface PublishAction<T extends BaseStateEntity> {
         Object process(T t) throws Exception;
 
-        void publishEmptyConfig(String portalName) throws Exception;
+        void publishEmptyConfig(String portalName, List<T> entityList) throws Exception;
 
         void publishConfig(String portalName, List<Object> configList) throws Exception;
     }

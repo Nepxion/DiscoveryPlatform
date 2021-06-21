@@ -2,6 +2,7 @@ package com.nepxion.discovery.platform.server.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
+import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -15,4 +16,6 @@ import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 
 public interface BlueGreenService {
     IPage<BlueGreenDto> list(String name, Integer page, Integer limit);
+
+    Boolean insert(BlueGreenPo blueGreenPo);
 }

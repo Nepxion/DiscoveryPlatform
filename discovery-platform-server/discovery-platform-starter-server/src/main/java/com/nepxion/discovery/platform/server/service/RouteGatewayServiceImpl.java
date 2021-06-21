@@ -74,7 +74,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
                     }
 
                     @Override
-                    public void publishEmptyConfig(String portalName) throws Exception {
+                    public void publishEmptyConfig(String portalName, List<RouteGatewayDto> routeGatewayDtoList) throws Exception {
                         updateConfig(portalName, new ArrayList<GatewayStrategyRouteEntity>(0));
                     }
 

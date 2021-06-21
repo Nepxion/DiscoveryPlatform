@@ -61,7 +61,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
                     }
 
                     @Override
-                    public void publishEmptyConfig(String portalName) throws Exception {
+                    public void publishEmptyConfig(String portalName, List<RouteZuulDto> routeZuulDtoList) throws Exception {
                         updateConfig(portalName, new ArrayList<ZuulStrategyRouteEntity>(0));
                     }
 

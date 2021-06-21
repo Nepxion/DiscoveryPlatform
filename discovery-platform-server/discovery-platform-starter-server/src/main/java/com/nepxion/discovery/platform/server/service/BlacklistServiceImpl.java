@@ -11,10 +11,10 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -51,10 +51,20 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
                     }
 
                     @Override
-                    public void publishEmptyConfig(String portalName) throws Exception {
+                    public void publishEmptyConfig(String portalName, List<BlacklistDto> blacklistDtoList) throws Exception {
                         RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                         ruleEntity.setStrategyBlacklistEntity(new StrategyBlacklistEntity());
-                        platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
+                        if (CollectionUtils.isEmpty(blacklistDtoList)) {
+                            platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
+                        } else {
+                            Set<BaseStateEntity.PortalType> portalTypeSet = new HashSet<>();
+                            for (BlacklistDto blacklistDto : blacklistDtoList) {
+                                portalTypeSet.add(BaseStateEntity.PortalType.get(blacklistDto.getPortalType()));
+                            }
+                            for (BaseStateEntity.PortalType portalType : portalTypeSet) {
+                                BlacklistServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
+                            }
+                        }
                     }
 
                     @Override
@@ -85,19 +95,7 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
                             strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(CommonTool.covertMapValuesFromSetToList(addressMap)));
                         }
                         ruleEntity.setStrategyBlacklistEntity(strategyBlacklistEntity);
-
-                        switch (Objects.requireNonNull(portalType)) {
-                            case GATEWAY:
-                                platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
-                                break;
-                            case SERVICE:
-                                platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
-                                break;
-                            case GROUP:
-                                platformDiscoveryAdapter.publishConfig(portalName, portalName, ruleEntity);
-                                break;
-                        }
-
+                        BlacklistServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
                     }
                 }
         );

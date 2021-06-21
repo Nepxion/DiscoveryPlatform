@@ -28,6 +28,7 @@ import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
+import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchNamePo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
@@ -91,4 +92,12 @@ public class BlueGreenController {
     public Result<Boolean> validateExpression(@RequestParam("expression") String expression, @RequestParam("validation") String validation) {
         return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
     }
+
+
+    @ApiOperation("保存蓝绿发布信息")
+    @PostMapping("do-insert")
+    public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
+        return Result.ok(blueGreenService.insert(blueGreenPo));
+    }
+
 }

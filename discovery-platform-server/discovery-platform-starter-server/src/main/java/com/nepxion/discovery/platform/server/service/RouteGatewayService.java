@@ -15,21 +15,16 @@ import java.util.Collection;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.console.entity.GatewayType;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
+import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
-public interface RouteGatewayService {
+public interface RouteGatewayService extends BasePublishService<RouteGatewayDto> {
     GatewayType GATEWAY_TYPE = GatewayType.SPRING_CLOUD_GATEWAY;
 
     void publish() throws Exception;
 
     IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize);
 
-    RouteGatewayDto getById(Long id);
-
     void insert(RouteGatewayDto routeGatewayDto);
-
-    void update(RouteGatewayDto routeGatewayDto);
-
-    void enable(Long id, boolean enableFlag);
 
     void logicDelete(Collection<Long> ids);
 

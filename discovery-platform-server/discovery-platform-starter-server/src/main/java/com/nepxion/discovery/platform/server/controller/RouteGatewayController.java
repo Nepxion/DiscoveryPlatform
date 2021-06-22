@@ -23,10 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.nepxion.discovery.common.entity.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.console.resource.RouteResource;
-import com.nepxion.discovery.console.resource.ServiceResource;
+import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchGatewayPo;
@@ -45,7 +46,7 @@ public class RouteGatewayController {
     public static final String PREFIX = "route-gateway";
 
     @Autowired
-    private ServiceResource serviceResource;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @Autowired
     private RouteResource routeResource;
@@ -53,7 +54,7 @@ public class RouteGatewayController {
     @Autowired
     private RouteGatewayService routeGatewayService;
 
-    @ApiOperation(value = "获取Spring Cloud Gateway网关的路由信息列表")
+    @ApiOperation("获取Spring Cloud Gateway网关的路由信息列表")
     @PostMapping("do-list")
     public Result<List<RouteGatewayDto>> doList(ListSearchGatewayPo listSearchGatewayPo) {
         IPage<RouteGatewayDto> page = routeGatewayService.page(listSearchGatewayPo.getDescription(), listSearchGatewayPo.getPage(), listSearchGatewayPo.getLimit());
@@ -63,7 +64,7 @@ public class RouteGatewayController {
         return Result.ok(page.getRecords(), page.getTotal());
     }
 
-    @ApiOperation(value = "获取Spring Cloud Gateway网关正在工作的路由信息")
+    @ApiOperation("获取Spring Cloud Gateway网关正在工作的路由信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
     public Result<List<RouteGatewayVo>> doListWorking(@RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) {
@@ -77,35 +78,35 @@ public class RouteGatewayController {
             RouteGatewayVo routeGatewayVo = new RouteGatewayVo();
             routeGatewayVo.setHost(resultEntity.getHost());
             routeGatewayVo.setPort(String.valueOf(resultEntity.getPort()));
-            routeGatewayVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<RouteGatewayVo.RouteGatewayPoVo>>() {
+            routeGatewayVo.setRoutes(JsonUtil.fromJson(resultEntity.getResult(), new TypeReference<List<GatewayStrategyRouteEntity>>() {
             }));
             result.add(routeGatewayVo);
         }
         return Result.ok(result);
     }
 
-    @ApiOperation(value = "获取所有Spring Cloud Gateway网关的名称")
+    @ApiOperation("获取所有Spring Cloud Gateway网关的名称")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-gateway-names")
     public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
-        return Result.ok(serviceResource.getGatewayList(RouteGatewayService.GATEWAY_TYPE));
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
     }
 
-    @ApiOperation(value = "添加Spring Cloud Gateway网关的路由")
+    @ApiOperation("添加Spring Cloud Gateway网关的路由")
     @PostMapping("do-insert")
     public Result<?> doInsert(RouteGatewayDto routeGateway) {
         routeGatewayService.insert(routeGateway);
         return Result.ok();
     }
 
-    @ApiOperation(value = "更新Spring Cloud Gateway网关的路由")
+    @ApiOperation("更新Spring Cloud Gateway网关的路由")
     @PostMapping("do-update")
     public Result<?> doUpdate(RouteGatewayDto routeGateway) {
         routeGatewayService.update(routeGateway);
         return Result.ok();
     }
 
-    @ApiOperation(value = "启用Spring Cloud Gateway网关的路由")
+    @ApiOperation("启用Spring Cloud Gateway网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
@@ -113,7 +114,7 @@ public class RouteGatewayController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "禁用Spring Cloud Gateway网关的路由")
+    @ApiOperation("禁用Spring Cloud Gateway网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
@@ -121,7 +122,7 @@ public class RouteGatewayController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "删除Spring Cloud Gateway网关的路由")
+    @ApiOperation("删除Spring Cloud Gateway网关的路由")
     @ApiImplicitParam(name = "ids", value = "路由id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
@@ -130,7 +131,7 @@ public class RouteGatewayController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "发布Spring Cloud Gateway网关的路由")
+    @ApiOperation("发布Spring Cloud Gateway网关的路由")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         routeGatewayService.publish();

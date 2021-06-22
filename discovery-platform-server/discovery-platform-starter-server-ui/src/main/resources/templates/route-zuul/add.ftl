@@ -110,19 +110,12 @@
             });
 
             <#if (gatewayNames?size==1) >
-            $('#gatewayName option:eq(1)').attr('selected', 'selected');
-            layui.form.render('select');
+            chooseSelectOption('gatewayName', 1);
             </#if>
 
             <#if (serviceNames?size==1) >
-            $('#serviceId option:eq(1)').attr('selected', 'selected');
-            layui.form.render('select');
-
-            const text = $('#serviceId').next().find("input").val();
-            $("#path").val('/' + text + '/**');
-            form.render();
+            chooseSelectOption('serviceId', 1);
             </#if>
-
         });
     </script>
     </body>

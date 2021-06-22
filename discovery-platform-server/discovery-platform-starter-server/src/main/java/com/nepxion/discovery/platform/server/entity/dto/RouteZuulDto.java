@@ -26,9 +26,6 @@ public class RouteZuulDto extends BaseStateEntity {
     @TableField(value = "`route_id`")
     private String routeId;
 
-    @TableField(value = "`gateway_name`")
-    private String gatewayName;
-
     @TableField(value = "`service_id`")
     private String serviceId;
 
@@ -53,20 +50,15 @@ public class RouteZuulDto extends BaseStateEntity {
     @TableField(value = "`description`")
     private String description;
 
+    @TableField(value = "`create_times_in_day`")
+    private Integer createTimesInDay;
+
     public String getRouteId() {
         return routeId;
     }
 
     public void setRouteId(String routeId) {
         this.routeId = routeId;
-    }
-
-    public String getGatewayName() {
-        return gatewayName;
-    }
-
-    public void setGatewayName(String gatewayName) {
-        this.gatewayName = gatewayName;
     }
 
     public String getServiceId() {
@@ -131,6 +123,14 @@ public class RouteZuulDto extends BaseStateEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCreateTimesInDay() {
+        return createTimesInDay;
+    }
+
+    public void setCreateTimesInDay(Integer createTimesInDay) {
+        this.createTimesInDay = createTimesInDay;
     }
 
     @Override

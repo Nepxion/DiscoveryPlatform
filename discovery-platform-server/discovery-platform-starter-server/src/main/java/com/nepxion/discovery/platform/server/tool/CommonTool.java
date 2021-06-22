@@ -12,8 +12,10 @@ package com.nepxion.discovery.platform.server.tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +29,26 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 public class CommonTool {
     private static final Logger LOG = LoggerFactory.getLogger(CommonTool.class);
     private static final String SALT = "PEgASuS";
+
+    public static <T> void addKVForList(Map<String, List<T>> map, String key, T value) {
+        if (map.containsKey(key)) {
+            map.get(key).add(value);
+        } else {
+            List<T> valueList = new ArrayList<>();
+            valueList.add(value);
+            map.put(key, valueList);
+        }
+    }
+
+    public static <T> void addKVForSet(Map<String, Set<String>> map, String key, String value) {
+        if (map.containsKey(key)) {
+            map.get(key).add(value);
+        } else {
+            Set<String> valueList = new LinkedHashSet<>();
+            valueList.add(value);
+            map.put(key, valueList);
+        }
+    }
 
     public static void sleep(final long milliseconds) {
         try {

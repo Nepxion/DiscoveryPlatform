@@ -27,7 +27,6 @@ import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mapper.RoleMapper;
 
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, SysRoleDto> implements RoleService {
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public List<SysRoleDto> listOrderByName() {
@@ -36,7 +35,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, SysRoleDto> impleme
         return list(queryWrapper);
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public List<SysRoleDto> getNotSuperAdmin() {
@@ -47,7 +45,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, SysRoleDto> impleme
         return list(queryWrapper);
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public IPage<SysRoleDto> list(String name, Integer pageNum, Integer pageSize) {

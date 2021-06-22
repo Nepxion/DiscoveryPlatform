@@ -14,14 +14,18 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+
 public class DateTool {
     private static final DateFormat DATA_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMdd");
     private static final DateFormat TIME_SEQUENCE_FORMAT = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+    private static final DateFormat TIME_DAY = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final List<DateFormat> DATE_FORMAT_LIST = Arrays.asList(
             new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"),
@@ -64,5 +68,16 @@ public class DateTool {
 
     public static String getTimeSequence() {
         return TIME_SEQUENCE_FORMAT.format(new Date());
+    }
+
+    public static String beginOfDay() {
+        return TIME_DAY.format(new Date()) + PlatformConstant.TIME;
+    }
+
+    public static String getEndOfDay() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        Date time = cal.getTime();
+        return TIME_DAY.format(time) + PlatformConstant.TIME;
     }
 }

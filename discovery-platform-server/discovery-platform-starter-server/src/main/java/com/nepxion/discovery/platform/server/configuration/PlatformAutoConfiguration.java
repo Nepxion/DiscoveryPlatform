@@ -16,10 +16,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
 import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
+import com.nepxion.discovery.platform.server.controller.BlacklistController;
+import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
@@ -40,6 +43,8 @@ import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
+import com.nepxion.discovery.platform.server.service.BlacklistService;
+import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
@@ -55,6 +60,21 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
+    public PlatformDiscoveryAdapter platformDiscoveryAdapter() {
+        return new PlatformDiscoveryAdapter();
+    }
+
+    @Bean
+    public PlatformPublisher platformPublisher() {
+        return new PlatformPublisher();
+    }
+
+    @Bean
+    public PlatformSubscriber platformSubscriber() {
+        return new PlatformSubscriber();
+    }
+
+    @Bean
     public ExceptionControllerAdvice exceptionControllerAdvice() {
         return new ExceptionControllerAdvice();
     }
@@ -68,7 +88,6 @@ public class PlatformAutoConfiguration {
     public DashboardPageController dashboardPageController() {
         return new DashboardPageController();
     }
-
 
     @Bean
     public AdminPageController adminPageController() {
@@ -103,6 +122,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteZuulPageController routeZuulPageController() {
         return new RouteZuulPageController();
+    }
+
+    @Bean
+    public BlacklistPageController blacklistPageController() {
+        return new BlacklistPageController();
     }
 
     @Bean
@@ -146,6 +170,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlacklistController blacklistController() {
+        return new BlacklistController();
+    }
+
+    @Bean
     public AdminServiceImpl adminService() {
         return new AdminServiceImpl();
     }
@@ -186,12 +215,7 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public PlatformPublisher platformPublisher() {
-        return new PlatformPublisher();
-    }
-
-    @Bean
-    public PlatformSubscriber platformSubscriber() {
-        return new PlatformSubscriber();
+    public BlacklistService blacklistService() {
+        return new BlacklistServiceImpl();
     }
 }

@@ -18,14 +18,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.nepxion.discovery.platform.server.entity.po.RouteGatewayPo;
+import com.nepxion.discovery.common.entity.GatewayStrategyRouteEntity;
 
 public class RouteGatewayVo implements Serializable {
     private static final long serialVersionUID = -730031129510373510L;
 
     private String host;
     private String port;
-    private List<RouteGatewayPoVo> routes;
+    private List<GatewayStrategyRouteEntity> routes;
 
     public String getHost() {
         return host;
@@ -43,11 +43,11 @@ public class RouteGatewayVo implements Serializable {
         this.port = port;
     }
 
-    public List<RouteGatewayPoVo> getRoutes() {
+    public List<GatewayStrategyRouteEntity> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RouteGatewayPoVo> routes) {
+    public void setRoutes(List<GatewayStrategyRouteEntity> routes) {
         this.routes = routes;
     }
 
@@ -64,17 +64,5 @@ public class RouteGatewayVo implements Serializable {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-
-    public static class RouteGatewayPoVo extends RouteGatewayPo {
-        private static final long serialVersionUID = 2600817965821067952L;
-
-        public String getUserPredicatesJson() {
-            return toClausesJson(getUserPredicates());
-        }
-
-        public String getUserFiltersJson() {
-            return toClausesJson(getUserFilters());
-        }
     }
 }

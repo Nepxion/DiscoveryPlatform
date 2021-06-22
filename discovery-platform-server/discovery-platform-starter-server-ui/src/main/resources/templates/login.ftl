@@ -40,17 +40,17 @@
     </div>
 
     <div class="layui-trans layadmin-user-login-footer">
-        <p>${year}-2050 © <a href="http://www.nepxion.com" target="_blank">Nepxion Studio</a> Apache License</p>
+        <p>${year}-2050 ©<a href="http://www.nepxion.com" target="_blank">Nepxion Studio</a> Apache License</p>
         <p>
-          <a href="https://github.com/Nepxion" tppabs="#" target="_blank">GitHub代码</a>
-          <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank">Gitee代码</a>
-          <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank">Maven仓库</a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/Pegasus.jpg" tppabs="#" target="_blank">微信</a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E9%92%89%E9%92%89.jpg" tppabs="#" target="_blank">钉钉</a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E5%85%AC%E4%BC%97%E5%8F%B7.jpg" tppabs="#" target="_blank">公众号</a>
-          <a href="mailto:zhangningkid@163.com" tppabs="#">邮箱</a>
+          <a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/github.png" alt="GitHub"></a>
+          <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gitee.png" alt="Gitee"></a>
+          <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/maven.png" alt="Maven"></a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/Pegasus.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/wechat.png" alt="WeChat"></a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E9%92%89%E9%92%89.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/dingding.png" alt="DingDing"></a>
+          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E5%85%AC%E4%BC%97%E5%8F%B7.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gongzhonghao.png" alt="GongZhongHao"></a>
+          <a href="mailto:zhangningkid@163.com" tppabs="#"><img width="24" height="24" src="${ctx}/images/email.png" alt="Email"></a>
          </p>
-        <p>版本:&nbsp;${version}</p>
+        <p>Version:&nbsp;${version}</p>
     </div>
 
     <script src="${ctx}/layuiadmin/layui/layui.js"></script>

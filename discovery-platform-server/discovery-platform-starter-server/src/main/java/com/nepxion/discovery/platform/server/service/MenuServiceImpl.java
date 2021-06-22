@@ -55,7 +55,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, SysMenuDto> impleme
         }
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public List<SysMenuDto> listEmptyUrlMenus() {
@@ -66,7 +65,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, SysMenuDto> impleme
         return list(queryWrapper);
     }
 
-    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public List<SysMenuDto> listNotEmptyUrlMenus() {

@@ -26,4 +26,6 @@ public class PlatformConstant {
 
     public static final String ERROR = "error";
     public static final String ERROR_500 = "error/500";
+
+    public static final String TIME = " 00:00:00";
 }

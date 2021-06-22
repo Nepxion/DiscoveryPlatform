@@ -11,9 +11,11 @@ package com.nepxion.discovery.platform.server.mapper;
  */
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
 
 @Mapper
-public interface RouteMapper {
-    Integer getNextMaxCreateTimesInDay(@Param("tableName") String tableName, @Param("startTime") String startTime, @Param("endTime") String endTime);
+public interface BlacklistMapper extends BaseMapper<BlacklistDto> {
+
 }

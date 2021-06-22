@@ -40,8 +40,8 @@
                     {{#  } }}
                 </script>
 
-                <script type="text/html" id="colGatewayName">
-                    {{ d.gatewayName }} &nbsp;&nbsp;
+                <script type="text/html" id="colPortalName">
+                    {{ d.portalName }} &nbsp;&nbsp;
                     {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
@@ -133,7 +133,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '入口名称', templet: '#colGatewayName', width: 275},
+                    {title: '入口名称', templet: '#colPortalName', width: 275},
                     {field: 'uri', title: '目标地址', width: 250},
                     {field: 'description', title: '描述信息', width: 150}
                     <@select>
@@ -279,7 +279,6 @@
                             delete field['strategyServiceName'];
                             delete field['strategyValue'];
                             delete field['value'];
-                            delete field['type'];
                             admin.post('do-insert', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

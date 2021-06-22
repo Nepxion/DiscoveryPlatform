@@ -27,7 +27,7 @@ public class BlueGreenDto extends BaseStateEntity {
     private Integer type;
 
     @TableField(value = "`strategy`")
-    private Integer strategy;
+    private String strategy;
 
     @TableField(value = "`condition`")
     private String condition;
@@ -49,11 +49,11 @@ public class BlueGreenDto extends BaseStateEntity {
         this.type = type;
     }
 
-    public Integer getStrategy() {
+    public String getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(Integer strategy) {
+    public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
 

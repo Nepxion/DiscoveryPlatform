@@ -1,15 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Ning Zhang
- * @version 1.0
- */
-
 import org.apache.commons.lang3.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -34,8 +24,15 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @Override
     public Boolean insert(BlueGreenPo blueGreenPo) {
-        BlueGreenDto blueGreenDto = new BlueGreenDto();
-        // TODO
+        BlueGreenDto blueGreenDto = prepareInsert(new BlueGreenDto());
+        blueGreenDto.setPortalName(blueGreenPo.getPortalName());
+        blueGreenDto.setPortalType(blueGreenPo.getPortalType());
+        blueGreenDto.setType(blueGreenPo.getType());
+        blueGreenDto.setStrategy(blueGreenPo.getStrategy());
+        blueGreenDto.setCondition(blueGreenPo.getCondition());
+        blueGreenDto.setRoute(blueGreenPo.getRoute());
+        blueGreenDto.setHeader(blueGreenPo.getHeader());
+        blueGreenDto.setDescription(blueGreenPo.getDescription());
         return save(blueGreenDto);
     }
 }

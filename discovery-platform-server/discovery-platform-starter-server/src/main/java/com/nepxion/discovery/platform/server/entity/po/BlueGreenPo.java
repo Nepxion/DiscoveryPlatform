@@ -30,6 +30,9 @@ public class BlueGreenPo implements Serializable {
     @ApiModelProperty("入口名称")
     private String portalName;
 
+    @ApiModelProperty("蓝绿发布发布策略类型(1:版本策略, 2:区域策略)")
+    private Integer type;
+
     @ApiModelProperty("条件策略")
     private String condition;
 
@@ -59,6 +62,14 @@ public class BlueGreenPo implements Serializable {
 
     public void setPortalName(String portalName) {
         this.portalName = portalName;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getCondition() {

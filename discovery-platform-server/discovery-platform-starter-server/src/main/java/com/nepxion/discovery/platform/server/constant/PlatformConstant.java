@@ -27,4 +27,8 @@ public class PlatformConstant {
     public static final String ERROR_500 = "error/500";
 
     public static final String TIME = " 00:00:00";
+
+    public static final String SERVICE_NAME = "serviceName";
+    public static final String HEADER_NAME = "headerName";
+    public static final String VALUE = "value";
 }

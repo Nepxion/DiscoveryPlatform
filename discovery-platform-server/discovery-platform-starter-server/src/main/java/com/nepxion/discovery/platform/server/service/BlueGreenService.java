@@ -15,6 +15,8 @@ import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 
 public interface BlueGreenService {
+    void publish() throws Exception;
+
     IPage<BlueGreenDto> list(String name, Integer page, Integer limit);
 
     Boolean insert(BlueGreenPo blueGreenPo);

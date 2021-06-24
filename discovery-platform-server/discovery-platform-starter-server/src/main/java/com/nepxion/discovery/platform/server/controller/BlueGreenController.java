@@ -100,4 +100,10 @@ public class BlueGreenController {
         return Result.ok(blueGreenService.insert(blueGreenPo));
     }
 
+    @ApiOperation("发布蓝绿发布")
+    @PostMapping("do-publish")
+    public Result<?> doPublish() throws Exception {
+        blueGreenService.publish();
+        return Result.ok();
+    }
 }

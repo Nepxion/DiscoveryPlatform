@@ -80,12 +80,12 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
 
                         for (Object item : configList) {
                             BlacklistDto blacklistDto = (BlacklistDto) item;
+                            portalType = BaseStateEntity.PortalType.get(blacklistDto.getPortalType());
                             if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.UUID.getCode()) {
                                 CommonTool.addKVForSet(uuidMap, blacklistDto.getServiceName(), blacklistDto.getServiceBlacklist());
                             } else if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.ADDRESS.getCode()) {
                                 CommonTool.addKVForSet(addressMap, blacklistDto.getServiceName(), blacklistDto.getServiceBlacklist());
                             }
-                            portalType = BaseStateEntity.PortalType.get(blacklistDto.getPortalType());
                         }
                         if (!CollectionUtils.isEmpty(uuidMap)) {
                             strategyBlacklistEntity.setIdValue(StringUtil.convertToComplexString(CommonTool.covertMapValuesFromSetToList(uuidMap)));

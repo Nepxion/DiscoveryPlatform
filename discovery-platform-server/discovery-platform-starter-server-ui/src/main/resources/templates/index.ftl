@@ -38,13 +38,13 @@
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的注册中心">
                             <i class="layui-icon layui-icon-component"></i>
-                            <cite>Nacos</cite>
+                            <cite id="discovery-type"></cite>
                         </a>
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的配置中心">
                             <i class="layui-icon layui-icon-note"></i>
-                            <cite>Nacos</cite>
+                            <cite id="config-type"></cite>
                         </a>
                     </li>
                     <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
@@ -146,6 +146,30 @@
     </div>
     <script>
         layui.config({base: '..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
+            const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table, layer = layui.layer;
+
+            layer.ready(function () {
+                getDiscoveryType();
+                getConfigType();
+            });
+
+            function getDiscoveryType() {
+                $.get("/service/discovery-type", {}, function (response) {
+                    $("#discovery-type").text(response);
+                }, "text").fail(function(response) {
+                    const msg = "Get discovery type failed, Error: " + response.responseText;
+                    admin.error(admin.SYSTEM_PROMPT, msg);
+                });
+            }
+
+            function getConfigType() {
+                $.get("/config/config-type", {}, function (response) {
+                    $("#config-type").text(response);
+                }, "text").fail(function(response) {
+                    const msg = "Get config type failed, Error: " + response.responseText;
+                    admin.error(admin.SYSTEM_PROMPT, msg);
+                });
+            }
         });
     </script>
     </body>

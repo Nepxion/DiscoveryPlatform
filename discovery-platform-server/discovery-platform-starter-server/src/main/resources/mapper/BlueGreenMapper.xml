@@ -3,4 +3,8 @@
 
 <mapper namespace="com.nepxion.discovery.platform.server.mapper.BlueGreenMapper">
 
+    <select id="listPortalNames" resultType="java.lang.String">
+        SELECT DISTINCT `portal_name`
+        FROM `t_blue_green`;
+    </select>
 </mapper>

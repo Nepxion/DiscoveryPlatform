@@ -55,6 +55,28 @@
                     {{#  } }}
                 </script>
 
+                <script type="text/html" id="colPortalType">
+                    {{#  if(d.portalType==1){ }}
+                    网关蓝绿
+                    {{#  } else if(d.portalType==2){ }}
+                    服务蓝绿
+                    {{#  } else if(d.portalType==3){ }}
+                    组蓝绿
+                    {{#  } else { }}
+                    UNKNOWN
+                    {{#  } }}
+                </script>
+
+                <script type="text/html" id="colType">
+                    {{#  if(d.type==1){ }}
+                    版本策略
+                    {{#  } else if(d.type==2){ }}
+                    区域策略
+                    {{#  } else { }}
+                    UNKNOWN
+                    {{#  } }}
+                </script>
+
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
@@ -83,7 +105,7 @@
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;蓝绿发布
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿
                             </button>
                         </@update>
                     </div>
@@ -133,9 +155,10 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '入口名称', templet: '#colGatewayName', width: 275},
-                    {field: 'uri', title: '目标地址', width: 250},
-                    {field: 'description', title: '描述信息', width: 150}
+                    {title: '入口名称', templet: '#colPortalName', width: 300},
+                    {title: '入口类型', align: 'center', templet: '#colPortalType', width: 150},
+                    {title: '策略类型', align: 'center', templet: '#colType', width: 150},
+                    {field: 'description', title: '描述信息'}
                     <@select>
                     , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
                     </@select>

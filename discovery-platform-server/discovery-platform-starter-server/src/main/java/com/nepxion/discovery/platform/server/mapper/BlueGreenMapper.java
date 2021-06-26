@@ -10,6 +10,8 @@ package com.nepxion.discovery.platform.server.mapper;
  * @version 1.0
  */
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -17,4 +19,5 @@ import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 
 @Mapper
 public interface BlueGreenMapper extends BaseMapper<BlueGreenDto> {
+    List<String> listPortalNames();
 }

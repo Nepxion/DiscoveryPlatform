@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -32,7 +33,9 @@ import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchNamePo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
 @Api("蓝绿发布相关接口")
@@ -49,7 +52,7 @@ public class BlueGreenController {
     @ApiOperation("获取蓝绿发布信息列表")
     @PostMapping("do-list")
     public Result<List<BlueGreenDto>> doList(ListSearchNamePo listSearchNamePo) {
-        IPage<BlueGreenDto> blueGreenDtoPage = blueGreenService.list(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
+        IPage<BlueGreenDto> blueGreenDtoPage = blueGreenService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(blueGreenDtoPage.getRecords(), blueGreenDtoPage.getTotal());
     }
 
@@ -78,6 +81,8 @@ public class BlueGreenController {
                 result.addAll(platformDiscoveryAdapter.getGroupNames());
                 break;
         }
+        List<String> portNameList = blueGreenService.listPortalNames();
+        result.removeAll(portNameList);
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
     }
 
@@ -98,6 +103,31 @@ public class BlueGreenController {
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
         return Result.ok(blueGreenService.insert(blueGreenPo));
+    }
+
+    @ApiOperation("启用蓝绿")
+    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @PostMapping("do-enable")
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+        blueGreenService.enable(id, true);
+        return Result.ok();
+    }
+
+    @ApiOperation("禁用蓝绿")
+    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @PostMapping("do-disable")
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+        blueGreenService.enable(id, false);
+        return Result.ok();
+    }
+
+    @ApiOperation("删除蓝绿")
+    @ApiImplicitParam(name = "ids", value = "蓝绿id, 多个用逗号分隔", required = true, dataType = "String")
+    @PostMapping("do-delete")
+    public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
+        List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
+        blueGreenService.logicDelete(new HashSet<>(idList));
+        return Result.ok();
     }
 
     @ApiOperation("发布蓝绿发布")

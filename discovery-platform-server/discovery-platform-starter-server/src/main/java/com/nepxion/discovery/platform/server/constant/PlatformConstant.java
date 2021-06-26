@@ -31,4 +31,10 @@ public class PlatformConstant {
     public static final String SERVICE_NAME = "serviceName";
     public static final String HEADER_NAME = "headerName";
     public static final String VALUE = "value";
+    public static final String SPEL_CONDITION = "spelCondition";
+    public static final String BLUE_GREEN_VERSION = "blue-green-version-%s";
+    public static final String BLUE_GREEN_REGION = "blue-green-region-%s";
+    public static final String BASIC_CONDITION = "basic-condition";
+    public static final String BASIC_VERSION_ROUTE = "basic-version-route";
+    public static final String BASIC_REGION_ROUTE = "basic-region-route";
 }

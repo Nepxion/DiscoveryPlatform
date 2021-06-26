@@ -74,6 +74,64 @@ layui.define(function (e) {
         });
     };
 
+    admin.getQuiet = function (url, success, error, async) {
+        if (async == undefined) {
+            async = true;
+        }
+        $.ajax({
+            url: url,
+            async: async,
+            type: 'GET',
+            cache: false,
+            complete: function (xhr) {
+                if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
+                    admin.toLogin();
+                } else {
+                    const result = xhr.responseJSON;
+                    if (result.ok) {
+                        if (success) success(result);
+                    } else {
+                        if (error) {
+                            error(result);
+                        } else {
+                            admin.error('系统错误', result.error);
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+    admin.get = function (url, success, error, async) {
+        layer.load();
+        if (async == undefined) {
+            async = true;
+        }
+        $.ajax({
+            url: url,
+            async: async,
+            type: 'GET',
+            cache: false,
+            complete: function (xhr) {
+                if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
+                    admin.toLogin();
+                } else {
+                    const result = xhr.responseJSON;
+                    if (result.ok) {
+                        if (success) success(result);
+                    } else {
+                        if (error) {
+                            error(result);
+                        } else {
+                            admin.error('系统错误', result.error);
+                        }
+                    }
+                }
+                layer.closeAll('loading');
+            }
+        });
+    };
+
     admin.success = function (title, content, callback) {
         layer.open({
             title: title,

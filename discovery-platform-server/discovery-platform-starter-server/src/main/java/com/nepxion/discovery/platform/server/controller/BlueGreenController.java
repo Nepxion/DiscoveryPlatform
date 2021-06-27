@@ -102,13 +102,13 @@ public class BlueGreenController {
     }
 
 
-    @ApiOperation("保存蓝绿发布信息")
+    @ApiOperation("新增蓝绿信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
         return Result.ok(blueGreenService.insert(blueGreenPo));
     }
 
-    @ApiOperation("更新Zuul网关的路由")
+    @ApiOperation("修改蓝绿信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
         blueGreenService.update(blueGreenPo);

@@ -25,6 +25,8 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
 
     Boolean insert(BlueGreenPo blueGreenPo);
 
+    Boolean update(BlueGreenPo blueGreenPo);
+
     void logicDelete(Collection<Long> ids);
 
     void delete(Collection<Long> ids);

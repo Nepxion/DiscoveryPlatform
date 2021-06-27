@@ -238,7 +238,7 @@
                     let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
 
                     setTimeout(function () {
-                        reloadPortalName(1);
+                        reloadPortalName();
                         addTabCondition();
                         addTabCondition();
                         addStrategy();
@@ -246,7 +246,7 @@
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
-                        reloadPortalName(portalType);
+                        reloadPortalName();
                     });
 
                     function reloadPortalName() {
@@ -312,10 +312,10 @@
                             const gd = table.cache[gridCondition];
                             $.each(gd, function (index, item) {
                                 if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
-                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + item.logic + " ";
+                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
                                 }
                             });
-                            $('#' + spelConditionId).val(spelExpress.substring(0, spelExpress.length - 4));
+                            $('#' + spelConditionId).val($.trim(spelExpress.substring(0, spelExpress.length - 4)));
                         });
 
                         $('#btnVerify' + tabIndex).click(function () {
@@ -450,21 +450,7 @@
                                     }
                                 });
 
-                                admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
-                                    const vl = [], set = new Set();
-                                    $.each(r.data, function (index, item) {
-                                        <#if type=='VERSION'>
-                                        if (!set.has(item.version)) {
-                                            set.add(item.version);
-                                            vl.push(item.version);
-                                        }
-                                        <#else>
-                                        if (!set.has(item.region)) {
-                                            set.add(item.region);
-                                            vl.push(item.region);
-                                        }
-                                        </#if>
-                                    });
+                                refreshServiceValue(serviceName, function (vl) {
                                     $.each(gd, function (index, item) {
                                         if (item.index == obj.data.index) {
                                             item['valueList'] = vl;
@@ -481,23 +467,9 @@
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
                             const serviceName = obj.value;
-                            admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (result) {
-                                const valueList = [], set = new Set();
-                                $.each(result.data, function (index, item) {
-                                    <#if type=='VERSION'>
-                                    if (!set.has(item.version)) {
-                                        set.add(item.version);
-                                        valueList.push(item.version);
-                                    }
-                                    <#else>
-                                    if (!set.has(item.region)) {
-                                        set.add(item.region);
-                                        valueList.push(item.region);
-                                    }
-                                    </#if>
-                                });
+                            refreshServiceValue(serviceName, function (vl) {
                                 gd[dataIndex]['serviceName'] = serviceName;
-                                gd[dataIndex]['valueList'] = valueList;
+                                gd[dataIndex]['valueList'] = vl;
                                 reload(gridId, gd);
                             });
                         });
@@ -567,22 +539,7 @@
                                         return;
                                     }
                                 });
-
-                                admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
-                                    const vl = [], set = new Set();
-                                    $.each(r.data, function (index, item) {
-                                        <#if type=='VERSION'>
-                                        if (!set.has(item.version)) {
-                                            set.add(item.version);
-                                            vl.push(item.version);
-                                        }
-                                        <#else>
-                                        if (!set.has(item.region)) {
-                                            set.add(item.region);
-                                            vl.push(item.region);
-                                        }
-                                        </#if>
-                                    });
+                                refreshServiceValue(serviceName, function (vl) {
                                     $.each(gd, function (index, item) {
                                         if (item.index == obj.data.index) {
                                             item['valueList'] = vl;
@@ -599,23 +556,9 @@
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
                             const serviceName = obj.value;
-                            admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (result) {
-                                const valueList = [], set = new Set();
-                                $.each(result.data, function (index, item) {
-                                    <#if type=='VERSION'>
-                                    if (!set.has(item.version)) {
-                                        set.add(item.version);
-                                        valueList.push(item.version);
-                                    }
-                                    <#else>
-                                    if (!set.has(item.region)) {
-                                        set.add(item.region);
-                                        valueList.push(item.region);
-                                    }
-                                    </#if>
-                                });
+                            refreshServiceValue(serviceName, function (vl) {
                                 gd[dataIndex]['serviceName'] = serviceName;
-                                gd[dataIndex]['valueList'] = valueList;
+                                gd[dataIndex]['valueList'] = vl;
                                 reload(gridId, gd);
                             });
                         });
@@ -664,6 +607,26 @@
                                 }
                             });
                         }, null, false);
+                    }
+
+                    function refreshServiceValue(serviceName, callback) {
+                        admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
+                            const vl = [], set = new Set();
+                            $.each(r.data, function (index, item) {
+                                <#if type=='VERSION'>
+                                if (!set.has(item.version)) {
+                                    set.add(item.version);
+                                    vl.push(item.version);
+                                }
+                                <#else>
+                                if (!set.has(item.region)) {
+                                    set.add(item.region);
+                                    vl.push(item.region);
+                                }
+                                </#if>
+                            });
+                            callback(vl);
+                        });
                     }
 
                     table.render({
@@ -771,6 +734,7 @@
                                             'parameterName': item.parameterName,
                                             'operator': item.operator,
                                             'value': item.value,
+                                            'logic': item.logic,
                                             'spelCondition': spelCondition
                                         };
                                         const dataStr = JSON.stringify(data);

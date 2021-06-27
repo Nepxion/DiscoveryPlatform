@@ -219,30 +219,7 @@
             table.on('tool(grid)', function (obj) {
                 const data = obj.data;
                 if (obj.event === 'edit') {
-                    layer.open({
-                        type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿发布',
-                        content: 'edit?id=' + data.id,
-                        area: ['920px', '98%'],
-                        btn: admin.BUTTONS,
-                        resize: false,
-                        yes: function (index, layero) {
-                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                submit = layero.find('iframe').contents().find('#' + submitID);
-                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (d) {
-                                const field = d.field;
-                                field.id = data.id;
-                                admin.post('do-update', field, function () {
-                                    table.reload('grid');
-                                    updateStatus(true);
-                                    layer.close(index);
-                                }, function (result) {
-                                    admin.error(admin.OPT_FAILURE, result.error);
-                                });
-                            });
-                            submit.trigger('click');
-                        }
-                    });
+                    toEditPage(data.id, data.type);
                 } else if (obj.event === 'disable') {
                     layer.confirm('确定要禁用蓝绿发布吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
@@ -285,7 +262,7 @@
                     type: 2,
                     title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
                     content: 'add?type=' + type,
-                    area: ['1020px', '98%'],
+                    area: ['1045px', '98%'],
                     btn: admin.BUTTONS,
                     resize: false,
                     yes: function (index, layero) {
@@ -303,6 +280,47 @@
                             delete field['strategyValue'];
                             delete field['value'];
                             admin.post('do-insert', field, function () {
+                                table.reload('grid');
+                                updateStatus(true);
+                                layer.close(index);
+                            }, function (result) {
+                                admin.error(admin.OPT_FAILURE, result.error);
+                            });
+                        });
+                        submit.trigger('click');
+                    }
+                });
+            }
+
+            function toEditPage(id, type) {
+                let t = '';
+                if (type === 1) {
+                    t = '修改<b>版本</b>蓝绿';
+                } else if (type === 2) {
+                    t = '修改<b>区域</b>蓝绿';
+                }
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    content: 'edit?id=' + id,
+                    area: ['1045px', '98%'],
+                    btn: admin.BUTTONS,
+                    resize: false,
+                    yes: function (index, layero) {
+                        const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                            submit = layero.find('iframe').contents().find('#' + submitID),
+                            source = layero.find('iframe').contents().find('#callback');
+                        source.click();
+                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                            const field = data.field;
+                            field['type'] = type;
+                            delete field['logic'];
+                            delete field['operator'];
+                            delete field['serviceName'];
+                            delete field['strategyServiceName'];
+                            delete field['strategyValue'];
+                            delete field['value'];
+                            admin.post('do-update', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);
                                 layer.close(index);

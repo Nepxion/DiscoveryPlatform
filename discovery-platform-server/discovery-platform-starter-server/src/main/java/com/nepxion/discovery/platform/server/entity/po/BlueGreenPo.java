@@ -23,6 +23,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "蓝绿路由信息")
 public class BlueGreenPo implements Serializable {
     private static final long serialVersionUID = 7174491897001035436L;
+    @ApiModelProperty("蓝绿id")
+    private Long id;
 
     @ApiModelProperty("入口类型")
     private Integer portalType;
@@ -47,6 +49,14 @@ public class BlueGreenPo implements Serializable {
 
     @ApiModelProperty("兜底策略")
     private String strategy;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getPortalType() {
         return portalType;

@@ -67,7 +67,7 @@ public class BlueGreenController {
 
     @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
-    public Result<List<String>> doListPortalNames(@RequestParam("portalType") Integer portalTypeInt) {
+    public Result<List<String>> doListPortalNames(@RequestParam(name = "portalName", defaultValue = "") String portalName, @RequestParam("portalType") Integer portalTypeInt) {
         BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
         List<String> result = new ArrayList<>();
         switch (Objects.requireNonNull(portalType)) {
@@ -83,6 +83,9 @@ public class BlueGreenController {
         }
         List<String> portNameList = blueGreenService.listPortalNames();
         result.removeAll(portNameList);
+        if (StringUtils.isNotEmpty(portalName)) {
+            result.add(portalName);
+        }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
     }
 
@@ -103,6 +106,13 @@ public class BlueGreenController {
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
         return Result.ok(blueGreenService.insert(blueGreenPo));
+    }
+
+    @ApiOperation("更新Zuul网关的路由")
+    @PostMapping("do-update")
+    public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
+        blueGreenService.update(blueGreenPo);
+        return Result.ok();
     }
 
     @ApiOperation("启用蓝绿")

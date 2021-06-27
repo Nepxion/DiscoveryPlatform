@@ -212,4 +212,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (802, '角色配置', '/role/list', b'1', b'0', b'0', '', 8, 2, '角色配置');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (803, '权限配置', '/permission/list', b'1', b'0', b'0', '', 8, 3, '权限配置');
 
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (9, '低代码平台', '', b'1', b'0', b'0', 'layui-icon-template', 0, 10, '低代码平台');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (901, '脚手架创建', '/skeleton/add', b'1', b'0', b'0', '', 9, 1, '脚手架创建');
+
 INSERT IGNORE INTO `sys_dic`(`id`, `name`, `value`, `description`) VALUES (1, 'super_admin', '', ' 超级管理员的登陆账号, 多个用逗号分隔');

@@ -103,18 +103,18 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
                             if (hasValue(blueGreenDto.getStrategy())) {
                                 StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
-                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
                                 strategyConditionBlueGreenEntity.setId(PlatformConstant.BASIC_CONDITION);
+
+                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
+                                strategyRouteEntity.setId(PlatformConstant.BASIC_ROUTE);
 
                                 switch (Objects.requireNonNull(type)) {
                                     case VERSION:
-                                        strategyConditionBlueGreenEntity.setVersionId(PlatformConstant.BASIC_VERSION_ROUTE);
-                                        strategyRouteEntity.setId(PlatformConstant.BASIC_VERSION_ROUTE);
+                                        strategyConditionBlueGreenEntity.setVersionId(PlatformConstant.BASIC_ROUTE);
                                         strategyRouteEntity.setType(StrategyRouteType.VERSION);
                                         break;
                                     case REGION:
-                                        strategyConditionBlueGreenEntity.setRegionId(PlatformConstant.BASIC_REGION_ROUTE);
-                                        strategyRouteEntity.setId(PlatformConstant.BASIC_REGION_ROUTE);
+                                        strategyConditionBlueGreenEntity.setRegionId(PlatformConstant.BASIC_ROUTE);
                                         strategyRouteEntity.setType(StrategyRouteType.REGION);
                                         break;
                                 }
@@ -222,14 +222,14 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
                 }
 
                 StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
+                strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.CONDITION, index));
+
                 switch (Objects.requireNonNull(type)) {
                     case VERSION:
-                        strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.BLUE_GREEN_VERSION_CONDITION, index));
-                        strategyConditionBlueGreenEntity.setVersionId(String.format(PlatformConstant.BLUE_GREEN_VERSION_ROUTE, index));
+                        strategyConditionBlueGreenEntity.setVersionId(String.format(PlatformConstant.ROUTE, index));
                         break;
                     case REGION:
-                        strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.BLUE_GREEN_REGION_CONDITION, index));
-                        strategyConditionBlueGreenEntity.setRegionId(String.format(PlatformConstant.BLUE_GREEN_REGION_ROUTE, index));
+                        strategyConditionBlueGreenEntity.setRegionId(String.format(PlatformConstant.ROUTE, index));
                         break;
                 }
                 strategyConditionBlueGreenEntity.setExpression(pair.getValue().get(0).get(PlatformConstant.SPEL_CONDITION));

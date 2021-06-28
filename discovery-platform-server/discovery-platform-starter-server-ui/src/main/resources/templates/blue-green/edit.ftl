@@ -227,6 +227,7 @@
             </div>
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
+            <input type="hidden" id="error" name="error" value=""/>
             <input type="hidden" id="strategy" name="strategy"/>
             <input type="hidden" id="condition" name="condition"/>
             <input type="hidden" id="route" name="route"/>
@@ -241,7 +242,17 @@
                     setTimeout(function () {
                         reloadPortalName();
 
-                        const conditionJson = ${entity.condition}, routeJson = ${entity.route};
+                        const conditionJson = <#if entity.condition!=''>${entity.condition};
+                        <#else>
+                        {
+                        }
+                        ;
+                        </#if>
+                        const routeJson = <#if entity.route!=''>${entity.route};
+                            <#else>{
+                        }
+                        ;
+                        </#if>
                         const condition = [], route = [];
                         for (const k in conditionJson) {
                             condition.push(conditionJson[k]);
@@ -530,7 +541,7 @@
                                 {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
-                            data: data == undefined ? [newRouteRow()] : newRouteRow(data)
+                            data: data == undefined || data.length < 1 ? [newRouteRow()] : newRouteRow(data)
                         });
 
                         table.on('tool(gridStrategy)', function (obj) {
@@ -702,7 +713,7 @@
                             {field: 'value', title: '值', unresize: true, edit: 'text'},
                             {title: '操作', align: 'center', toolbar: '#grid-header-bar', unresize: true, width: 110}
                         ]],
-                        data: <#if entity.header!=''>newHeaderRow(${entity.header})<#else>[newHeaderRow()]</#if>
+                        data: <#if entity.header!='' && entity.header!='[]'>newHeaderRow(${entity.header})<#else>[newHeaderRow()]</#if>
                     });
 
                     table.on('tool(gridHeader)', function (obj) {
@@ -778,6 +789,10 @@
                                         set.add(dataStr);
                                         dataStrategy.push(data);
                                     }
+                                    $('#error').val('');
+                                } else if (item.serviceName + item.value != '') {
+                                    $('#error').val('兜底策略的服务名或版本号不允许为空');
+                                    return false;
                                 }
                             });
                             $('#strategy').val(JSON.stringify(dataStrategy));
@@ -808,8 +823,16 @@
                                             _setCondition.add(dataStr);
                                             _dataCondition.push(data);
                                         }
+                                        $('#error').val('');
+                                    } else if (item.parameterName + item.value != '') {
+                                        $('#error').val('蓝绿策略' + tabIndex + '的条件策略的参数名或值不允许为空');
+                                        return false;
                                     }
                                 });
+
+                                if ($('#error').val() !== '') {
+                                    return false;
+                                }
                                 if (_dataCondition.length > 0) {
                                     dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
@@ -826,6 +849,10 @@
                                             _setRoute.add(dataStr);
                                             _dataRoute.push(data);
                                         }
+                                        $('#error').val('');
+                                    } else if (item.serviceName + item.value != '') {
+                                        $('#error').val('蓝绿策略' + tabIndex + '的路由策略的服务名或${((type!'')=='VERSION')?string('版本号','区域值')}不允许为空');
+                                        return false;
                                     }
                                 });
                                 if (_dataRoute.length > 0) {
@@ -851,6 +878,10 @@
                                     set.add(dataStr);
                                     dataHeader.push(data);
                                 }
+                                $('#error').val('');
+                            } else if (item.headerName + item.value != '') {
+                                $('#error').val('内置参数的请求头或值不允许为空');
+                                return false;
                             }
                         });
                         $('#header').val(JSON.stringify(dataHeader));

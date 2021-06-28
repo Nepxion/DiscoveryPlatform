@@ -13,7 +13,7 @@ package com.nepxion.discovery.platform.server.service;
 import java.util.Collection;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.console.entity.GatewayType;
+import com.nepxion.discovery.common.entity.GatewayType;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 

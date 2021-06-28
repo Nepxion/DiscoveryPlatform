@@ -17,7 +17,6 @@ public class PlatformConstant {
     public static final String CURRENT_ADMIN_LOGIN = "CURRENT_ADMIN_LOGIN";
     public static final String DEFAULT_ADMIN_PASSWORD = "admin";
     public static final String SUER_ADMIN_NAME = "super_admin";
-    public static final String GATEWAY_DYNAMIC_ROUTE = "dynamic-route";
     public static final String ROW_SEPARATOR = "\n";
 
     public static final String TITLE = "title";
@@ -28,4 +27,14 @@ public class PlatformConstant {
     public static final String ERROR_500 = "error/500";
 
     public static final String TIME = " 00:00:00";
+
+    public static final String SERVICE_NAME = "serviceName";
+    public static final String HEADER_NAME = "headerName";
+    public static final String VALUE = "value";
+    public static final String SPEL_CONDITION = "spelCondition";
+
+    public static final String CONDITION = "condition-%s";
+    public static final String BASIC_CONDITION = "basic-condition";
+    public static final String ROUTE = "route-%s";
+    public static final String BASIC_ROUTE = "basic-route";
 }

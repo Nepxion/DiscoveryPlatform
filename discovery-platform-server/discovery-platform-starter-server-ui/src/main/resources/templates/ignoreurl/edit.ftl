@@ -11,17 +11,17 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">接口路径</label>
-            <div class="layui-input-inline">
-                <input type="text" name="url" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" name="url" lay-verify="required" class="layui-input"
                        placeholder="请输入接口地址（支持Ant路径表达式）" value="${url.url}">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <textarea name="description" placeholder="请输入描述信息" class="layui-textarea"
-                          style="resize: none;width: 740px;height:300px">${url.description}</textarea>
+                          style="resize: none;height: 300px">${url.description}</textarea>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
     </div>
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-            parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
+            // parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
         });
     </script>
     </body>

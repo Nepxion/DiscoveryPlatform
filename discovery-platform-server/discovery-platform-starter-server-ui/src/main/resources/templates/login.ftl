@@ -8,10 +8,8 @@
     <body>
 
     <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
-
         <div class="layadmin-user-login-main">
             <div class="layadmin-user-login-box layadmin-user-login-header">
-
                 <img src="${ctx}/images/Logo.png"/>
                 <h2>${fullName}</h2>
                 <p>Anytime, Anywhere, Just Enjoy</p>
@@ -28,7 +26,6 @@
                            class="layui-input">
                 </div>
                 <div class="layui-form-item" style="margin-bottom: 20px;">
-
                 </div>
                 <div class="layui-form-item">
                     <button id="btnSubmit" name="btnSubmit" class="layui-btn layui-btn-fluid" lay-submit
@@ -36,21 +33,20 @@
                     </button>
                 </div>
             </div>
+            <div class="layadmin-user-login-box layadmin-user-login-footer">
+                <p>${year}-2050 ©<a href="http://www.nepxion.com" target="_blank">Nepxion Studio</a> Apache License</p>
+                <p>
+                  <a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/github.png" alt="GitHub"></a>
+                  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gitee.png" alt="Gitee"></a>
+                  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/maven.png" alt="Maven"></a>
+                  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/wechat-pegasus.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/wechat.png" alt="WeChat"></a>
+                  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/dingding.png" alt="DingDing"></a>
+                  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gongzhonghao.png" alt="GongZhongHao"></a>
+                  <a href="mailto:zhangningkid@163.com" tppabs="#"><img width="24" height="24" src="${ctx}/images/email.png" alt="Email"></a>
+                </p>
+                <p>Version:&nbsp;${version}</p>
+            </div>
         </div>
-    </div>
-
-    <div class="layui-trans layadmin-user-login-footer">
-        <p>${year}-2050 ©<a href="http://www.nepxion.com" target="_blank">Nepxion Studio</a> Apache License</p>
-        <p>
-          <a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/github.png" alt="GitHub"></a>
-          <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gitee.png" alt="Gitee"></a>
-          <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/maven.png" alt="Maven"></a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/Pegasus.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/wechat.png" alt="WeChat"></a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E9%92%89%E9%92%89.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/dingding.png" alt="DingDing"></a>
-          <a href="http://nepxion.gitee.io/discovery/docs/zxing-doc/%E5%85%AC%E4%BC%97%E5%8F%B7.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gongzhonghao.png" alt="GongZhongHao"></a>
-          <a href="mailto:zhangningkid@163.com" tppabs="#"><img width="24" height="24" src="${ctx}/images/email.png" alt="Email"></a>
-         </p>
-        <p>Version:&nbsp;${version}</p>
     </div>
 
     <script src="${ctx}/layuiadmin/layui/layui.js"></script>

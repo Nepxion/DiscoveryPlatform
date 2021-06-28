@@ -22,6 +22,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.entity.FormatType;
 import com.nepxion.discovery.common.entity.GatewayStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
@@ -29,6 +31,7 @@ import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteGatewayDto;
 import com.nepxion.discovery.platform.server.mapper.RouteGatewayMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -71,19 +74,19 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
                     }
 
                     @Override
-                    public void publishEmptyConfig(String gatewayName) throws Exception {
-                        updateConfig(gatewayName, new ArrayList<GatewayStrategyRouteEntity>(0));
+                    public void publishEmptyConfig(String portalName, List<RouteGatewayDto> routeGatewayDtoList) throws Exception {
+                        updateConfig(portalName, new ArrayList<GatewayStrategyRouteEntity>(0));
                     }
 
                     @Override
-                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
-                        updateConfig(gatewayName, configList);
+                    public void publishConfig(String portalName, List<Object> configList) throws Exception {
+                        updateConfig(portalName, configList);
                     }
 
                     private void updateConfig(String serviceName, Object config) throws Exception {
                         String groupName = platformDiscoveryAdapter.getGroupName(serviceName);
-                        String serviceId = serviceName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config));
+                        String serviceId = serviceName.concat("-").concat(DiscoveryConstant.DYNAMIC_ROUTE_KEY);
+                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config), FormatType.XML_FORMAT);
                     }
                 });
     }
@@ -106,6 +109,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
         if (routeGatewayDto == null) {
             return;
         }
+        routeGatewayDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfGateway = routeService.getNextMaxCreateTimesInDayOfGateway();
         if (StringUtils.isEmpty(routeGatewayDto.getRouteId())) {
             routeGatewayDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfGateway));

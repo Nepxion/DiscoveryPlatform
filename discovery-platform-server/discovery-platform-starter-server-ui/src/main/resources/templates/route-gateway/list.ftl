@@ -72,7 +72,7 @@
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin"
                                     lay-event="working"><i
-                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作路由
+                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的路由
                             </button>
                         </@select>
                         <@update>
@@ -182,7 +182,8 @@
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
-                        area: ['90%', '78%']
+                        area: ['90%', '82%'],
+                        btn: '关闭'
                     });
                 } else if (obj.event === 'del') {
                     const checkedId = admin.getCheckedData(table, obj, "id");

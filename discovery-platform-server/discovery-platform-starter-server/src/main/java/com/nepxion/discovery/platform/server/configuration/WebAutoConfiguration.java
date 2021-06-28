@@ -78,6 +78,8 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/layuiadmin/**").addResourceLocations("classpath:static/layuiadmin/");
         registry.addResourceHandler("/terminal/**").addResourceLocations("classpath:static/terminal/");
         registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:static/favicon.ico");
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         super.addResourceHandlers(registry);
     }
 

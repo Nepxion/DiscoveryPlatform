@@ -162,7 +162,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加权限',
                         content: 'add',
-                        area: ['450px', '98%'],
+                        area: ['440px', '440px'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -170,7 +170,6 @@
                                 submit = layero.find('iframe').contents().find('#' + submitID);
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                console.log(field);
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     layer.close(index);

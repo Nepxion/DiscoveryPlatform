@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlacklistDto;
 import com.nepxion.discovery.platform.server.mapper.BlacklistMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -49,15 +51,26 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
                     }
 
                     @Override
-                    public void publishEmptyConfig(String gatewayName) throws Exception {
-                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
+                    public void publishEmptyConfig(String portalName, List<BlacklistDto> blacklistDtoList) throws Exception {
+                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                         ruleEntity.setStrategyBlacklistEntity(new StrategyBlacklistEntity());
-                        platformDiscoveryAdapter.publishConfig(gatewayName, ruleEntity);
+                        if (CollectionUtils.isEmpty(blacklistDtoList)) {
+                            platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
+                        } else {
+                            Set<BaseStateEntity.PortalType> portalTypeSet = new HashSet<>();
+                            for (BlacklistDto blacklistDto : blacklistDtoList) {
+                                portalTypeSet.add(BaseStateEntity.PortalType.get(blacklistDto.getPortalType()));
+                            }
+                            for (BaseStateEntity.PortalType portalType : portalTypeSet) {
+                                BlacklistServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
+                            }
+                        }
                     }
 
                     @Override
-                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
-                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
+                    public void publishConfig(String portalName, List<Object> configList) throws Exception {
+                        BaseStateEntity.PortalType portalType = null;
+                        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                         StrategyBlacklistEntity strategyBlacklistEntity = new StrategyBlacklistEntity();
                         strategyBlacklistEntity.setIdValue(null);
                         strategyBlacklistEntity.setAddressValue(null);
@@ -67,31 +80,22 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
 
                         for (Object item : configList) {
                             BlacklistDto blacklistDto = (BlacklistDto) item;
-                            if (!StringUtils.isEmpty(blacklistDto.getServiceUUID())) {
-                                CommonTool.addKVForSet(uuidMap, blacklistDto.getGatewayName(), blacklistDto.getServiceUUID());
-                            }
-                            if (!StringUtils.isEmpty(blacklistDto.getServiceAddress())) {
-                                CommonTool.addKVForSet(addressMap, blacklistDto.getGatewayName(), blacklistDto.getServiceAddress());
+                            portalType = BaseStateEntity.PortalType.get(blacklistDto.getPortalType());
+                            if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.UUID.getCode()) {
+                                CommonTool.addKVForSet(uuidMap, blacklistDto.getServiceName(), blacklistDto.getServiceBlacklist());
+                            } else if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.ADDRESS.getCode()) {
+                                CommonTool.addKVForSet(addressMap, blacklistDto.getServiceName(), blacklistDto.getServiceBlacklist());
                             }
                         }
-
                         if (!CollectionUtils.isEmpty(uuidMap)) {
-                            Map<String, List<String>> map = new LinkedHashMap<>();
-                            for (Map.Entry<String, Set<String>> pair : uuidMap.entrySet()) {
-                                map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
-                            }
-                            strategyBlacklistEntity.setIdValue(StringUtil.convertToComplexString(map));
+                            strategyBlacklistEntity.setIdValue(StringUtil.convertToComplexString(CommonTool.covertMapValuesFromSetToList(uuidMap)));
                         }
 
                         if (!CollectionUtils.isEmpty(addressMap)) {
-                            Map<String, List<String>> map = new LinkedHashMap<>();
-                            for (Map.Entry<String, Set<String>> pair : addressMap.entrySet()) {
-                                map.put(pair.getKey(), new ArrayList<>(pair.getValue()));
-                            }
-                            strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(map));
+                            strategyBlacklistEntity.setAddressValue(StringUtil.convertToComplexString(CommonTool.covertMapValuesFromSetToList(addressMap)));
                         }
                         ruleEntity.setStrategyBlacklistEntity(strategyBlacklistEntity);
-                        platformDiscoveryAdapter.publishConfig(gatewayName, ruleEntity);
+                        BlacklistServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
                     }
                 }
         );
@@ -117,30 +121,20 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
         }
         List<BlacklistDto> blacklistDtoList = new ArrayList<>();
 
-        List<Map<String, String>> uuidList = JsonUtil.fromJson(blacklistDto.getServiceUUID(), List.class);
-        for (Map<String, String> map : uuidList) {
-            for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = prepareInsert(new BlacklistDto());
-                item.setServiceName(pair.getKey());
-                item.setServiceUUID(pair.getValue());
-                item.setGatewayName(blacklistDto.getGatewayName());
-                item.setDescription(blacklistDto.getDescription());
-                item.setServiceAddress(StringUtils.EMPTY);
-                blacklistDtoList.add(item);
+        List<Map<String, String>> blacklistMap = JsonUtil.fromJson(blacklistDto.getServiceBlacklist(), List.class);
+        for (Map<String, String> map : blacklistMap) {
+            BlacklistDto item = prepareInsert(new BlacklistDto());
+            item.setServiceName(map.get("serviceName"));
+            item.setPortalName(blacklistDto.getPortalName());
+            item.setPortalType(blacklistDto.getPortalType());
+            item.setServiceBlacklistType(blacklistDto.getServiceBlacklistType());
+            item.setDescription(blacklistDto.getDescription());
+            if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.UUID.getCode()) {
+                item.setServiceBlacklist(map.get("uuid"));
+            } else if (blacklistDto.getServiceBlacklistType() == BlacklistDto.Type.ADDRESS.getCode()) {
+                item.setServiceBlacklist(map.get("address"));
             }
-        }
-
-        List<Map<String, String>> addressList = JsonUtil.fromJson(blacklistDto.getServiceAddress(), List.class);
-        for (Map<String, String> map : addressList) {
-            for (Map.Entry<String, String> pair : map.entrySet()) {
-                BlacklistDto item = prepareInsert(new BlacklistDto());
-                item.setServiceName(pair.getKey());
-                item.setServiceAddress(pair.getValue());
-                item.setGatewayName(blacklistDto.getGatewayName());
-                item.setDescription(blacklistDto.getDescription());
-                item.setServiceUUID(StringUtils.EMPTY);
-                blacklistDtoList.add(item);
-            }
+            blacklistDtoList.add(item);
         }
         saveBatch(blacklistDtoList);
     }

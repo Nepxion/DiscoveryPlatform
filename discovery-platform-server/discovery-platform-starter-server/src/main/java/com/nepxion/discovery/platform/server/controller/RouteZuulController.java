@@ -82,9 +82,8 @@ public class RouteZuulController {
     }
 
     @ApiOperation("获取所有Zuul网关的名称")
-    @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-gateway-names")
-    public Result<List<String>> doListGatewayNames(@RequestParam(value = "gatewayName", required = false) String gatewayName) {
+    public Result<List<String>> doListGatewayNames() {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
     }
 

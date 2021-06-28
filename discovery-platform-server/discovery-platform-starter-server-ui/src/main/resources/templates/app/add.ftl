@@ -11,18 +11,16 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 90px">Client Id</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <input type="text" id="clientId" name="clientId" lay-verify="required" class="layui-input"
-                       style="width: 740px"
                        placeholder="请输入Client Id" autocomplete="off">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 90px">Client Secret</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <input type="text" id="clientSecret" name="clientSecret" lay-verify="required" class="layui-input"
-                       style="width: 740px"
                        placeholder="请输入Client Secret" autocomplete="off">
                 <button id="btnGenName" class="layui-btn layui-btn-sm" style="margin-top: 2px">自动生成
                 </button>
@@ -31,8 +29,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 90px">应用名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" name="name" lay-verify="required" class="layui-input"
                        placeholder="请输入应用名称" autocomplete="off">
             </div>
         </div>
@@ -47,9 +45,9 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 90px">描述信息</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <textarea name="description" placeholder="请输入描述信息" class="layui-textarea"
-                          style="resize: none;width: 740px;height:300px"></textarea>
+                          style="resize: none;height:300px"></textarea>
             </div>
         </div>
 

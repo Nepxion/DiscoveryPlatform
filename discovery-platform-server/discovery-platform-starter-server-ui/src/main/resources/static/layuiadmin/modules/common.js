@@ -1,9 +1,10 @@
-;layui.define(function (e) {
+layui.define(function (e) {
     const i = (layui.$, layui.layer, layui.laytpl, layui.setter, layui.view, layui.admin);
     const $ = layui.$, admin = layui.admin;
     i.events.logout = function () {
         admin.quit();
-    }, e('common', {});
+    }, e("common", {});
+
 
     admin.SYSTEM_PROMPT = '系统提示';
     admin.OPT_SUCCESS = '操作成功';
@@ -13,9 +14,13 @@
     admin.DEL_QUESTION = '确定要删除所选项吗?';
     admin.DEL_SUCCESS = '所选项已全部成功删除';
 
-    admin.postQuiet = function (url, data, success, error) {
+    admin.postQuiet = function (url, data, success, error, async) {
+        if (async == undefined) {
+            async = true;
+        }
         $.ajax({
             url: url,
+            async: async,
             type: 'POST',
             data: data,
             cache: false,
@@ -38,12 +43,74 @@
         });
     };
 
-    admin.post = function (url, data, success, error) {
+    admin.post = function (url, data, success, error, async) {
         layer.load();
+        if (async == undefined) {
+            async = true;
+        }
         $.ajax({
             url: url,
+            async: async,
             type: 'POST',
             data: data,
+            cache: false,
+            complete: function (xhr) {
+                if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
+                    admin.toLogin();
+                } else {
+                    const result = xhr.responseJSON;
+                    if (result.ok) {
+                        if (success) success(result);
+                    } else {
+                        if (error) {
+                            error(result);
+                        } else {
+                            admin.error('系统错误', result.error);
+                        }
+                    }
+                }
+                layer.closeAll('loading');
+            }
+        });
+    };
+
+    admin.getQuiet = function (url, success, error, async) {
+        if (async == undefined) {
+            async = true;
+        }
+        $.ajax({
+            url: url,
+            async: async,
+            type: 'GET',
+            cache: false,
+            complete: function (xhr) {
+                if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
+                    admin.toLogin();
+                } else {
+                    const result = xhr.responseJSON;
+                    if (result.ok) {
+                        if (success) success(result);
+                    } else {
+                        if (error) {
+                            error(result);
+                        } else {
+                            admin.error('系统错误', result.error);
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+    admin.get = function (url, success, error, async) {
+        layer.load();
+        if (async == undefined) {
+            async = true;
+        }
+        $.ajax({
+            url: url,
+            async: async,
+            type: 'GET',
             cache: false,
             complete: function (xhr) {
                 if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
@@ -111,7 +178,7 @@
     admin.getCheckedData = function (table, obj, field) {
         const checkStatus = table.checkStatus(obj.config.id);
         const data = checkStatus.data;
-        const result = new Array();
+        const result = [];
         if (data.length > 0) {
             for (let j = 0, len = data.length; j < len; j++) {
                 result.push(data[j][field]);
@@ -132,4 +199,5 @@
             }
         });
     }
+
 });

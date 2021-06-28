@@ -12,7 +12,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
+                <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
                     <option value="">请选择网关名称</option>
                     <#list gatewayNames as gatewayName>
                         <option value="${gatewayName}">${gatewayName}</option>
@@ -37,19 +37,17 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">服务名称</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input"
-                       style="width: 740px" placeholder="请输入服务名称（即：注册中心中该服务的名称）" autocomplete="off">
+                       placeholder="请输入服务名称（对应为注册中心中该服务的名称）" autocomplete="off">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
-                    断言器
-                </a>
+                    断言器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
-            <div class="layui-input-inline" style="width: 740px;margin-top:-12px">
+            <div class="layui-input-inline" style="width: 740px;margin-top:-20px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
                         <li class="layui-this">内置</li>
@@ -59,25 +57,23 @@
                         <div class="layui-tab-item layui-show">
                              <textarea id="predicates" name="predicates" class="layui-input" autocomplete="off"
                                        placeholder='请输入断言字符串（使用换行分隔）。例如：&#13;Path=/routeA/**,/routeB/**&#13;Header=type,animal&#13;Cookie=color,blue'
-                                       style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                                       style="height:75px;resize: none"></textarea>
                         </div>
                         <div class="layui-tab-item">
                              <textarea id="userPredicates" name="userPredicates" class="layui-input" autocomplete="off"
                                        placeholder='请输入自定义断言字符串（使用换行分隔）。例如：&#13;MyPredicate={"key":"value"}'
-                                       style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                                       style="height:75px;resize: none"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="layui-form-item" style="height: 100px;margin-top: -100px">
+        <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档">
-                    过滤器
-                </a>
+                    过滤器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
-            <div class="layui-input-inline" style="width: 740px;margin-top:-12px">
+            <div class="layui-input-inline" style="width: 740px;margin-top:-40px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
                         <li class="layui-this">内置</li>
@@ -87,12 +83,12 @@
                         <div class="layui-tab-item layui-show">
                                   <textarea id="filters" name="filters" class="layui-input" autocomplete="off"
                                             placeholder="请输入过滤字符串（使用换行分隔）。例如：&#13;StripPrefix=1&#13;PrefixPath=/routeA&#13;RewritePath=/routeB"
-                                            style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                                            style="height:75px;resize: none"></textarea>
                         </div>
                         <div class="layui-tab-item">
                                    <textarea id="userFilters" name="userFilters" class="layui-input" autocomplete="off"
                                              placeholder='请输入自定义过滤字符串（使用换行分隔）。例如：&#13;MyFilter={"key":"value"}'
-                                             style="width: 740px;height:75px;resize: none;margin-left: -10px"></textarea>
+                                             style="height:75px;resize: none"></textarea>
                         </div>
                     </div>
                 </div>
@@ -101,17 +97,17 @@
 
         <div class="layui-form-item" style="margin-top: -100px">
             <label class="layui-form-label">元数据</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-inline" style="width: 740px">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off"
                           placeholder="请输入元数据字符串（使用换行分隔）。例如：&#13;foo=bar&#13;food=chocolate"
-                          style="width: 740px;height:75px;resize: none"></textarea>
+                          style="height:75px;resize: none"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">执行顺序</label>
-            <div class="layui-input-inline">
-                <input type="number" name="order" lay-verify="required" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="number" name="order" lay-verify="required" class="layui-input"
                        placeholder="请输入顺序号" autocomplete="off" value="0">
             </div>
         </div>
@@ -126,8 +122,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">路由描述</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" id="description" name="description" class="layui-input"
                        placeholder="请输入该条路由的描述信息" autocomplete="off">
             </div>
         </div>
@@ -171,7 +167,7 @@
             });
 
             <#if (gatewayNames?size==1) >
-            chooseSelectOption('gatewayName', 1);
+            chooseSelectOption('portalName', 1);
             </#if>
         });
     </script>

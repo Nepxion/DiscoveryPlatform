@@ -72,7 +72,7 @@
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin"
                                     lay-event="working"><i
-                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作路由
+                                        class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的路由
                             </button>
                         </@select>
                         <@update>
@@ -185,7 +185,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增<b>Zuul</b>路由',
                         content: 'add',
-                        area: ['920px', '98%'],
+                        area: ['910px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -211,7 +211,8 @@
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
-                        area: ['90%', '78%']
+                        area: ['90%', '82%'],
+                        btn: '关闭'
                     });
                 } else if (obj.event === 'del') {
                     const checkedId = admin.getCheckedData(table, obj, 'id');
@@ -246,7 +247,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>Zuul</b>路由',
                         content: 'edit?id=' + data.id,
-                        area: ['920px', '98%'],
+                        area: ['910px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {

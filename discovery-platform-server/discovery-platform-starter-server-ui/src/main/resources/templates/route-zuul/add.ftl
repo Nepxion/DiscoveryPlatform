@@ -11,7 +11,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" lay-verify="required" lay-search>
+                <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
                     <option value="">请选择网关名称</option>
                     <#list gatewayNames as gatewayName>
                         <option value="${gatewayName}">${gatewayName}</option>
@@ -35,8 +35,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">匹配路径</label>
-            <div class="layui-input-inline">
-                <input type="text" id="path" name="path" lay-verify="required" class="layui-input" style="width: 740px" placeholder="请输入匹配路径" lay-verify="required" autocomplete="off">
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" id="path" name="path" lay-verify="required" class="layui-input" placeholder="请输入匹配路径" lay-verify="required" autocomplete="off">
             </div>
         </div>
 
@@ -64,14 +64,14 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">自定义头</label>
-            <div class="layui-input-block">
-                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入自定义请求头（使用逗号分隔）。 例如：a,b,c" style="width: 740px;height:100px;resize: none"></textarea>
+            <label class="layui-form-label">过滤敏感头</label>
+            <div class="layui-input-block" style="width: 740px">
+                <textarea id="sensitiveHeaders" name="sensitiveHeaders" class="layui-input" autocomplete="off" placeholder="请输入敏感请求头（使用逗号分隔）。 例如：&#13;Cookie,Set-Cookie,Authorization" style="height:100px;resize: none"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">是否自定义</label>
+            <label class="layui-form-label">是否自定义敏感头</label>
             <div class="layui-input-block">
                 <input type="radio" name="customSensitiveHeaders" value="true" title="启用">
                 <input type="radio" name="customSensitiveHeaders" value="false" title="禁用" checked>
@@ -88,8 +88,8 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">路由描述</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" class="layui-input" style="width: 740px"
+            <div class="layui-input-inline" style="width: 740px">
+                <input type="text" id="description" name="description" class="layui-input" 
                        placeholder="请输入该条路由的描述信息" autocomplete="off">
             </div>
         </div>
@@ -110,7 +110,7 @@
             });
 
             <#if (gatewayNames?size==1) >
-            chooseSelectOption('gatewayName', 1);
+            chooseSelectOption('portalName', 1);
             </#if>
 
             <#if (serviceNames?size==1) >

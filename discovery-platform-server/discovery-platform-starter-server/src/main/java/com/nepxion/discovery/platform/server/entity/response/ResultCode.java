@@ -13,8 +13,8 @@ package com.nepxion.discovery.platform.server.entity.response;
 import org.apache.commons.lang3.StringUtils;
 
 public enum ResultCode {
-    SUCCESS(200L, true, "SUCCESS"),
-    ERROR(500L, false, "ERROR"),
+    SUCCESS(0L, true, "SUCCESS"),
+    ERROR(1L, false, "ERROR"),
     UN_AUTHORIZED(403L, false, "未授权(未携带token访问接口)"),
     CUSTOMIZE_ERROR(417L, false, "后台自定义服务异常(后台的业务报错都是这个，直接展示message)"),
     ILLEGAL_ACCESS(100011L, false, "非法访问(携带错误的token访问系统)"),

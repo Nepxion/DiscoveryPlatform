@@ -21,13 +21,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.entity.FormatType;
 import com.nepxion.discovery.common.entity.ZuulStrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
-import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.RouteZuulDto;
 import com.nepxion.discovery.platform.server.mapper.RouteZuulMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
@@ -59,19 +61,19 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
                     }
 
                     @Override
-                    public void publishEmptyConfig(String gatewayName) throws Exception {
-                        updateConfig(gatewayName, new ArrayList<ZuulStrategyRouteEntity>(0));
+                    public void publishEmptyConfig(String portalName, List<RouteZuulDto> routeZuulDtoList) throws Exception {
+                        updateConfig(portalName, new ArrayList<ZuulStrategyRouteEntity>(0));
                     }
 
                     @Override
-                    public void publishConfig(String gatewayName, List<Object> configList) throws Exception {
-                        updateConfig(gatewayName, configList);
+                    public void publishConfig(String portalName, List<Object> configList) throws Exception {
+                        updateConfig(portalName, configList);
                     }
 
                     private void updateConfig(String serviceName, Object config) throws Exception {
                         String groupName = platformDiscoveryAdapter.getGroupName(serviceName);
-                        String serviceId = serviceName.concat("-").concat(PlatformConstant.GATEWAY_DYNAMIC_ROUTE);
-                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config));
+                        String serviceId = serviceName.concat("-").concat(DiscoveryConstant.DYNAMIC_ROUTE_KEY);
+                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config), FormatType.XML_FORMAT);
                     }
                 });
     }
@@ -94,6 +96,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
         if (routeZuulDto == null) {
             return;
         }
+        routeZuulDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfZuul = routeService.getNextMaxCreateTimesInDayOfZuul();
         if (StringUtils.isEmpty(routeZuulDto.getRouteId())) {
             routeZuulDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfZuul));

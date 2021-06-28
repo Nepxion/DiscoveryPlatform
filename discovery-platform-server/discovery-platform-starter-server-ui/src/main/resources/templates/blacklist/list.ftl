@@ -41,8 +41,8 @@
                     {{#  } }}
                 </script>
 
-                <script type="text/html" id="colGatewayName">
-                    {{ d.gatewayName }} &nbsp;&nbsp;
+                <script type="text/html" id="colPortalName">
+                    {{ d.portalName }} &nbsp;&nbsp;
                     {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
@@ -69,6 +69,11 @@
                                 <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除黑名单
                             </button>
                         </@delete>
+                        <@select>
+                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
+                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的黑名单
+                            </button>
+                        </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
                                 <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布服务黑名单
@@ -119,13 +124,22 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '网关名称', templet: '#colGatewayName', width: 300},
+                    {title: '入口名称', templet: '#colPortalName', width: 300},
                     {field: 'serviceName', title: '服务名称', width: 250},
-                    {field: 'serviceUUID', title: '服务UUID', width: 280},
-                    {field: 'serviceAddress', title: '服务地址', width: 250},
-                    {field: 'description', title: '黑名单描述'}
+                    {
+                        field: 'serviceBlacklistType', title: '黑名单类型', width: 230, templet: function (d) {
+                            if (d.serviceBlacklistType == 1) {
+                                return "UUID";
+                            } else {
+                                return "IP地址和端口";
+                            }
+                            return d.serviceBlacklistType;
+                        }
+                    },
+                    {field: 'serviceBlacklist', title: '黑名单', width: 300},
+                    {field: 'description', title: '描述信息'}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 80}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
                     </@select>
                 ]],
                 done: function (res) {
@@ -146,7 +160,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增黑名单',
                         content: 'add',
-                        area: ['980px', '98%'],
+                        area: ['1170px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -156,6 +170,8 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                delete field['serviceName'];
+                                delete field['content'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -179,6 +195,16 @@
                     } else {
                         admin.error(admin.SYSTEM_PROMPT, admin.DEL_ERROR);
                     }
+                } else if (obj.event === 'working') {
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的黑名单',
+                        content: 'working',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['90%', '82%'],
+                        btn: '关闭'
+                    });
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
                         layer.confirm('确定要发布黑名单吗？', function (index) {

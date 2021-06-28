@@ -1,10 +1,6 @@
-/**
 
- @Name：layuiAdmin iframe版全局配置
- @Author：贤心
- @Site：http://www.layui.com/admin/
- @License：LPPL（layui付费产品协议）
-    
+/*!
+ * 全局配置 
  */
  
 layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
@@ -38,11 +34,12 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ,dataName: 'data' //数据详情的字段名称
     }
     
-    //扩展的第三方模块
-    ,extend: [
-      'echarts', //echarts 核心包
-      'echartsTheme' //echarts 主题
-    ]
+    //扩展的模块（相对于 lib/extend 目录）
+    ,extend: {
+      echarts: 'echarts', //第三方 echarts 核心包
+      echartsTheme: 'echartsTheme', //第三方 echarts 主题
+      layim: 'layim/layim' //layim
+    }
     
     //主题配置
     ,theme: {
@@ -119,11 +116,29 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         ,selected: '#009688'
         ,header: '#009688'
         ,alias: 'green-header' //墨绿头
+      },{
+        main: '#393D49'
+        ,logo: '#393D49'
+        ,selected: '#009688'
+        ,header: '#23262E'
+        ,alias: 'Classic-style1' //经典风格1
+      },{
+        main: '#001529'
+        ,logo: '#001529'
+        ,selected: '#1890FF'
+        ,header: '#1890FF'
+        ,alias: 'Classic-style2' //经典风格2
+      },{
+        main: '#25282A'
+        ,logo: '#25282A'
+        ,selected: '#35BDB2'
+        ,header: '#35BDB2'
+        ,alias: 'Classic-style3' //经典风格3
       }]
       
       //初始的颜色索引，对应上面的配色方案数组索引
       //如果本地已经有主题色记录，则以本地记录为优先，除非请求本地数据（localStorage）
-      ,initColorIndex: 0
+      ,initColorIndex: 11
     }
   });
 });

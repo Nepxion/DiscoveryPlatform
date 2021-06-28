@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,14 @@ public class CommonTool {
             valueList.add(value);
             map.put(key, valueList);
         }
+    }
+
+    public static <T> Map<String, List<T>> covertMapValuesFromSetToList(Map<String, Set<T>> map) {
+        Map<String, List<T>> result = new LinkedHashMap<>(map.size());
+        for (Map.Entry<String, Set<T>> entry : map.entrySet()) {
+            result.put(entry.getKey(), new ArrayList<T>(entry.getValue()));
+        }
+        return result;
     }
 
     public static void sleep(final long milliseconds) {

@@ -45,7 +45,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">手机</label>
-            <div class="layui-input-inline"  style="width: 730px">
+            <div class="layui-input-inline" style="width: 730px">
                 <#if loginMode=="DATABASE">
                     <input type="text" name="phoneNumber" lay-verify="phone" class="layui-input"
                            placeholder="请输入手机号" value="${admin.phoneNumber}" autocomplete="off">
@@ -85,7 +85,6 @@
 
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-            parent.layer.iframeAuto(parent.layer.getFrameIndex(window.name));
         });
     </script>
     </body>

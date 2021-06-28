@@ -23,6 +23,8 @@ import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
 import com.nepxion.discovery.platform.server.controller.BlacklistController;
 import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
+import com.nepxion.discovery.platform.server.controller.BlueGreenController;
+import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
@@ -45,6 +47,8 @@ import com.nepxion.discovery.platform.server.properties.PlatformServerProperties
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
 import com.nepxion.discovery.platform.server.service.BlacklistService;
 import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
+import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
@@ -130,6 +134,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlueGreenPageController blueGreenPageController() {
+        return new BlueGreenPageController();
+    }
+
+    @Bean
     public DashboardController dashboardController() {
         return new DashboardController();
     }
@@ -175,6 +184,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public BlueGreenController blueGreenController() {
+        return new BlueGreenController();
+    }
+
+    @Bean
     public AdminServiceImpl adminService() {
         return new AdminServiceImpl();
     }
@@ -217,5 +231,10 @@ public class PlatformAutoConfiguration {
     @Bean
     public BlacklistService blacklistService() {
         return new BlacklistServiceImpl();
+    }
+
+    @Bean
+    public BlueGreenService blueGreenService() {
+        return new BlueGreenServiceImpl();
     }
 }

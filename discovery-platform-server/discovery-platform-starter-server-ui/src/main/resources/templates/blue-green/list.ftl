@@ -313,6 +313,11 @@
                         source.click();
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             const field = data.field;
+                            if (field.error !== '') {
+                                admin.error('系统提示', field.error);
+                                return false;
+                            }
+
                             field['type'] = type;
                             delete field['logic'];
                             delete field['operator'];
@@ -320,6 +325,7 @@
                             delete field['strategyServiceName'];
                             delete field['strategyValue'];
                             delete field['value'];
+                            delete field['ok'];
                             admin.post('do-update', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

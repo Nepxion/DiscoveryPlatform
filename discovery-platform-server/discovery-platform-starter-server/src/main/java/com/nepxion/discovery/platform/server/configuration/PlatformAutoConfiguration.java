@@ -11,6 +11,9 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.controller.ConsoleController;
+import com.nepxion.discovery.platform.server.service.ConsoleService;
+import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -189,6 +192,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public ConsoleController consoleController() {
+        return new ConsoleController();
+    }
+
+    @Bean
     public AdminServiceImpl adminService() {
         return new AdminServiceImpl();
     }
@@ -236,5 +244,10 @@ public class PlatformAutoConfiguration {
     @Bean
     public BlueGreenService blueGreenService() {
         return new BlueGreenServiceImpl();
+    }
+
+    @Bean
+    public ConsoleService consoleService() {
+        return new ConsoleServiceImpl();
     }
 }

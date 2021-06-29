@@ -59,7 +59,8 @@
             form.render();
             form.on('submit(btnSubmit)', function (obj) {
                 obj.field.remember = false;
-                admin.post('do-login', obj.field, function () {
+                admin.post('do-login', obj.field, function (response) {
+                    window.localStorage.setItem(admin.ACCESS_TOKEN, response.data);
                     layer.msg('登录成功', {
                         offset: '15px',
                         icon: 1,

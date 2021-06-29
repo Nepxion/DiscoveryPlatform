@@ -10,8 +10,17 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
+import com.nepxion.discovery.platform.server.filter.ShiroJwtFilter;
+import com.nepxion.discovery.platform.server.shiro.JwtCredentialsMatcher;
+import com.nepxion.discovery.platform.server.shiro.JwtRealm;
+import org.apache.shiro.authc.pam.AuthenticationStrategy;
+import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
@@ -33,6 +42,8 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.shiro.AuthRealm;
 import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
 
+import javax.servlet.Filter;
+
 @Configuration
 public class ShiroAutoConfiguration {
     @Bean
@@ -44,6 +55,10 @@ public class ShiroAutoConfiguration {
 
         bean.setLoginUrl("/".concat(PlatformConstant.PLATFORM)); // 配置登录的url
         bean.setSuccessUrl("/index"); // 登录成功后要跳转的链接
+
+        Map<String, Filter> filterMap = new HashMap<>(4);
+        filterMap.put("jwt", new ShiroJwtFilter());
+        bean.setFilters(filterMap);
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源
@@ -62,7 +77,7 @@ public class ShiroAutoConfiguration {
         filterChainDefinitionMap.put("/logout", "anon"); // 登录逻辑
         filterChainDefinitionMap.put("/do-login", "anon"); // 登录逻辑
         filterChainDefinitionMap.put("/do-quit", "anon"); // 登出逻辑
-        filterChainDefinitionMap.put("/**", "authc");// 需要认证才可以访问
+        filterChainDefinitionMap.put("/**", "jwt,authc");// 需要认证才可以访问
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
@@ -71,9 +86,13 @@ public class ShiroAutoConfiguration {
     @Bean(name = "securityManager")
     @Primary
     @ConditionalOnMissingBean
-    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm, @Qualifier("sessionManager") SessionManager sessionManager) {
+    public SecurityManager securityManager(@Qualifier("authRealm") AuthRealm authRealm,
+                                           @Qualifier("jwtRealm") JwtRealm jwtRealm,
+                                           @Qualifier("sessionManager") SessionManager sessionManager,
+                                           @Qualifier("authenticator") ModularRealmAuthenticator authenticator) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
-        manager.setRealm(authRealm); // 设置自定义realm
+        manager.setAuthenticator(authenticator);
+        manager.setRealms(Arrays.asList(authRealm, jwtRealm)); // 设置自定义realm
         manager.setSessionManager(sessionManager);
         return manager;
     }
@@ -81,11 +100,11 @@ public class ShiroAutoConfiguration {
     @Bean(name = "sessionManager")
     @Primary
     @ConditionalOnMissingBean
-    public DefaultWebSessionManager sessionManager() {
+    public DefaultWebSessionManager sessionManager(SimpleCookie sessionIdCookie) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 
         sessionManager.setSessionIdCookieEnabled(true);
-        sessionManager.setSessionIdCookie(sessionIdCookie());
+        sessionManager.setSessionIdCookie(sessionIdCookie);
 
         sessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 6L); // 全局会话超时时间 单位毫秒
         sessionManager.setDeleteInvalidSessions(true);// 是否开启删除无效的session对象 默认为true
@@ -162,4 +181,32 @@ public class ShiroAutoConfiguration {
         advisor.setSecurityManager(manager);
         return advisor;
     }
+
+    @Bean("authenticator")
+    @Primary
+    @ConditionalOnMissingBean
+    public ModularRealmAuthenticator authenticator() {
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        // 设置多 Realm的认证策略，默认 AtLeastOneSuccessfulStrategy
+        AuthenticationStrategy strategy = new FirstSuccessfulStrategy();
+        authenticator.setAuthenticationStrategy(strategy);
+        return authenticator;
+    }
+
+    @Bean("jwtRealm")
+    @Primary
+    @ConditionalOnMissingBean
+    public JwtRealm jwtRealm(@Qualifier("jwtCredentialsMatcher") JwtCredentialsMatcher jwtCredentialsMatcher) {
+        JwtRealm jwtRealm = new JwtRealm();
+        jwtRealm.setCredentialsMatcher(jwtCredentialsMatcher);
+        return jwtRealm;
+    }
+
+    @Bean("jwtCredentialsMatcher")
+    @Primary
+    @ConditionalOnMissingBean
+    public JwtCredentialsMatcher jwtCredentialsMatcher(){
+        return new JwtCredentialsMatcher();
+    }
+
 }

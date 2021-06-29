@@ -145,30 +145,31 @@
         </div>
     </div>
     <script>
-        layui.config({base: '..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
+        layui.config({base: '..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table', 'common'], function () {
             const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table, layer = layui.layer;
 
             layer.ready(function () {
-                getDiscoveryType();
-                getConfigType();
+                const thatAdmin = layui.admin;
+                getDiscoveryType(thatAdmin);
+                getConfigType(thatAdmin);
             });
 
-            function getDiscoveryType() {
-                $.get("/service/discovery-type", {}, function (response) {
-                    $("#discovery-type").text(response);
-                }, "text").fail(function(response) {
-                    const msg = "Get discovery type failed, Error: " + response.responseText;
+            function getDiscoveryType(thatAdmin) {
+                thatAdmin.get('/console/discovery-type', function (response) {
+                    $("#discovery-type").text(response.data);
+                }, function(response) {
+                    const msg = 'Get discovery type failed, Error: ' + response.error;
                     admin.error(admin.SYSTEM_PROMPT, msg);
-                });
+                }, true);
             }
 
-            function getConfigType() {
-                $.get("/config/config-type", {}, function (response) {
-                    $("#config-type").text(response);
-                }, "text").fail(function(response) {
-                    const msg = "Get config type failed, Error: " + response.responseText;
+            function getConfigType(thatAdmin) {
+                thatAdmin.get('/console/config-type', function (response) {
+                    $("#config-type").text(response.data);
+                }, function(response) {
+                    const msg = 'Get config type failed, Error: ' + response.error;
                     admin.error(admin.SYSTEM_PROMPT, msg);
-                });
+                }, true);
             }
         });
     </script>

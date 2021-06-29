@@ -149,7 +149,7 @@
             const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table, layer = layui.layer;
 
             layer.ready(function () {
-                thatAdmin = layui.admin;
+                const thatAdmin = layui.admin;
                 getDiscoveryType(thatAdmin);
                 getConfigType(thatAdmin);
             });

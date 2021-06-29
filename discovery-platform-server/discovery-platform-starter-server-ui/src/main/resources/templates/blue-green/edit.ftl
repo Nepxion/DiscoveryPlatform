@@ -241,7 +241,6 @@
 
                     setTimeout(function () {
                         reloadPortalName();
-
                         const conditionJson = <#if entity.condition!=''>${entity.condition};
                         <#else>
                         {
@@ -297,7 +296,7 @@
                                 selPortalName.append(option);
                             });
                             layui.form.render('select');
-                        });
+                        }, null);
                     }
 
                     $('#btnStrategyAdd').click(function () {

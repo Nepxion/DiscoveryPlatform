@@ -5,7 +5,6 @@ layui.define(function (e) {
         admin.quit();
     };
 
-
     admin.SYSTEM_PROMPT = '系统提示';
     admin.OPT_SUCCESS = '操作成功';
     admin.OPT_FAILURE = '操作失败';
@@ -15,7 +14,7 @@ layui.define(function (e) {
     admin.DEL_SUCCESS = '所选项已全部成功删除';
     admin.ACCESS_TOKEN = "n-d-access-token";
 
-    admin.beforeRequest = function (jqXHR, settings) {
+    admin.beforeRequest = function (jqXHR) {
         admin.addTokenHeader(jqXHR);
     }
 
@@ -228,14 +227,14 @@ layui.define(function (e) {
         });
     }
 
-    admin.cacheToken = function(jqXHR) {
+    admin.cacheToken = function (jqXHR) {
         const accessToken = jqXHR.getResponseHeader(admin.ACCESS_TOKEN);
         if (accessToken) {
             window.localStorage.setItem(admin.ACCESS_TOKEN, accessToken);
         }
     }
 
-    admin.addTokenHeader = function(jqXHR) {
+    admin.addTokenHeader = function (jqXHR) {
         const accessToken = window.localStorage.getItem(admin.ACCESS_TOKEN);
         if (accessToken) {
             jqXHR.setRequestHeader(admin.ACCESS_TOKEN, "Bearer " + accessToken);

@@ -272,6 +272,10 @@
                         source.click();
                         iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             const field = data.field;
+                            if (field.error !== '') {
+                                admin.error('系统提示', field.error);
+                                return false;
+                            }
                             field['type'] = type;
                             delete field['logic'];
                             delete field['operator'];
@@ -317,7 +321,6 @@
                                 admin.error('系统提示', field.error);
                                 return false;
                             }
-
                             field['type'] = type;
                             delete field['logic'];
                             delete field['operator'];

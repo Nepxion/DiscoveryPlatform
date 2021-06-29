@@ -81,9 +81,11 @@ public class BlueGreenController {
                 result.addAll(platformDiscoveryAdapter.getGroupNames());
                 break;
         }
+
+        boolean flag = result.contains(portalName);
         List<String> portNameList = blueGreenService.listPortalNames();
         result.removeAll(portNameList);
-        if (StringUtils.isNotEmpty(portalName)) {
+        if (StringUtils.isNotEmpty(portalName) && flag) {
             result.add(portalName);
         }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));

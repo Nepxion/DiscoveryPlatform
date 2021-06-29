@@ -227,6 +227,7 @@
             </div>
 
             <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="error" name="error" value=""/>
             <input type="hidden" id="condition" name="condition"/>
             <input type="hidden" id="route" name="route"/>
             <input type="hidden" id="header" name="header"/>
@@ -711,6 +712,10 @@
                                         set.add(dataStr);
                                         dataStrategy.push(data);
                                     }
+                                    $('#error').val('');
+                                } else if (item.serviceName + item.value != '') {
+                                    $('#error').val('兜底策略的服务名或版本号不允许为空');
+                                    return false;
                                 }
                             });
                             $('#strategy').val(JSON.stringify(dataStrategy));
@@ -727,7 +732,6 @@
                                 const _dataCondition = [], _setCondition = new Set();
                                 const gridCondition = 'gridCondition' + tabIndex;
                                 const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
-
                                 $.each(table.cache[gridCondition], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
                                         const data = {
@@ -742,8 +746,16 @@
                                             _setCondition.add(dataStr);
                                             _dataCondition.push(data);
                                         }
+                                        $('#error').val('');
+                                    } else if (item.parameterName + item.value != '') {
+                                        $('#error').val('蓝绿策略' + tabIndex + '的条件策略的参数名或值不允许为空');
+                                        return false;
                                     }
                                 });
+
+                                if ($('#error').val() !== '') {
+                                    return false;
+                                }
                                 if (_dataCondition.length > 0) {
                                     dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
@@ -760,6 +772,10 @@
                                             _setRoute.add(dataStr);
                                             _dataRoute.push(data);
                                         }
+                                        $('#error').val('');
+                                    } else if (item.serviceName + item.value != '') {
+                                        $('#error').val('蓝绿策略' + tabIndex + '的路由策略的服务名或${((type!'')=='VERSION')?string('版本号','区域值')}不允许为空');
+                                        return false;
                                     }
                                 });
                                 if (_dataRoute.length > 0) {
@@ -785,6 +801,10 @@
                                     set.add(dataStr);
                                     dataHeader.push(data);
                                 }
+                                $('#error').val('');
+                            } else if (item.headerName + item.value != '') {
+                                $('#error').val('内置参数的请求头或值不允许为空');
+                                return false;
                             }
                         });
                         $('#header').val(JSON.stringify(dataHeader));

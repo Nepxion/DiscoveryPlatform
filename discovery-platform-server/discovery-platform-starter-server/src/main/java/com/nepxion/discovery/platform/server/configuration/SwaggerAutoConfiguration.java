@@ -37,11 +37,11 @@ public class SwaggerAutoConfiguration {
         return Collections.singletonList(
                 new ParameterBuilder()
                         .name(DiscoveryConstant.N_D_ACCESS_TOKEN)
-                        .description("Access Token。格式：" + DiscoveryConstant.BEARER + " access-token。中间含空格")
+                        .description("Access Token。格式：" + DiscoveryConstant.BEARER + "空格${access-token}。当全局授权（Authorize）后，此处不必填写")
                         .modelRef(new ModelRef("string"))
                         .parameterType("header")
-                        .defaultValue(DiscoveryConstant.BEARER + " ")
-                        .required(true)
+                        .defaultValue(DiscoveryConstant.BEARER + " ${access-token}")
+                        .required(false)
                         .build());
     }
 

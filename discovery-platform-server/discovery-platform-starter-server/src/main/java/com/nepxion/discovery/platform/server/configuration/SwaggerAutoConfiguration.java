@@ -34,10 +34,15 @@ import com.nepxion.discovery.common.constant.DiscoverySwaggerConstant;
 public class SwaggerAutoConfiguration {
     @Bean
     public List<Parameter> swaggerHeaderParameters() {
-        ParameterBuilder parameterBuilder = new ParameterBuilder();
-        parameterBuilder.name(DiscoveryConstant.N_D_ACCESS_TOKEN).description("Access Token。格式：" + DiscoveryConstant.BEARER + " access-token。中间含空格").modelRef(new ModelRef("string")).parameterType("header").defaultValue(DiscoveryConstant.BEARER + " ").required(true).build();
-
-        return Collections.singletonList(parameterBuilder.build());
+        return Collections.singletonList(
+                new ParameterBuilder()
+                        .name(DiscoveryConstant.N_D_ACCESS_TOKEN)
+                        .description("Access Token。格式：" + DiscoveryConstant.BEARER + " access-token。中间含空格")
+                        .modelRef(new ModelRef("string"))
+                        .parameterType("header")
+                        .defaultValue(DiscoveryConstant.BEARER + " ")
+                        .required(true)
+                        .build());
     }
 
     @Bean

@@ -62,6 +62,10 @@ public class ShiroAutoConfiguration {
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/authentication/authenticate", "anon"); // 提供给Desktop的登录接口
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon"); // Swagger
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon"); // Swagger
+        filterChainDefinitionMap.put("/webjars/**", "anon"); // Swagger
+        filterChainDefinitionMap.put("/v2/**", "anon"); // Swagger
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/js/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/assets/**", "anon"); // 静态资源

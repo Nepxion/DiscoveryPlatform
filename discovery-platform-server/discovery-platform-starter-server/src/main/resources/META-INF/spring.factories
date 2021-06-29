@@ -7,4 +7,5 @@ com.nepxion.discovery.platform.server.context.PlatformApplicationContextInitiali
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.nepxion.discovery.platform.server.configuration.PlatformAutoConfiguration,\
 com.nepxion.discovery.platform.server.configuration.FreeMarkerAutoConfiguration,\
-com.nepxion.discovery.platform.server.configuration.ShiroAutoConfiguration
+com.nepxion.discovery.platform.server.configuration.ShiroAutoConfiguration,\
+com.nepxion.discovery.platform.server.configuration.SwaggerAutoConfiguration

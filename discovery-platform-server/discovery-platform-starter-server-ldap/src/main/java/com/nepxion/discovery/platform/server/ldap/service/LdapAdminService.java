@@ -42,6 +42,11 @@ public class LdapAdminService implements AdminService {
     }
 
     @Override
+    public AdminVo getAdminById(long id) throws Exception {
+        return adminService.getAdminById(id);
+    }
+
+    @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
         AuthenticationEntity authenticationEntity = new AuthenticationEntity();
         return authenticationEntity;

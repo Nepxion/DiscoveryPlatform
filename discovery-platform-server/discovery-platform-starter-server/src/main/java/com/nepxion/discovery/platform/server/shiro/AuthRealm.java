@@ -60,4 +60,10 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return new SimpleAuthorizationInfo();
     }
+
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return UsernamePasswordToken.class.isAssignableFrom(token.getClass());
+    }
+
 }

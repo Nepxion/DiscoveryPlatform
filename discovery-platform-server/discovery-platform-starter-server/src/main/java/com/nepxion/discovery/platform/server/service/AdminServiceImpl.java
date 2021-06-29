@@ -62,6 +62,20 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
         return CommonTool.hash(password).equals(sysAdmin.getPassword());
     }
 
+    @TransactionReader
+    @Override
+    public AdminVo getAdminById(long id) throws Exception {
+        SysAdminDto sysAdmin = getById(id);
+        if (sysAdmin == null) {
+            return null;
+        }
+
+        AdminVo adminVo = new AdminVo();
+        BeanUtils.copyProperties(adminVo, sysAdmin);
+        adminVo.setSysRole(roleService.getById(adminVo.getSysRoleId()));
+        return adminVo;
+    }
+
     @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
         return new AuthenticationEntity();

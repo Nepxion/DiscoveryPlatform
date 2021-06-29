@@ -25,6 +25,8 @@ import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 public interface AdminService extends AuthenticationResource {
     boolean authenticate(String username, String password) throws Exception;
 
+    AdminVo getAdminById(long id) throws Exception;
+
     AdminVo getAdminByUserName(String username) throws Exception;
 
     SysAdminDto getByUserName(String username) throws Exception;

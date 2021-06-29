@@ -32,19 +32,7 @@ import com.nepxion.discovery.common.constant.DiscoverySwaggerConstant;
 @Configuration
 @ConditionalOnProperty(value = DiscoverySwaggerConstant.SWAGGER_SERVICE_ENABLED, matchIfMissing = true)
 public class SwaggerAutoConfiguration {
-    @Bean
-    public List<Parameter> swaggerHeaderParameters() {
-        return Collections.singletonList(
-                new ParameterBuilder()
-                        .name(DiscoveryConstant.N_D_ACCESS_TOKEN)
-                        .description("Access Token。格式：" + DiscoveryConstant.BEARER + "空格${access-token}。当全局授权（Authorize）后，此处不必填写")
-                        .modelRef(new ModelRef("string"))
-                        .parameterType("header")
-                        .defaultValue(DiscoveryConstant.BEARER + " ${access-token}")
-                        .required(false)
-                        .build());
-    }
-
+    // Access Token Header全局授权
     @Bean
     public List<ApiKey> swaggerSecuritySchemes() {
         return Collections.singletonList(new ApiKey(DiscoveryConstant.N_D_ACCESS_TOKEN, DiscoveryConstant.N_D_ACCESS_TOKEN, "header"));
@@ -62,5 +50,19 @@ public class SwaggerAutoConfiguration {
 
     private AuthorizationScope[] scopes() {
         return new AuthorizationScope[] { new AuthorizationScope("global", "accessAnything") };
+    }
+
+    // Access Token Header接口级授权
+    @Bean
+    public List<Parameter> swaggerHeaderParameters() {
+        return Collections.singletonList(
+                new ParameterBuilder()
+                        .name(DiscoveryConstant.N_D_ACCESS_TOKEN)
+                        .description("Access Token。格式：" + DiscoveryConstant.BEARER + "空格${access-token}。当全局授权（Authorize）后，此处不必填写")
+                        .modelRef(new ModelRef("string"))
+                        .parameterType("header")
+                        .defaultValue(DiscoveryConstant.BEARER + " ${access-token}")
+                        .required(false)
+                        .build());
     }
 }

@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.filter;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Hui Liu
+ * @version 1.0
+ */
+
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.response.Result;
@@ -24,15 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Hui Liu
- * @version 1.0
- */
 public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -73,13 +74,13 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
-        return ((HttpServletRequest) request).getHeader(DiscoveryConstant.ACCESS_TOKEN) == null;
+        return ((HttpServletRequest) request).getHeader(DiscoveryConstant.N_D_ACCESS_TOKEN) == null;
     }
 
     @Override
     protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String tokenString = httpServletRequest.getHeader(DiscoveryConstant.ACCESS_TOKEN);
+        String tokenString = httpServletRequest.getHeader(DiscoveryConstant.N_D_ACCESS_TOKEN);
 
         try {
             tokenString = parseTokenValue(tokenString);
@@ -113,7 +114,7 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
             newToken = JwtTool.refreshTokenIfNecessary(((BearerToken) token).getToken());
         }
         if (newToken != null) {
-            httpResponse.setHeader(DiscoveryConstant.ACCESS_TOKEN, newToken);
+            httpResponse.setHeader(DiscoveryConstant.N_D_ACCESS_TOKEN, newToken);
         }
         return true;
     }

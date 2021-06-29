@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,8 +28,14 @@ import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.entity.vo.LdapUserVo;
 import com.nepxion.discovery.platform.server.service.AdminService;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LdapAdminService implements AdminService {
+
+    public static final Logger LOG = LoggerFactory.getLogger(LdapAdminService.class);
+
     private LdapService ldapService;
     private AdminService adminService;
 
@@ -48,8 +56,33 @@ public class LdapAdminService implements AdminService {
 
     @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
-        AuthenticationEntity authenticationEntity = new AuthenticationEntity();
-        return authenticationEntity;
+        AuthenticationEntity result = new AuthenticationEntity();
+
+        String username = userEntity.getUserId();
+        String password = userEntity.getPassword();
+        AdminVo adminVo;
+        try {
+            if (!authenticate(username, password)) {
+                throw new IncorrectCredentialsException("Password is mismatched");
+            }
+            adminVo = getAdminByUserName(username);
+            if (isSuperAdmin(adminVo.getUsername())) {
+                adminVo.getSysRole().setSuperAdmin(true);
+            } else {
+                adminVo.getSysRole().setSuperAdmin(false);
+            }
+        } catch (Exception e) {
+            String message = ExceptionTool.getRootCauseMessage(e);
+            LOG.error(message, e);
+            result.setPassed(false);
+            result.setError(message);
+            return result;
+        }
+        String token = JwtTool.generateToken(adminVo);
+
+        result.setPassed(true);
+        result.setToken(token);
+        return result;
     }
 
     @Override

@@ -13,20 +13,14 @@ layui.define(function (e) {
     admin.DEL_ERROR = '请先勾选要删除的项';
     admin.DEL_QUESTION = '确定要删除所选项吗?';
     admin.DEL_SUCCESS = '所选项已全部成功删除';
-    admin.ACCESS_TOKEN = "access-token";
+    admin.ACCESS_TOKEN = "n-d-access-token";
 
-    admin.before = function (jqXHR, settings) {
-        const accessToken = window.localStorage.getItem(admin.ACCESS_TOKEN);
-        if (accessToken) {
-            jqXHR.setRequestHeader(admin.ACCESS_TOKEN, "Bearer " + accessToken);
-        }
+    admin.beforeRequest = function (jqXHR, settings) {
+        admin.addTokenHeader(jqXHR);
     }
 
-    admin.after = function (data, textStatus, jqXHR) {
-        const accessToken = jqXHR.getResponseHeader(admin.ACCESS_TOKEN);
-        if (accessToken) {
-            window.localStorage.setItem(admin.ACCESS_TOKEN, accessToken);
-        }
+    admin.afterResponse = function (data, textStatus, jqXHR) {
+        admin.cacheToken(jqXHR);
     }
 
     admin.postQuiet = function (url, data, success, error, async) {
@@ -40,10 +34,10 @@ layui.define(function (e) {
             data: data,
             cache: false,
             beforeSend: function (xhr, settings) {
-                admin.before(xhr, settings);
+                admin.beforeRequest(xhr, settings);
             },
             complete: function (xhr) {
-                admin.after(null, null, xhr);
+                admin.afterResponse(null, null, xhr);
                 if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
                     admin.toLogin();
                 } else {
@@ -74,10 +68,10 @@ layui.define(function (e) {
             data: data,
             cache: false,
             beforeSend: function (xhr, settings) {
-                admin.before(xhr, settings);
+                admin.beforeRequest(xhr, settings);
             },
             complete: function (xhr) {
-                admin.after(null, null, xhr);
+                admin.afterResponse(null, null, xhr);
                 if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
                     admin.toLogin();
                 } else {
@@ -108,10 +102,10 @@ layui.define(function (e) {
             dataType: dataType ? dataType : 'json',
             cache: false,
             beforeSend: function (xhr, settings) {
-                admin.before(xhr, settings);
+                admin.beforeRequest(xhr, settings);
             },
             complete: function (xhr) {
-                admin.after(null, null, xhr);
+                admin.afterResponse(null, null, xhr);
                 if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
                     admin.toLogin();
                 } else {
@@ -142,10 +136,10 @@ layui.define(function (e) {
             dataType: dataType ? dataType : 'json',
             cache: false,
             beforeSend: function (xhr, settings) {
-                admin.before(xhr, settings);
+                admin.beforeRequest(xhr, settings);
             },
             complete: function (xhr) {
-                admin.after(null, null, xhr);
+                admin.afterResponse(null, null, xhr);
                 if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
                     admin.toLogin();
                 } else {
@@ -232,6 +226,20 @@ layui.define(function (e) {
                 layer.close(index);
             }
         });
+    }
+
+    admin.cacheToken = function(jqXHR) {
+        const accessToken = jqXHR.getResponseHeader(admin.ACCESS_TOKEN);
+        if (accessToken) {
+            window.localStorage.setItem(admin.ACCESS_TOKEN, accessToken);
+        }
+    }
+
+    admin.addTokenHeader = function(jqXHR) {
+        const accessToken = window.localStorage.getItem(admin.ACCESS_TOKEN);
+        if (accessToken) {
+            jqXHR.setRequestHeader(admin.ACCESS_TOKEN, "Bearer " + accessToken);
+        }
     }
 
     e("common", {});

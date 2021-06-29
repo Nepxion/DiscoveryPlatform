@@ -9,6 +9,7 @@ package com.nepxion.discovery.platform.server.service;
  * @author Hui Liu
  * @version 1.0
  */
+
 public interface ConsoleService {
     
     String getDiscoveryType();

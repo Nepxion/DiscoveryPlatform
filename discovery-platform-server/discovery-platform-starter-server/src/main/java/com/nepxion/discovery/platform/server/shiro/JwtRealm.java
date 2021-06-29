@@ -1,5 +1,15 @@
 package com.nepxion.discovery.platform.server.shiro;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Hui Liu
+ * @version 1.0
+ */
+
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
 import com.nepxion.discovery.platform.server.service.AdminService;
@@ -19,15 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- *
- * @author Hui Liu
- * @version 1.0
- */
 public class JwtRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
 

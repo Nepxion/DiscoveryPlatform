@@ -1,11 +1,5 @@
 package com.nepxion.discovery.platform.server.service;
 
-import com.nepxion.discovery.common.entity.ConfigType;
-import com.nepxion.discovery.common.entity.DiscoveryType;
-import com.nepxion.discovery.console.resource.ConfigResource;
-import com.nepxion.discovery.console.resource.ServiceResource;
-import org.springframework.beans.factory.annotation.Autowired;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -15,6 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Hui Liu
  * @version 1.0
  */
+
+import com.nepxion.discovery.common.entity.ConfigType;
+import com.nepxion.discovery.common.entity.DiscoveryType;
+import com.nepxion.discovery.console.resource.ConfigResource;
+import com.nepxion.discovery.console.resource.ServiceResource;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class ConsoleServiceImpl implements ConsoleService {
 
     @Autowired

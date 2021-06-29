@@ -1,14 +1,5 @@
 package com.nepxion.discovery.platform.server.controller;
 
-import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.service.ConsoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -18,6 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Hui Liu
  * @version 1.0
  */
+
+import com.nepxion.discovery.platform.server.entity.response.Result;
+import com.nepxion.discovery.platform.server.service.ConsoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 @Api(value = "Nepxion Console相关接口")
 @RestController
 @RequestMapping("/console")

@@ -14,8 +14,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +45,9 @@ import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {
+
+    public static final Logger LOG = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Autowired
     private RoleService roleService;
 
@@ -78,7 +86,33 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
 
     @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
-        return new AuthenticationEntity();
+        AuthenticationEntity result = new AuthenticationEntity();
+
+        String username = userEntity.getUserId();
+        String password = userEntity.getPassword();
+        AdminVo adminVo;
+        try {
+            if (!authenticate(username, password)) {
+                throw new IncorrectCredentialsException("Password is mismatched");
+            }
+            adminVo = getAdminByUserName(username);
+            if (isSuperAdmin(adminVo.getUsername())) {
+                adminVo.getSysRole().setSuperAdmin(true);
+            } else {
+                adminVo.getSysRole().setSuperAdmin(false);
+            }
+        } catch (Exception e) {
+            String message = ExceptionTool.getRootCauseMessage(e);
+            LOG.error(message, e);
+            result.setPassed(false);
+            result.setError(message);
+            return result;
+        }
+        String token = JwtTool.generateToken(adminVo);
+
+        result.setPassed(true);
+        result.setToken(token);
+        return result;
     }
 
     @TransactionReader

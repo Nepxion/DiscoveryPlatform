@@ -19,6 +19,30 @@
       "description": "The short name of platform server."
     },
     {
+      "name": "platform.server.auth.token.secret",
+      "type": "java.lang.String",
+      "defaultValue": "",
+      "description": "Secret to generate JWT."
+    },
+    {
+      "name": "platform.server.auth.token.expireTime",
+      "type": "java.time.Duration",
+      "defaultValue": "PT30M",
+      "description": "Token expire time."
+    },
+    {
+      "name": "platform.server.auth.token.maxLiveTime",
+      "type": "java.time.Duration",
+      "defaultValue": "P1D",
+      "description": "Token max live time."
+    },
+    {
+      "name": "platform.server.auth.token.renewThreshold",
+      "type": "java.lang.Integer",
+      "defaultValue": "1",
+      "description": "Token renew threshold."
+    },
+    {
       "name": "platform.datasource.type",
       "type": "java.lang.String",
       "description": "The type of platform datasource."

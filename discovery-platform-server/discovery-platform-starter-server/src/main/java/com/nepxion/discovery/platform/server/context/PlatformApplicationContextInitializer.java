@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Duration;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -35,6 +36,8 @@ import com.nepxion.banner.LogoBanner;
 import com.nepxion.banner.NepxionBanner;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
+import com.nepxion.discovery.platform.server.properties.PlatformAuthProperties;
+import com.nepxion.discovery.platform.server.tool.JwtTool;
 import com.taobao.text.Color;
 
 public class PlatformApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -58,6 +61,10 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
 
                         initializeScript(dataSourceProperties, platformDataSourceProperties);
                     }
+                }
+                if (bean instanceof PlatformAuthProperties) {
+                    PlatformAuthProperties authProperties = applicationContext.getBean(PlatformAuthProperties.class);
+                    authPropertiesSet(authProperties);
                 }
 
                 return super.postProcessAfterInitialization(bean, beanName);
@@ -103,4 +110,18 @@ public class PlatformApplicationContextInitializer implements ApplicationContext
             }
         }
     }
+
+    public void authPropertiesSet(PlatformAuthProperties platformAuthProperties) {
+        PlatformAuthProperties.TokenProperties tokenProperties = platformAuthProperties.getToken();
+        Duration expireTime = tokenProperties.getExpireTime();
+        Duration maxLiveTime = tokenProperties.getMaxLiveTime();
+        Integer renewThreshold = tokenProperties.getRenewThreshold();
+        renewThreshold = Math.min(renewThreshold, 1);
+        renewThreshold = Math.max(renewThreshold, 10);
+
+        System.setProperty(JwtTool.EXPIRE_TIME_KEY, expireTime.toString());
+        System.setProperty(JwtTool.MAX_LIVE_TIME_KEY, maxLiveTime.toString());
+        System.setProperty(JwtTool.RENEW_THRESHOLD_KEY, String.valueOf(renewThreshold));
+    }
+
 }

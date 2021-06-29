@@ -13,7 +13,7 @@ package com.nepxion.discovery.platform.server.tool;
 import java.time.Duration;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -24,20 +24,39 @@ import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 
 public class JwtTool {
-    private static final String SECRET = "nengapszsnuighag";
     private static final String ID = "i";
-    private static final String MAX_LIVE = "mlh";
-    private static final Integer EXPIRE_TIME_MINUTES = 30;
-    private static final Integer MAX_LIVE_HOURS = 24;
+    private static final String MAX_LIVE = "mlt";
+
+    private static final String SECRET;
+    private static final Duration EXPIRE_TIME;
+    private static final Duration MAX_LIVE_TIME;
+    private static final Integer RENEW_THRESHOLD;
+
+    public static final String SECRET_KEY = "platform.server.auth.token.secret";
+    public static final String EXPIRE_TIME_KEY = "platform.server.auth.token.expireTime";
+    public static final String MAX_LIVE_TIME_KEY = "platform.server.auth.token.maxLiveTime";
+    public static final String RENEW_THRESHOLD_KEY = "platform.server.auth.token.renewThreshold";
+
+    static {
+        String secret = System.getProperty(SECRET_KEY);
+        String expireTime = System.getProperty(EXPIRE_TIME_KEY);
+        String maxLiveTime = System.getProperty(MAX_LIVE_TIME_KEY);
+        String renewThreshold = System.getProperty(RENEW_THRESHOLD_KEY);
+        SECRET = StringUtils.isEmpty(secret) ? "nengapszsnuighag": secret;
+        EXPIRE_TIME = Duration.parse(expireTime);
+        MAX_LIVE_TIME = Duration.parse(maxLiveTime);
+        RENEW_THRESHOLD = Integer.valueOf(renewThreshold);
+    }
 
     public static String generateToken(AdminVo adminVo) {
         Date iat = new Date();
+        long now = iat.getTime();
         return JWT.create()
                 .withAudience(PlatformConstant.PLATFORM)
                 .withIssuedAt(iat)
-                .withExpiresAt(DateUtils.addMinutes(iat, EXPIRE_TIME_MINUTES))
+                .withExpiresAt(new Date(now + EXPIRE_TIME.toMillis()))
                 .withClaim(ID, adminVo.getId())
-                .withClaim(MAX_LIVE, DateUtils.addHours(iat, MAX_LIVE_HOURS))
+                .withClaim(MAX_LIVE, new Date(now + MAX_LIVE_TIME.toMillis()))
                 .sign(Algorithm.HMAC256(SECRET));
     }
 
@@ -63,8 +82,7 @@ public class JwtTool {
         }
         try {
             Date maxLive = jwt.getClaims().get(MAX_LIVE).asDate();
-            Date date = new Date(System.currentTimeMillis() +
-                    Duration.ofMinutes(EXPIRE_TIME_MINUTES).toMillis());
+            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME.toMillis());
             date = maxLive.before(date) ? maxLive : date;
             return JWT.create()
                     .withAudience(jwt.getAudience().toArray(new String[0]))
@@ -79,11 +97,15 @@ public class JwtTool {
     }
 
     private static boolean checkThreshold(DecodedJWT jwt) {
-        long mlh = jwt.getClaims().get(MAX_LIVE).asDate().getTime();
-        long iat = jwt.getIssuedAt().getTime();
+        long mlt = jwt.getClaims().get(MAX_LIVE).asDate().getTime();
         long exp = jwt.getExpiresAt().getTime();
-        // (exp - cur) / (exp - iat) < 1/2
-        return exp != mlh && (exp + iat - 2 * System.currentTimeMillis() < 0);
+        if (mlt == exp) {
+            return false;
+        }
+        long iat = jwt.getIssuedAt().getTime();
+        long cur = System.currentTimeMillis();
+        // (cur - iat) / (exp - cur) >= 1
+        return Math.floor((cur - iat) / (exp - cur)) >= RENEW_THRESHOLD;
     }
 
 }

@@ -31,6 +31,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
@@ -86,7 +87,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
 
     @Override
     public AuthenticationEntity authenticate(UserEntity userEntity) {
-        AuthenticationEntity result = new AuthenticationEntity();
+        AuthenticationEntity authenticationEntity = new AuthenticationEntity();
 
         String username = userEntity.getUserId();
         String password = userEntity.getPassword();
@@ -104,15 +105,15 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
         } catch (Exception e) {
             String message = ExceptionTool.getRootCauseMessage(e);
             LOG.error(message, e);
-            result.setPassed(false);
-            result.setError(message);
-            return result;
+            authenticationEntity.setPassed(false);
+            authenticationEntity.setError(message);
+            return authenticationEntity;
         }
         String token = JwtTool.generateToken(adminVo);
 
-        result.setPassed(true);
-        result.setToken(token);
-        return result;
+        authenticationEntity.setPassed(true);
+        authenticationEntity.setToken(DiscoveryConstant.BEARER + " " + token);
+        return authenticationEntity;
     }
 
     @TransactionReader

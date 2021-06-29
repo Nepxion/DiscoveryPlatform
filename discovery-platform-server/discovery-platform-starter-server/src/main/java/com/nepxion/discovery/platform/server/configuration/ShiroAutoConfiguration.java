@@ -61,6 +61,7 @@ public class ShiroAutoConfiguration {
         bean.setFilters(filterMap);
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/authentication/authenticate", "anon"); // 提供给Desktop的登录接口
         filterChainDefinitionMap.put("/css/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/js/**", "anon"); // 静态资源
         filterChainDefinitionMap.put("/assets/**", "anon"); // 静态资源

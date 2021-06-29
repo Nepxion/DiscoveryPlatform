@@ -11,14 +11,13 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.controller.ConsoleController;
-import com.nepxion.discovery.platform.server.service.ConsoleService;
-import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
@@ -28,6 +27,7 @@ import com.nepxion.discovery.platform.server.controller.BlacklistController;
 import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
 import com.nepxion.discovery.platform.server.controller.BlueGreenController;
 import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
+import com.nepxion.discovery.platform.server.controller.ConsoleController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
@@ -52,6 +52,8 @@ import com.nepxion.discovery.platform.server.service.BlacklistService;
 import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
 import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
+import com.nepxion.discovery.platform.server.service.ConsoleService;
+import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
@@ -62,6 +64,7 @@ import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
+@AutoConfigureBefore(ConsoleAutoConfiguration.class)
 @EnableEventBus
 @EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class })
 @MapperScan(basePackageClasses = AdminMapper.class)

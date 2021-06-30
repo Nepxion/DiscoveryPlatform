@@ -12,11 +12,10 @@
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
                 <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
-                    <option value="">请选择网关名称</option>
-                    <#list gatewayNames as gatewayName>
-                        <option value="${gatewayName}">${gatewayName}</option>
-                    </#list>
                 </select>
+                <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                    <i class="layui-icon">&#xe669;</i>
+                </a>
             </div>
         </div>
 
@@ -89,7 +88,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">路由描述</label>
             <div class="layui-input-inline" style="width: 740px">
-                <input type="text" id="description" name="description" class="layui-input" 
+                <input type="text" id="description" name="description" class="layui-input"
                        placeholder="请输入该条路由的描述信息" autocomplete="off">
             </div>
         </div>
@@ -100,7 +99,12 @@
     </div>
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-            const form = layui.form, $ = layui.$;
+            const form = layui.form, $ = layui.$, admin = layui.admin;
+
+
+            setTimeout(function () {
+                reloadPortalName();
+            }, 100);
 
             form.on('select(serviceId)', function (data) {
                 const text = data.elem[data.elem.selectedIndex].text;
@@ -109,9 +113,28 @@
                 $("#description").focus();
             });
 
-            <#if (gatewayNames?size==1) >
-            chooseSelectOption('portalName', 1);
-            </#if>
+            $('#btnRefreshPortal').click(function () {
+                reloadPortalName();
+            });
+
+            function reloadPortalName() {
+                admin.post('do-list-portal-names', {}, function (result) {
+                    const selPortalName = $("select[name=portalName]");
+                    selPortalName.html('<option value="">请选择网关名称</option>');
+                    let index = 0;
+                    $.each(result.data, function (key, val) {
+                        let option;
+                        if (index == 0) {
+                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                        } else {
+                            option = $("<option>").val(val).text(val);
+                        }
+                        selPortalName.append(option);
+                        index++;
+                    });
+                    layui.form.render('select');
+                });
+            }
 
             <#if (serviceNames?size==1) >
             chooseSelectOption('serviceId', 1);

@@ -27,7 +27,6 @@
                 <table id="grid" lay-filter="grid"></table>
 
                 <script type="text/html" id="colState">
-
                     {{#  if(d.publishFlag){ }}
 
                     {{#  if(d.enableFlag){ }}
@@ -41,8 +40,8 @@
                     {{#  } }}
                 </script>
 
-                <script type="text/html" id="colGatewayName">
-                    {{ d.gatewayName }} &nbsp;&nbsp;
+                <script type="text/html" id="colPortalName">
+                    {{ d.portalName }} &nbsp;&nbsp;
                     {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
@@ -127,7 +126,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
-                    {title: '网关名称', templet: '#colGatewayName', width: 275},
+                    {title: '网关名称', templet: '#colPortalName', width: 275},
                     {field: 'uri', title: '目标地址', width: 250},
                     {field: 'predicates', title: '断言器'},
                     {field: 'filters', title: '过滤器', width: 150},

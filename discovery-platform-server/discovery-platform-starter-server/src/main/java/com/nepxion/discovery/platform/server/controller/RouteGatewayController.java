@@ -11,8 +11,10 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,12 @@ public class RouteGatewayController {
 
     @Autowired
     private RouteGatewayService routeGatewayService;
+
+    @ApiOperation("获取所有入口的名称")
+    @PostMapping("do-list-portal-names")
+    public Result<List<String>> doListPortalNames() {
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames().stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
+    }
 
     @ApiOperation("获取Spring Cloud Gateway网关的路由信息列表")
     @PostMapping("do-list")

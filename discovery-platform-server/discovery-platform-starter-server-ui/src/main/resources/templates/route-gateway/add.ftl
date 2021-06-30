@@ -12,12 +12,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
-                    <option value="">请选择网关名称</option>
-                    <#list gatewayNames as gatewayName>
-                        <option value="${gatewayName}">${gatewayName}</option>
-                    </#list>
-                </select>
+                <div class="layui-row">
+                    <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
+                    </select>
+                    <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <i class="layui-icon">&#xe669;</i>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -45,7 +46,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                    断言器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
+                断言器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
             <div class="layui-input-inline" style="width: 740px;margin-top:-20px">
                 <div class="layui-tab layui-tab-brief">
@@ -71,7 +72,7 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                    过滤器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
+                过滤器&nbsp;<a href="https://cloud.spring.io/spring-cloud-gateway/reference/html/" target="_blank" title="帮助文档"><i class="layui-icon layui-icon-about"></i></a>
             </label>
             <div class="layui-input-inline" style="width: 740px;margin-top:-40px">
                 <div class="layui-tab layui-tab-brief">
@@ -134,7 +135,11 @@
     </div>
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-            const form = layui.form, $ = layui.$;
+            const form = layui.form, $ = layui.$, admin = layui.admin;
+
+            setTimeout(function () {
+                reloadPortalName();
+            }, 100);
 
             form.on('select(uri1)', function (data) {
                 const text = data.elem[data.elem.selectedIndex].text;
@@ -166,9 +171,28 @@
                 }
             });
 
-            <#if (gatewayNames?size==1) >
-            chooseSelectOption('portalName', 1);
-            </#if>
+            $('#btnRefreshPortal').click(function () {
+                reloadPortalName();
+            });
+
+            function reloadPortalName() {
+                admin.post('do-list-portal-names', {}, function (result) {
+                    const selPortalName = $("select[name=portalName]");
+                    selPortalName.html('<option value="">请选择网关名称</option>');
+                    let index = 0;
+                    $.each(result.data, function (key, val) {
+                        let option;
+                        if (index == 0) {
+                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                        } else {
+                            option = $("<option>").val(val).text(val);
+                        }
+                        selPortalName.append(option);
+                        index++;
+                    });
+                    layui.form.render('select');
+                });
+            }
         });
     </script>
     </body>

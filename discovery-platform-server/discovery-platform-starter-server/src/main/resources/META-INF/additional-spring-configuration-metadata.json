@@ -25,19 +25,19 @@
 			"description": "Secret to generate JWT."
 		},
 		{
-			"name": "platform.server.auth.token.expireTime",
+			"name": "platform.server.auth.token.expire-time",
 			"type": "java.time.Duration",
 			"defaultValue": "30m",
 			"description": "Token expire time."
 		},
 		{
-			"name": "platform.server.auth.token.maxLiveTime",
+			"name": "platform.server.auth.token.max-live-time",
 			"type": "java.time.Duration",
 			"defaultValue": "1d",
 			"description": "Token max live time."
 		},
 		{
-			"name": "platform.server.auth.token.renewThreshold",
+			"name": "platform.server.auth.token.renew-threshold",
 			"type": "java.lang.Integer",
 			"defaultValue": "1",
 			"description": "Token renew threshold. The value max between 1 and 10."

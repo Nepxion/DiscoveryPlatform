@@ -56,9 +56,10 @@ public class JwtToolWrapper {
     }
 
     public String refreshBearerTokenIfNecessary(String token) {
-        return DiscoveryConstant.BEARER + " " + JwtTool.refreshTokenIfNecessary(token,
+        String newToken = JwtTool.refreshTokenIfNecessary(token,
                 tokenProperties.getSecret(), tokenProperties.getExpireTime(),
                 tokenProperties.getRenewThreshold());
+        return null == newToken ? null : DiscoveryConstant.BEARER + " " + newToken;
     }
 
     public String refreshTokenIfNecessary(String token) {

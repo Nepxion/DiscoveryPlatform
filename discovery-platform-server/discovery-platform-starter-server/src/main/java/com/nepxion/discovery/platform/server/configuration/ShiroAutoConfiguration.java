@@ -15,9 +15,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.nepxion.discovery.platform.server.filter.ShiroJwtFilter;
-import com.nepxion.discovery.platform.server.shiro.JwtCredentialsMatcher;
-import com.nepxion.discovery.platform.server.shiro.JwtRealm;
+import javax.servlet.Filter;
+
 import org.apache.shiro.authc.pam.AuthenticationStrategy;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
@@ -39,11 +38,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
+import com.nepxion.discovery.platform.server.filter.ShiroJwtFilter;
 import com.nepxion.discovery.platform.server.shiro.AuthRealm;
 import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
+import com.nepxion.discovery.platform.server.shiro.JwtCredentialsMatcher;
+import com.nepxion.discovery.platform.server.shiro.JwtRealm;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
-
-import javax.servlet.Filter;
 
 @Configuration
 public class ShiroAutoConfiguration {

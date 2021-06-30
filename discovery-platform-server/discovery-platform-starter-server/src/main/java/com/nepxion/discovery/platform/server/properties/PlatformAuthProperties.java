@@ -1,10 +1,5 @@
 package com.nepxion.discovery.platform.server.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.time.Duration;
-import java.util.Objects;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -14,6 +9,11 @@ import java.util.Objects;
  * @author Hui Liu
  * @version 1.0
  */
+
+import java.time.Duration;
+import java.util.Objects;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "platform.server.auth")
 public class PlatformAuthProperties {

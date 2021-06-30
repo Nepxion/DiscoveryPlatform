@@ -62,6 +62,7 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
@@ -93,6 +94,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public ModelAdvice modelAdvice() {
         return new ModelAdvice();
+    }
+
+    @Bean
+    public JwtToolWrapper jwtToolWrapper(PlatformAuthProperties platformAuthProperties){
+        return new JwtToolWrapper(platformAuthProperties);
     }
 
     @Bean
@@ -201,8 +207,10 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public AdminServiceImpl adminService() {
-        return new AdminServiceImpl();
+    public AdminServiceImpl adminService(JwtToolWrapper jwtToolWrapper) {
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        adminService.setJwtToolWrapper(jwtToolWrapper);
+        return adminService;
     }
 
     @Bean

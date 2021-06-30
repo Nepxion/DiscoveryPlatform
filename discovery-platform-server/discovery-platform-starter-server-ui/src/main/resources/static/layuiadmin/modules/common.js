@@ -238,7 +238,7 @@ layui.define(function (e) {
     admin.addTokenHeader = function(jqXHR) {
         const accessToken = window.localStorage.getItem(admin.ACCESS_TOKEN);
         if (accessToken) {
-            jqXHR.setRequestHeader(admin.ACCESS_TOKEN, "Bearer " + accessToken);
+            jqXHR.setRequestHeader(admin.ACCESS_TOKEN, accessToken);
         }
     }
 

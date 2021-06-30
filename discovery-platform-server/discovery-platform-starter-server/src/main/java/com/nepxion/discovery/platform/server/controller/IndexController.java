@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -46,7 +45,7 @@ public class IndexController {
             subject.login(usernamePasswordToken);
 
             AdminVo adminVo = (AdminVo) subject.getPrincipal();
-            String jwtToken = JwtTool.generateToken(adminVo);
+            String jwtToken = adminService.getJwtToolWrapper().generateBearerToken(adminVo);
             return Result.ok(jwtToken);
         } catch (UnknownAccountException e) {
             return Result.error("无效的用户名或密码");

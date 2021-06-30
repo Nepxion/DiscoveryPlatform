@@ -21,26 +21,26 @@
     {
       "name": "platform.server.auth.token.secret",
       "type": "java.lang.String",
-      "defaultValue": "",
+      "defaultValue": "LvQg8gdN2HwDx9SWO3j9bbBtgiGJLG8A",
       "description": "Secret to generate JWT."
     },
     {
       "name": "platform.server.auth.token.expireTime",
       "type": "java.time.Duration",
-      "defaultValue": "PT30M",
+      "defaultValue": "30m",
       "description": "Token expire time."
     },
     {
       "name": "platform.server.auth.token.maxLiveTime",
       "type": "java.time.Duration",
-      "defaultValue": "P1D",
+      "defaultValue": "1d",
       "description": "Token max live time."
     },
     {
       "name": "platform.server.auth.token.renewThreshold",
       "type": "java.lang.Integer",
       "defaultValue": "1",
-      "description": "Token renew threshold."
+      "description": "Token renew threshold. the value max between 1 and 10."
     },
     {
       "name": "platform.datasource.type",

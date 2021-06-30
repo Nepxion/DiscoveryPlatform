@@ -65,7 +65,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
 
     @Override public JwtToolWrapper getJwtToolWrapper() {
         if (null == jwtToolWrapper) {
-            throw new NullPointerException("No property jwtToolWrapper is set");
+            throw new NullPointerException("No jwtToolWrapper is set");
         }
         return this.jwtToolWrapper;
     }

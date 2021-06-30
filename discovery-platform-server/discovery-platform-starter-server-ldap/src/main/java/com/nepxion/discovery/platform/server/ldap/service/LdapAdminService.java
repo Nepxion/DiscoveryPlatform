@@ -52,7 +52,7 @@ public class LdapAdminService implements AdminService {
 
     @Override public JwtToolWrapper getJwtToolWrapper() {
         if (null == jwtToolWrapper) {
-            throw new NullPointerException("No property jwtToolWrapper is set");
+            throw new NullPointerException("No jwtToolWrapper is set");
         }
         return this.jwtToolWrapper;
     }

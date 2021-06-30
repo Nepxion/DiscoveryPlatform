@@ -11,8 +11,10 @@ package com.nepxion.discovery.platform.server.properties;
  */
 
 import java.time.Duration;
-import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "platform.server.auth")
@@ -26,6 +28,20 @@ public class PlatformAuthProperties {
 
     public void setToken(TokenProperties token) {
         this.token = token;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return EqualsBuilder.reflectionEquals(this, o);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     public static class TokenProperties {
@@ -72,15 +88,16 @@ public class PlatformAuthProperties {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            TokenProperties that = (TokenProperties) o;
-            return Objects.equals(getSecret(), that.getSecret()) && Objects.equals(getExpireTime(), that.getExpireTime()) && Objects.equals(getMaxLiveTime(), that.getMaxLiveTime()) && Objects.equals(getRenewThreshold(), that.getRenewThreshold());
+            return EqualsBuilder.reflectionEquals(this, o);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(getSecret(), getExpireTime(), getMaxLiveTime(), getRenewThreshold());
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+
+        @Override public String toString() {
+            return ToStringBuilder.reflectionToString(this);
         }
     }
 

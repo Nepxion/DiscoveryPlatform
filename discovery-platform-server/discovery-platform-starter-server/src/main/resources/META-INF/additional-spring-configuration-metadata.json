@@ -1,69 +1,69 @@
 {
-  "properties": [
-    {
-      "name": "platform.server.title",
-      "type": "java.lang.String",
-      "defaultValue": "Discovery Platform",
-      "description": "The title of platform server."
-    },
-    {
-      "name": "pplatform.server.full-name",
-      "type": "java.lang.String",
-      "defaultValue": "Discovery Platform",
-      "description": "The full name of platform server."
-    },
-    {
-      "name": "platform.server.short-name",
-      "type": "java.lang.String",
-      "defaultValue": "Discovery Platform",
-      "description": "The short name of platform server."
-    },
-    {
-      "name": "platform.server.auth.token.secret",
-      "type": "java.lang.String",
-      "defaultValue": "LvQg8gdN2HwDx9SWO3j9bbBtgiGJLG8A",
-      "description": "Secret to generate JWT."
-    },
-    {
-      "name": "platform.server.auth.token.expireTime",
-      "type": "java.time.Duration",
-      "defaultValue": "30m",
-      "description": "Token expire time."
-    },
-    {
-      "name": "platform.server.auth.token.maxLiveTime",
-      "type": "java.time.Duration",
-      "defaultValue": "1d",
-      "description": "Token max live time."
-    },
-    {
-      "name": "platform.server.auth.token.renewThreshold",
-      "type": "java.lang.Integer",
-      "defaultValue": "1",
-      "description": "Token renew threshold. the value max between 1 and 10."
-    },
-    {
-      "name": "platform.datasource.type",
-      "type": "java.lang.String",
-      "description": "The type of platform datasource."
-    },
-    {
-      "name": "platform.datasource.init-script-path",
-      "type": "java.lang.String",
-      "defaultValue": "META-INF/schema.sql",
-      "description": "The init script path of platform datasource."
-    },
-    {
-      "name": "platform.datasource.init-script-enabled",
-      "type": "java.lang.Boolean",
-      "defaultValue": false,
-      "description": "The init script enabled of platform datasource."
-    },
-    {
-      "name": "platform.datasource.init-script-logger",
-      "type": "java.lang.Boolean",
-      "defaultValue": false,
-      "description": "The init script logger of platform datasource."
-    }
-  ]
+	"properties": [
+		{
+			"name": "platform.server.title",
+			"type": "java.lang.String",
+			"defaultValue": "Discovery Platform",
+			"description": "The title of platform server."
+		},
+		{
+			"name": "platform.server.full-name",
+			"type": "java.lang.String",
+			"defaultValue": "Discovery Platform",
+			"description": "The full name of platform server."
+		},
+		{
+			"name": "platform.server.short-name",
+			"type": "java.lang.String",
+			"defaultValue": "Discovery Platform",
+			"description": "The short name of platform server."
+		},
+		{
+			"name": "platform.server.auth.token.secret",
+			"type": "java.lang.String",
+			"defaultValue": "LvQg8gdN2HwDx9SWO3j9bbBtgiGJLG8A",
+			"description": "Secret to generate JWT."
+		},
+		{
+			"name": "platform.server.auth.token.expireTime",
+			"type": "java.time.Duration",
+			"defaultValue": "30m",
+			"description": "Token expire time."
+		},
+		{
+			"name": "platform.server.auth.token.maxLiveTime",
+			"type": "java.time.Duration",
+			"defaultValue": "1d",
+			"description": "Token max live time."
+		},
+		{
+			"name": "platform.server.auth.token.renewThreshold",
+			"type": "java.lang.Integer",
+			"defaultValue": "1",
+			"description": "Token renew threshold. The value max between 1 and 10."
+		},
+		{
+			"name": "platform.datasource.type",
+			"type": "java.lang.String",
+			"description": "The type of platform datasource."
+		},
+		{
+			"name": "platform.datasource.init-script-path",
+			"type": "java.lang.String",
+			"defaultValue": "META-INF/schema.sql",
+			"description": "The init script path of platform datasource."
+		},
+		{
+			"name": "platform.datasource.init-script-enabled",
+			"type": "java.lang.Boolean",
+			"defaultValue": false,
+			"description": "The init script enabled of platform datasource."
+		},
+		{
+			"name": "platform.datasource.init-script-logger",
+			"type": "java.lang.Boolean",
+			"defaultValue": false,
+			"description": "The init script logger of platform datasource."
+		}
+	]
 }

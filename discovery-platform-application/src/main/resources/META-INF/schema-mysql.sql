@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
-) COMMENT = 'Gateway网关的路由信息';
+) COMMENT = 'Gateway网关路由信息';
 
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
     `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
-) COMMENT = 'Zuul网关的路由信息';
+) COMMENT = 'Zuul网关路由信息';
 
 CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `idx_gateway_name`(`portal_name`) USING BTREE,
     INDEX `idx_service_name`(`service_name`) USING BTREE
-) COMMENT = '服务无损屏蔽信息';
+) COMMENT = '实例摘除信息';
 
 CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -175,14 +175,12 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (102, '灰度发布', '/gray/list', b'1', b'0', b'0', '', 1, 2, '灰度发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (103, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 1, 3, '流量侦测');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2, '路由配置', '', b'1', b'0', b'0', 'layui-icon-website', 0, 3, '路由配置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (201, 'Gateway网关路由', '/route-gateway/list', b'1', b'0', b'0', '', 2, 1, 'Spring Cloud Gateway路由配置');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (202, 'Zuul网关路由', '/route-zuul/list', b'1', b'0', b'0', '', 2, 2, 'Zuul路由配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2, '实例管理', '', b'1', b'0', b'0', 'layui-icon-template-1', 0, 3, '实例管理');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (201, '实例摘除', '/blacklist/list', b'1', b'0', b'0', '', 2, 1, '实例摘除');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3, '服务运维', '', b'1', b'0', b'0', 'layui-icon-template-1', 0, 4, '服务运维');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (301, '服务染色启动', '/service/list1', b'1', b'0', b'0', '', 3, 1, '服务通过元数据染色方式启动');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (302, '服务拉入拉出', '/service/list2', b'1', b'0', b'0', '', 3, 2, '服务从注册中心注册和注销');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (303, '服务无损下线', '/blacklist/list', b'1', b'0', b'0', '', 3, 3, '服务通过黑名单屏蔽无损下线');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3, '路由配置', '', b'1', b'0', b'0', 'layui-icon-website', 0, 4, '路由配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (301, 'Gateway网关路由', '/route-gateway/list', b'1', b'0', b'0', '', 3, 1, 'Spring Cloud Gateway路由配置');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (302, 'Zuul网关路由', '/route-zuul/list', b'1', b'0', b'0', '', 3, 2, 'Zuul路由配置');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (4, '安全设置', '', b'1', b'0', b'0', 'layui-icon-vercode', 0, 5, '安全设置');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (401, '应用列表', '/app/list', b'1', b'0', b'0', '', 4, 1, '应用列表');

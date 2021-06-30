@@ -17,6 +17,7 @@ import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 
 import java.util.Collections;
@@ -34,7 +35,7 @@ import com.nepxion.discovery.common.constant.DiscoverySwaggerConstant;
 public class SwaggerAutoConfiguration {
     // Access Token Header全局授权
     @Bean
-    public List<ApiKey> swaggerSecuritySchemes() {
+    public List<SecurityScheme> swaggerSecuritySchemes() {
         return Collections.singletonList(new ApiKey(DiscoveryConstant.N_D_ACCESS_TOKEN, DiscoveryConstant.N_D_ACCESS_TOKEN, "header"));
     }
 

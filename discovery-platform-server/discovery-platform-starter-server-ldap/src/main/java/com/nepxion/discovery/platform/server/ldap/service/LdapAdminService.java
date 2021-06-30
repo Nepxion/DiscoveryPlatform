@@ -14,13 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
@@ -39,10 +38,23 @@ public class LdapAdminService implements AdminService {
 
     private LdapService ldapService;
     private AdminService adminService;
+    private JwtToolWrapper jwtToolWrapper;
 
     public LdapAdminService(LdapService ldapService, AdminService adminService) {
         this.ldapService = ldapService;
         this.adminService = adminService;
+    }
+
+    @Override
+    public void setJwtToolWrapper(JwtToolWrapper jwtToolWrapper) {
+        this.jwtToolWrapper = jwtToolWrapper;
+    }
+
+    @Override public JwtToolWrapper getJwtToolWrapper() {
+        if (null == jwtToolWrapper) {
+            throw new NullPointerException("No jwtToolWrapper is set");
+        }
+        return this.jwtToolWrapper;
     }
 
     @Override
@@ -79,10 +91,10 @@ public class LdapAdminService implements AdminService {
             authenticationEntity.setError(message);
             return authenticationEntity;
         }
-        String token = JwtTool.generateToken(adminVo);
+        String token = jwtToolWrapper.generateBearerToken(adminVo);
 
         authenticationEntity.setPassed(true);
-        authenticationEntity.setToken(DiscoveryConstant.BEARER + " " + token);
+        authenticationEntity.setToken(token);
         return authenticationEntity;
     }
 

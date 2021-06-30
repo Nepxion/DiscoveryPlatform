@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -31,7 +29,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.AuthenticationEntity;
 import com.nepxion.discovery.common.entity.UserEntity;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
@@ -43,7 +40,9 @@ import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {
 
@@ -55,7 +54,21 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
     @Autowired
     private DicService dicService;
 
+    private JwtToolWrapper jwtToolWrapper;
+
     private static final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
+
+    @Override
+    public void setJwtToolWrapper(JwtToolWrapper jwtToolWrapper) {
+        this.jwtToolWrapper = jwtToolWrapper;
+    }
+
+    @Override public JwtToolWrapper getJwtToolWrapper() {
+        if (null == jwtToolWrapper) {
+            throw new NullPointerException("No jwtToolWrapper is set");
+        }
+        return this.jwtToolWrapper;
+    }
 
     @TransactionReader
     @Override
@@ -109,10 +122,10 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
             authenticationEntity.setError(message);
             return authenticationEntity;
         }
-        String token = JwtTool.generateToken(adminVo);
+        String token = jwtToolWrapper.generateBearerToken(adminVo);
 
         authenticationEntity.setPassed(true);
-        authenticationEntity.setToken(DiscoveryConstant.BEARER + " " + token);
+        authenticationEntity.setToken(token);
         return authenticationEntity;
     }
 

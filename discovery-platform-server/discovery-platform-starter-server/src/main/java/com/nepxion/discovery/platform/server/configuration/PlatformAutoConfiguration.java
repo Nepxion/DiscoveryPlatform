@@ -45,6 +45,7 @@ import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
+import com.nepxion.discovery.platform.server.properties.PlatformAuthProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
@@ -61,12 +62,13 @@ import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
 @Configuration
 @AutoConfigureBefore(ConsoleAutoConfiguration.class)
 @EnableEventBus
-@EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class })
+@EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class, PlatformAuthProperties.class})
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
@@ -92,6 +94,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public ModelAdvice modelAdvice() {
         return new ModelAdvice();
+    }
+
+    @Bean
+    public JwtToolWrapper jwtToolWrapper(PlatformAuthProperties platformAuthProperties){
+        return new JwtToolWrapper(platformAuthProperties);
     }
 
     @Bean
@@ -200,8 +207,10 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public AdminServiceImpl adminService() {
-        return new AdminServiceImpl();
+    public AdminServiceImpl adminService(JwtToolWrapper jwtToolWrapper) {
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        adminService.setJwtToolWrapper(jwtToolWrapper);
+        return adminService;
     }
 
     @Bean

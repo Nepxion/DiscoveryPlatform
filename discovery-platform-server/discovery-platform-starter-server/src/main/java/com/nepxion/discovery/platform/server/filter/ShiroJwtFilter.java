@@ -10,11 +10,12 @@ package com.nepxion.discovery.platform.server.filter;
  * @version 1.0
  */
 
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.common.util.JsonUtil;
-import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.JwtTool;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.BearerToken;
@@ -28,18 +29,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.util.JsonUtil;
+import com.nepxion.discovery.platform.server.entity.response.Result;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    public static final String BEARER_PREFIX = "Bearer";
+    private JwtToolWrapper jwtToolWrapper;
 
+    public  ShiroJwtFilter(JwtToolWrapper jwtToolWrapper) {
+        this.jwtToolWrapper = jwtToolWrapper;
+    }
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
@@ -111,7 +115,7 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
         HttpServletResponse httpResponse = WebUtils.toHttp(response);
         String newToken = null;
         if (token instanceof BearerToken) {
-            newToken = JwtTool.refreshTokenIfNecessary(((BearerToken) token).getToken());
+            newToken = jwtToolWrapper.refreshBearerTokenIfNecessary(((BearerToken) token).getToken());
         }
         if (newToken != null) {
             httpResponse.setHeader(DiscoveryConstant.N_D_ACCESS_TOKEN, newToken);
@@ -130,13 +134,13 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     protected String parseTokenValue(String token) {
         if (isBearerToken(token)) {
-            return token.substring(BEARER_PREFIX.length()).trim();
+            return token.substring(DiscoveryConstant.BEARER.length()).trim();
         }
         throw new IllegalArgumentException("Unknown token type begin with " + token.substring(10));
     }
 
     private boolean isBearerToken(String token) {
-        return StringUtils.startsWith(token, BEARER_PREFIX);
+        return StringUtils.startsWith(token, DiscoveryConstant.BEARER);
     }
 
 }

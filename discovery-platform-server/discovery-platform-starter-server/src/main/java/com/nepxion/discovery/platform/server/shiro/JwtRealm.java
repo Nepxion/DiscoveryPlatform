@@ -10,12 +10,6 @@ package com.nepxion.discovery.platform.server.shiro;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
-import com.nepxion.discovery.platform.server.service.AdminService;
-import com.nepxion.discovery.platform.server.service.MenuService;
-import com.nepxion.discovery.platform.server.tool.ExceptionTool;
-import com.nepxion.discovery.platform.server.tool.JwtTool;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,8 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.service.AdminService;
+import com.nepxion.discovery.platform.server.service.MenuService;
+import com.nepxion.discovery.platform.server.tool.ExceptionTool;
+
 public class JwtRealm extends AuthorizingRealm {
-    private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JwtRealm.class);
 
     @Autowired
     private AdminService adminService;
@@ -49,8 +48,9 @@ public class JwtRealm extends AuthorizingRealm {
         String tokenString = token.getToken();
 
         try {
-            if (JwtTool.verify(tokenString)) {
-                long id = JwtTool.decodeToken(tokenString);
+            JwtToolWrapper jwtToolWrapper = adminService.getJwtToolWrapper();
+            if (jwtToolWrapper.verify(tokenString)) {
+                long id = jwtToolWrapper.decodeToken(tokenString);
                 AdminVo adminVo = adminService.getAdminById(id);
                 if (adminService.isSuperAdmin(adminVo.getUsername())) {
                     adminVo.getSysRole().setSuperAdmin(true);

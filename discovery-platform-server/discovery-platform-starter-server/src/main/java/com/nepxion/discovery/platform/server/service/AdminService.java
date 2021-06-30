@@ -21,8 +21,14 @@ import com.nepxion.discovery.platform.server.entity.dto.SysAdminDto;
 import com.nepxion.discovery.platform.server.entity.enums.LoginMode;
 import com.nepxion.discovery.platform.server.entity.po.AdminPo;
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 
 public interface AdminService extends AuthenticationResource {
+
+    void setJwtToolWrapper(JwtToolWrapper jwtToolWrapper);
+
+    JwtToolWrapper getJwtToolWrapper();
+
     boolean authenticate(String username, String password) throws Exception;
 
     AdminVo getAdminById(long id) throws Exception;

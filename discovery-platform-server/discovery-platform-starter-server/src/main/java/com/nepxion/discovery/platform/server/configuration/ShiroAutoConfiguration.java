@@ -41,6 +41,7 @@ import org.springframework.context.annotation.Primary;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.shiro.AuthRealm;
 import com.nepxion.discovery.platform.server.shiro.CredentialsMatcher;
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 
 import javax.servlet.Filter;
 
@@ -49,7 +50,7 @@ public class ShiroAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean
-    public ShiroFilterFactoryBean shiroFilter(SecurityManager manager) {
+    public ShiroFilterFactoryBean shiroFilter(SecurityManager manager, JwtToolWrapper jwtToolWrapper) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
 
@@ -57,7 +58,7 @@ public class ShiroAutoConfiguration {
         bean.setSuccessUrl("/index"); // 登录成功后要跳转的链接
 
         Map<String, Filter> filterMap = new HashMap<>(4);
-        filterMap.put("jwt", new ShiroJwtFilter());
+        filterMap.put("jwt", new ShiroJwtFilter(jwtToolWrapper));
         bean.setFilters(filterMap);
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();

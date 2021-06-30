@@ -10,6 +10,7 @@ package com.nepxion.discovery.platform.server.ldap.context;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessorAdapter;
 import org.springframework.context.ApplicationContextInitializer;
@@ -27,9 +28,12 @@ public class PlatformLdapApplicationContextInitializer implements ApplicationCon
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
                 if (bean instanceof AdminService) {
                     LdapService ldapService = applicationContext.getBean(LdapService.class);
+                    JwtToolWrapper jwtToolWrapper = applicationContext.getBean(JwtToolWrapper.class);
                     AdminService adminService = (AdminService) bean;
 
-                    return new LdapAdminService(ldapService, adminService);
+                    LdapAdminService ldapAdminService = new LdapAdminService(ldapService, adminService);
+                    ldapAdminService.setJwtToolWrapper(jwtToolWrapper);
+                    return ldapAdminService;
                 }
 
                 return super.postProcessAfterInitialization(bean, beanName);

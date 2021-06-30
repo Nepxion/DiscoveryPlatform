@@ -99,7 +99,7 @@
             <label class="layui-form-label">元数据</label>
             <div class="layui-input-inline" style="width: 740px">
                 <textarea id="metadata" name="metadata" class="layui-input" autocomplete="off"
-                          placeholder="请输入元数据字符串（使用换行分隔）。例如：&#13;foo=bar&#13;food=chocolate"
+                          placeholder="请输入元数据字符串（使用换行分隔）。例如：&#13;connect-timeout=45000&#13;response-timeout=45s"
                           style="height:75px;resize: none"></textarea>
             </div>
         </div>

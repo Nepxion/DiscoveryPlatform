@@ -12,9 +12,11 @@
         <div class="layui-form-item">
             <label class="layui-form-label">网关名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <div class="layui-row">
-                    <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
-                    </select>
+                <div>
+                    <div class="layui-input-inline" style="width: 660px">
+                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
+                        </select>
+                    </div>
                     <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
                         <i class="layui-icon">&#xe669;</i>
                     </a>

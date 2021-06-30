@@ -21,16 +21,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 1000px">
-                <div class="layui-row">
-                    <div class="layui-col-md11">
+                <div>
+                    <div class="layui-input-inline" style="width: 920px">
                         <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
                         </select>
                     </div>
-                    <div class="layui-col-md1">
-                        <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
-                            <i class="layui-icon">&#xe669;</i>
-                        </a>
-                    </div>
+                    <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <i class="layui-icon">&#xe669;</i>
+                    </a>
                 </div>
             </div>
         </div>

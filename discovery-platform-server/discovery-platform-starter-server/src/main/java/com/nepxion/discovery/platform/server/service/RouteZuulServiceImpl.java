@@ -73,7 +73,7 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
                     private void updateConfig(String serviceName, Object config) throws Exception {
                         String groupName = platformDiscoveryAdapter.getGroupName(serviceName);
                         String serviceId = serviceName.concat("-").concat(DiscoveryConstant.DYNAMIC_ROUTE_KEY);
-                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config), FormatType.XML_FORMAT);
+                        platformDiscoveryAdapter.publishConfig(groupName, serviceId, JsonUtil.toPrettyJson(config), FormatType.JSON_FORMAT);
                     }
                 });
     }

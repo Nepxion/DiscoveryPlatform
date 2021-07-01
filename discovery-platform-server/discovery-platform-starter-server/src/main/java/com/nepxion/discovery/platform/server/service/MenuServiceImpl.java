@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -78,7 +79,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, SysMenuDto> impleme
     @TransactionReader
     @Override
     public IPage<MenuVo> list(String name, Integer pageNum, Integer pageSize) {
-        return baseMapper.list(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(pageNum, pageSize), name);
+        return baseMapper.list(new Page<>(pageNum, pageSize), name);
     }
 
     @TransactionReader

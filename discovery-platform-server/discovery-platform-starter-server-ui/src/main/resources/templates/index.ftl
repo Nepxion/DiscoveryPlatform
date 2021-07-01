@@ -23,9 +23,9 @@
                         <a href="javascript:" title="文档">
                             <i class="layui-icon layui-icon-link"></i>
                         </a>
-                        <dl class="layui-nav-child" style="text-align: center;width: 120px">
-                            <dd><a href="http://nepxion.com/discovery" target="_blank">解决方案</a></dd>
-                            <dd><a href="http://nepxion.com/polaris" target="_blank">操作手册</a></dd>
+                        <dl class="layui-nav-child" style="width: 160px">
+                            <dd><a href="http://nepxion.com/discovery" target="_blank">&nbsp;&nbsp;&nbsp;<img width="24" height="24" src="${ctx}/images/Discovery32.png" alt="Discovery">&nbsp;&nbsp;&nbsp;Discovery&nbsp;文档</a></dd>
+                            <dd><a href="http://nepxion.com/polaris" target="_blank">&nbsp;&nbsp;&nbsp;<img width="24" height="24" src="${ctx}/images/Polaris32.png" alt="Discovery">&nbsp;&nbsp;&nbsp;Polaris&nbsp;文档</a></dd>
                         </dl>
                     </li>
                 </ul>

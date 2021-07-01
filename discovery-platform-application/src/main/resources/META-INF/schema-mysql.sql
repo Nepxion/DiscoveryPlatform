@@ -214,6 +214,6 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10002, '实例管理日志', '/instance-log/list', b'1', b'0', b'0', '', 100, 2, '实例管理日志');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10003, '路由配置日志', '/route-log/list', b'1', b'0', b'0', '', 100, 3, '路由配置日志');
 
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (100000, '指南手册', 'http://nepxion.gitee.io/discovery', b'1', b'0', b'0', 'layui-icon-read', 0, 11, '指南手册');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (100000, '指南手册', 'http://nepxion.com/discovery-platform', b'1', b'0', b'0', 'layui-icon-read', 0, 11, '指南手册');
 
 INSERT IGNORE INTO `sys_dic`(`id`, `name`, `value`, `description`) VALUES (1, 'super_admin', '', ' 超级管理员的登陆账号, 多个用逗号分隔');

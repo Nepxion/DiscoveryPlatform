@@ -191,6 +191,6 @@ INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10002, '实例管理日志', '/instance-log/list', '1', '0', '0', '', 100, 2, '实例管理日志' where not exists (select * from sys_menu where id = 10002);
 INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 10003, '路由配置日志', '/route-log/list', '1', '0', '0', '', 100, 3, '路由配置日志' where not exists (select * from sys_menu where id = 10002);
 
-INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 100000, '指南手册', 'http://nepxion.gitee.io/discovery', '1', '0', '0', 'layui-icon-read', 0, 11, '指南手册' where not exists (select * from sys_menu where id = 100000);
+INSERT INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) SELECT 100000, '指南手册', 'http://nepxion.com/discovery-platform', '1', '0', '0', 'layui-icon-read', 0, 11, '指南手册' where not exists (select * from sys_menu where id = 100000);
 
 INSERT INTO `sys_dic`(`id`, `name`, `value`, `description`)  select 1, 'super_admin', '', ' 超级管理员的登陆账号, 多个用逗号分隔' where not exists (select * from sys_dic where id = 1);

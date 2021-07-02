@@ -176,7 +176,8 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2003, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 20, 3, '流量侦测');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (30, '实例管理', '', b'1', b'0', b'0', 'layui-icon-template-1', 0, 3, '实例管理');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3001, '实例摘除', '/blacklist/list', b'1', b'0', b'0', '', 30, 1, '实例摘除');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3001, '实例信息', '/instance/list', b'1', b'0', b'0', '', 30, 1, '实例信息');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (3002, '实例摘除', '/blacklist/list', b'1', b'0', b'0', '', 30, 2, '实例摘除');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (40, '路由配置', '', b'1', b'0', b'0', 'layui-icon-website', 0, 4, '路由配置');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (4001, 'Gateway网关路由', '/route-gateway/list', b'1', b'0', b'0', '', 40, 1, 'Spring Cloud Gateway路由配置');

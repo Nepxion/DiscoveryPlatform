@@ -92,12 +92,11 @@
                 $("#tabContent").html('');
                 if (chooseGatewayName != null && chooseGatewayName != '') {
                     admin.post("do-list-working", {"gatewayName": chooseGatewayName}, function (result) {
-                        const data = result.data;
-                        const set = new Set();
+                        const data = result.data, set = new Set();
                         let index = 0;
-                        $.each(data, function (a, v) {
+                        $.each(data, function (k, v) {
                             set.add(JSON.stringify(v));
-                            const tabTitle = a;
+                            const tabTitle = k;
                             const tabId = 'tab_' + index;
                             const gridId = 'grid_' + index;
                             let showTitle = '', showContent = '';

@@ -13,7 +13,9 @@ package com.nepxion.discovery.platform.server.controller;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.InstanceEntity;
-import com.nepxion.discovery.common.entity.RuleEntity;
+import com.nepxion.discovery.common.entity.ResultEntity;
+import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
@@ -108,12 +111,18 @@ public class BlueGreenController {
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
-    public Result<String> doListWorking(@RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
+    public Result<Map<String, String>> doListWorking(@RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
         if (StringUtils.isEmpty(gatewayName)) {
-            return Result.ok(StringUtils.EMPTY);
+            return Result.ok();
         }
-        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
-        return Result.ok(ruleEntity.getContent());
+        Map<String, String> result = new LinkedHashMap<>();
+        List<ResultEntity> resultEntityList = platformDiscoveryAdapter.viewConfig(gatewayName);
+        for (ResultEntity resultEntity : resultEntityList) {
+            String key = String.format("%s:%s", resultEntity.getHost(), resultEntity.getPort());
+            List<String> list = JsonUtil.fromJson(resultEntity.getResult(), List.class);
+            result.put(key, list.get(2));
+        }
+        return Result.ok(result);
     }
 
     @ApiOperation("校验自定义表达式")

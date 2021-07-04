@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.common.entity.InstanceEntity;
+import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
@@ -67,7 +68,8 @@ public class BlueGreenController {
 
     @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
-    public Result<List<String>> doListPortalNames(@RequestParam(name = "portalName", defaultValue = "") String portalName, @RequestParam("portalType") Integer portalTypeInt) {
+    public Result<List<String>> doListPortalNames(@RequestParam(name = "portalName", defaultValue = "") String portalName,
+                                                  @RequestParam("portalType") Integer portalTypeInt) {
         BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
         List<String> result = new ArrayList<>();
         switch (Objects.requireNonNull(portalType)) {
@@ -95,6 +97,23 @@ public class BlueGreenController {
     @PostMapping("do-list-service-names")
     public Result<List<String>> doListServiceNames() {
         return Result.ok(platformDiscoveryAdapter.getServiceNames());
+    }
+
+    @ApiOperation("获取所有服务的名称")
+    @PostMapping("do-list-gateway-names")
+    public Result<List<String>> doListGatewayNames() {
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
+    }
+
+    @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
+    @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
+    @PostMapping("do-list-working")
+    public Result<String> doListWorking(@RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
+        if (StringUtils.isEmpty(gatewayName)) {
+            return Result.ok(StringUtils.EMPTY);
+        }
+        RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(gatewayName);
+        return Result.ok(ruleEntity.getContent());
     }
 
     @ApiOperation("校验自定义表达式")

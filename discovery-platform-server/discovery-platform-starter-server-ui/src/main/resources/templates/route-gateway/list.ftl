@@ -106,7 +106,7 @@
             form.on('submit(search)', function (data) {
                 const field = data.field;
                 table.reload('grid', {where: field});
-                updateStatus(false);
+                updateStatusByGrid(table.cache['grid']);
             });
 
             table.render({
@@ -138,14 +138,7 @@
                     </@select>
                 ]],
                 done: function (res) {
-                    let needPublish = false;
-                    $.each(res.data, function (idx, val) {
-                        if (!val.publishFlag) {
-                            needPublish = true;
-                            return;
-                        }
-                    });
-                    updateStatus(needPublish);
+                    updateStatusByGrid(res.data);
                 }
             });
 
@@ -259,6 +252,17 @@
                     });
                 }
             });
+
+            function updateStatusByGrid(data) {
+                let needPublish = false;
+                $.each(data, function (idx, val) {
+                    if (!val.publishFlag) {
+                        needPublish = true;
+                        return;
+                    }
+                });
+                updateStatus(needPublish);
+            }
 
             function updateStatus(needUpdate) {
                 if (needUpdate) {

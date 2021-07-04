@@ -243,7 +243,7 @@
                         addTabCondition();
                         addTabCondition();
                         addStrategy();
-                    }, 100);
+                    }, 50);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;

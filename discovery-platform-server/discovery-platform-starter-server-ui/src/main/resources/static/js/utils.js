@@ -138,7 +138,7 @@ function mapToJson(map) {
 
 function chooseSelectOption(id, index) {
     const $ = layui.$;
-    $('#' + id).siblings('div.layui-form-select').find('dl dd[lay-value=' + getSelectOptionValue(id, index) + ']').click();
+    $('#' + id).siblings('div.layui-form-select').find('dl dd[lay-value=\'' + getSelectOptionValue(id, index) + '\']').click();
     layui.form.render('select');
 }
 

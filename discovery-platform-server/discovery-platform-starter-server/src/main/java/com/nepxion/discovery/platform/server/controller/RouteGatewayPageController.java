@@ -45,7 +45,6 @@ public class RouteGatewayPageController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", RouteGatewayController.PREFIX, "add");
     }
 
@@ -57,7 +56,6 @@ public class RouteGatewayPageController {
         routeGateway.setFilters(CommonTool.formatTextarea(routeGateway.getFilters()));
         routeGateway.setUserFilters(CommonTool.formatTextarea(routeGateway.getUserFilters()));
         routeGateway.setMetadata(CommonTool.formatTextarea(routeGateway.getMetadata()));
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         model.addAttribute("route", routeGateway);
         return String.format("%s/%s", RouteGatewayController.PREFIX, "edit");
     }

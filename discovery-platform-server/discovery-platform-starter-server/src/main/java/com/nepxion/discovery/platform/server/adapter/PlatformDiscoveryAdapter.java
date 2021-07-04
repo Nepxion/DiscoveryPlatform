@@ -49,6 +49,9 @@ public class PlatformDiscoveryAdapter {
     }
 
     public List<String> getGatewayNames(GatewayType gatewayType) {
+        if (gatewayType == null) {
+            return serviceResource.getGateways();
+        }
         return serviceResource.getGatewayList(Collections.singletonList(gatewayType));
     }
 

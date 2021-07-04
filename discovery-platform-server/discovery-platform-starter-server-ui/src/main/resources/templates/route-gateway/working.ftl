@@ -21,7 +21,6 @@
                         </select>
                     </div>
 
-
                     <div class="layui-inline" style="width:120px">
                         <button id="btnRefreshGateway" class="layui-btn">
                             刷新网关列表
@@ -68,7 +67,7 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("do-list-gateway-names", {}, function (data) {
+                admin.post("do-list-portal-names", {}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
                     selGatewayName.html('<option value="">请选择网关名称</option>');

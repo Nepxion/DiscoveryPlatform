@@ -43,13 +43,11 @@ public class RouteZuulPageController {
 
     @GetMapping("add")
     public String add(Model model) {
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         return String.format("%s/%s", RouteZuulController.PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        model.addAttribute("serviceNames", platformDiscoveryAdapter.getServiceNames());
         model.addAttribute("route", routeZuulService.getById(id));
         return String.format("%s/%s", RouteZuulController.PREFIX, "edit");
     }

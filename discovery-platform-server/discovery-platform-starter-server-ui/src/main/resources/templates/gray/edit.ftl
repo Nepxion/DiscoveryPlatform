@@ -223,7 +223,7 @@
             setTimeout(function () {
                 $("#weight").select();
                 $("#weight").focus();
-            }, 100);
+            }, 50);
         });
     </script>
     </body>

@@ -26,16 +26,14 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址</label>
-            <div class="layui-input-inline" style="width: 740px">
-                <input type="text" id="uri" name="uri" class="layui-input" placeholder="请选择或输入转发的目标地址"
-                       style="position:absolute;z-index:2;width:96%;" lay-verify="required" autocomplete="off">
-                <select name="uri1" lay-filter="uri1" autocomplete="off" lay-verify="required"
-                        class="layui-select" lay-search>
-                    <#list serviceNames as serviceName>
-                        <option value="lb://${serviceName}" tag="${serviceName}">lb://${serviceName}</option>
-                    </#list>
+            <div class="layui-input-inline" style="width: 660px">
+                <input type="text" id="uri" name="uri" lay-filter="uri" class="layui-input" placeholder="请选择或输入转发的目标地址" style="position:absolute;z-index:2;width:96%;" lay-verify="required" autocomplete="off">
+                <select id="uri1" name="uri1" lay-filter="uri1" autocomplete="off" lay-verify="required" class="layui-select" lay-search>
                 </select>
             </div>
+            <a id="btnRefreshService" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                <i class="layui-icon">&#xe669;</i>
+            </a>
         </div>
 
         <div class="layui-form-item">
@@ -138,12 +136,19 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const form = layui.form, $ = layui.$, admin = layui.admin;
+            let portalName = undefined, serviceName = undefined;
 
             setTimeout(function () {
                 reloadPortalName();
-            }, 100);
+                reloadServiceName();
+            }, 50);
+
+            form.on('select(portalName)', function (data) {
+                portalName = data.value;
+            });
 
             form.on('select(uri1)', function (data) {
+                serviceName = data.value;
                 const text = data.elem[data.elem.selectedIndex].text;
                 const name = $(data.elem[data.elem.selectedIndex]).attr('tag');
                 $("#uri").val(text);
@@ -153,6 +158,10 @@
                 $("#uri1").next().find("dl").css({"display": "none"});
                 form.render();
                 $("#description").focus();
+            });
+
+            $("#uri").on("input", function (e) {
+                serviceName = e.delegateTarget.value;
             });
 
             $('#uri').bind('input propertychange', function () {
@@ -177,6 +186,10 @@
                 reloadPortalName();
             });
 
+            $('#btnRefreshService').click(function () {
+                reloadServiceName();
+            });
+
             function reloadPortalName() {
                 admin.post('do-list-portal-names', {}, function (result) {
                     const selPortalName = $("select[name=portalName]");
@@ -184,15 +197,46 @@
                     let index = 0;
                     $.each(result.data, function (key, val) {
                         let option;
-                        if (index == 0) {
-                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                        if (portalName == undefined && index == 0) {
+                            option = $('<option>').attr('selected', 'selected').val(val).text(val);
+                        } else if (portalName == val) {
+                            option = $('<option>').attr('selected', 'selected').val(val).text(val);
                         } else {
-                            option = $("<option>").val(val).text(val);
+                            option = $('<option>').val(val).text(val);
                         }
                         selPortalName.append(option);
                         index++;
                     });
                     layui.form.render('select');
+                });
+            }
+
+            function reloadServiceName() {
+                admin.post('do-list-service-names', {}, function (result) {
+                    const selServiceName = $("#uri1");
+                    $('#uri').val('');
+                    $("#serviceName").val('');
+                    $("#predicates").val('');
+                    $("#filters").val('');
+                    selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
+                    let index = 0, chooseIndex = 1;
+                    $.each(result.data, function (key, val) {
+                        let option;
+                        const value = 'lb://' + val;
+                        if (serviceName == undefined && index == 0) {
+                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
+                            chooseIndex = index + 1;
+                        } else if (serviceName == value) {
+                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
+                            chooseIndex = index + 1;
+                        } else {
+                            option = $("<option>").attr('tag', val).val(value).text(value);
+                        }
+                        selServiceName.append(option);
+                        index++;
+                    });
+                    layui.form.render('select');
+                    chooseSelectOption('uri1', chooseIndex);
                 });
             }
         });

@@ -11,10 +11,8 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +56,13 @@ public class RouteZuulController {
     @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
     public Result<List<String>> doListPortalNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames().stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
+        return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
+    }
+
+    @ApiOperation("获取所有Spring Cloud Gateway服务名称")
+    @PostMapping("do-list-service-names")
+    public Result<List<String>> doListServiceNames() {
+        return Result.ok(platformDiscoveryAdapter.getServiceNames());
     }
 
     @ApiOperation("获取Zuul网关的路由信息列表")
@@ -87,12 +91,6 @@ public class RouteZuulController {
             result.add(routeZuulVo);
         }
         return Result.ok(result);
-    }
-
-    @ApiOperation("获取所有Zuul网关的名称")
-    @PostMapping("do-list-gateway-names")
-    public Result<List<String>> doListGatewayNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
     }
 
     @ApiOperation("添加Zuul网关的路由")

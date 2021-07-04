@@ -68,7 +68,7 @@ import com.nepxion.eventbus.annotation.EnableEventBus;
 @Configuration
 @AutoConfigureBefore(ConsoleAutoConfiguration.class)
 @EnableEventBus
-@EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class, PlatformAuthProperties.class})
+@EnableConfigurationProperties({ PlatformServerProperties.class, PlatformDataSourceProperties.class, PlatformAuthProperties.class })
 @MapperScan(basePackageClasses = AdminMapper.class)
 public class PlatformAutoConfiguration {
     @Bean
@@ -97,7 +97,7 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public JwtToolWrapper jwtToolWrapper(PlatformAuthProperties platformAuthProperties){
+    public JwtToolWrapper jwtToolWrapper(PlatformAuthProperties platformAuthProperties) {
         return new JwtToolWrapper(platformAuthProperties);
     }
 

@@ -18,24 +18,20 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址</label>
-            <div class="layui-input-inline" style="width: 740px">
-                <input type="text" id="uri" name="uri" class="layui-input" placeholder="请选择或输入转发的目标地址"
-                       style="position:absolute;z-index:2;width:96%;" lay-verify="required" autocomplete="off"
-                       value="${route.uri}">
-                <select name="uri1" lay-filter="uri1" autocomplete="off" lay-verify="required"
-                        class="layui-select" lay-search>
-                    <#list serviceNames as serviceName>
-                        <option value="lb://${serviceName}" tag="${serviceName}">lb://${serviceName}</option>
-                    </#list>
+            <div class="layui-input-inline" style="width: 660px">
+                <input type="text" id="uri" name="uri" lay-filter="uri" value="lb://${route.serviceName}" class="layui-input" placeholder="请选择或输入转发的目标地址" style="position:absolute;z-index:2;width:96%;" lay-verify="required" autocomplete="off">
+                <select id="uri1" name="uri1" lay-filter="uri1" autocomplete="off" lay-verify="required" class="layui-select" lay-search>
                 </select>
             </div>
+            <a id="btnRefreshService" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                <i class="layui-icon">&#xe669;</i>
+            </a>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">服务名称</label>
             <div class="layui-input-inline" style="width: 740px">
-                <input type="text" readonly="readonly" id="serviceName" name="serviceName" lay-verify="required"
-                       class="layui-input layui-disabled" value="${route.serviceName}">
+                <input type="text" id="serviceName" name="serviceName" lay-verify="required" class="layui-input" value="${route.serviceName}">
             </div>
         </div>
 
@@ -134,18 +130,31 @@
     </div>
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
-            const form = layui.form, $ = layui.$;
+            const form = layui.form, $ = layui.$, admin = layui.admin;
+            let serviceName = 'lb://${route.serviceName}', firstLoad = true;
+
+            setTimeout(function () {
+                firstLoad = true;
+                reloadServiceName();
+            }, 50);
 
             form.on('select(uri1)', function (data) {
-                const text = data.elem[data.elem.selectedIndex].text;
-                const name = $(data.elem[data.elem.selectedIndex]).attr('tag');
-                $("#uri").val(text);
-                $("#serviceName").val(name);
-                $("#predicates").val('Path=/' + name + '/**');
-                $("#filters").val('StripPrefix=1');
-                $("#uri1").next().find("dl").css({"display": "none"});
-                form.render();
-                $("#description").select();
+                if (!firstLoad) {
+                    serviceName = data.value;
+                    const text = data.elem[data.elem.selectedIndex].text;
+                    const name = $(data.elem[data.elem.selectedIndex]).attr('tag');
+                    $("#uri").val(text);
+                    $("#serviceName").val(name);
+                    $("#predicates").val('Path=/' + name + '/**');
+                    $("#filters").val('StripPrefix=1');
+                    $("#uri1").next().find("dl").css({"display": "none"});
+                    form.render();
+                    $("#description").select();
+                }
+            });
+
+            $("#uri").on("input", function (e) {
+                serviceName = e.delegateTarget.value;
             });
 
             $('#uri').bind('input propertychange', function () {
@@ -165,6 +174,36 @@
                     }
                 }
             });
+
+            $('#btnRefreshService').click(function () {
+                reloadServiceName();
+            });
+
+            function reloadServiceName() {
+                admin.post('do-list-service-names', {}, function (result) {
+                    const selServiceName = $("select[name=uri1]");
+                    if (!firstLoad) {
+                        $('#uri').val('');
+                    }
+                    selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
+                    let index = 0, chooseIndex = 1;
+                    $.each(result.data, function (key, val) {
+                        let option;
+                        const value = 'lb://' + val;
+                        if (serviceName == value) {
+                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
+                            chooseIndex = index + 1;
+                        } else {
+                            option = $("<option>").attr('tag', val).val(value).text(value);
+                        }
+                        selServiceName.append(option);
+                        index++;
+                    });
+                    layui.form.render('select');
+                    chooseSelectOption('uri1', chooseIndex);
+                    firstLoad = false;
+                }, null, firstLoad);
+            }
         });
     </script>
     </body>

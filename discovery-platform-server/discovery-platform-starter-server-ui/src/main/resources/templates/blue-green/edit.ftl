@@ -267,7 +267,7 @@
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
-                    }, 100);
+                    }, 50);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;

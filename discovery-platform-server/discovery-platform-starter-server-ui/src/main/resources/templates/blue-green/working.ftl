@@ -31,17 +31,17 @@
                         </select>
                     </div>
 
-                    <div class="layui-inline">网关列表</div>
+                    <div class="layui-inline">入口列表</div>
                     <div class="layui-inline" style="width:350px">
                         <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>
-                            <option value="">请选择网关名称</option>
+                            <option value="">请选择网关 | 服务 | 组名称</option>
                         </select>
                     </div>
 
                     <div class="layui-inline" style="width:120px">
                         <button id="btnRefreshGateway" class="layui-btn">
-                            刷新网关列表
+                            刷新入口列表
                         </button>
                     </div>
 
@@ -77,7 +77,7 @@
                 admin.post('do-list-portal-names', {'portalTypeStr': data.value, 'excludeDb': false}, function (result) {
                     data = result.data;
                     const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="" selected="selected">请选择网关名称</option>');
+                    selGatewayName.html('<option value="" selected="selected">请选择网关 | 服务 | 组名称</option>');
                     $.each(data, function (key, val) {
                         let option = $("<option>").val(val).text(val);
                         selGatewayName.append(option);
@@ -95,7 +95,7 @@
                 admin.post("do-list-portal-names", {'portalTypeStr': choosePortalType, 'excludeDb': false}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="">请选择网关名称</option>');
+                    selGatewayName.html('<option value="">请选择网关 | 服务 | 组名称</option>');
                     $.each(data, function (key, val) {
                         let option;
                         if (chooseGatewayName == val) {
@@ -161,9 +161,9 @@
                     element.render();
 
                     if (set.size <= 1) {
-                        $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的蓝绿配置信息一致&nbsp;</h3></span>');
+                        $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有入口的蓝绿配置信息一致&nbsp;</h3></span>');
                     } else {
-                        $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的蓝绿配置信息不一致, 请检查&nbsp;</h3></span>');
+                        $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有入口的蓝绿配置信息不一致, 请检查&nbsp;</h3></span>');
                     }
                 });
             }

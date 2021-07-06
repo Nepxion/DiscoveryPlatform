@@ -72,8 +72,19 @@ public class BlueGreenController {
     @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
     public Result<List<String>> doListPortalNames(@RequestParam(name = "portalName", defaultValue = "") String portalName,
-                                                  @RequestParam("portalType") Integer portalTypeInt) {
-        BaseStateEntity.PortalType portalType = BaseStateEntity.PortalType.get(portalTypeInt);
+                                                  @RequestParam(value = "portalTypeInt", required = false) Integer portalTypeInt,
+                                                  @RequestParam(value = "portalTypeStr", required = false) String portalTypeStr,
+                                                  @RequestParam(value = "excludeDb", required = false, defaultValue = "true") Boolean excludeDb) {
+        if (portalTypeInt == null && StringUtils.isEmpty(portalTypeStr)) {
+            return Result.ok(new ArrayList<>());
+        }
+        BaseStateEntity.PortalType portalType = null;
+        if (portalTypeInt != null) {
+            portalType = BaseStateEntity.PortalType.get(portalTypeInt);
+        } else if (StringUtils.isNotEmpty(portalTypeStr)) {
+            portalType = BaseStateEntity.PortalType.valueOf(portalTypeStr);
+        }
+
         List<String> result = new ArrayList<>();
         switch (Objects.requireNonNull(portalType)) {
             case GATEWAY:
@@ -86,12 +97,13 @@ public class BlueGreenController {
                 result.addAll(platformDiscoveryAdapter.getGroupNames());
                 break;
         }
-
-        boolean flag = result.contains(portalName);
-        List<String> portNameList = blueGreenService.listPortalNames();
-        result.removeAll(portNameList);
-        if (StringUtils.isNotEmpty(portalName) && flag) {
-            result.add(portalName);
+        if (excludeDb) {
+            boolean flag = result.contains(portalName);
+            List<String> portNameList = blueGreenService.listPortalNames();
+            result.removeAll(portNameList);
+            if (StringUtils.isNotEmpty(portalName) && flag) {
+                result.add(portalName);
+            }
         }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
     }
@@ -108,19 +120,32 @@ public class BlueGreenController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
+
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
-    public Result<Map<String, String>> doListWorking(@RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
-        if (StringUtils.isEmpty(gatewayName)) {
+    public Result<Map<String, String>> doListWorking(@RequestParam(value = "portalType", required = true, defaultValue = StringUtils.EMPTY) String portalType,
+                                                     @RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
+        if (StringUtils.isEmpty(portalType) || StringUtils.isEmpty(gatewayName)) {
             return Result.ok();
         }
+
+        BaseStateEntity.PortalType portalTypeEnum = BaseStateEntity.PortalType.valueOf(portalType);
         Map<String, String> result = new LinkedHashMap<>();
-        List<ResultEntity> resultEntityList = platformDiscoveryAdapter.viewConfig(gatewayName);
-        for (ResultEntity resultEntity : resultEntityList) {
-            String key = String.format("%s:%s", resultEntity.getHost(), resultEntity.getPort());
-            List<String> list = JsonUtil.fromJson(resultEntity.getResult(), List.class);
-            result.put(key, list.get(2));
+
+        switch (portalTypeEnum) {
+            case GATEWAY:
+            case SERVICE:
+                List<ResultEntity> resultEntityList = platformDiscoveryAdapter.viewConfig(gatewayName);
+                for (ResultEntity resultEntity : resultEntityList) {
+                    String key = String.format("%s:%s", resultEntity.getHost(), resultEntity.getPort());
+                    List<String> list = JsonUtil.fromJson(resultEntity.getResult(), List.class);
+                    result.put(key, list.get(2));
+                }
+                break;
+            case GROUP:
+                result.put("组", platformDiscoveryAdapter.viewConfigByGroupName(gatewayName));
+                break;
         }
         return Result.ok(result);
     }

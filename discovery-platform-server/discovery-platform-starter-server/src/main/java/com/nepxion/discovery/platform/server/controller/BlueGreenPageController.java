@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
+import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
 
@@ -62,7 +63,7 @@ public class BlueGreenPageController {
 
     @GetMapping("working")
     public String working(Model model) {
-        model.addAttribute("gatewayNames", platformDiscoveryAdapter.getGatewayNames());
+        model.addAttribute("portalTypes", BaseStateEntity.PortalType.values());
         return String.format("%s/%s", BlueGreenController.PREFIX, "working");
     }
 }

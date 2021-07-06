@@ -12,14 +12,30 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
+                    <div class="layui-inline">入口类型</div>
+                    <div class="layui-inline" style="width:350px">
+                        <select id="portalType" name="portalType" lay-filter="portalType" autocomplete="off"
+                                lay-verify="required" class="layui-select" lay-search>
+                            <option value="">请选择入口类型</option>
+                            <#list portalTypes as portalType>
+                                <option value="${portalType}">
+                                    <#if portalType=='GATEWAY'>
+                                        网关
+                                    <#elseif portalType=='SERVICE'>
+                                        服务
+                                    <#elseif portalType=='GROUP'>
+                                        组
+                                    </#if>
+                                </option>
+                            </#list>
+                        </select>
+                    </div>
+
                     <div class="layui-inline">网关列表</div>
                     <div class="layui-inline" style="width:350px">
                         <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>
                             <option value="">请选择网关名称</option>
-                            <#list gatewayNames as gatewayName>
-                                <option value="${gatewayName}">${gatewayName}</option>
-                            </#list>
                         </select>
                     </div>
 
@@ -50,7 +66,25 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
             const form = layui.form, $ = layui.$, element = layui.element, admin = layui.admin;
-            let chooseGatewayName = '', tabIndex = -1;
+            let choosePortalType = '', chooseGatewayName = '', tabIndex = -1;
+
+            form.on('select(portalType)', function (data) {
+                $("#tabTitle").html('');
+                $("#tabContent").html('');
+                $("#tip").html('');
+                choosePortalType = data.value;
+                chooseGatewayName = '';
+                admin.post('do-list-portal-names', {'portalTypeStr': data.value, 'excludeDb': false}, function (result) {
+                    data = result.data;
+                    const selGatewayName = $("select[name=gatewayName]");
+                    selGatewayName.html('<option value="" selected="selected">请选择网关名称</option>');
+                    $.each(data, function (key, val) {
+                        let option = $("<option>").val(val).text(val);
+                        selGatewayName.append(option);
+                    });
+                    layui.form.render('select');
+                });
+            });
 
             form.on('select(gatewayName)', function (data) {
                 chooseGatewayName = data.value;
@@ -58,7 +92,7 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("do-list-gateway-names", {}, function (data) {
+                admin.post("do-list-portal-names", {'portalTypeStr': choosePortalType, 'excludeDb': false}, function (data) {
                     data = data.data;
                     const selGatewayName = $("select[name=gatewayName]");
                     selGatewayName.html('<option value="">请选择网关名称</option>');
@@ -72,6 +106,7 @@
                         }
                         selGatewayName.append(option);
                     });
+
                     layui.form.render('select');
                     reloadBlueGreenContent();
                 });
@@ -81,7 +116,7 @@
                 $("#tabTitle").html('');
                 $("#tabContent").html('');
 
-                admin.post("do-list-working", {"gatewayName": chooseGatewayName}, function (result) {
+                admin.post('do-list-working', {'portalType': choosePortalType, 'gatewayName': chooseGatewayName}, function (result) {
                     const data = result.data, set = new Set();
                     let index = 0;
                     $.each(data, function (k, v) {
@@ -132,10 +167,6 @@
                     }
                 });
             }
-
-            <#if (gatewayNames?size==1) >
-            chooseSelectOption('gatewayName', 1);
-            </#if>
         });
     </script>
     </body>

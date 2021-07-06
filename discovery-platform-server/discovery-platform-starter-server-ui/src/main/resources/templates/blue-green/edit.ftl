@@ -275,7 +275,7 @@
                     });
 
                     function reloadPortalName() {
-                        admin.post('do-list-portal-names', {'portalName': '${entity.portalName}', 'portalType': portalType}, function (result) {
+                        admin.post('do-list-portal-names', {'portalName': '${entity.portalName}', 'portalTypeInt': portalType}, function (result) {
                             const selPortalName = $("select[name=portalName]");
                             let portalTypeName = '';
                             if (portalType == 1) {

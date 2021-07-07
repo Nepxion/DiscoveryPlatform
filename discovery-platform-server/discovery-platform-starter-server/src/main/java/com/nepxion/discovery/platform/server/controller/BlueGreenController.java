@@ -121,6 +121,7 @@ public class BlueGreenController {
     }
 
 
+    @SuppressWarnings("unchecked")
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")

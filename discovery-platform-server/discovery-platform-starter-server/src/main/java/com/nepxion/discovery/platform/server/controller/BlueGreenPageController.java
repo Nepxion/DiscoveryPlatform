@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
-import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
@@ -29,8 +28,6 @@ import com.nepxion.discovery.platform.server.service.BlueGreenService;
 public class BlueGreenPageController {
     @Autowired
     private BlueGreenService blueGreenService;
-    @Autowired
-    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @GetMapping("list")
     public String list() {

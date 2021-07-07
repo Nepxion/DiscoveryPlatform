@@ -20,6 +20,7 @@
     <properties>
         <discovery.version>6.11.0-SNAPSHOT</discovery.version>
 
+        <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
         <mybatis.plus.version>3.4.2</mybatis.plus.version>
         <jwt.version>3.16.0</jwt.version>
         <shiro.version>1.7.1</shiro.version>
@@ -34,6 +35,14 @@
                 <groupId>com.nepxion</groupId>
                 <artifactId>discovery</artifactId>
                 <version>${discovery.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring.boot.admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

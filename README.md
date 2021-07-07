@@ -245,10 +245,12 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ## 操作手册
 
-### 平台登录]
-登录认证，用户名和密码为admin/admin
+### 平台登录
+在本地环境，浏览器上输入[http://localhost:6001/platform](http://localhost:6001/platform)，初始用户名和密码为admin/admin
 
- ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
+登录页面底部为重要的链接以及快速联系我们的方式
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

@@ -132,10 +132,123 @@ Polaris为Discovery高级定制版，特色功能
 
 ![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Config.jpg)
 
-## 请联系我
+## 简介
+
+### 功能概述
+
+### 郑重致谢
+
+### 请联系我
 微信、钉钉、公众号和文档
 
 ![](http://nepxion.gitee.io/discovery/docs/contact-doc/wechat-1.jpg)![](http://nepxion.gitee.io/discovery/docs/contact-doc/dingding-1.jpg)![](http://nepxion.gitee.io/discovery/docs/contact-doc/gongzhonghao-1.jpg)![](http://nepxion.gitee.io/discovery/docs/contact-doc/document-1.jpg)
+
+## 目录
+- [简介](#简介)
+    - [功能概述](#功能概述)
+    - [郑重致谢](#郑重致谢)
+    - [请联系我](#请联系我)
+- [工程架构](#工程架构)
+    - [工程清单](#工程清单)
+    - [依赖引入](#依赖引入)
+- [准备工作](#准备工作)
+    - [修改配置](#修改配置)
+    - [运行示例](#运行示例)
+    - [启动平台](#启动平台)
+- [操作手册](#操作手册)
+    - [平台登录](#平台登录)
+- [Star走势图](#Star走势图)
+
+## 工程架构
+
+### 工程清单
+
+| 工程名 | 描述 |
+| --- | --- |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_south.png"> discovery-platform-server | 平台服务端模块目录 |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server | 平台服务端的Starter |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-mysql | 平台服务端数据库MySQL插件的Starter |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-h2 | 平台服务端H2插件的Starter|
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ldap | 平台服务端Ldap插件的Starter|
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ui | 平台服务端界面 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_south.png"> discovery-platform-client | 平台服务端模块目录 |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-client | 平台客户端的Starter |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_south.png"> discovery-platform-common | 平台通用模块目录 |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-dingding | 封装钉钉通用操作逻辑的Starter |
+| &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-mail | 封装邮件通用操作逻辑的Starter |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-application | 平台服务端可执行应用 |
+
+### 依赖引入
+
+① 服务注册发现依赖引入
+
+服务注册发现中间件的四个插件，必须引入其中一个
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    <!-- <groupId>org.springframework.cloud</groupId> -->
+    <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+    <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+    <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
+</dependency>
+```
+
+② 配置中心依赖引入
+
+配置中心中间件的六个插件，选择引入其中一个
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-console-starter-nacos</artifactId>
+    <!-- <artifactId>discovery-console-starter-apollo</artifactId> -->
+    <!-- <artifactId>discovery-console-starter-redis</artifactId> -->
+    <!-- <artifactId>discovery-console-starter-zookeeper</artifactId> -->
+    <!-- <artifactId>discovery-console-starter-consul</artifactId> -->
+    <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
+</dependency>
+```
+
+③ 数据库依赖引入
+
+MySQL数据库和H2内存数据库，选择引入其中一个
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-platform-starter-server-mysql</artifactId>
+    <!-- <artifactId>discovery-platform-starter-server-h2</artifactId> -->
+</dependency>
+```
+
+④ Ldap依赖引入
+
+如果使用者希望通过Ldap方式登录平台，那么需要引入如下依赖
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-platform-starter-server-ldap</artifactId>
+</dependency>
+```
+
+## 准备工作
+
+### 修改配置
+
+### 运行示例
+参考`如何快速搭建和运行示例`的Wiki文章
+
+[Gitee Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
+
+[Github Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
+
+### 启动平台
+
+## 操作手册
+
+### 平台登录]
+登录认证，用户名和密码为admin/admin
+
+ ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

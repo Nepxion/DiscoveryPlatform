@@ -157,6 +157,16 @@ Polaris为Discovery高级定制版，特色功能
     - [启动平台](#启动平台)
 - [操作手册](#操作手册)
     - [平台登录](#平台登录)
+    - [服务发布](#服务发布)
+        - [蓝绿发布](#蓝绿发布)
+        - [灰度发布](#灰度发布)
+        - [流量侦测](#流量侦测)
+    - [实例管理](#实例管理)
+        - [实例信息](#实例信息)
+        - [实例摘除](#实例摘除)
+    - [路由配置](#路由配置)
+        - [Gateway网关路由](#Gateway网关路由)
+        - [Zuul网关路由](#Zuul网关路由)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -267,6 +277,26 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 登录页面底部为重要的链接以及快速联系我们的方式
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
+
+### 服务发布
+
+#### 蓝绿发布
+
+#### 灰度发布
+
+#### 流量侦测
+
+### 实例管理
+
+#### 实例信息
+
+#### 实例摘除
+
+### 路由配置
+
+#### Gateway网关路由
+
+#### Zuul网关路由
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

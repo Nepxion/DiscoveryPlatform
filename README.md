@@ -1,7 +1,7 @@
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Banner.png)
 
 # Discovery【探索】微服务企业级解决方案
-![Total visits](https://komarev.com/ghpvc/?username=Nepxion&label=total%20visits&color=blue)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/6.x.x/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework-starter.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework-starter)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=6.x.x)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c42eb719ef64def9cad773abd877e8b)](https://www.codacy.com/gh/Nepxion/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Discovery.svg?label=Stars&tyle=flat&logo=GitHub)](https://github.com/Nepxion/Discovery/stargazers)  [![Stars](https://gitee.com/Nepxion/Discovery/badge/star.svg?theme=gvp)](https://gitee.com/Nepxion/Discovery/stargazers)
+![Total visits](https://visitor-badge.laobi.icu/badge?page_id=Nepxion&title=total%20visits)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/6.x.x/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework-starter.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework-starter)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=6.x.x)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c42eb719ef64def9cad773abd877e8b)](https://www.codacy.com/gh/Nepxion/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Discovery.svg?label=Stars&tyle=flat&logo=GitHub)](https://github.com/Nepxion/Discovery/stargazers)  [![Stars](https://gitee.com/Nepxion/Discovery/badge/star.svg?theme=gvp)](https://gitee.com/Nepxion/Discovery/stargazers)
 
 [![Spring Boot](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-dependencies.svg?label=Spring%20Boot&logo=Spring)](https://search.maven.org/artifact/org.springframework.boot/spring-boot-dependencies)  [![Spring Cloud](https://img.shields.io/maven-central/v/org.springframework.cloud/spring-cloud-dependencies.svg?label=Spring%20Cloud&logo=Spring)](https://search.maven.org/artifact/org.springframework.cloud/spring-cloud-dependencies)  [![Spring Cloud Alibaba](https://img.shields.io/maven-central/v/com.alibaba.cloud/spring-cloud-alibaba-dependencies.svg?label=Spring%20Cloud%20Alibaba&logo=Spring)](https://search.maven.org/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies)  [![Nepxion Discovery](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=Nepxion%20Discovery&logo=Anaconda)](https://search.maven.org/artifact/com.nepxion/discovery)
 
@@ -150,9 +150,9 @@ Polaris为Discovery高级定制版，特色功能
     - [请联系我](#请联系我)
 - [工程架构](#工程架构)
     - [工程清单](#工程清单)
+    - [配置清单](#配置清单)
     - [依赖引入](#依赖引入)
 - [准备工作](#准备工作)
-    - [修改配置](#修改配置)
     - [运行示例](#运行示例)
     - [启动平台](#启动平台)
 - [操作手册](#操作手册)
@@ -177,6 +177,19 @@ Polaris为Discovery高级定制版，特色功能
 | &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-dingding | 封装钉钉通用操作逻辑的Starter |
 | &nbsp;&nbsp;<img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-mail | 封装邮件通用操作逻辑的Starter |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-application | 平台服务端可执行应用 |
+
+### 配置清单
+
+配置文件位于discovery-platform-application/src/main/resources目录下
+
+| 配置文件 | 描述 |
+| --- | --- |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-mysql.properties | 平台MySQL数据库配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
 
 ### 依赖引入
 
@@ -232,16 +245,19 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ## 准备工作
 
-### 修改配置
-
 ### 运行示例
-参考`如何快速搭建和运行示例`的Wiki文章
+参考《如何快速搭建和运行示例》的Wiki文章
 
 [Gitee Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
 
 [Github Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
 
 ### 启动平台
+使用者可以复制discovery-platform-application目录单独导入IDE或者编译成可执行包运行
+
+选择下面其中一个运行，需要实现确认相关配置的正确性
+- PlatformMySqlApplication.java，基于MySql数据库的运行入口
+- PlatformH2Application.java，基于H2内存数据库的运行入口
 
 ## 操作手册
 

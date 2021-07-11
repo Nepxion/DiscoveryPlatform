@@ -152,9 +152,15 @@ Polaris为Discovery高级定制版，特色功能
     - [工程清单](#工程清单)
     - [配置清单](#配置清单)
     - [依赖引入](#依赖引入)
-- [准备工作](#准备工作)
-    - [运行示例](#运行示例)
-    - [启动平台](#启动平台)
+- [环境搭建](#环境搭建)
+    - [云环境体验](#云环境体验)
+        - [云环境平台登录](#云环境平台登录)
+        - [云环境调用验证](#云环境调用验证)
+    - [本地环境搭建](#本地环境搭建)
+        - [运行示例](#运行示例)
+        - [启动平台](#启动平台)
+        - [本地环境平台登录](#本地环境平台登录)
+        - [本地环境调用验证](#本地环境调用验证)
 - [操作手册](#操作手册)
     - [平台登录](#平台登录)
     - [服务发布](#服务发布)
@@ -253,30 +259,47 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 </dependency>
 ```
 
-## 准备工作
+## 环境搭建
+使用者可以直接使用云环境进行体验，也可以通过本地环境搭建进行体验
 
-### 运行示例
+### 云环境体验
+
+#### 云环境平台登录
+浏览器上输入[http://122.112.212.172:6001/platform](http://122.112.212.172:6001/platform)，初始用户名和密码为admin/admin
+
+登录页面底部为重要的链接以及快速联系我们的方式
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
+
+#### 云环境调用验证
+通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
+
+[http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1)
+[http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2)
+
+### 本地环境搭建
+
+#### 运行示例
 参考《如何快速搭建和运行示例》的Wiki文章
 
 [Gitee Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
 
 [Github Wiki](https://gitee.com/Nepxion/Discovery/wikis/pages?sort_id=4034835&doc_id=1124387)
 
-### 启动平台
+#### 启动平台
 使用者可以复制discovery-platform-application目录单独导入IDE或者编译成可执行包运行
 
 选择下面其中一个运行，需要实现确认相关配置的正确性
 - PlatformMySqlApplication.java，基于MySql数据库的运行入口
 - PlatformH2Application.java，基于H2内存数据库的运行入口
 
+#### 本地环境平台登录
+参考[云环境平台登录](#云环境平台登录)，把IP地址改成localhost即可
+
+#### 本地环境调用验证
+参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
+
 ## 操作手册
-
-### 平台登录
-在本地环境，浏览器上输入[http://localhost:6001/platform](http://localhost:6001/platform)，初始用户名和密码为admin/admin
-
-登录页面底部为重要的链接以及快速联系我们的方式
-
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 ### 服务发布
 

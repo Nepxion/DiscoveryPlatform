@@ -275,6 +275,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
 
 [http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1)
+
 [http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2)
 
 ### 本地环境搭建

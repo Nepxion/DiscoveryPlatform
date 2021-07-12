@@ -12,4 +12,4 @@
 - 限流熔断降级授权、防护扩展
 
 [GitHub](https://github.com/Nepxion/DiscoveryPlatform/)
-[Get Started](#Discovery【探索】微服务企业级解决方案)
+[Get Started](#Discovery【探索】云原生微服务解决方案)

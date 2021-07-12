@@ -260,8 +260,14 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 云环境体验
 
+#### 云环境服务注册发现和配置中心
+
+采用Nacos作为服务注册发现和配置中心
+
+[http://218.78.55.64:8848/nacos](http://218.78.55.64:8848/nacos)
+
 #### 云环境平台登录
-浏览器上输入[http://122.112.212.172:6001/platform](http://122.112.212.172:6001/platform)，初始用户名和密码为admin/admin
+浏览器上输入[http://218.78.55.64:6001/platform](http://218.78.55.64:6001/platform)，初始用户名和密码为admin/admin
 
 登录页面底部为重要的链接以及快速联系我们的方式
 
@@ -270,9 +276,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 云环境调用验证
 通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
 
-[http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=1)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1)
 
-[http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2](http://122.112.212.172:5001/discovery-guide-service-a/invoke/gateway?a=2)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2)
 
 ### 本地环境搭建
 

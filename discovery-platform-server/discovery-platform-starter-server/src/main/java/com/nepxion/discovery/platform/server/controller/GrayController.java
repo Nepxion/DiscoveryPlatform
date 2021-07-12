@@ -42,18 +42,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
-@Api("蓝绿发布相关接口")
+@Api("灰度发布接口")
 @RestController
-@RequestMapping(BlueGreenController.PREFIX)
-public class BlueGreenController {
-    public static final String PREFIX = "blue-green";
+@RequestMapping(GrayController.PREFIX)
+public class GrayController {
+    public static final String PREFIX = "gray";
 
     @Autowired
     private BlueGreenService blueGreenService;
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
-    @ApiOperation("获取蓝绿发布信息列表")
+    @ApiOperation("获取灰度发布信息列表")
     @PostMapping("do-list")
     public Result<List<BlueGreenDto>> doList(ListSearchNamePo listSearchNamePo) {
         IPage<BlueGreenDto> blueGreenDtoPage = blueGreenService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
@@ -120,9 +120,7 @@ public class BlueGreenController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
-
-    @SuppressWarnings("unchecked")
-    @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
+    @ApiOperation("获取Spring Cloud Gateway网关正在工作的灰度信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
     public Result<Map<String, String>> doListWorking(@RequestParam(value = "portalType", required = true, defaultValue = StringUtils.EMPTY) String portalType,
@@ -158,37 +156,37 @@ public class BlueGreenController {
     }
 
 
-    @ApiOperation("新增蓝绿信息")
+    @ApiOperation("新增灰度信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
         return Result.ok(blueGreenService.insert(blueGreenPo));
     }
 
-    @ApiOperation("修改蓝绿信息")
+    @ApiOperation("修改灰度信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
         blueGreenService.update(blueGreenPo);
         return Result.ok();
     }
 
-    @ApiOperation("启用蓝绿")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @ApiOperation("启用灰度")
+    @ApiImplicitParam(name = "id", value = "灰度id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
         blueGreenService.enable(id, true);
         return Result.ok();
     }
 
-    @ApiOperation("禁用蓝绿")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @ApiOperation("禁用灰度")
+    @ApiImplicitParam(name = "id", value = "灰度id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
         blueGreenService.enable(id, false);
         return Result.ok();
     }
 
-    @ApiOperation("删除蓝绿")
-    @ApiImplicitParam(name = "ids", value = "蓝绿id, 多个用逗号分隔", required = true, dataType = "String")
+    @ApiOperation("删除灰度")
+    @ApiImplicitParam(name = "ids", value = "灰度id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
@@ -196,7 +194,7 @@ public class BlueGreenController {
         return Result.ok();
     }
 
-    @ApiOperation("发布蓝绿")
+    @ApiOperation("发布灰度")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         blueGreenService.publish();

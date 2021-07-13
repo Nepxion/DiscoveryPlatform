@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.controller;
 
 import java.util.Calendar;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class IndexPageController {
     @GetMapping(value = { PlatformConstant.PLATFORM })
     public String login(Model model) {
         model.addAttribute("version", CommonTool.getVersion());
+        model.addAttribute("sdkVersion", CommonTool.getSdkVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
         return "login";
     }

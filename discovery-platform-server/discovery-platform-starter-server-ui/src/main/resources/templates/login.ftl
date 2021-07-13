@@ -44,7 +44,7 @@
                   <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="24" height="24" src="${ctx}/images/gongzhonghao.png" alt="GongZhongHao"></a>
                   <a href="mailto:zhangningkid@163.com" tppabs="#"><img width="24" height="24" src="${ctx}/images/email.png" alt="Email"></a>
                 </p>
-                <p>Version&nbsp;:&nbsp;${version}</p>
+                <p>Version&nbsp;:&nbsp;${version} | SDK  Version : ${sdkVersion}</p>
             </div>
         </div>
     </div>

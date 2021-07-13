@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.constant;
 
 public class PlatformConstant {
     public static final String PLATFORM_VERSION = "1.0.0-SNAPSHOT";
+    public static final String SDK_VERSION = "6.11.0";
     public static final String PLATFORM = "platform";
 
     public static final String CURRENT_ADMIN_LOGIN = "CURRENT_ADMIN_LOGIN";

@@ -12,7 +12,6 @@ package com.nepxion.discovery.platform.server.controller;
 
 import java.util.Calendar;
 
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

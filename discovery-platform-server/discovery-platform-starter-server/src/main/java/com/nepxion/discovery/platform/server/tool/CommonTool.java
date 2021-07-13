@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -41,7 +42,7 @@ public class CommonTool {
     }
 
     public static String getSDKVersion() {
-        return System.getProperty("version", PlatformConstant.SDK_VERSION);
+        return System.getProperty("version", DiscoveryConstant.DISCOVERY_VERSION);
     }
 
     public static String hash(String value) {

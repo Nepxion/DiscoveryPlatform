@@ -10,8 +10,11 @@ package com.nepxion.discovery.platform.server.constant;
  * @version 1.0
  */
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
+
 public class PlatformConstant {
     public static final String PLATFORM_VERSION = "1.0.0-SNAPSHOT";
+    public static final String SDK_VERSION = DiscoveryConstant.DISCOVERY_VERSION;
     public static final String PLATFORM = "platform";
 
     public static final String CURRENT_ADMIN_LOGIN = "CURRENT_ADMIN_LOGIN";

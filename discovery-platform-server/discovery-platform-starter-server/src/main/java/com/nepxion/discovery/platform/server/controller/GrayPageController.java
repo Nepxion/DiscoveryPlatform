@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
-import com.nepxion.discovery.platform.server.adapter.PlatformLoginAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
+import com.nepxion.discovery.platform.server.service.GrayService;
 
 @Controller
 @RequestMapping(GrayController.PREFIX)
 public class GrayPageController {
     @Autowired
-    private BlueGreenService blueGreenService;
+    private GrayService grayService;
 
     @GetMapping("list")
     public String list() {
@@ -45,11 +45,11 @@ public class GrayPageController {
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        BlueGreenDto blueGreenDto = blueGreenService.getById(id);
+        GrayDto grayDto = grayService.getById(id);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(blueGreenDto.getType()));
-        model.addAttribute("entity", blueGreenDto);
+        model.addAttribute("type", BlueGreenDto.Type.get(grayDto.getType()));
+        model.addAttribute("entity", grayDto);
         return String.format("%s/%s", GrayController.PREFIX, "edit");
     }
 

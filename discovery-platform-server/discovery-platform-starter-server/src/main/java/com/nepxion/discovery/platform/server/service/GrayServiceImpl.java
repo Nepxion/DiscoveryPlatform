@@ -43,10 +43,11 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
-import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
+import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
+import com.nepxion.discovery.platform.server.entity.po.GrayPo;
+import com.nepxion.discovery.platform.server.mapper.GrayMapper;
 
-public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper, BlueGreenDto> implements BlueGreenService {
+public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto> implements GrayService {
 
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
@@ -54,27 +55,27 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
     @Override
     public void publish() throws Exception {
         publish(platformDiscoveryAdapter.getGatewayNames(),
-                new PublishAction<BlueGreenDto>() {
+                new PublishAction<GrayDto>() {
                     @Override
-                    public Object process(BlueGreenDto blueGreenDto) {
-                        return blueGreenDto;
+                    public Object process(GrayDto grayDto) {
+                        return grayDto;
                     }
 
                     @Override
-                    public void publishEmptyConfig(String portalName, List<BlueGreenDto> blueGreenDtoList) throws Exception {
+                    public void publishEmptyConfig(String portalName, List<GrayDto> grayDtoList) throws Exception {
                         RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                         ruleEntity.setStrategyEntity(new StrategyEntity());
                         ruleEntity.setStrategyReleaseEntity(new StrategyReleaseEntity());
 
-                        if (CollectionUtils.isEmpty(blueGreenDtoList)) {
+                        if (CollectionUtils.isEmpty(grayDtoList)) {
                             platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
                         } else {
                             Set<BaseStateEntity.PortalType> portalTypeSet = new HashSet<>();
-                            for (BlueGreenDto blueGreenDto : blueGreenDtoList) {
-                                portalTypeSet.add(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()));
+                            for (GrayDto grayDto : grayDtoList) {
+                                portalTypeSet.add(BaseStateEntity.PortalType.get(grayDto.getPortalType()));
                             }
                             for (BaseStateEntity.PortalType portalType : portalTypeSet) {
-                                BlueGreenServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
+                                GrayServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
                             }
                         }
                     }
@@ -124,7 +125,7 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
                             }
 
                             ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
-                            BlueGreenServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()), portalName, ruleEntity);
+                            GrayServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()), portalName, ruleEntity);
                         }
                     }
                 }
@@ -133,44 +134,44 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @TransactionReader
     @Override
-    public IPage<BlueGreenDto> page(String name, Integer page, Integer limit) {
-        LambdaQueryWrapper<BlueGreenDto> queryWrapper = new LambdaQueryWrapper<>();
+    public IPage<GrayDto> page(String name, Integer page, Integer limit) {
+        LambdaQueryWrapper<GrayDto> queryWrapper = new LambdaQueryWrapper<>();
         if (!StringUtils.isEmpty(name)) {
-            queryWrapper.like(BlueGreenDto::getDescription, name);
+            queryWrapper.like(GrayDto::getDescription, name);
         }
-        queryWrapper.orderByAsc(BlueGreenDto::getCreateTime);
+        queryWrapper.orderByAsc(GrayDto::getCreateTime);
         return this.page(new Page<>(page, limit), queryWrapper);
     }
 
     @TransactionWriter
     @Override
-    public Boolean insert(BlueGreenPo blueGreenPo) {
-        BlueGreenDto blueGreenDto = prepareInsert(new BlueGreenDto());
-        blueGreenDto.setPortalName(blueGreenPo.getPortalName());
-        blueGreenDto.setPortalType(blueGreenPo.getPortalType());
-        blueGreenDto.setType(blueGreenPo.getType());
-        blueGreenDto.setStrategy(blueGreenPo.getStrategy());
-        blueGreenDto.setCondition(blueGreenPo.getCondition());
-        blueGreenDto.setRoute(blueGreenPo.getRoute());
-        blueGreenDto.setHeader(blueGreenPo.getHeader());
-        blueGreenDto.setDescription(blueGreenPo.getDescription());
-        return save(blueGreenDto);
+    public Boolean insert(GrayPo grayPo) {
+        GrayDto grayDto = prepareInsert(new GrayDto());
+        grayDto.setPortalName(grayPo.getPortalName());
+        grayDto.setPortalType(grayPo.getPortalType());
+        grayDto.setType(grayPo.getType());
+        grayDto.setStrategy(grayPo.getStrategy());
+        grayDto.setCondition(grayPo.getCondition());
+        grayDto.setRoute(grayPo.getRoute());
+        grayDto.setHeader(grayPo.getHeader());
+        grayDto.setDescription(grayPo.getDescription());
+        return save(grayDto);
     }
 
     @TransactionWriter
     @Override
-    public Boolean update(BlueGreenPo blueGreenPo) {
-        BlueGreenDto blueGreenDto = prepareUpdate(this.getById(blueGreenPo.getId()));
-        if (blueGreenDto == null) {
+    public Boolean update(GrayPo grayPo) {
+        GrayDto grayDto = prepareUpdate(this.getById(grayPo.getId()));
+        if (grayDto == null) {
             return false;
         }
-        blueGreenDto.setType(blueGreenPo.getType());
-        blueGreenDto.setStrategy(blueGreenPo.getStrategy());
-        blueGreenDto.setCondition(blueGreenPo.getCondition());
-        blueGreenDto.setRoute(blueGreenPo.getRoute());
-        blueGreenDto.setHeader(blueGreenPo.getHeader());
-        blueGreenDto.setDescription(blueGreenPo.getDescription());
-        return updateById(blueGreenDto);
+        grayDto.setType(grayPo.getType());
+        grayDto.setStrategy(grayPo.getStrategy());
+        grayDto.setCondition(grayPo.getCondition());
+        grayDto.setRoute(grayPo.getRoute());
+        grayDto.setHeader(grayPo.getHeader());
+        grayDto.setDescription(grayPo.getDescription());
+        return updateById(grayDto);
     }
 
     @TransactionReader

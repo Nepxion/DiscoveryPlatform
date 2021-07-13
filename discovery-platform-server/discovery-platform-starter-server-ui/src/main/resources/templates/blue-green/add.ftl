@@ -13,9 +13,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" checked>
-                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型">
-                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关" checked>
+                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组">
                 </div>
             </div>
 

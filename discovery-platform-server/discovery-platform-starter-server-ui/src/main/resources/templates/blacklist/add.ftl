@@ -12,9 +12,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label">入口类型</label>
             <div class="layui-input-block">
-                <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" checked>
-                <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型">
-                <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型">
+                <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关" checked>
+                <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务">
+                <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组">
             </div>
         </div>
 
@@ -44,8 +44,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">黑名单类型</label>
             <div class="layui-input-block">
-                <input type="radio" name="serviceBlacklistType" value="1" title="UUID黑名单" checked>
-                <input type="radio" name="serviceBlacklistType" value="2" title="IP地址和端口黑名单">
+                <input type="radio" name="serviceBlacklistType" value="1" title="UUID" checked>
+                <input type="radio" name="serviceBlacklistType" value="2" title="IP地址和端口">
             </div>
         </div>
 

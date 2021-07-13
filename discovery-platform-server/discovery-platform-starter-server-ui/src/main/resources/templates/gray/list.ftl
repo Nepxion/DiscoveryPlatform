@@ -57,11 +57,11 @@
 
                 <script type="text/html" id="colPortalType">
                     {{#  if(d.portalType==1){ }}
-                    网关灰度
+                    网关
                     {{#  } else if(d.portalType==2){ }}
-                    服务灰度
+                    服务
                     {{#  } else if(d.portalType==3){ }}
-                    组灰度
+                    组
                     {{#  } else { }}
                     UNKNOWN
                     {{#  } }}

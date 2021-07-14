@@ -301,6 +301,10 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - PlatformMySqlApplication.java，基于MySql数据库的运行入口
 - PlatformH2Application.java，基于H2内存数据库的运行入口
 
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：基于H2内存数据库模式的平台，需要事先启动H2内存数据库服务器，从如下链接下载、安装并运行
+
+[http://h2database.com/html/download.html](http://h2database.com/html/download.html)
+
 #### 本地环境平台登录
 参考[云环境平台登录](#云环境平台登录)，把IP地址改成localhost即可
 

@@ -80,6 +80,13 @@
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="viewGraph">
+                                <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;查看<b>拓扑</b>图
+                            </button>
+                        </div>
+                    </@insert>
+                        <@insert>
                             <div class="layui-btn-group">
                                 <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
                                     <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
@@ -176,7 +183,15 @@
             });
 
             table.on('toolbar(grid)', function (obj) {
-                if (obj.event === 'addVersion') {
+                if (obj.event === 'viewGraph') {
+                    layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;查看拓扑图',
+                    content: 'view?id=1',
+                    area: ['1045px', '98%'],
+                    btn: admin.BUTTONS,
+                    resize: false});
+                } else if (obj.event === 'addVersion') {
                     toAddPage(1);
                 } else if (obj.event === 'addRegion') {
                     toAddPage(2);

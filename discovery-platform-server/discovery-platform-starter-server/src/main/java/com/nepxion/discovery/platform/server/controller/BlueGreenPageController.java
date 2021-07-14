@@ -10,6 +10,8 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.service.GrayService;
+import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,8 @@ public class BlueGreenPageController {
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
+    private GrayService grayService = new GrayServiceImpl();
+
     @GetMapping("list")
     public String list() {
         return String.format("%s/%s", BlueGreenController.PREFIX, "list");
@@ -42,6 +46,16 @@ public class BlueGreenPageController {
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
         return String.format("%s/%s", BlueGreenController.PREFIX, "add");
+    }
+
+    @GetMapping("view")
+    public String view(Model model, @RequestParam("id") Long id) throws Exception {
+        String config = grayService.getGraySetting(id);
+        model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("logics", RelationalType.values());
+        model.addAttribute("id", id);
+        model.addAttribute("json", config);
+        return String.format("%s/%s", BlueGreenController.PREFIX, "view");
     }
 
     @GetMapping("edit")

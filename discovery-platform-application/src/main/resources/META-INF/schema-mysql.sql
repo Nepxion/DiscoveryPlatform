@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
-    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '蓝绿发布发布策略类型(1:版本策略, 2:区域策略)',
+    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '蓝绿发布策略类型(1:版本策略, 2:区域策略)',
     `strategy`                  TEXT                            NOT NULL COMMENT '蓝绿发布兜底服务编排',
     `condition`                 TEXT                            NOT NULL COMMENT '蓝绿发布条件编排',
     `route`                     TEXT                            NOT NULL COMMENT '蓝绿发布服务编排',
@@ -162,6 +162,27 @@ CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
 ) COMMENT = '蓝绿发布信息';
+
+CREATE TABLE IF NOT EXISTS `t_gray`  (
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
+    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '灰度发布策略类型(1:版本策略, 2:区域策略)',
+    `strategy`                  TEXT                            NOT NULL COMMENT '灰度发布兜底服务编排',
+    `condition`                 TEXT                            NOT NULL COMMENT '灰度发布条件编排',
+    `route`                     TEXT                            NOT NULL COMMENT '灰度发布服务编排',
+    `header`                    TEXT                            NOT NULL COMMENT '灰度发布header请求头编排',
+    `description`               VARCHAR(128)                    NOT NULL COMMENT '描述信息',
+    `operation`                 TINYINT(0) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
+    `enable_flag`               TINYINT(0) UNSIGNED             NOT NULL COMMENT '是否启用',
+    `publish_flag`              TINYINT(0) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
+    `delete_flag`               TINYINT(0) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
+    `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
+) COMMENT = '灰度发布信息';
+
 
 INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`) VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');
 

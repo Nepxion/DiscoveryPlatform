@@ -58,6 +58,8 @@ import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
 import com.nepxion.discovery.platform.server.service.ConsoleService;
 import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
+import com.nepxion.discovery.platform.server.service.GrayService;
+import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
 import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
@@ -268,6 +270,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public BlueGreenService blueGreenService() {
         return new BlueGreenServiceImpl();
+    }
+
+    @Bean
+    public GrayService grayService() {
+        return new GrayServiceImpl();
     }
 
     @Bean

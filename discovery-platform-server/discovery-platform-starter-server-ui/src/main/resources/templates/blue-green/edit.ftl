@@ -12,17 +12,14 @@
         <div class="layui-form-item">
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
-                <div class="layui-input-block">
-                    <input disabled="disabled" type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" ${(entity.portalType==1)?string('checked','')}>
-                    <input disabled="disabled" type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型" ${(entity.portalType==2)?string('checked','')}>
-                    <input disabled="disabled" type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型" ${(entity.portalType==3)?string('checked','')}>
+                <div class="layui-input-inline" style="width: 850px">
+                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关类型<#elseif entity.portalType==2>服务类型<#elseif entity.portalType==3>组类型</#if>">
                 </div>
             </div>
 
             <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 850px">
-                <select id="portalName" name="portalName" disabled="disabled" lay-filter="portalName" lay-verify="required" lay-search>
-                </select>
+                <input type="text" readonly="readonly" class="layui-input layui-disabled" value="${entity.portalName}">
             </div>
 
             <div class="layui-form-item">

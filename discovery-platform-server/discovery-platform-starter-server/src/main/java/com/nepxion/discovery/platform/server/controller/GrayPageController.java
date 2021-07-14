@@ -10,8 +10,6 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.service.GrayService;
-import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +21,18 @@ import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
+import com.nepxion.discovery.platform.server.service.GrayService;
 
 @Controller
-@RequestMapping(BlueGreenController.PREFIX)
-public class BlueGreenPageController {
+@RequestMapping(GrayController.PREFIX)
+public class GrayPageController {
     @Autowired
-    private BlueGreenService blueGreenService;
-
-    private GrayService grayService = new GrayServiceImpl();
+    private GrayService grayService;
 
     @GetMapping("list")
     public String list() {
-        return String.format("%s/%s", BlueGreenController.PREFIX, "list");
+        return String.format("%s/%s", GrayController.PREFIX, "list");
     }
 
     @GetMapping("add")
@@ -43,38 +40,28 @@ public class BlueGreenPageController {
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
-        return String.format("%s/%s", BlueGreenController.PREFIX, "add");
-    }
-
-    @GetMapping("view")
-    public String view(Model model, @RequestParam("id") Long id) throws Exception {
-        String config = grayService.getById(id).getRoute();
-        model.addAttribute("operators", ArithmeticType.values());
-        model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("id", id);
-        model.addAttribute("json", config);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "view");
+        return String.format("%s/%s", GrayController.PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        BlueGreenDto blueGreenDto = blueGreenService.getById(id);
+        GrayDto grayDto = grayService.getById(id);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(blueGreenDto.getType()));
-        model.addAttribute("entity", blueGreenDto);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
+        model.addAttribute("type", BlueGreenDto.Type.get(grayDto.getType()));
+        model.addAttribute("entity", grayDto);
+        return String.format("%s/%s", GrayController.PREFIX, "edit");
     }
 
     @GetMapping("verify")
     public String verify(Model model, @RequestParam(name = "expression") String expression) {
         model.addAttribute("expression", expression);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "verify");
+        return String.format("%s/%s", GrayController.PREFIX, "verify");
     }
 
     @GetMapping("working")
     public String working(Model model) {
         model.addAttribute("portalTypes", BaseStateEntity.PortalType.values());
-        return String.format("%s/%s", BlueGreenController.PREFIX, "working");
+        return String.format("%s/%s", GrayController.PREFIX, "working");
     }
 }

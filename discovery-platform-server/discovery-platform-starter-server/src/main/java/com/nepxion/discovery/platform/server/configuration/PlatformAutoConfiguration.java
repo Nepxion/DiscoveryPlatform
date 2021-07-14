@@ -30,6 +30,8 @@ import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
 import com.nepxion.discovery.platform.server.controller.ConsoleController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
+import com.nepxion.discovery.platform.server.controller.GrayController;
+import com.nepxion.discovery.platform.server.controller.GrayPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
 import com.nepxion.discovery.platform.server.controller.IndexPageController;
 import com.nepxion.discovery.platform.server.controller.MenuController;
@@ -56,6 +58,8 @@ import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
 import com.nepxion.discovery.platform.server.service.ConsoleService;
 import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
+import com.nepxion.discovery.platform.server.service.GrayService;
+import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
 import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
@@ -152,6 +156,11 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public GrayPageController grayPageController() {
+        return new GrayPageController();
+    }
+
+    @Bean
     public DashboardController dashboardController() {
         return new DashboardController();
     }
@@ -199,6 +208,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public BlueGreenController blueGreenController() {
         return new BlueGreenController();
+    }
+
+    @Bean
+    public GrayController grayController() {
+        return new GrayController();
     }
 
     @Bean
@@ -256,6 +270,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public BlueGreenService blueGreenService() {
         return new BlueGreenServiceImpl();
+    }
+
+    @Bean
+    public GrayService grayService() {
+        return new GrayServiceImpl();
     }
 
     @Bean

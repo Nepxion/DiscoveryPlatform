@@ -98,6 +98,10 @@ public class PlatformDiscoveryAdapter {
         return configResource.viewConfig(serviceName);
     }
 
+    public String viewConfigByGroupName(String groupName) throws Exception {
+        return configResource.getRemoteConfig(groupName, groupName);
+    }
+
     public RuleEntity getLocalRuleConfig(String serviceName) {
         List<String> configList = getRuleConfig(serviceName);
         return toRuleEntity(configList.get(0));

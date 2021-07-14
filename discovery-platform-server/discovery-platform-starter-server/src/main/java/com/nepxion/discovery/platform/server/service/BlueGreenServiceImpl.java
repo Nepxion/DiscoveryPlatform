@@ -164,8 +164,6 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
         if (blueGreenDto == null) {
             return false;
         }
-        blueGreenDto.setPortalName(blueGreenPo.getPortalName());
-        blueGreenDto.setPortalType(blueGreenPo.getPortalType());
         blueGreenDto.setType(blueGreenPo.getType());
         blueGreenDto.setStrategy(blueGreenPo.getStrategy());
         blueGreenDto.setCondition(blueGreenPo.getCondition());

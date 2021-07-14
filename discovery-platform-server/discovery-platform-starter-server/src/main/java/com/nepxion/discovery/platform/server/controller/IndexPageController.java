@@ -31,6 +31,7 @@ public class IndexPageController {
     @GetMapping(value = { PlatformConstant.PLATFORM })
     public String login(Model model) {
         model.addAttribute("version", CommonTool.getVersion());
+        model.addAttribute("sdkVersion", CommonTool.getSDKVersion());
         model.addAttribute("year", Calendar.getInstance().get(Calendar.YEAR));
         return "login";
     }

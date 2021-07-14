@@ -12,26 +12,14 @@
         <div class="layui-form-item">
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" ${(entity.portalType==1)?string('checked','')}>
-                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型" ${(entity.portalType==2)?string('checked','')}>
-                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型" ${(entity.portalType==3)?string('checked','')}>
+                <div class="layui-input-inline" style="width: 850px">
+                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关类型<#elseif entity.portalType==2>服务类型<#elseif entity.portalType==3>组类型</#if>">
                 </div>
             </div>
 
             <label class="layui-form-label">入口名称</label>
             <div class="layui-input-inline" style="width: 850px">
-                <div class="layui-row">
-                    <div class="layui-col-md11">
-                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
-                        </select>
-                    </div>
-                    <div class="layui-col-md1">
-                        <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
-                            <i class="layui-icon">&#xe669;</i>
-                        </a>
-                    </div>
-                </div>
+                <input type="text" readonly="readonly" class="layui-input layui-disabled" value="${entity.portalName}">
             </div>
 
             <div class="layui-form-item">
@@ -275,7 +263,7 @@
                     });
 
                     function reloadPortalName() {
-                        admin.post('do-list-portal-names', {'portalName': '${entity.portalName}', 'portalType': portalType}, function (result) {
+                        admin.post('do-list-portal-names', {'portalName': '${entity.portalName}', 'portalTypeInt': portalType}, function (result) {
                             const selPortalName = $("select[name=portalName]");
                             let portalTypeName = '';
                             if (portalType == 1) {

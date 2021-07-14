@@ -71,6 +71,10 @@ public class CommonTool {
         return System.getProperty("version", PlatformConstant.PLATFORM_VERSION);
     }
 
+    public static String getSDKVersion() {
+        return System.getProperty("sdkVersion", PlatformConstant.SDK_VERSION);
+    }
+
     public static String hash(String value) {
         return new Md5Hash(value, SALT).toString();
     }

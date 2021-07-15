@@ -13,7 +13,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
                 <div class="layui-input-inline" style="width: 850px">
-                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关类型<#elseif entity.portalType==2>服务类型<#elseif entity.portalType==3>组类型</#if>">
+                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关<#elseif entity.portalType==2>服务<#elseif entity.portalType==3>组</#if>">
                 </div>
             </div>
 

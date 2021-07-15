@@ -49,6 +49,7 @@
                     </li>
                     <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
                         <a href="javascript:">
+                            <i class="layui-icon layui-icon-friends"></i>&nbsp;&nbsp;
                             <cite>${admin.name}</cite>
                         </a>
                         <dl class="layui-nav-child">

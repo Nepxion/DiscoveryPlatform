@@ -16,8 +16,8 @@
 
     <div class="layui-fluid">
         <div class="layadmin-tips">
-                <img src="${ctx}/layuiadmin/lib/extend/layim/layim-assets/error/developing.jpg">
-            <div class="layui-text" style="font-size: 20px;color:red">
+                <img src="${ctx}/layuiadmin/lib/extend/layim/layim-assets/error/operate.gif">
+            <div class="layui-text" style="font-size: 20px">
                 ${msg}
             </div>
 

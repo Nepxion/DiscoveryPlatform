@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.controller;
  */
 
 import io.swagger.annotations.Api;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,10 @@ public class ErrorPageController {
     public static final String PREFIX = "error";
 
     @GetMapping(value = "/404.do")
-    public ModelAndView notFund(Model model){
+    public ModelAndView notFund(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("msg","功能模块正在开发中，敬请期待...");
-        modelAndView.setViewName("/404");
+        modelAndView.addObject("msg", "功能模块正在焦头烂额的开发中，敬请期待...");
+        modelAndView.setViewName("/error/404");
         return modelAndView;
     }
-
 }

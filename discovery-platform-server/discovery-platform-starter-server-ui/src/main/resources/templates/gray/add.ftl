@@ -388,7 +388,8 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {templet: '#tServiceName' + tabIndex, title: '路由名', unresize: true, width: 323},
-                                {title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true}
+                                {title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: [newRouteRow()]
                         });

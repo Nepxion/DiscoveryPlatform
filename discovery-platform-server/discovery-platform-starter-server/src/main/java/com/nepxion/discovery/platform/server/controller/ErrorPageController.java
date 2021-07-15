@@ -26,7 +26,7 @@ public class ErrorPageController {
     @GetMapping(value = "/404.do")
     public ModelAndView notFund(Model model){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("msg","功能模块正在开发中，敬请期待~");
+        modelAndView.addObject("msg","功能模块正在开发中，敬请期待...");
         modelAndView.setViewName("/404");
         return modelAndView;
     }

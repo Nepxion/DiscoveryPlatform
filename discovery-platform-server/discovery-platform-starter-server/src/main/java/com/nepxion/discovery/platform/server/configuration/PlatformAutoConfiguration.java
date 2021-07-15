@@ -11,9 +11,13 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.controller.*;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,29 +25,6 @@ import com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
-import com.nepxion.discovery.platform.server.controller.AdminController;
-import com.nepxion.discovery.platform.server.controller.AdminPageController;
-import com.nepxion.discovery.platform.server.controller.BlacklistController;
-import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
-import com.nepxion.discovery.platform.server.controller.ConsoleController;
-import com.nepxion.discovery.platform.server.controller.DashboardController;
-import com.nepxion.discovery.platform.server.controller.DashboardPageController;
-import com.nepxion.discovery.platform.server.controller.GrayController;
-import com.nepxion.discovery.platform.server.controller.GrayPageController;
-import com.nepxion.discovery.platform.server.controller.IndexController;
-import com.nepxion.discovery.platform.server.controller.IndexPageController;
-import com.nepxion.discovery.platform.server.controller.MenuController;
-import com.nepxion.discovery.platform.server.controller.MenuPageController;
-import com.nepxion.discovery.platform.server.controller.PermissionController;
-import com.nepxion.discovery.platform.server.controller.PermissionPageController;
-import com.nepxion.discovery.platform.server.controller.RoleController;
-import com.nepxion.discovery.platform.server.controller.RolePageController;
-import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
-import com.nepxion.discovery.platform.server.controller.RouteGatewayPageController;
-import com.nepxion.discovery.platform.server.controller.RouteZuulController;
-import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
@@ -68,6 +49,7 @@ import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.eventbus.annotation.EnableEventBus;
+import org.springframework.http.HttpStatus;
 
 @Configuration
 @AutoConfigureBefore(ConsoleAutoConfiguration.class)
@@ -280,5 +262,22 @@ public class PlatformAutoConfiguration {
     @Bean
     public ConsoleService consoleService() {
         return new ConsoleServiceImpl();
+    }
+
+    @Bean
+    public ErrorPageController errorPageController(){
+        return new ErrorPageController();
+    }
+
+    @Bean
+    public ErrorPageRegistrar errorPageRegistrar(){
+        return new ErrorPageRegistrar() {
+            @Override
+            public void registerErrorPages(ErrorPageRegistry registry) {
+                ErrorPage[] errorPages = new ErrorPage[1];
+                errorPages[0] = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404.do");
+                registry.addErrorPages(errorPages);
+            }
+        };
     }
 }

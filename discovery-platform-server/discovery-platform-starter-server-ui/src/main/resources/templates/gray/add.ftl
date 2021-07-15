@@ -13,9 +13,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关类型" checked>
-                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务类型">
-                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组类型">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="1" title="网关" checked>
+                    <input type="radio" lay-filter="portalType" name="portalType" value="2" title="服务">
+                    <input type="radio" lay-filter="portalType" name="portalType" value="3" title="组">
                 </div>
             </div>
 
@@ -181,13 +181,13 @@
                     </div>
                 </div>
 
-                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">路由策略</span>
+                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">流量配比</span>
 
                 <table class="layui-hide" id="gridRoute$_INDEX_$" lay-filter="gridRoute$_INDEX_$"></table>
 
                 <script type="text/html" id="tServiceName$_INDEX_$">
                     <select name='serviceName' lay-filter='serviceName' tag="$_INDEX_$" lay-search>
-                        <option value="">请选择服务名称</option>
+                        <option value="">请选择路由名称</option>
                         {{# layui.each(d.serviceNameList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceName==item ?
                         'selected="selected"' : '' }}>
@@ -195,34 +195,6 @@
                         </option>
                         {{# }); }}
                     </select>
-                </script>
-
-                <script type="text/html" id="tValue$_INDEX_$">
-                    <select name='value' lay-filter='value' tag="$_INDEX_$" lay-search>
-                        <option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>
-                        {{# layui.each(d.valueList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.value==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="grid-route-bar">
-                    <@update>
-                        <div class="layui-btn-group">
-                            <a class="layui-btn layui-btn-sm" lay-event="refreshRoute">
-                                <i class="layui-icon">&#xe669;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-sm" lay-event="addRoute">
-                                <i class="layui-icon">&#xe654;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeRoute">
-                                <i class="layui-icon">&#xe67e;</i>
-                            </a>
-                        </div>
-                    </@update>
                 </script>
             </div>
 
@@ -415,9 +387,8 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                                {templet: '#tServiceName' + tabIndex, title: '路由名', unresize: true, width: 323},
+                                {title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true}
                             ]],
                             data: [newRouteRow()]
                         });

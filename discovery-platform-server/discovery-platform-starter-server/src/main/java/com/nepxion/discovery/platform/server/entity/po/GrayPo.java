@@ -20,10 +20,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "蓝绿路由信息")
-public class BlueGreenPo implements Serializable {
+@ApiModel(description = "灰度路由信息")
+public class GrayPo implements Serializable {
     private static final long serialVersionUID = 7174491897001035436L;
-    @ApiModelProperty("蓝绿id")
+    @ApiModelProperty("灰度id")
     private Long id;
 
     @ApiModelProperty("入口类型")
@@ -32,7 +32,7 @@ public class BlueGreenPo implements Serializable {
     @ApiModelProperty("入口名称")
     private String portalName;
 
-    @ApiModelProperty("蓝绿发布策略类型(1:版本策略, 2:区域策略)")
+    @ApiModelProperty("灰度发布策略类型(1:版本策略, 2:区域策略)")
     private Integer type;
 
     @ApiModelProperty("条件策略")

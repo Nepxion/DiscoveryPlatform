@@ -5,7 +5,7 @@
 
 [![Spring Boot](https://img.shields.io/maven-central/v/org.springframework.boot/spring-boot-dependencies.svg?label=Spring%20Boot&logo=Spring)](https://search.maven.org/artifact/org.springframework.boot/spring-boot-dependencies)  [![Spring Cloud](https://img.shields.io/maven-central/v/org.springframework.cloud/spring-cloud-dependencies.svg?label=Spring%20Cloud&logo=Spring)](https://search.maven.org/artifact/org.springframework.cloud/spring-cloud-dependencies)  [![Spring Cloud Alibaba](https://img.shields.io/maven-central/v/com.alibaba.cloud/spring-cloud-alibaba-dependencies.svg?label=Spring%20Cloud%20Alibaba&logo=Spring)](https://search.maven.org/artifact/com.alibaba.cloud/spring-cloud-alibaba-dependencies)  [![Nepxion Discovery](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=Nepxion%20Discovery&logo=Anaconda)](https://search.maven.org/artifact/com.nepxion/discovery)
 
-[![Discovery DOC PPT](https://img.shields.io/badge/Discovery%20Doc-PPT-brightgreen?logo=Microsoft%20PowerPoint)](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-ppt.html)  [![Discovery DOC PDF](https://img.shields.io/badge/Discovery%20Doc-PDF-brightgreen?logo=Adobe%20Acrobat%20Reader)](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-pdf.html)  [![Discovery DOC HTML](https://img.shields.io/badge/Discovery%20Doc-HTML-brightgreen?logo=Microsoft%20Edge)](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-html.html)
+[![Discovery PPT](https://img.shields.io/badge/Discovery%20-PPT-brightgreen?logo=Microsoft%20PowerPoint)](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-ppt.html)  [![Discovery WIKI](https://img.shields.io/badge/Discovery%20-WIKI-brightgreen?logo=Microsoft%20Edge)](http://nepxion.gitee.io/discovery/)  [![Discovery Platform WIKI](https://img.shields.io/badge/Discovery%20Platform%20-WIKI-brightgreen?logo=Microsoft%20Edge)](http://nepxion.gitee.io/discoveryplatform)  [![Polaris WIKI](https://img.shields.io/badge/Polaris%20-WIKI-brightgreen?logo=Microsoft%20Edge)](http://polaris-paas.gitee.io/polaris-sdk)
 
 <a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/maven.png"></a>&nbsp;  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/wechat.png"></a>&nbsp;  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/dingding.png"></a>&nbsp;  <a href="http://nepxion.gitee.io/discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="http://nepxion.gitee.io/discovery/docs/icon-doc/email.png"></a>
 
@@ -133,6 +133,11 @@ Polaris为Discovery高级定制版，特色功能
 ### 功能概述
 
 ### 郑重致谢
+感谢如下小伙伴参与本平台的开发和测试
+- Pegasus
+- 星河
+- Ayang
+- Rottenmu
 
 ### 请联系我
 微信、钉钉、公众号和文档
@@ -147,6 +152,7 @@ Polaris为Discovery高级定制版，特色功能
 - [工程架构](#工程架构)
     - [工程清单](#工程清单)
     - [配置清单](#配置清单)
+    - [架构核心](#架构核心)
     - [依赖引入](#依赖引入)
 - [环境搭建](#环境搭建)
     - [云环境体验](#云环境体验)
@@ -202,6 +208,10 @@ Polaris为Discovery高级定制版，特色功能
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+
+### 架构核心
+
+![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Platform.jpg)
 
 ### 依赖引入
 
@@ -296,6 +306,10 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - PlatformMySqlApplication.java，基于MySql数据库的运行入口
 - PlatformH2Application.java，基于H2内存数据库的运行入口
 
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：基于H2内存数据库模式的平台，需要事先启动H2内存数据库服务器，从如下链接下载、安装并运行
+
+[http://h2database.com/html/download.html](http://h2database.com/html/download.html)
+
 #### 本地环境平台登录
 参考[云环境平台登录](#云环境平台登录)，把IP地址改成localhost即可
 
@@ -303,6 +317,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
 
 ## 操作手册
+
+### 界面介绍
 
 ### 服务发布
 

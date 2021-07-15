@@ -32,11 +32,11 @@ import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
-import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
+import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
+import com.nepxion.discovery.platform.server.entity.po.GrayPo;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchNamePo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.service.GrayService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -49,14 +49,14 @@ public class GrayController {
     public static final String PREFIX = "gray";
 
     @Autowired
-    private BlueGreenService blueGreenService;
+    private GrayService grayService;
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @ApiOperation("获取灰度发布信息列表")
     @PostMapping("do-list")
-    public Result<List<BlueGreenDto>> doList(ListSearchNamePo listSearchNamePo) {
-        IPage<BlueGreenDto> blueGreenDtoPage = blueGreenService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
+    public Result<List<GrayDto>> doList(ListSearchNamePo listSearchNamePo) {
+        IPage<GrayDto> blueGreenDtoPage = grayService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(blueGreenDtoPage.getRecords(), blueGreenDtoPage.getTotal());
     }
 
@@ -99,7 +99,7 @@ public class GrayController {
         }
         if (excludeDb) {
             boolean flag = result.contains(portalName);
-            List<String> portNameList = blueGreenService.listPortalNames();
+            List<String> portNameList = grayService.listPortalNames();
             result.removeAll(portNameList);
             if (StringUtils.isNotEmpty(portalName) && flag) {
                 result.add(portalName);
@@ -158,14 +158,14 @@ public class GrayController {
 
     @ApiOperation("新增灰度信息")
     @PostMapping("do-insert")
-    public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
-        return Result.ok(blueGreenService.insert(blueGreenPo));
+    public Result<Boolean> doInsert(GrayPo grayPo) {
+        return Result.ok(grayService.insert(grayPo));
     }
 
     @ApiOperation("修改灰度信息")
     @PostMapping("do-update")
-    public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
-        blueGreenService.update(blueGreenPo);
+    public Result<?> doUpdate(GrayPo grayPo) {
+        grayService.update(grayPo);
         return Result.ok();
     }
 
@@ -173,7 +173,7 @@ public class GrayController {
     @ApiImplicitParam(name = "id", value = "灰度id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
-        blueGreenService.enable(id, true);
+        grayService.enable(id, true);
         return Result.ok();
     }
 
@@ -181,7 +181,7 @@ public class GrayController {
     @ApiImplicitParam(name = "id", value = "灰度id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
-        blueGreenService.enable(id, false);
+        grayService.enable(id, false);
         return Result.ok();
     }
 
@@ -190,14 +190,14 @@ public class GrayController {
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        blueGreenService.logicDelete(new HashSet<>(idList));
+        grayService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }
 
     @ApiOperation("发布灰度")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
-        blueGreenService.publish();
+        grayService.publish();
         return Result.ok();
     }
 }

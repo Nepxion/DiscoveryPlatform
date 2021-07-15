@@ -10,7 +10,6 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

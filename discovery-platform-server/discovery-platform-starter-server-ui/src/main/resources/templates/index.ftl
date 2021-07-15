@@ -31,7 +31,7 @@
                 </ul>
                 <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                     <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:" layadmin-event="fullscreen">
+                        <a href="javascript:" layadmin-event="fullscreen" title="全屏">
                             <i class="layui-icon layui-icon-screen-full"></i>
                         </a>
                     </li>

@@ -137,7 +137,7 @@ Polaris为Discovery高级定制版，特色功能
 - Pegasus
 - 星河
 - Ayang
-- rottenmu
+- Rottenmu
 
 ### 请联系我
 微信、钉钉、公众号和文档
@@ -152,6 +152,7 @@ Polaris为Discovery高级定制版，特色功能
 - [工程架构](#工程架构)
     - [工程清单](#工程清单)
     - [配置清单](#配置清单)
+    - [架构核心](#架构核心)
     - [依赖引入](#依赖引入)
 - [环境搭建](#环境搭建)
     - [云环境体验](#云环境体验)
@@ -207,6 +208,10 @@ Polaris为Discovery高级定制版，特色功能
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+
+### 架构核心
+
+![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Platform.jpg)
 
 ### 依赖引入
 

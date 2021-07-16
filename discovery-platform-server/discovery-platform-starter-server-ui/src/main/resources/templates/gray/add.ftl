@@ -325,7 +325,7 @@
                                 {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                                 {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
                             data: [newConditionRow()]

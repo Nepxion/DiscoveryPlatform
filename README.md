@@ -344,17 +344,17 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
 
-〔策略配置〕的工具栏操作
+〔策略配置〕工具栏
 - 〔添加兜底策略〕，点击【添加兜底策略】按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
 - 〔添加蓝绿策略〕，点击【添加蓝绿策略】按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 - 〔删除策略〕，点击【删除策略】按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
-〔兜底策略配置〕的路由步骤
-- 选择〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 选择〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg)按钮进行刷新
-- 增加〔路由服务〕，通过〔操作〕列下的![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg)按钮进行增加
-- 删除〔路由服务〕，通过〔操作〕列下的![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg)按钮进行删除
+〔兜底策略配置〕步骤
+- 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 #### 灰度发布
 

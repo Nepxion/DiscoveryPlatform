@@ -351,7 +351,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
 
-兜底路由策略包括如下步骤
+兜底路由策略配置包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
@@ -362,7 +362,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
 
-蓝绿条件策略包括如下步骤
+蓝绿条件策略配置包括如下步骤
 - 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
@@ -374,7 +374,19 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 - 进行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-蓝绿路由策略步骤跟兜底路由策略步骤相同
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`蓝绿路由策略步骤跟兜底路由策略步骤相同
+
+⑤ 设置〔内置参数〕
+
+当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
+
+内置参数配置包括如下步骤
+- 输入〔请求头〕
+- 输入〔值〕
+- 增加内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+⑥ 管理〔蓝绿发布〕
 
 #### 灰度发布
 

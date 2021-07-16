@@ -330,8 +330,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 〔蓝绿发布〕界面的工具栏上，点击【新增版本蓝绿】或者【新增区域蓝绿】按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
-
 ③ 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
@@ -349,12 +347,28 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 〔添加蓝绿策略〕，点击【添加蓝绿策略】按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 - 〔删除策略〕，点击【删除策略】按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
-〔兜底策略配置〕步骤
+〔兜底策略〕配置步骤
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
+
+兜底路由策略包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 - 增加路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
 - 删除路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+〔蓝绿策略〕配置步骤
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
+
+蓝绿条件策略包括如下步骤
+- 输入〔参数名〕，参数名即进行条件驱动的Header、Parameter、Cookie参数
+- 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于=、不等于!=、大于>、大于等于>=、小于<、小于等于<=、匹配matches七种运算符
+- 选择〔关系符〕，通过下拉的关系符进行选择，包括与and、或or两种关系符
+- 输入〔值〕，值即进行条件驱动的Header、Parameter、Cookie参数的值
+
+蓝绿路由策略步骤跟兜底路由策略步骤相同
 
 #### 灰度发布
 

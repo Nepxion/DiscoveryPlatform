@@ -1,4 +1,5 @@
 package com.nepxion.discovery.platform.server.entity.dto;
+
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -8,6 +9,7 @@ package com.nepxion.discovery.platform.server.entity.dto;
  * @author Xuehui Ren
  * @version 1.0
  */
+
 public class GraphEdgeDto {
 
 	private String source;

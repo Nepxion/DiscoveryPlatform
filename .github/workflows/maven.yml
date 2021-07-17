@@ -27,7 +27,7 @@ jobs:
     - name: Upload jar to TianYi cloud server
       uses: kostya-ten/ssh-server-deploy@v4
       with:
-        scp_source: target/discovery-platform-application-1.0.0.jar
+        scp_source: discovery-platform-application/target/discovery-platform-application-1.0.0.jar
         scp_target: /usr/opt/platform
         host: ${{secrets.TIANYI_SERVER_IP}}
         username: ${{secrets.TIANYI_SERVER_USER}}

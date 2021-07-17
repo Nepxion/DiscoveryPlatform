@@ -6,8 +6,9 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
  *
- * @author Ning Zhang, Xuehui Ren
- * @version 1.1 拓扑图
+ * @author Ning Zhang
+ * @author Xuehui Ren
+ * @version 1.0
  */
 
 import com.nepxion.discovery.common.util.JsonUtil;

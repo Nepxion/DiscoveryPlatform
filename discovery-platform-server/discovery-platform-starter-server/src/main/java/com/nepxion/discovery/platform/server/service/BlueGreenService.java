@@ -6,7 +6,8 @@ package com.nepxion.discovery.platform.server.service;
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
  *
- * @author Ning Zhang, Xuehui Ren
+ * @author Ning Zhang
+ * @author Xuehui Ren
  * @version 1.0
  */
 

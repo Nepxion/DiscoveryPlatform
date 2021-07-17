@@ -328,7 +328,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-1.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-2.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+② 〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
 ③ 确定〔入口类型〕和〔入口名称〕
 
@@ -345,9 +345,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
 
 〔策略配置〕工具栏
-- 〔添加兜底策略〕，点击【添加兜底策略】按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
-- 〔添加蓝绿策略〕，点击【添加蓝绿策略】按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
-- 〔删除策略〕，点击【删除策略】按钮，删除当前选项卡上的兜底策略或者蓝绿策略
+- 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+- 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
 〔兜底策略〕配置步骤
 

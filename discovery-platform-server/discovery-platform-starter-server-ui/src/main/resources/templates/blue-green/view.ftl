@@ -168,7 +168,7 @@
       };
       var controlPoint = {
         x: (startPoint.x),
-        y: (startPoint.y + 50)
+        y: (startPoint.y + 20)
       };
       var path = group.addShape("path", {
         attrs: {
@@ -180,8 +180,9 @@
           stroke: "#ccc",
           lineWidth: 1.6,
           endArrow: {
-            path: "M 4,0 L -4,-4 L -4,4 Z",
-            d: 4
+            path: "M -3,0 L 3,3 L 3,-3 Z",
+            d: -4,
+            lineWidth: 3,
           }
         }
       });

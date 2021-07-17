@@ -31,11 +31,11 @@ jobs:
         scp_target: /usr/opt/platform
         host: ${{secrets.TIANYI_SERVER_IP}}
         username: ${{secrets.TIANYI_SERVER_USER}}
-        password: ${{ secrets.TIANYI_SERVER_PWD }}
+        password: ${{secrets.TIANYI_SERVER_PWD}}
     - name: Deploy to tianyi cloud server
       uses: fifsky/ssh-action@master
       with:
         host: ${{secrets.TIANYI_SERVER_IP}}
         user: ${{secrets.TIANYI_SERVER_USER}}
-        pass: ${{ secrets.TIANYI_SERVER_PWD }}
+        pass: ${{secrets.TIANYI_SERVER_PWD}}
         command: cd /usr/opt/platform && ./platform-start.sh

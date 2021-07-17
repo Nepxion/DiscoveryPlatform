@@ -165,18 +165,24 @@ Polaris为Discovery高级定制版，特色功能
         - [启动平台](#启动平台)
         - [本地环境平台登录](#本地环境平台登录)
         - [本地环境调用验证](#本地环境调用验证)
-- [操作手册](#操作手册)
-    - [平台登录](#平台登录)
-    - [服务发布](#服务发布)
-        - [蓝绿发布](#蓝绿发布)
-        - [灰度发布](#灰度发布)
-        - [流量侦测](#流量侦测)
-    - [实例管理](#实例管理)
-        - [实例信息](#实例信息)
-        - [实例摘除](#实例摘除)
-    - [路由配置](#路由配置)
-        - [Gateway网关路由](#Gateway网关路由)
-        - [Zuul网关路由](#Zuul网关路由)
+- [平台登录](#平台登录)
+- [服务发布](#服务发布)
+    - [蓝绿发布](#蓝绿发布)
+        - [新增蓝绿](#新增蓝绿)
+        - [发布蓝绿](#发布蓝绿)
+        - [删除蓝绿](#删除蓝绿)
+        - [编辑蓝绿](#编辑蓝绿)
+        - [启用和禁用蓝绿](#启用和禁用蓝绿)
+        - [查看蓝绿拓扑图](#查看蓝绿拓扑图)
+        - [查看正在工作的蓝绿](#查看正在工作的蓝绿)
+    - [灰度发布](#灰度发布)
+    - [流量侦测](#流量侦测)
+- [实例管理](#实例管理)
+    - [实例信息](#实例信息)
+    - [实例摘除](#实例摘除)
+- [路由配置](#路由配置)
+    - [Gateway网关路由](#Gateway网关路由)
+    - [Zuul网关路由](#Zuul网关路由)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -318,19 +324,19 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 本地环境调用验证
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
 
-## 操作手册
+## 服务发布
 
-### 服务发布
+### 蓝绿发布
 
-#### 蓝绿发布
-
-① 导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
+导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+#### 新增蓝绿
 
-③ 确定〔入口类型〕和〔入口名称〕
+①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+
+② 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
 - `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
@@ -338,7 +344,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-④ 执行〔策略配置〕
+③ 执行〔策略配置〕
 
 策略类型，包括`兜底策略`和`蓝绿策略`，平台默认给出一个`兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
@@ -392,7 +398,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
-⑦ 执行〔发布蓝绿〕
+#### 发布蓝绿
 
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
@@ -402,7 +408,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
-⑧ 执行〔删除蓝绿〕
+#### 删除蓝绿
 
 〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
 
@@ -412,7 +418,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-⑨ 执行〔编辑蓝绿〕
+#### 编辑蓝绿
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑
 
@@ -420,7 +426,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-⑩ 执行〔启用和禁用蓝绿〕
+#### 启用和禁用蓝绿
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
@@ -430,31 +436,37 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-⑪ 执行〔查看蓝绿拓扑图〕
+#### 查看蓝绿拓扑图
 
 待补充
 
-⑫ 执行〔查看正在工作的蓝绿〕
+#### 查看正在工作的蓝绿
 
 〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreen.jpg"> 按钮进行查看
 
 待补充
 
-#### 灰度发布
+### 灰度发布
 
-#### 流量侦测
+### 流量侦测
 
-### 实例管理
+## 实例管理
 
-#### 实例信息
+### 实例信息
 
-#### 实例摘除
+### 实例摘除
 
-### 路由配置
+## 路由配置
 
-#### Gateway网关路由
+### Gateway网关路由
 
-#### Zuul网关路由
+① 导航栏上选择〔路由配置〕/〔Gateway网关路由配置〕，进入Spring Cloud Gateway动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-1.jpg)
+
+② 〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+### Zuul网关路由
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

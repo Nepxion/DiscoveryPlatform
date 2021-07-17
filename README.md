@@ -394,11 +394,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑦ 执行〔发布蓝绿〕
 
-执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
 上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
 
-执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
@@ -408,27 +408,27 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿发布〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreen.jpg"> 按钮进行删除
 
-执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
 ⑨ 执行〔编辑蓝绿〕
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑
 
-执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
 ⑩ 执行〔启用和禁用蓝绿〕
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者  <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
 
-执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
 ⑪ 执行〔查看蓝绿拓扑图〕
 

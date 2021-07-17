@@ -328,7 +328,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击【新增版本蓝绿】或者【新增区域蓝绿】按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+② 〔蓝绿发布〕界面的工具栏上，点击 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-1.jpg) 或者![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-1.jpg)按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
 ③ 确定〔入口类型〕和〔入口名称〕
 

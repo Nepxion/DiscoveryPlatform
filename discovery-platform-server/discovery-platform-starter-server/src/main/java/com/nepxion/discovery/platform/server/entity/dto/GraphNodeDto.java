@@ -1,5 +1,13 @@
 package com.nepxion.discovery.platform.server.entity.dto;
-
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ *
+ * @author Xuehui Ren
+ * @version 1.0
+ */
 public class GraphNodeDto {
 
 	private String id;

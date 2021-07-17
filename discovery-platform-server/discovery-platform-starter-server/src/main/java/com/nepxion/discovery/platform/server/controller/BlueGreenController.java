@@ -167,8 +167,10 @@ public class BlueGreenController {
     @ApiOperation("修改蓝绿信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
-        blueGreenService.update(blueGreenPo);
-        return Result.ok();
+        if (blueGreenService.update(blueGreenPo)) {
+            return Result.ok();
+        }
+        return Result.error("更新失败");
     }
 
     @ApiOperation("启用蓝绿")

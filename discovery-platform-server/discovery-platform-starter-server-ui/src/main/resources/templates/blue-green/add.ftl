@@ -46,7 +46,7 @@
                 <div class="layui-input-block">
                     <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                     <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                    <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -278,7 +278,7 @@
                         addTabCondition();
                     });
 
-                    $('#btnRemove').click(function () {
+                    $('#btnStrategyRemove').click(function () {
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);

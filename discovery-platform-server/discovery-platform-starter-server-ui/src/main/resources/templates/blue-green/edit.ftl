@@ -247,9 +247,19 @@
                         for (const k in routeJson) {
                             route.push(routeJson[k]);
                         }
-                        for (let i = 0; i < condition.length; i++) {
-                            addTabCondition(condition[i], route[i]);
+
+                        const len = Math.max(condition.length, route.length);
+                        for (let i = 0; i < len; i++) {
+                            let c = null, r = null;
+                            if (i < condition.length) {
+                                c = condition[i];
+                            }
+                            if (i < route.length) {
+                                r = route[i];
+                            }
+                            addTabCondition(c, r);
                         }
+
                         <#if entity.strategy!=''>
                         addStrategy(${entity.strategy});
                         <#else>

@@ -432,7 +432,13 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑪ 执行〔查看蓝绿拓扑图〕
 
+待补充
+
 ⑫ 执行〔查看正在工作的蓝绿〕
+
+〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreen.jpg"> 按钮进行查看
+
+待补充
 
 #### 灰度发布
 

@@ -279,10 +279,13 @@
                             field['type'] = type;
                             delete field['logic'];
                             delete field['operator'];
-                            delete field['serviceName'];
+                            delete field['routeName'];
                             delete field['strategyServiceName'];
                             delete field['strategyValue'];
+                            delete field['routeValue'];
                             delete field['value'];
+                            delete field['error'];
+                            delete field['routeServiceName'];
                             admin.post('do-insert', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);
@@ -329,6 +332,8 @@
                             delete field['strategyValue'];
                             delete field['value'];
                             delete field['ok'];
+                            delete field['error'];
+                            delete field['routeServiceName'];
                             admin.post('do-update', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

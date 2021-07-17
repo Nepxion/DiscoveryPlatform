@@ -4,17 +4,16 @@
 <head>
   <style type="text/css">
     div#mountNode{
-       margin-left: 100px;
+       margin-left: 50px;
     }
   </style>
   <#include "../common/layui.ftl">
 </head>
 <body>
 <div id="mountNode"></div>
-<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.7.1/dist/g6.min.js"></script>
-<!--  <script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>-->
-<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.1.1/build/g6.js"></script>
-<script src="https://gw.alipayobjects.com/os/lib/dagre/0.8.4/dist/dagre.min.js"></script>
+<script src="${ctx}/js/g6/g6.min.js"></script>
+<script src="${ctx}/js/g6/build.g6.js"></script>
+<script src="${ctx}/js/g6/dagre.min.js"></script>
 <script>
   var _extends = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -50,50 +49,6 @@
     }
   };
 
-  var data = {
-    nodes: [{
-      id: "1",
-      label: "",
-      type: "begin"
-  }, {
-      id: "2",
-      label: "服务A"
-  }, {
-      id: "3",
-      label: "服务A"
-  }, {
-      id: "4",
-      label: "服务B"
-  }, {
-      id: "5",
-      label: "服务B"
-  }, {
-      id: "6",
-      label: "服务C"
-  }],
-    edges: [{
-      source: "1",
-      target: "2",
-      version: "v1.1"
-  }, {
-      source: "1",
-      target: "3",
-      version: "v1.0"
-  }, {
-      source: "2",
-      target: "5",
-      version: "v1.1"
-  }, {
-      source: "5",
-      target: "6",
-      version: "v1.0"
-  }, {
-      source: "3",
-      target: "4",
-      version: "v1.2"
-  }]
-  };
-
   /**
    * 自定义节点
    */
@@ -114,15 +69,53 @@
 
       var rect = group.addShape("rect", {
         attrs: _extends({
-          x: -75,
-          y: -25,
-          width: 150,
+          x: -90,
+          y: -15,
+          width: 180,
           height: 50,
           radius: 4,
           fill: "#FFD591",
           fillOpacity: 1
         }, nodeExtraAttrs[cfg.type])
       });
+
+      if (cfg.routeId) {
+        group.addShape('text', {
+          attrs: {
+          x: -20,
+          y: -55,
+          text: cfg.routeId || '',
+          fill: cfg.textColor ? cfg.textColor : '#666666',
+          autoRotate: true,
+          refY: 10,
+          }
+        });
+      }
+
+      if (cfg.condition) {
+        group.addShape('text', {
+          attrs: {
+          x: -60,
+          y: -35,
+          text: cfg.condition || '',
+          fill: cfg.textColor ? cfg.textColor : '#666666',
+          autoRotate: true,
+          refY: 10,
+          }
+        });
+      }
+
+      group.addShape('text', {
+        attrs: {
+        x: -40,
+        y: 25,
+        text: cfg.version ? 'version=' + cfg.version : '',
+        fill: cfg.textColor ? cfg.textColor : '#666666',
+        autoRotate: true,
+        refY: 10,
+        }
+      });
+
       return rect;
     },
     setState: function setState(name, value, item) {
@@ -203,31 +196,20 @@
         }
       });
 
-      group.addShape('text', {
-        attrs: {
-        x: centerPoint.x,
-        y: centerPoint.y - 12,
-        text: cfg.version || '',
-        fill: cfg.textColor ? cfg.textColor : '#666666',
-        autoRotate: true,
-        refY: 10,
-        }
-      });
-
       return path;
     }
   });
 
   var graph = new G6.Graph({
     container: "mountNode",
-    width: 800,
-    height: 700,
+    width: 950,
+    height: 550,
     layout: {
       type: 'dagre',
       linkDistance: 100
     },
     modes: {
-      default: ['drag-canvas']
+      default: ['drag-canvas', 'zoom-canvas']
     },
     defaultNode: {
       shape: "node",
@@ -242,14 +224,16 @@
       shape: "line-with-arrow",
       style: {
         endArrow: true,
-        lineWidth: 2,
+        lineWidth: 4,
         stroke: "#ccc"
       }
     }
   });
 
+  var data = ${config} || {nodes: [{id: "noConfig", label: "未配置"}]};
   graph.data(data);
   graph.render();
+  graph.fitView();
 
   graph.on('edge:click', function(evt) {
     var target = evt.target;

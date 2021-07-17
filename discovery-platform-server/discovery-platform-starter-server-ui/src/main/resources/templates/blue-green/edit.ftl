@@ -34,7 +34,7 @@
                 <div class="layui-input-block">
                     <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                     <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                    <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -295,7 +295,7 @@
                         addTabCondition();
                     });
 
-                    $('#btnRemove').click(function () {
+                    $('#btnStrategyRemove').click(function () {
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
@@ -370,7 +370,7 @@
                                 {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                                 {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
                             data: condition == undefined ? [newConditionRow()] : newConditionRow(condition)

@@ -1,7 +1,6 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: build
+name: platform Deploy with Maven
 
 on:
   push:
@@ -11,31 +10,30 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
-      with:
-        java-version: '8'
-        distribution: 'adopt'
-    - name: Build with Maven
-      run: |
-        mvn package
-    - name: Upload jar to TianYi cloud server
-      uses: kostya-ten/ssh-server-deploy@v4
-      with:
-        scp_source: target/discovery-platform-application-1.0.0.jar
-        scp_target: /usr/opt/platform
-        host: ${{secrets.TIANYI_SERVER_IP}}
-        username: ${{secrets.TIANYI_SERVER_USER}}
-        password: ${{secrets.TIANYI_SERVER_PWD}}
-    - name: Deploy to TianYi cloud server
-      uses: fifsky/ssh-action@master
-      with:
-        host: ${{secrets.TIANYI_SERVER_IP}}
-        user: ${{secrets.TIANYI_SERVER_USER}}
-        pass: ${{secrets.TIANYI_SERVER_PWD}}
-        command: cd /usr/opt/platform && ./platform-start.sh
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        # 这里使用java11的环境, 其他项目在github action中找到对应的语言环境就行
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Maven
+        # 这里maven的打包命令, 其他项目修改为对应的打包命令
+        run: |
+          mvn package
+      - name: scp jar upload tianyi cloud server
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          scp_source: target/discovery-platform-application-1.0.0.jar
+          scp_target: /usr/opt/platform
+          host: ${{secrets.TIANYI_SERVER_IP}}
+          username: ${{secrets.TIANYI_SERVER_USER}}
+          password: ${{ secrets.TIANYI_SERVER_PWD }}
+      - name: Deploy to tianyi cloud server
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{secrets.TIANYI_SERVER_IP}}
+          user: ${{secrets.TIANYI_SERVER_USER}}
+          pass: ${{ secrets.TIANYI_SERVER_PWD }}
+          command: cd /usr/opt/platform && ./platform-start.sh

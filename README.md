@@ -328,7 +328,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-1.jpg) 或者 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-2.jpg) 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+② 〔蓝绿发布〕界面的工具栏上，点击 <img width="125" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-1.jpg"> 或者 <img width="125" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreen-2.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
 ③ 确定〔入口类型〕和〔入口名称〕
 
@@ -336,7 +336,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
 - `组`属于全局订阅模式，即把蓝绿发布的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
 
-入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg) 按钮进行刷新
+入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
 ④ 执行〔策略配置〕
 
@@ -356,9 +356,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 兜底路由策略配置包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg) 按钮进行刷新
-- 增加路由项，通过〔操作〕列下的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg) 按钮进行增加
-- 删除路由项，通过〔操作〕列下的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg) 按钮进行删除
+- 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 〔蓝绿策略〕配置步骤
 
@@ -385,8 +385,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 内置参数配置包括如下步骤
 - 输入〔请求头〕
 - 输入〔值〕
-- 增加内置参数，通过〔操作〕列下的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg) 按钮进行增加
-- 删除内置参数，通过〔操作〕列下的 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg) 按钮进行删除
+- 增加内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 ⑥ 执行保存
 

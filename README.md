@@ -426,7 +426,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
 
-执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg">
+执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg"> ，〔入口名称〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 

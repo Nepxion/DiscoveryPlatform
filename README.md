@@ -369,8 +369,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
 - 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
-- 进行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击【聚合条件】按钮进行手工聚合
-- 进行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击【校验条件】按钮弹出对话框，给参数赋值，看校验条件是否能通过
+- 进行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 进行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-4.jpg)
 
@@ -390,13 +390,13 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑥ 执行保存
 
-上述结果执行完毕后，点击【确定】按钮进行保存
+上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 ⑦ 执行〔发布蓝绿〕
 
-上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击【发布蓝绿】按钮进行推送
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击【发布蓝绿】按钮进行生效
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
 ⑧ 执行〔删除蓝绿〕
 

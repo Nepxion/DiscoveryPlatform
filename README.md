@@ -133,11 +133,13 @@ Polaris为Discovery高级定制版，特色功能
 ### 功能概述
 
 ### 郑重致谢
-感谢如下小伙伴参与本平台的开发和测试
-- Pegasus
-- 星河
-- Ayang
-- Rottenmu
+感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序
+- 张宁
+- 付向阳
+- 刘辉
+- 赵胜杰
+- 任学会
+- 肖龙
 
 ### 请联系我
 微信、钉钉、公众号和文档
@@ -318,8 +320,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ## 操作手册
 
-### 界面介绍
-
 ### 服务发布
 
 #### 蓝绿发布
@@ -328,7 +328,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击【新增版本蓝绿】或者【新增区域蓝绿】按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+② 〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
 ③ 确定〔入口类型〕和〔入口名称〕
 
@@ -345,9 +345,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
 
 〔策略配置〕工具栏
-- 〔添加兜底策略〕，点击【添加兜底策略】按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
-- 〔添加蓝绿策略〕，点击【添加蓝绿策略】按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
-- 〔删除策略〕，点击【删除策略】按钮，删除当前选项卡上的兜底策略或者蓝绿策略
+- 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+- 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
 〔兜底策略〕配置步骤
 
@@ -356,9 +356,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 兜底路由策略配置包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新路由〔服务名〕和〔版本号〕下拉列表，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
-- 增加路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除路由项，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 〔蓝绿策略〕配置步骤
 
@@ -369,12 +369,12 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
 - 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
-- 进行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击【聚合条件】按钮进行手工聚合
-- 进行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击【校验条件】按钮弹出对话框，给参数赋值，看校验条件是否能通过
+- 执行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 执行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-4.jpg)
 
-- 进行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
+- 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：蓝绿路由策略步骤跟兜底路由策略步骤相同
 
@@ -385,28 +385,60 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 内置参数配置包括如下步骤
 - 输入〔请求头〕
 - 输入〔值〕
-- 增加内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除内置参数，通过〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 增加内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 ⑥ 执行保存
 
-上述结果执行完毕后，点击【确定】按钮进行保存
+上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 ⑦ 执行〔发布蓝绿〕
 
-上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击【发布蓝绿】按钮进行推送
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击【发布蓝绿】按钮进行生效
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
+
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
 ⑧ 执行〔删除蓝绿〕
 
+〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔蓝绿发布〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreen.jpg"> 按钮进行删除
+
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`
+
 ⑨ 执行〔编辑蓝绿〕
+
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑
+
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`
 
 ⑩ 执行〔启用和禁用蓝绿〕
 
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+
+`禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
+
+执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
 ⑪ 执行〔查看蓝绿拓扑图〕
 
+待补充
+
 ⑫ 执行〔查看正在工作的蓝绿〕
+
+〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreen.jpg"> 按钮进行查看
+
+待补充
 
 #### 灰度发布
 

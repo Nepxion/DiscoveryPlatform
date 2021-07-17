@@ -468,6 +468,10 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-2.jpg)
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-3.jpg)
+
 ### Zuul网关路由
 
 ## Star走势图

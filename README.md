@@ -344,7 +344,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-③ 执行〔策略配置〕
+③ 添加和删除策略
 
 策略类型，包括`兜底策略`和`蓝绿策略`，平台默认给出一个`兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
@@ -355,22 +355,22 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 - 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
-〔兜底策略〕配置步骤
+④ 配置〔兜底策略〕
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
 
-兜底路由策略配置包括如下步骤
+兜底路由策略配置，包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 - 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
 - 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-〔蓝绿策略〕配置步骤
+⑤ 配置〔蓝绿策略〕
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
 
-蓝绿条件策略配置包括如下步骤
+蓝绿条件策略配置，包括如下步骤
 - 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
@@ -384,7 +384,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：蓝绿路由策略步骤跟兜底路由策略步骤相同
 
-⑤ 设置〔内置参数〕
+⑥ 设置〔内置参数〕
 
 当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
 
@@ -394,7 +394,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 增加内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
 - 删除内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-⑥ 执行保存
+⑦ 执行保存
 
 上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 

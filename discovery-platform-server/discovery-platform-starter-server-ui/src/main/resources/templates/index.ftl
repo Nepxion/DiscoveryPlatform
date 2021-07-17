@@ -31,24 +31,25 @@
                 </ul>
                 <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                     <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:" layadmin-event="fullscreen">
+                        <a href="javascript:" layadmin-event="fullscreen" title="全屏">
                             <i class="layui-icon layui-icon-screen-full"></i>
                         </a>
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的注册中心">
-                            <i class="layui-icon layui-icon-component"></i>
-                            <cite id="discovery-type"></cite>
+                            <i class="layui-icon layui-icon-note"></i>&nbsp;&nbsp;
+                            <cite id="discovery-type"></cite>&nbsp;&nbsp;注册中心
                         </a>
                     </li>
                     <li class="layui-nav-item" lay-unselect>
                         <a href="javascript:" title="当前使用的配置中心">
-                            <i class="layui-icon layui-icon-note"></i>
-                            <cite id="config-type"></cite>
+                            <i class="layui-icon layui-icon-note"></i>&nbsp;&nbsp;
+                            <cite id="config-type"></cite>&nbsp;&nbsp;配置中心
                         </a>
                     </li>
                     <li class="layui-nav-item" style="text-align: center;margin-right: 10px" lay-unselect>
                         <a href="javascript:">
+                            <i class="layui-icon layui-icon-friends"></i>&nbsp;&nbsp;
                             <cite>${admin.name}</cite>
                         </a>
                         <dl class="layui-nav-child">

@@ -41,6 +41,9 @@ public class GrayPo implements Serializable {
     @ApiModelProperty("路由策略")
     private String route;
 
+    @ApiModelProperty("路由服务编排")
+    private String routeService;
+
     @ApiModelProperty("描述信息")
     private String description;
 
@@ -96,6 +99,14 @@ public class GrayPo implements Serializable {
 
     public void setRoute(String route) {
         this.route = route;
+    }
+
+    public String getRouteService() {
+        return routeService;
+    }
+
+    public void setRouteService(String routeService) {
+        this.routeService = routeService;
     }
 
     public String getDescription() {

@@ -35,6 +35,9 @@ public class GrayDto extends BaseStateEntity {
     @TableField(value = "`route`")
     private String route;
 
+    @TableField(value = "`route_service`")
+    private String routeService;
+
     @TableField(value = "`header`")
     private String header;
 
@@ -71,6 +74,14 @@ public class GrayDto extends BaseStateEntity {
 
     public void setRoute(String route) {
         this.route = route;
+    }
+
+    public String getRouteService() {
+        return routeService;
+    }
+
+    public void setRouteService(String routeService) {
+        this.routeService = routeService;
     }
 
     public String getHeader() {

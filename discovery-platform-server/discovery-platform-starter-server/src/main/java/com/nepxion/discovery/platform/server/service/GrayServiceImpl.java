@@ -153,6 +153,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         grayDto.setStrategy(grayPo.getStrategy());
         grayDto.setCondition(grayPo.getCondition());
         grayDto.setRoute(grayPo.getRoute());
+        grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
         grayDto.setDescription(grayPo.getDescription());
         return save(grayDto);
@@ -169,6 +170,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         grayDto.setStrategy(grayPo.getStrategy());
         grayDto.setCondition(grayPo.getCondition());
         grayDto.setRoute(grayPo.getRoute());
+        grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
         grayDto.setDescription(grayPo.getDescription());
         return updateById(grayDto);

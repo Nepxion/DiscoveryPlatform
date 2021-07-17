@@ -80,13 +80,6 @@
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
-                        <div class="layui-btn-group">
-                            <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="viewGraph">
-                                <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;查看<b>拓扑</b>图
-                            </button>
-                        </div>
-                    </@insert>
-                        <@insert>
                             <div class="layui-btn-group">
                                 <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
                                     <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
@@ -105,6 +98,13 @@
                                 <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿
                             </button>
                         </@delete>
+                        <@insert>
+                        <div class="layui-btn-group" style="margin-right: 10px;">
+                            <button class="layui-icon layui-icon-component" lay-event="viewGraph">
+                                <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;查看<b>拓扑</b>图
+                            </button>
+                        </div>
+                        </@insert>
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
                                 <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿
@@ -187,7 +187,7 @@
                     layer.open({
                     type: 2,
                     title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;查看拓扑图',
-                    content: 'view?id=1',
+                    content: 'view?name=test',
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,
                     resize: false});

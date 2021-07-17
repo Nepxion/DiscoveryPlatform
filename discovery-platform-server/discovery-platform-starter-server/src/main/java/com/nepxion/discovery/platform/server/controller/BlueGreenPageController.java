@@ -10,6 +10,10 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.nepxion.discovery.common.entity.RuleEntity;
+import com.nepxion.discovery.common.util.JsonUtil;
+import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.service.GrayService;
 import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +34,6 @@ import com.nepxion.discovery.platform.server.service.BlueGreenService;
 public class BlueGreenPageController {
     @Autowired
     private BlueGreenService blueGreenService;
-
-    private GrayService grayService = new GrayServiceImpl();
-
     @GetMapping("list")
     public String list() {
         return String.format("%s/%s", BlueGreenController.PREFIX, "list");
@@ -47,12 +48,12 @@ public class BlueGreenPageController {
     }
 
     @GetMapping("view")
-    public String view(Model model, @RequestParam("id") Long id) throws Exception {
-        String config = grayService.getById(id).getRoute();
+    public String view(Model model, @RequestParam("name") String name) throws Exception {
+        GraphDto config = blueGreenService.viewGraph(name);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("id", id);
-        model.addAttribute("json", config);
+        model.addAttribute("name", name);
+        model.addAttribute("config", JsonUtil.toJson(config));
         return String.format("%s/%s", BlueGreenController.PREFIX, "view");
     }
 

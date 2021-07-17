@@ -155,7 +155,6 @@ public class GrayController {
         return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
     }
 
-
     @ApiOperation("新增灰度信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(GrayPo grayPo) {
@@ -165,8 +164,10 @@ public class GrayController {
     @ApiOperation("修改灰度信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(GrayPo grayPo) {
-        grayService.update(grayPo);
-        return Result.ok();
+        if (grayService.update(grayPo)) {
+            return Result.ok();
+        }
+        return Result.error("更新失败");
     }
 
     @ApiOperation("启用灰度")

@@ -15,7 +15,7 @@ import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
-import com.nepxion.discovery.platform.server.entity.dto.GraphEdgeDto;
+import com.nepxion.discovery.platform.server.entity.dto.GraphLinkDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphNodeDto;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class GraphUtils {
 			GraphNodeDto node = new GraphNodeDto();
 			node.setId(route.getId() + "_" + server.getKey());
 			node.setLabel(server.getKey());
-			node.setVersion(server.getValue());
+			node.setValue(server.getValue());
 			nodeCache.put(route.getId() + "_" + server.getKey(), node);
 		}
 		return nodeCache;
@@ -65,7 +65,7 @@ public class GraphUtils {
 			begin.setId(BEGIN_NODE_ID);
 			nodes.add(begin);
 
-			List<GraphEdgeDto> edges = new ArrayList<>();
+			List<GraphLinkDto> edges = new ArrayList<>();
 			for (StrategyRouteEntity route : routeList) {
 				Map<String, GraphNodeDto> nodeCache = initServerNodeCache(route);
 				nodes.addAll(nodeCache.values());
@@ -73,10 +73,9 @@ public class GraphUtils {
 				boolean first = true;
 				StrategyConditionBlueGreenEntity condition = routeWithCondition.get(route.getId());
 				for (GraphNodeDto node : nodeCache.values()) {
-					GraphEdgeDto edge = new GraphEdgeDto();
+					GraphLinkDto edge = new GraphLinkDto();
 					edge.setSource(sourceId);
 					edge.setTarget(node.getId());
-					edge.setVersion(node.getVersion());
 					if (first) {
 						node.setRouteId(route.getId());
 						node.setCondition(condition.getExpression());

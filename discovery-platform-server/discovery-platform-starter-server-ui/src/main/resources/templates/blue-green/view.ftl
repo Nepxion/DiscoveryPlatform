@@ -11,6 +11,7 @@
 </head>
 <body>
 <div id="mountNode"></div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
 <script src="${ctx}/js/g6/g6.min.js"></script>
 <script src="${ctx}/js/g6/build.g6.js"></script>
 <script src="${ctx}/js/g6/dagre.min.js"></script>
@@ -109,7 +110,7 @@
         attrs: {
         x: -40,
         y: 25,
-        text: cfg.version ? 'version=' + cfg.version : '',
+        text: cfg.value ? 'version=' + cfg.value : '',
         fill: cfg.textColor ? cfg.textColor : '#666666',
         autoRotate: true,
         refY: 10,
@@ -224,7 +225,7 @@
       shape: "line-with-arrow",
       style: {
         endArrow: true,
-        lineWidth: 4,
+        lineWidth: 2,
         stroke: "#ccc"
       }
     }

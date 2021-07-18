@@ -31,7 +31,7 @@
                         </select>
                     </div>
 
-                    <div class="layui-inline">入口列表</div>
+                    <div class="layui-inline">入口名称</div>
                     <div class="layui-inline" style="width:350px">
                         <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>

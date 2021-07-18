@@ -475,29 +475,29 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 新增Gateway网关路由
 
-① 导航栏上选择〔路由配置〕/〔Gateway网关路由配置〕，进入Spring Cloud Gateway动态路由配置界面
+① 导航栏上选择〔路由配置〕/〔Gateway网关路由〕，进入Spring Cloud Gateway动态路由配置界面
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-1.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-1.jpg)
 
-② 〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+② 〔Gateway网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
 
 根据Spring Cloud Gateway网关的官方配置规范，结合如下界面进行配置。其中，断言器和过滤器包括内置和自定义两种模式
 
 内置断言器和过滤器模式是通过Spring Cloud Gateway网关内置相关类和解析模块来实现的，请参照界面提示进行配置
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-2.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-2.jpg)
 
 自定义断言器和过滤器是通过Spring Cloud Gateway网关使用者自定义和解析模块相关类来实现的，请参照界面提示进行配置
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-3.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-3.jpg)
 
 #### 发布Gateway网关路由
 
-〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
 
 #### 删除Gateway网关路由
 
-〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
 
 #### 编辑Gateway网关路由
 
@@ -509,9 +509,45 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 查看正在工作的Gateway网关路由
 
-〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
 
 ### Zuul网关路由
+
+#### 新增Zuul网关路由
+
+① 导航栏上选择〔路由配置〕/〔Zuul网关路由〕，进入Zuul动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-1.jpg)
+
+② 〔Zuul网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+根据Zuul网关的官方配置规范，结合如下界面进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-2.jpg)
+
+#### 发布Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Zuul网关路由
+
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Zuul网关路由
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

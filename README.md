@@ -182,7 +182,19 @@ Polaris为Discovery高级定制版，特色功能
     - [实例摘除](#实例摘除)
 - [路由配置](#路由配置)
     - [Gateway网关路由](#Gateway网关路由)
+        - [新增Gateway网关路由](#新增Gateway网关路由)
+        - [发布Gateway网关路由](#发布Gateway网关路由)
+        - [删除Gateway网关路由](#删除Gateway网关路由)
+        - [编辑Gateway网关路由](#编辑Gateway网关路由)
+        - [启用和禁用Gateway网关路由](#启用和禁用Gateway网关路由)
+        - [查看正在工作的Gateway网关路由](#查看正在工作的Gateway网关路由)
     - [Zuul网关路由](#Zuul网关路由)
+        - [新增Zuul网关路由](#新增Zuul网关路由)
+        - [发布Zuul网关路由](#发布Zuul网关路由)
+        - [删除Zuul网关路由](#删除Zuul网关路由)
+        - [编辑Zuul网关路由](#编辑Zuul网关路由)
+        - [启用和禁用Zuul网关路由](#启用和禁用Zuul网关路由)
+        - [查看正在工作的Zuul网关路由](#查看正在工作的Zuul网关路由)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -382,7 +394,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 - 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：蓝绿路由策略步骤跟兜底路由策略步骤相同
+兜底路由策略配置，包括如下步骤
+- 操作模式和过程与兜底路由策略类似
 
 ⑥ 设置〔内置参数〕
 
@@ -420,7 +433,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 编辑蓝绿
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作过程和[新增蓝绿](#新增蓝绿)类似
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
@@ -460,7 +473,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### Gateway网关路由
 
-#### 新增网关路由
+#### 新增Gateway网关路由
 
 ① 导航栏上选择〔路由配置〕/〔Gateway网关路由配置〕，进入Spring Cloud Gateway动态路由配置界面
 
@@ -468,9 +481,35 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
 
+根据Spring Cloud Gateway网关的官方配置规范，结合如下界面进行配置。其中，断言器和过滤器包括内置和自定义两种模式
+
+内置断言器和过滤器模式是通过Spring Cloud Gateway网关内置相关类和解析模块来实现的，请参照界面提示进行配置
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-2.jpg)
 
+自定义断言器和过滤器是通过Spring Cloud Gateway网关使用者自定义和解析模块相关类来实现的，请参照界面提示进行配置
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Route-3.jpg)
+
+#### 发布Gateway网关路由
+
+发布Gateway网关路由，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Gateway网关路由
+
+删除Gateway网关路由，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Gateway网关路由
+
+编辑Gateway网关路由，操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Gateway网关路由
+
+启用和禁用Gateway网关路由，操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Gateway网关路由
+
+查看正在工作的Gateway网关路由，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
 
 ### Zuul网关路由
 

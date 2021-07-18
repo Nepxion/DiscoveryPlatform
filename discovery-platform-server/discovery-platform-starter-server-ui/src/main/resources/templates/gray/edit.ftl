@@ -399,7 +399,7 @@
                             const spelConditionId = 'spelCondition' + $(this).attr('tag');
                             layer.open({
                                 type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
                                 content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
                                 area: ['645px', '235px'],
                                 btn: '关闭',

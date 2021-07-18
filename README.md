@@ -131,7 +131,7 @@ Polaris为Discovery高级定制版，特色功能
 ## 简介
 
 ### 功能概述
-Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例。支持如下功能
+Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，支持如下功能
 
 - 支持四个注册中心
 - 支持六个配置中心
@@ -172,6 +172,8 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
     - 基于时间戳前缀的全局唯一ID黑名单
     - 基于IP地址和端口黑名单
 - 支持界面显示所连的注册中心和配置中心
+
+请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例
 
 ### 郑重致谢
 感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序

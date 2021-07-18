@@ -131,6 +131,49 @@ Polaris为Discovery高级定制版，特色功能
 ## 简介
 
 ### 功能概述
+Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，支持如下功能
+
+- 支持四个注册中心
+- 支持六个配置中心
+- 支持MySQL数据库和H2内存数据库，用户可以无缝扩展到其它数据库（例如，Oracle）
+- 支持数据库方式登录和Ldap方式登录
+- 支持Shiro和JWT的登录以及鉴权
+- 支持管理员/角色/权限配置
+- 支持页面配置，在线添加、删除、修改各类中间件主页或者业务系统主页的集成以及跳转
+- 支持蓝绿发布
+    - 支持蓝绿策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持蓝绿策略启用/禁用模式
+    - 支持蓝绿策略多实例动态路由一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级蓝绿策略和兜底策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持灰度发布
+    - 支持灰度策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持灰度策略启用/禁用模式
+    - 支持灰度策略多实例一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级灰度策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持双网关动态路由
+    - 支持网关动态路由双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持网关动态路由启用/禁用模式
+    - 支持网关动态路由多实例一致性检查
+    - 支持Spring Cloud Gateway内置断言器（基于Path、Host、Header、Cookie、Query、Method、RemoteAddr、Weight等无代码方式）和过滤器（基于StripPrefix、PrefixPath、RewritePath、RequestRateLimiter、CircuitBreaker、AddRequestHeader、AddRequestParameter、AddResponseHeader、RedirectTo等无代码方式）
+    - 支持用户自定义断言器和过滤器，可以实现类似Access Token、网页访问黑/白名单，自定义用户数据（List和Map结构）过滤等低代码方式
+    - 支持Zuul网关内置动态路由
+- 支持服务负载屏蔽的黑名单
+    - 支持黑名单双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持黑名单启用/禁用模式
+    - 支持黑名单多实例一致性检查
+    - 基于时间戳前缀的全局唯一ID黑名单
+    - 基于IP地址和端口黑名单
+- 支持界面显示所连的注册中心和配置中心
+
+请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例
 
 ### 郑重致谢
 感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序
@@ -166,6 +209,7 @@ Polaris为Discovery高级定制版，特色功能
         - [本地环境平台登录](#本地环境平台登录)
         - [本地环境调用验证](#本地环境调用验证)
 - [平台登录](#平台登录)
+- [主页](#主页)
 - [服务发布](#服务发布)
     - [蓝绿发布](#蓝绿发布)
         - [新增蓝绿](#新增蓝绿)
@@ -180,6 +224,11 @@ Polaris为Discovery高级定制版，特色功能
 - [实例管理](#实例管理)
     - [实例信息](#实例信息)
     - [实例摘除](#实例摘除)
+        - [新增黑名单](#新增黑名单)
+        - [发布黑名单](#发布黑名单)
+        - [删除黑名单](#删除黑名单)
+        - [启用和禁用黑名单](#启用和禁用黑名单)
+        - [查看正在工作的黑名单](#查看正在工作的黑名单)
 - [路由配置](#路由配置)
     - [Gateway网关路由](#Gateway网关路由)
         - [新增Gateway网关路由](#新增Gateway网关路由)
@@ -195,6 +244,13 @@ Polaris为Discovery高级定制版，特色功能
         - [编辑Zuul网关路由](#编辑Zuul网关路由)
         - [启用和禁用Zuul网关路由](#启用和禁用Zuul网关路由)
         - [查看正在工作的Zuul网关路由](#查看正在工作的Zuul网关路由)
+- [基础应用](#基础应用)
+- [系统设置](#系统设置)
+    - [页面设置](#页面设置)
+- [授权配置](#授权配置)
+    - [管理员配置](#管理员配置)
+    - [角色配置](#角色配置)
+    - [权限配置](#权限配置)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -218,16 +274,17 @@ Polaris为Discovery高级定制版，特色功能
 
 ### 配置清单
 
-配置文件位于discovery-platform-application/src/main/resources目录下
+配置文件位于discovery-platform-application/目录下
 
 | 配置文件 | 描述 |
 | --- | --- |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-mysql.properties | 平台MySQL数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> pom.xml | 切换注册中心、配置中心、数据库等依赖引入 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等跟微服务相关的配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-mysql.properties | 平台MySQL数据库、HikariCP连接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-h2.properties | 平台H2内存数据库、HikariCP链接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
 
 ### 架构核心
 
@@ -335,6 +392,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 本地环境调用验证
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
+
+## 主页
 
 ## 服务发布
 
@@ -463,7 +522,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略更新，有些服务实例未收到规则策略更新
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 
 ### 灰度发布
 
@@ -474,6 +533,36 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ### 实例信息
 
 ### 实例摘除
+
+#### 新增黑名单
+
+① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
+
+② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框。黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-2.jpg)
+
+#### 发布黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 启用和禁用黑名单
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
+
+待补充
 
 ## 路由配置
 
@@ -519,8 +608,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
 
-选择
-
 ### Zuul网关路由
 
 #### 新增Zuul网关路由
@@ -556,6 +643,28 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
+
+## 基础应用
+
+## 系统设置
+
+### 页面设置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Page-1.jpg)
+
+## 授权配置
+
+### 管理员配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
+
+### 角色配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-1.jpg)
+
+### 权限配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-1.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

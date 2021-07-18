@@ -165,18 +165,36 @@ Polaris为Discovery高级定制版，特色功能
         - [启动平台](#启动平台)
         - [本地环境平台登录](#本地环境平台登录)
         - [本地环境调用验证](#本地环境调用验证)
-- [操作手册](#操作手册)
-    - [平台登录](#平台登录)
-    - [服务发布](#服务发布)
-        - [蓝绿发布](#蓝绿发布)
-        - [灰度发布](#灰度发布)
-        - [流量侦测](#流量侦测)
-    - [实例管理](#实例管理)
-        - [实例信息](#实例信息)
-        - [实例摘除](#实例摘除)
-    - [路由配置](#路由配置)
-        - [Gateway网关路由](#Gateway网关路由)
-        - [Zuul网关路由](#Zuul网关路由)
+- [平台登录](#平台登录)
+- [服务发布](#服务发布)
+    - [蓝绿发布](#蓝绿发布)
+        - [新增蓝绿](#新增蓝绿)
+        - [发布蓝绿](#发布蓝绿)
+        - [删除蓝绿](#删除蓝绿)
+        - [编辑蓝绿](#编辑蓝绿)
+        - [启用和禁用蓝绿](#启用和禁用蓝绿)
+        - [查看蓝绿拓扑图](#查看蓝绿拓扑图)
+        - [查看正在工作的蓝绿](#查看正在工作的蓝绿)
+    - [灰度发布](#灰度发布)
+    - [流量侦测](#流量侦测)
+- [实例管理](#实例管理)
+    - [实例信息](#实例信息)
+    - [实例摘除](#实例摘除)
+- [路由配置](#路由配置)
+    - [Gateway网关路由](#Gateway网关路由)
+        - [新增Gateway网关路由](#新增Gateway网关路由)
+        - [发布Gateway网关路由](#发布Gateway网关路由)
+        - [删除Gateway网关路由](#删除Gateway网关路由)
+        - [编辑Gateway网关路由](#编辑Gateway网关路由)
+        - [启用和禁用Gateway网关路由](#启用和禁用Gateway网关路由)
+        - [查看正在工作的Gateway网关路由](#查看正在工作的Gateway网关路由)
+    - [Zuul网关路由](#Zuul网关路由)
+        - [新增Zuul网关路由](#新增Zuul网关路由)
+        - [发布Zuul网关路由](#发布Zuul网关路由)
+        - [删除Zuul网关路由](#删除Zuul网关路由)
+        - [编辑Zuul网关路由](#编辑Zuul网关路由)
+        - [启用和禁用Zuul网关路由](#启用和禁用Zuul网关路由)
+        - [查看正在工作的Zuul网关路由](#查看正在工作的Zuul网关路由)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -318,19 +336,19 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 本地环境调用验证
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
 
-## 操作手册
+## 服务发布
 
-### 服务发布
+### 蓝绿发布
 
-#### 蓝绿发布
-
-① 导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
+导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-② 〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+#### 新增蓝绿
 
-③ 确定〔入口类型〕和〔入口名称〕
+①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+
+② 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
 - `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
@@ -338,33 +356,33 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-④ 执行〔策略配置〕
+③ 添加和删除策略
 
 策略类型，包括`兜底策略`和`蓝绿策略`，平台默认给出一个`兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
 
-〔策略配置〕工具栏
+〔策略配置〕工具栏上，点击如下按钮进行相关操作
 - 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 - 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
-〔兜底策略〕配置步骤
+④ 配置〔兜底策略〕
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
 
-兜底路由策略配置包括如下步骤
+兜底路由策略配置，包括如下步骤
 - 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 - 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
 - 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-〔蓝绿策略〕配置步骤
+⑤ 配置〔蓝绿策略〕
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
 
-蓝绿条件策略配置包括如下步骤
+蓝绿条件策略配置，包括如下步骤
 - 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
@@ -376,9 +394,10 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 - 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：蓝绿路由策略步骤跟兜底路由策略步骤相同
+兜底路由策略配置，包括如下步骤
+- 操作模式和过程与兜底路由策略类似
 
-⑤ 设置〔内置参数〕
+⑥ 设置〔内置参数〕
 
 当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
 
@@ -388,11 +407,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 增加内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
 - 删除内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-⑥ 执行保存
+⑦ 执行保存
 
 上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
-⑦ 执行〔发布蓝绿〕
+#### 发布蓝绿
 
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
@@ -402,7 +421,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
-⑧ 执行〔删除蓝绿〕
+#### 删除蓝绿
 
 〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
 
@@ -412,15 +431,15 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-⑨ 执行〔编辑蓝绿〕
+#### 编辑蓝绿
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-⑩ 执行〔启用和禁用蓝绿〕
+#### 启用和禁用蓝绿
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
@@ -430,31 +449,105 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-⑪ 执行〔查看蓝绿拓扑图〕
+#### 查看蓝绿拓扑图
 
 待补充
 
-⑫ 执行〔查看正在工作的蓝绿〕
+#### 查看正在工作的蓝绿
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreen.jpg"> 按钮进行查看
+〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
 
 待补充
 
-#### 灰度发布
+### 灰度发布
 
-#### 流量侦测
+### 流量侦测
 
-### 实例管理
+## 实例管理
 
-#### 实例信息
+### 实例信息
 
-#### 实例摘除
+### 实例摘除
 
-### 路由配置
+## 路由配置
 
-#### Gateway网关路由
+### Gateway网关路由
 
-#### Zuul网关路由
+#### 新增Gateway网关路由
+
+① 导航栏上选择〔路由配置〕/〔Gateway网关路由〕，进入Spring Cloud Gateway动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-1.jpg)
+
+② 〔Gateway网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+根据Spring Cloud Gateway网关的官方配置规范，结合如下界面进行配置。其中，断言器和过滤器包括内置和自定义两种模式
+
+内置断言器和过滤器模式是通过Spring Cloud Gateway网关内置相关类和解析模块来实现的，请参照界面提示进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-2.jpg)
+
+自定义断言器和过滤器是通过Spring Cloud Gateway网关使用者自定义和解析模块相关类来实现的，请参照界面提示进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-3.jpg)
+
+#### 发布Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Gateway网关路由
+
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Gateway网关路由
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
+
+### Zuul网关路由
+
+#### 新增Zuul网关路由
+
+① 导航栏上选择〔路由配置〕/〔Zuul网关路由〕，进入Zuul动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-1.jpg)
+
+② 〔Zuul网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+根据Zuul网关的官方配置规范，结合如下界面进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-2.jpg)
+
+#### 发布Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Zuul网关路由
+
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Zuul网关路由
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

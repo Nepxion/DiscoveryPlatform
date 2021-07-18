@@ -361,11 +361,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 #### 云环境调用验证
-通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
+通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据user值的改变，观测返回的调用结果是否符合预期
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan)
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi)
 
 ### 本地环境搭建
 

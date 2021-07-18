@@ -28,6 +28,7 @@ public class JwtTool {
 
     public static String generateToken(AdminVo adminVo, String secret,
                                        Duration expireTime, Duration maxLiveTime) {
+        expireTime = expireTime.compareTo(maxLiveTime) > 0 ? maxLiveTime : expireTime;
         Date iat = new Date();
         long now = iat.getTime();
         return JWT.create()

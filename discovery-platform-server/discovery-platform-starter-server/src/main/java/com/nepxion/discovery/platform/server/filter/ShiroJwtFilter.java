@@ -10,11 +10,12 @@ package com.nepxion.discovery.platform.server.filter;
  * @version 1.0
  */
 
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -72,6 +73,10 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
         } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+        }
+        if(!allowed && isAjaxRequest(WebUtils.toHttp(request))) {
+            addTimeoutStatus(response);
+            return Boolean.TRUE;
         }
         return allowed || super.isPermissive(mappedValue);
     }
@@ -141,6 +146,16 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     private boolean isBearerToken(String token) {
         return StringUtils.startsWith(token, DiscoveryConstant.BEARER);
+    }
+
+    public boolean isAjaxRequest(HttpServletRequest request){
+        return "XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"));
+    }
+
+    public void addTimeoutStatus(ServletResponse servletResponse){
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setCharacterEncoding(MediaType.APPLICATION_JSON.toString());
+        response.setHeader("session-status", "timeout");
     }
 
 }

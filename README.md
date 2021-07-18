@@ -131,6 +131,47 @@ Polaris为Discovery高级定制版，特色功能
 ## 简介
 
 ### 功能概述
+Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例。支持如下功能
+
+- 支持四个注册中心
+- 支持六个配置中心
+- 支持MySQL数据库和H2内存数据库，用户可以无缝扩展到其它数据库（例如，Oracle）
+- 支持数据库方式登录和Ldap方式登录
+- 支持Shiro和JWT的登录以及鉴权
+- 支持管理员/角色/权限配置
+- 支持页面配置，在线添加、删除、修改各类中间件主页或者业务系统主页的集成以及跳转
+- 支持蓝绿发布
+    - 支持蓝绿策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持蓝绿策略启用/禁用模式
+    - 支持蓝绿策略多实例动态路由一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级蓝绿策略和兜底策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持灰度发布
+    - 支持灰度策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持灰度策略启用/禁用模式
+    - 支持灰度策略多实例一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级灰度策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持双网关动态路由
+    - 支持网关动态路由双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持网关动态路由启用/禁用模式
+    - 支持网关动态路由多实例一致性检查
+    - 支持Spring Cloud Gateway内置断言器（基于Path、Host、Header、Cookie、Query、Method、RemoteAddr、Weight等无代码方式）和过滤器（基于StripPrefix、PrefixPath、RewritePath、RequestRateLimiter、CircuitBreaker、AddRequestHeader、AddRequestParameter、AddResponseHeader、RedirectTo等无代码方式）
+    - 支持用户自定义断言器和过滤器，可以实现类似Access Token、网页访问黑/白名单，自定义用户数据（List和Map结构）过滤等低代码方式
+    - 支持Zuul网关内置动态路由
+- 支持服务负载屏蔽的黑名单
+    - 支持黑名单双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持黑名单启用/禁用模式
+    - 支持黑名单多实例一致性检查
+    - 基于时间戳前缀的全局唯一ID黑名单
+    - 基于IP地址和端口黑名单
+- 支持界面显示所连的注册中心和配置中心
 
 ### 郑重致谢
 感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序
@@ -231,16 +272,17 @@ Polaris为Discovery高级定制版，特色功能
 
 ### 配置清单
 
-配置文件位于discovery-platform-application/src/main/resources目录下
+配置文件位于discovery-platform-application/目录下
 
 | 配置文件 | 描述 |
 | --- | --- |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-mysql.properties | 平台MySQL数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> pom.xml | 切换注册中心、配置中心、数据库等依赖引入 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等跟微服务相关的配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-mysql.properties | 平台MySQL数据库、HikariCP连接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-h2.properties | 平台H2内存数据库、HikariCP链接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
 
 ### 架构核心
 

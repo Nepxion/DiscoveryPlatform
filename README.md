@@ -655,11 +655,17 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ## 基础应用
 
+基础应用，一般为企业的内部中间件聚合模块，通过平台的左侧菜单入口进行页面弹出方式的跳转
+
+新增、删除、修改基础应用外链，请参考[页面设置](#页面设置)
+
 ## 系统设置
 
 ### 页面设置
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Page-1.jpg)
+
+待补充
 
 ## 授权配置
 
@@ -725,7 +731,29 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 权限配置
 
+#### 新增权限
+
+① 导航栏上选择〔授权配置〕/〔权限配置〕，进入权限配置界面
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-1.jpg)
+
+② 〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddPermission.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增权限〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-2.jpg)
+
+#### 删除权限
+
+〔权限配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeletePermission.jpg"> 按钮进行删除
+
+#### 编辑权限
+
+〔权限配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="24" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonHas.jpg"> 按钮，完成权限编辑
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-3.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

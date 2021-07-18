@@ -475,7 +475,37 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 实例摘除
 
+#### 新增黑名单
+
+① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的。
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
+
+② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-2.jpg)
+
+黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
+
+#### 发布黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 启用和禁用黑名单
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
+
+待补充
 
 ## 路由配置
 
@@ -520,8 +550,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
-
-选择
 
 ### Zuul网关路由
 

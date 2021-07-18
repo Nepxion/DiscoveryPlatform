@@ -180,6 +180,11 @@ Polaris为Discovery高级定制版，特色功能
 - [实例管理](#实例管理)
     - [实例信息](#实例信息)
     - [实例摘除](#实例摘除)
+        - [新增黑名单](#新增黑名单)
+        - [发布黑名单](#发布黑名单)
+        - [删除黑名单](#删除黑名单)
+        - [启用和禁用黑名单](#启用和禁用黑名单)
+        - [查看正在工作的黑名单](#查看正在工作的黑名单)
 - [路由配置](#路由配置)
     - [Gateway网关路由](#Gateway网关路由)
         - [新增Gateway网关路由](#新增Gateway网关路由)
@@ -477,15 +482,13 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 新增黑名单
 
-① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的。
+① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
 
-② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框
+② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框。黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-2.jpg)
-
-黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
 
 #### 发布黑名单
 

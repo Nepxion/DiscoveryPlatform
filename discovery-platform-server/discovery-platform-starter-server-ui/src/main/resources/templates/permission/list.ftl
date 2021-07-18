@@ -40,7 +40,7 @@
                 <div class="layui-btn-container">
                     <@insert>
                         <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="add">
-                            <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;添加权限
+                            <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增权限
                         </button>
                     </@insert>
                     <@delete>
@@ -160,7 +160,7 @@
                 case 'add':
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;添加权限',
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增权限',
                         content: 'add',
                         area: ['440px', '440px'],
                         btn: admin.BUTTONS,

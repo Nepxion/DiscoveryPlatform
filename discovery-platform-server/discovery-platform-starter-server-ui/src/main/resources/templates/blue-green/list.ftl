@@ -299,13 +299,13 @@
             function toEditPage(id, type) {
                 let t = '';
                 if (type === 1) {
-                    t = '修改<b>版本</b>蓝绿';
+                    t = '编辑<b>版本</b>蓝绿';
                 } else if (type === 2) {
-                    t = '修改<b>区域</b>蓝绿';
+                    t = '编辑<b>区域</b>蓝绿';
                 }
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;' + t,
                     content: 'edit?id=' + id,
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,

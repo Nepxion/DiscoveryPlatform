@@ -656,7 +656,35 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 管理员配置
 
+#### 新增管理员
+
+① 导航栏上选择〔授权配置〕/〔管理员配置〕，进入管理员配置界面
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
+
+② 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddAdmin.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-2.jpg)
+
+#### 删除管理员
+
+〔管理员配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔管理员配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
+
+#### 编辑管理员
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔编辑管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-3.jpg)
+
+#### 重置管理员密码
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
 
 ### 角色配置
 

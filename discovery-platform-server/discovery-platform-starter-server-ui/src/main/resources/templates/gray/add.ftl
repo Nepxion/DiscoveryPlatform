@@ -459,7 +459,7 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {templet: '#tRouteName' + tabIndex, title: '路由名', unresize: true, width: 323},
-                                {field: 'value', title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: [newRateRow()]
@@ -533,7 +533,7 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {field: 'routeName', templet: '#tStrategyRouteName', unresize: true, title: '路由名'},
-                                {field: 'value', title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: [newRateRow()]

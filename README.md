@@ -249,7 +249,14 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
     - [页面设置](#页面设置)
 - [授权配置](#授权配置)
     - [管理员配置](#管理员配置)
+        - [新增管理员](#新增管理员)
+        - [删除管理员](#删除管理员)
+        - [编辑管理员](#编辑管理员)
+        - [重置管理员密码](#重置管理员密码)
     - [角色配置](#角色配置)
+        - [新增角色](#新增角色)
+        - [删除角色](#删除角色)
+        - [编辑角色](#编辑角色)
     - [权限配置](#权限配置)
 - [Star走势图](#Star走势图)
 
@@ -494,6 +501,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
@@ -516,7 +525,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
 
 ① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
 
@@ -656,11 +665,63 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 管理员配置
 
+#### 新增管理员
+
+① 导航栏上选择〔授权配置〕/〔管理员配置〕，进入管理员配置界面
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
+
+② 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddAdmin.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-2.jpg)
+
+#### 删除管理员
+
+〔管理员配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
+
+#### 编辑管理员
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔编辑管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-3.jpg)
+
+#### 重置管理员密码
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
 
 ### 角色配置
 
+#### 新增角色
+
+① 导航栏上选择〔授权配置〕/〔角色配置〕，进入角色配置界面
+
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-1.jpg)
+
+② 〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRole.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增角色〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-2.jpg)
+
+#### 删除角色
+
+〔角色配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRole.jpg"> 按钮进行删除
+
+#### 编辑角色
+
+〔角色配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔编辑角色〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-3.jpg)
 
 ### 权限配置
 

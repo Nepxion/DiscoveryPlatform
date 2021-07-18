@@ -455,7 +455,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 查看正在工作的蓝绿
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreen.jpg"> 按钮进行查看
+〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
 
 待补充
 
@@ -493,23 +493,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布Gateway网关路由
 
-发布Gateway网关路由，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
 
 #### 删除Gateway网关路由
 
-删除Gateway网关路由，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
 
 #### 编辑Gateway网关路由
 
-编辑Gateway网关路由，操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
 
 #### 启用和禁用Gateway网关路由
 
-启用和禁用Gateway网关路由，操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
 
 #### 查看正在工作的Gateway网关路由
 
-查看正在工作的Gateway网关路由，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Gateway网关路由配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
 
 ### Zuul网关路由
 

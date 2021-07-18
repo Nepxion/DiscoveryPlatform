@@ -260,7 +260,7 @@
                 }
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;' + t,
                     content: 'add?type=' + type,
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,

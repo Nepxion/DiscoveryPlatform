@@ -160,7 +160,7 @@
                 case 'add':
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加权限',
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;添加权限',
                         content: 'add',
                         area: ['440px', '440px'],
                         btn: admin.BUTTONS,

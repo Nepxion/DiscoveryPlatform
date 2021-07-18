@@ -501,6 +501,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
@@ -523,7 +525,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
 
 ① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
 

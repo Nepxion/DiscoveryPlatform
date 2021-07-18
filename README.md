@@ -166,6 +166,7 @@ Polaris为Discovery高级定制版，特色功能
         - [本地环境平台登录](#本地环境平台登录)
         - [本地环境调用验证](#本地环境调用验证)
 - [平台登录](#平台登录)
+- [主页](#主页)
 - [服务发布](#服务发布)
     - [蓝绿发布](#蓝绿发布)
         - [新增蓝绿](#新增蓝绿)
@@ -200,6 +201,13 @@ Polaris为Discovery高级定制版，特色功能
         - [编辑Zuul网关路由](#编辑Zuul网关路由)
         - [启用和禁用Zuul网关路由](#启用和禁用Zuul网关路由)
         - [查看正在工作的Zuul网关路由](#查看正在工作的Zuul网关路由)
+- [基础应用](#基础应用)
+- [系统设置](#系统设置)
+    - [页面设置](#页面设置)
+- [授权配置](#授权配置)
+    - [管理员配置](#管理员配置)
+    - [角色配置](#角色配置)
+    - [权限配置](#权限配置)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -340,6 +348,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 本地环境调用验证
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
+
+## 主页
 
 ## 服务发布
 
@@ -589,6 +599,28 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
+
+## 基础应用
+
+## 系统设置
+
+### 页面设置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Page-1.jpg)
+
+## 授权配置
+
+### 管理员配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
+
+### 角色配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-1.jpg)
+
+### 权限配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-1.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

@@ -463,7 +463,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略更新，有些服务实例未收到规则策略更新
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 
 ### 灰度发布
 
@@ -474,6 +474,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ### 实例信息
 
 ### 实例摘除
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
 
 ## 路由配置
 

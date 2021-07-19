@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 8
@@ -35,12 +33,11 @@ jobs:
     - name: Deploy to TianYi cloud server
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
+        host: ${{secrets.TIANYI_SERVER_IP}}
+        username: ${{secrets.TIANYI_SERVER_USER}}
+        password: ${{secrets.TIANYI_SERVER_PWD}}
         script: |
-           #!/bin/bash
+          #!/bin/bash
           pid=`ps -ef|grep "discovery-platform-application-1.0.0.jar" |grep -v grep |  awk '{printf $2}'`
           if [ -z "$pid" ];
             then

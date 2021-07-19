@@ -33,9 +33,21 @@ jobs:
         username: ${{secrets.TIANYI_SERVER_USER}}
         password: ${{secrets.TIANYI_SERVER_PWD}}
     - name: Deploy to TianYi cloud server
-      uses: fifsky/ssh-action@master
+      uses: appleboy/ssh-action@master
       with:
-        host: ${{secrets.TIANYI_SERVER_IP}}
-        user: ${{secrets.TIANYI_SERVER_USER}}
-        pass: ${{secrets.TIANYI_SERVER_PWD}}
-        command: cd /usr/opt/platform && nohup ./platform-start.sh &
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+           #!/bin/bash
+          pid=`ps -ef|grep "discovery-platform-application-1.0.0.jar" |grep -v grep |  awk '{printf $2}'`
+          if [ -z "$pid" ];
+            then
+              echo "service not started"
+          else
+              echo "the service pid = $pid, will be stopped"
+              kill -9 $pid
+          fi
+          echo "start service"
+          nohup java -jar -Xms256m -Xmx256m discovery-platform-application-1.0.0.jar  &

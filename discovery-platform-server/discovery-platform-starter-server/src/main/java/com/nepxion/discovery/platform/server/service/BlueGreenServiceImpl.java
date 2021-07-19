@@ -255,7 +255,7 @@ public class BlueGreenServiceImpl extends
 		// TODO: 查询切换
 		// RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
 		RuleEntity ruleEntity = JsonUtil.fromJson(ruleEntityJson, RuleEntity.class);
-		return GraphUtils.changeRuleEntityToGraph(ruleEntity);
+		return GraphUtils.changeRuleEntityToGraph(portalName, ruleEntity);
 	}
 
 	private static boolean hasValue(String arrayJson) {

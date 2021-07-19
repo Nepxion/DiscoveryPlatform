@@ -62,7 +62,7 @@
         return group.addShape('dom', {
           attrs: {
             x: -6,
-            y: 20,
+            y: 60,
             width: 48,
             height: 48,
             html: "<img src='${ctx}/images/graph/gateway_black_64.png'/>"
@@ -195,17 +195,6 @@
           }
         }
       });
-      /*var source = cfg.source,
-        target = cfg.target;
-      group.addShape("circle", {
-        attrs: {
-          id: "statusNode" + source + "-" + target,
-          r: 6,
-          x: centerPoint.x,
-          y: centerPoint.y,
-          fill: cfg.active ? "#AB83E4" : "#ccc"
-        }
-      });*/
 
       return path;
     }
@@ -221,7 +210,7 @@
       nodesep: 100,
       ranksepFunc : (d) => {
         if (d.id === "begin") {
-          return 100;
+          return 150;
         }
         return 20;
       },
@@ -238,7 +227,6 @@
           fontSize: 14
         },
         offset: 30,
-        refX: 20,
         position: 'bottom'
       }
     },

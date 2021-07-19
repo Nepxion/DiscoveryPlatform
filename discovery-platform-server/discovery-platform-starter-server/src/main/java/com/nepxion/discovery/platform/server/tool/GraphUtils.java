@@ -39,7 +39,7 @@ public class GraphUtils {
 		return nodeCache;
 	}
 
-	public static GraphDto changeRuleEntityToGraph(RuleEntity ruleEntity) {
+	public static GraphDto changeRuleEntityToGraph(String portalName, RuleEntity ruleEntity) {
 		GraphDto graphDto = new GraphDto();
 		if (ruleEntity.getStrategyReleaseEntity() != null) {
 			List<StrategyConditionBlueGreenEntity> blueGreenList =
@@ -63,6 +63,7 @@ public class GraphUtils {
 			GraphNodeDto begin = new GraphNodeDto();
 			begin.setType(BEGIN_NODE_ID);
 			begin.setId(BEGIN_NODE_ID);
+			begin.setLabel(portalName);
 			nodes.add(begin);
 
 			List<GraphLinkDto> edges = new ArrayList<>();

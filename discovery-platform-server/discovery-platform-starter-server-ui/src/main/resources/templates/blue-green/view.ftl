@@ -6,6 +6,9 @@
     div#mountNode{
        margin-left: 50px;
     }
+    div#mountNode img{
+       width:auto;height:auto;max-width: 100%;max-height: 100%;
+    }
   </style>
   <#include "../common/layui.ftl">
 </head>
@@ -56,35 +59,37 @@
   G6.registerNode("node", {
     drawShape: function drawShape(cfg, group) {
       if (cfg.type === 'begin') {
-        var circle = group.addShape("circle", {
+        return group.addShape('dom', {
           attrs: {
-            r: 12,
-            x: 0,
-            y: 0,
-            fill: "#9FD4FB",
-            fillOpacity: 1
+            x: -6,
+            y: 20,
+            width: 48,
+            height: 48,
+            html: "<img src='${ctx}/images/graph/gateway_black_64.png'/>"
           }
         });
-        return circle;
       }
 
-      var rect = group.addShape("rect", {
-        attrs: _extends({
-          x: -90,
-          y: -15,
-          width: 180,
-          height: 50,
-          radius: 4,
-          fill: "#FFD591",
-          fillOpacity: 1
-        }, nodeExtraAttrs[cfg.type])
-      });
+      var color = "blue";
+      if (cfg.id.indexOf(basicRouteId + '_') === 0) {
+          color = "yellow";
+      }
+
+      var rect = group.addShape('dom', {
+          attrs: {
+            x: 0,
+            y: 0,
+            width: 36,
+            height: 36,
+            html: "<img src='${ctx}/images/graph/service_" + color +"_64.png'/>"
+          }
+        });
 
       if (cfg.routeId) {
         group.addShape('text', {
           attrs: {
-          x: -20,
-          y: -55,
+          x: 0,
+          y: -35,
           text: cfg.routeId || '',
           fill: cfg.textColor ? cfg.textColor : '#666666',
           autoRotate: true,
@@ -96,8 +101,8 @@
       if (cfg.condition) {
         group.addShape('text', {
           attrs: {
-          x: -60,
-          y: -35,
+          x: -20,
+          y: -15,
           text: cfg.condition || '',
           fill: cfg.textColor ? cfg.textColor : '#666666',
           autoRotate: true,
@@ -108,12 +113,11 @@
 
       group.addShape('text', {
         attrs: {
-        x: -40,
-        y: 25,
+        x: -10,
+        y: 75,
         text: cfg.value ? 'version=' + cfg.value : '',
         fill: cfg.textColor ? cfg.textColor : '#666666',
         autoRotate: true,
-        refY: 10,
         }
       });
 
@@ -170,6 +174,11 @@
         x: (startPoint.x),
         y: (startPoint.y + 20)
       };
+
+      var color = "#1296DB";
+      if (cfg.target.indexOf(basicRouteId + '_') === 0) {
+          color = "#B9AE12";
+      }
       var path = group.addShape("path", {
         attrs: {
           path: [
@@ -177,16 +186,16 @@
           ["Q", controlPoint.x, controlPoint.y + 8, centerPoint.x, centerPoint.y],
           ["T", endPoint.x, endPoint.y - 8],
           ["L", endPoint.x, endPoint.y]],
-          stroke: "#ccc",
+          stroke: color,
           lineWidth: 1.6,
           endArrow: {
             path: "M -3,0 L 3,3 L 3,-3 Z",
-            d: -4,
+            d: -14,
             lineWidth: 3,
           }
         }
       });
-      var source = cfg.source,
+      /*var source = cfg.source,
         target = cfg.target;
       group.addShape("circle", {
         attrs: {
@@ -196,19 +205,27 @@
           y: centerPoint.y,
           fill: cfg.active ? "#AB83E4" : "#ccc"
         }
-      });
+      });*/
 
       return path;
     }
   });
 
   var graph = new G6.Graph({
+    renderer: "svg",
     container: "mountNode",
     width: 950,
     height: 550,
     layout: {
-      type: 'dagre',
-      linkDistance: 100
+      type: "dagre",
+      nodesep: 100,
+      ranksepFunc : (d) => {
+        if (d.id === "begin") {
+          return 100;
+        }
+        return 20;
+      },
+      controlPoints: true
     },
     modes: {
       default: ['drag-canvas', 'zoom-canvas']
@@ -217,9 +234,12 @@
       shape: "node",
       labelCfg: {
         style: {
-          fill: "#fff",
+          fill: "#666666",
           fontSize: 14
-        }
+        },
+        offset: 30,
+        refX: 20,
+        position: 'bottom'
       }
     },
     defaultEdge: {
@@ -233,6 +253,16 @@
   });
 
   var data = ${config} || {nodes: [{id: "noConfig", label: "未配置"}]};
+  function getBasicRoute(data) {
+     for (var i = 0; i < data.nodes.length; i ++) {
+        var node = data.nodes[i];
+        if (node.routeId && !node.condition) {
+            return node.routeId;
+        }
+     }
+  }
+
+  var basicRouteId = getBasicRoute(data);
   graph.data(data);
   graph.render();
   graph.fitView();

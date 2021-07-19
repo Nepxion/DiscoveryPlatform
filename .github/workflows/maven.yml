@@ -38,5 +38,5 @@ jobs:
         host: ${{secrets.TIANYI_SERVER_IP}}
         user: ${{secrets.TIANYI_SERVER_USER}}
         pass: ${{secrets.TIANYI_SERVER_PWD}}
-        timeout: 1000s
+        timeout: 1000ms
         command: cd /usr/opt/platform && ./platform-start.sh

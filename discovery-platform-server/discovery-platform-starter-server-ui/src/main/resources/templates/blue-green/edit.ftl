@@ -625,6 +625,16 @@
                                     'logic': data[i].logic
                                 });
                             }
+                            if (result.length < 1) {
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
+                                    'parameterName': '',
+                                    'operator': '==',
+                                    'value': '',
+                                    'logic': 'and'
+                                });
+                            }
                             return result;
                         }
                     }
@@ -653,6 +663,16 @@
                                         'valueList': vl
                                     });
                                 }, false);
+                            }
+                            if (result.length < 1) {
+                                routeCount++;
+                                result.push({
+                                    'index': routeCount,
+                                    'serviceName': '',
+                                    'value': '',
+                                    'serviceNameList': serviceNameList,
+                                    'valueList': []
+                                });
                             }
                             return result;
                         }
@@ -748,6 +768,14 @@
                                     'index': headerCount,
                                     'headerName': data[i].headerName,
                                     'value': data[i].value
+                                });
+                            }
+                            if (result.length < 1) {
+                                headerCount++;
+                                result.push({
+                                    'index': headerCount,
+                                    'headerName': '',
+                                    'value': ''
                                 });
                             }
                             return result;

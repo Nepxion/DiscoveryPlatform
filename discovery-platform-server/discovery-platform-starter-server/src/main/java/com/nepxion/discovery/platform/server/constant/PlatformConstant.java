@@ -33,6 +33,7 @@ public class PlatformConstant {
 
     public static final String SERVICE_NAME = "serviceName";
     public static final String HEADER_NAME = "headerName";
+    public static final String ROUTE_NAME = "routeName";
     public static final String VALUE = "value";
     public static final String SPEL_CONDITION = "spelCondition";
 
@@ -40,4 +41,6 @@ public class PlatformConstant {
     public static final String BASIC_CONDITION = "basic-condition";
     public static final String ROUTE = "route-%s";
     public static final String BASIC_ROUTE = "basic-route";
+
+    public static final String GRAY_CONDITION = "gray-condition-%s";
 }

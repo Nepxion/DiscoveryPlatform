@@ -35,11 +35,8 @@ public class GrayPo implements Serializable {
     @ApiModelProperty("灰度发布策略类型(1:版本策略, 2:区域策略)")
     private Integer type;
 
-    @ApiModelProperty("条件策略")
-    private String condition;
-
-    @ApiModelProperty("路由策略")
-    private String route;
+    @ApiModelProperty("灰度策略")
+    private String grayStrategy;
 
     @ApiModelProperty("路由服务编排")
     private String routeService;
@@ -85,20 +82,12 @@ public class GrayPo implements Serializable {
         this.type = type;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getGrayStrategy() {
+        return grayStrategy;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
+    public void setGrayStrategy(String grayStrategy) {
+        this.grayStrategy = grayStrategy;
     }
 
     public String getRouteService() {

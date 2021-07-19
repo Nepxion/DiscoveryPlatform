@@ -399,7 +399,7 @@
                             const spelConditionId = 'spelCondition' + $(this).attr('tag');
                             layer.open({
                                 type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
                                 content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
                                 area: ['645px', '235px'],
                                 btn: '关闭',
@@ -494,7 +494,7 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {templet: '#tRouteName' + tabIndex, title: '路由名', unresize: true, width: 323},
-                                {field: 'value', title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: route == undefined ? [newRateRow()] : newRateRow(route)
@@ -568,7 +568,7 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {field: 'routeName', templet: '#tStrategyRouteName', unresize: true, title: '路由名'},
-                                {field: 'value', title: '流量配比(0% ~ 100%)', edit: 'text', unresize: true},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: data == undefined || data.length < 1 ? [newRateRow()] : newRateRow(data)

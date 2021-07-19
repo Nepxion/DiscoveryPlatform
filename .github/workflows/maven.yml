@@ -36,6 +36,7 @@ jobs:
         host: ${{secrets.TIANYI_SERVER_IP}}
         username: ${{secrets.TIANYI_SERVER_USER}}
         password: ${{secrets.TIANYI_SERVER_PWD}}
+        timeout: 20s
         script: |
           cd /usr/opt/platform 
           nohup ./platform-start.sh &

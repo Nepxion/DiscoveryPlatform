@@ -7,9 +7,12 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Company: Nepxion</p>
  *
  * @author Ning Zhang
+ * @author Xuehui Ren
  * @version 1.0
  */
 
+import com.nepxion.discovery.common.util.JsonUtil;
+import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +31,6 @@ import com.nepxion.discovery.platform.server.service.BlueGreenService;
 public class BlueGreenPageController {
     @Autowired
     private BlueGreenService blueGreenService;
-
     @GetMapping("list")
     public String list() {
         return String.format("%s/%s", BlueGreenController.PREFIX, "list");
@@ -40,6 +42,16 @@ public class BlueGreenPageController {
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
         return String.format("%s/%s", BlueGreenController.PREFIX, "add");
+    }
+
+    @GetMapping("view")
+    public String view(Model model, @RequestParam("name") String name) throws Exception {
+        GraphDto config = blueGreenService.viewGraph(name);
+        model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("logics", RelationalType.values());
+        model.addAttribute("name", name);
+        model.addAttribute("config", JsonUtil.toJson(config));
+        return String.format("%s/%s", BlueGreenController.PREFIX, "view");
     }
 
     @GetMapping("edit")

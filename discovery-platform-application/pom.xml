@@ -15,8 +15,6 @@
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <start-class>com.nepxion.discovery.platform.application.PlatformMySqlApplication</start-class>
     </properties>
 
     <dependencies>

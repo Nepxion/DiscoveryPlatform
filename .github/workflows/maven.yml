@@ -22,23 +22,4 @@ jobs:
         java-version: '8'
         distribution: 'adopt'
     - name: Build with Maven
-      run: |
-        mvn package
-    - name: Upload jar to TianYi cloud server
-      uses: kostya-ten/ssh-server-deploy@v4
-      with:
-        scp_source: discovery-platform-application/target/discovery-platform-application-1.0.0.jar
-        scp_target: /usr/opt/platform
-        host: ${{secrets.TIANYI_SERVER_IP}}
-        username: ${{secrets.TIANYI_SERVER_USER}}
-        password: ${{secrets.TIANYI_SERVER_PWD}}
-    - name: Deploy to TianYi cloud server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{secrets.TIANYI_SERVER_IP}}
-        username: ${{secrets.TIANYI_SERVER_USER}}
-        password: ${{secrets.TIANYI_SERVER_PWD}}
-        timeout: 15s
-        script: |
-          cd /usr/opt/platform 
-          nohup ./platform-start.sh &
+      run: mvn -B package --file pom.xml

@@ -239,7 +239,7 @@
             </div>
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
-            <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
             <input type="hidden" id="grayStrategy" name="grayStrategy"/>
             <input type="hidden" id="header" name="header"/>
@@ -271,8 +271,8 @@
                         for (const k in grayStrategyJson) {
                             addTabCondition(grayStrategyJson[k].condition, grayStrategyJson[k].route);
                         }
-                        <#if entity.strategy!=''>
-                        addStrategy(${entity.strategy});
+                        <#if entity.basicStrategy!=''>
+                        addBasicStrategy(${entity.basicStrategy});
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
@@ -305,7 +305,7 @@
                     }
 
                     $('#btnStrategyAdd').click(function () {
-                        addStrategy();
+                        addBasicStrategy();
                     });
 
                     $('#btnConditionAdd').click(function () {
@@ -520,7 +520,7 @@
                         });
                     }
 
-                    function addStrategy(data) {
+                    function addBasicStrategy(data) {
                         if ($('li[lay-id="' + TAB_STRATEGY + '"]').size() > 0) {
                             element.tabChange(TAB, TAB_STRATEGY);
                             admin.success('系统操作', '已存在兜底策略');
@@ -911,14 +911,14 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
+                        collectBasicStrategy();
                         collectGrayStrategy();
                         collectHeader();
                         collectRouteService();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -938,7 +938,7 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 

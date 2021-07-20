@@ -250,7 +250,7 @@
                 </script>
             </div>
 
-            <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
             <input type="hidden" id="grayStrategy" name="grayStrategy"/>
             <input type="hidden" id="header" name="header"/>
@@ -805,14 +805,14 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
+                        collectBasicStrategy();
                         collectGrayStrategy();
                         collectHeader();
                         collectRouteService();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -832,7 +832,7 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 

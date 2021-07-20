@@ -105,30 +105,33 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                             strategyReleaseEntity.setStrategyConditionGrayEntityList(conditionAndRoute.getStrategyConditionGrayEntityList());
                             strategyReleaseEntity.setStrategyRouteEntityList(conditionAndRoute.getStrategyRouteEntityList());
 
-                            if (hasValue(grayDto.getStrategy())) {
+                            if (hasValue(grayDto.getBasicStrategy())) {
+
+                                List<Map<String, String>> basicStrategy = JsonUtil.fromJson(grayDto.getBasicStrategy(), new TypeReference<List<Map<String, String>>>() {
+                                });
+
+                                Map<String, Integer> weightMap = new LinkedHashMap<>();
+                                for (Map<String, String> map : basicStrategy) {
+                                    String routeName = conditionAndRoute.getRouteNameKeyMap().get(map.get(PlatformConstant.ROUTE_NAME));
+                                    weightMap.put(routeName, Integer.parseInt(map.get(PlatformConstant.VALUE)));
+                                }
+
                                 StrategyConditionGrayEntity strategyConditionGrayEntity = new StrategyConditionGrayEntity();
                                 strategyConditionGrayEntity.setId(PlatformConstant.BASIC_CONDITION);
-
-                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
-                                strategyRouteEntity.setId(PlatformConstant.BASIC_ROUTE);
 
                                 switch (Objects.requireNonNull(type)) {
                                     case VERSION:
                                         VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
-                                        versionWeightEntity.setWeightMap(null); //TODO
+                                        versionWeightEntity.setWeightMap(weightMap);
                                         strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
-                                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
                                         break;
                                     case REGION:
                                         RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
-                                        regionWeightEntity.setWeightMap(null); //TODO
+                                        regionWeightEntity.setWeightMap(weightMap);
                                         strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
-                                        strategyRouteEntity.setType(StrategyRouteType.REGION);
                                         break;
                                 }
-                                strategyRouteEntity.setValue(toServiceJson(grayDto.getStrategy()));
                                 conditionAndRoute.getStrategyConditionGrayEntityList().add(strategyConditionGrayEntity);
-                                conditionAndRoute.getStrategyRouteEntityList().add(strategyRouteEntity);
                             }
 
                             ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
@@ -157,7 +160,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         grayDto.setPortalName(grayPo.getPortalName());
         grayDto.setPortalType(grayPo.getPortalType());
         grayDto.setType(grayPo.getType());
-        grayDto.setStrategy(grayPo.getStrategy());
+        grayDto.setBasicStrategy(grayPo.getBasicStrategy());
         grayDto.setGrayStrategy(grayPo.getGrayStrategy());
         grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
@@ -173,7 +176,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
             return false;
         }
         grayDto.setType(grayPo.getType());
-        grayDto.setStrategy(grayPo.getStrategy());
+        grayDto.setBasicStrategy(grayPo.getBasicStrategy());
         grayDto.setGrayStrategy(grayPo.getGrayStrategy());
         grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
@@ -240,7 +243,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                 List<Map<String, String>> route = pair.getValue().getRoute();
 
                 StrategyConditionGrayEntity strategyConditionGrayEntity = new StrategyConditionGrayEntity();
-                strategyConditionGrayEntity.setId(String.format(PlatformConstant.GRAY_CONDITION, index));
+                strategyConditionGrayEntity.setId(String.format(PlatformConstant.CONDITION, index));
 
                 Map<String, Integer> weightMap = new LinkedHashMap<>();
                 for (Map<String, String> map : route) {

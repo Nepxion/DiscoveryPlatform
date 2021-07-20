@@ -41,6 +41,4 @@ public class PlatformConstant {
     public static final String BASIC_CONDITION = "basic-condition";
     public static final String ROUTE = "route-%s";
     public static final String BASIC_ROUTE = "basic-route";
-
-    public static final String GRAY_CONDITION = "gray-condition-%s";
 }

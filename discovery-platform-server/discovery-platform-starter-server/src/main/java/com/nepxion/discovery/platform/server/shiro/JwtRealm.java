@@ -49,21 +49,18 @@ public class JwtRealm extends AuthorizingRealm {
 
         try {
             JwtToolWrapper jwtToolWrapper = adminService.getJwtToolWrapper();
-            if (jwtToolWrapper.verify(tokenString)) {
-                long id = jwtToolWrapper.decodeToken(tokenString);
-                AdminVo adminVo = adminService.getAdminById(id);
-                if (adminService.isSuperAdmin(adminVo.getUsername())) {
-                    adminVo.getSysRole().setSuperAdmin(true);
-                } else {
-                    adminVo.getSysRole().setSuperAdmin(false);
-                }
-                return new SimpleAuthenticationInfo(adminVo, null, adminVo.getUsername());
+            long id = jwtToolWrapper.decodeToken(tokenString);
+            AdminVo adminVo = adminService.getAdminById(id);
+            if (adminService.isSuperAdmin(adminVo.getUsername())) {
+                adminVo.getSysRole().setSuperAdmin(true);
+            } else {
+                adminVo.getSysRole().setSuperAdmin(false);
             }
+            return new SimpleAuthenticationInfo(adminVo, null, adminVo.getUsername());
         } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
             return null;
         }
-        return null;
     }
 
     @Override

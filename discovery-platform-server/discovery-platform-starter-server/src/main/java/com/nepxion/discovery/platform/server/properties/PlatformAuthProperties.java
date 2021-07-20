@@ -48,7 +48,7 @@ public class PlatformAuthProperties {
 
         private String secret;
 
-        private Duration expireTime = Duration.ofMinutes(30L);
+        private Duration expireTime = Duration.ofDays(1);
 
         private Duration maxLiveTime = Duration.ofDays(1);
 

@@ -13,14 +13,14 @@ layui.define(function (e) {
     admin.DEL_QUESTION = '确定要删除所选项吗?';
     admin.DEL_SUCCESS = '所选项已全部成功删除';
     admin.ACCESS_TOKEN = "n-d-access-token";
-    admin.SESSION_STATUS = 'session-status';
+    admin.SESSION_STATUS = 'n-d-session-status';
 
     admin.beforeRequest = function (jqXHR) {
         admin.addTokenHeader(jqXHR);
     }
 
     admin.afterResponse = function (data, textStatus, jqXHR) {
-        admin.dealTokenExpire(jqXHR);
+        admin.dealAuthFailureStatus(jqXHR);
         admin.cacheToken(jqXHR);
     }
 
@@ -182,14 +182,17 @@ layui.define(function (e) {
         });
     };
 
-    admin.warning = function (title, content, callback) {
+    admin.warning = function (title, content, callback, cancel) {
         layer.open({
             title: title,
             content: content,
-            icon: 2,
+            icon: 0,
             btn: '确定',
             yes: function () {
                 if (callback) callback();
+            },
+            cancel: function () {
+                if (cancel) cancel();
             }
         });
     };
@@ -228,12 +231,17 @@ layui.define(function (e) {
         return result;
     }
 
-    admin.dealTokenExpire = function (jqXHR) {
-        if (jqXHR.getResponseHeader(admin.SESSION_STATUS)) {
+    admin.dealAuthFailureStatus = function (jqXHR) {
+        let status = jqXHR.getResponseHeader(admin.SESSION_STATUS);
+        if (status) {
             admin.removeToken();
-            admin.warning('系统提示',
-                '由于长时间未操作，账号已自动退出，请重新登录！',
-                () => admin.quit());
+            if ('expired' === status) {
+                admin.warning('系统提示', '由于长时间未操作，账号已自动退出，请重新登录！',
+                    () => admin.quit(), () => admin.quit());
+            } else {
+                admin.warning('系统提示', '认证失败！',
+                    () => admin.quit(), () => admin.quit());
+            }
         }
     }
 

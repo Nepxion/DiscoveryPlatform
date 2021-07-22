@@ -27,7 +27,7 @@
 		{
 			"name": "platform.server.auth.token.expire-time",
 			"type": "java.time.Duration",
-			"defaultValue": "30m",
+			"defaultValue": "1d",
 			"description": "Token expire time."
 		},
 		{

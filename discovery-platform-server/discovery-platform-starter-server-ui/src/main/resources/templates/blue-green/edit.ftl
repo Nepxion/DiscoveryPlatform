@@ -216,9 +216,8 @@
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="strategy" name="strategy"/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
+            <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy"/>
             <input type="hidden" id="header" name="header"/>
         </div>
         <script>
@@ -229,43 +228,23 @@
 
                     setTimeout(function () {
                         reloadPortalName();
-                        const conditionJson = <#if entity.condition!=''>${entity.condition};
+                        const blueGreenStrategyJson = <#if entity.blueGreenStrategy!=''>${entity.blueGreenStrategy};
                         <#else>
                         {
                         }
                         ;
                         </#if>
-                        const routeJson = <#if entity.route!=''>${entity.route};
-                            <#else>{
-                        }
-                        ;
-                        </#if>
-                        const condition = [], route = [];
-                        for (const k in conditionJson) {
-                            condition.push(conditionJson[k]);
-                        }
-                        for (const k in routeJson) {
-                            route.push(routeJson[k]);
+
+                        for (const k in blueGreenStrategyJson) {
+                            addTabCondition(blueGreenStrategyJson[k].condition, blueGreenStrategyJson[k].route);
                         }
 
-                        const len = Math.max(condition.length, route.length);
-                        for (let i = 0; i < len; i++) {
-                            let c = null, r = null;
-                            if (i < condition.length) {
-                                c = condition[i];
-                            }
-                            if (i < route.length) {
-                                r = route[i];
-                            }
-                            addTabCondition(c, r);
-                        }
-
-                        <#if entity.strategy!=''>
-                        addStrategy(${entity.strategy});
+                        <#if entity.basicStrategy!=''>
+                        addStrategy(${entity.basicStrategy});
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
-                    }, 50);
+                    }, 100);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
@@ -794,13 +773,13 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectBlueGreenStrategy();
                         collectHeader();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -820,14 +799,13 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectBlueGreenStrategy() {
+                        $('#blueGreenStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -854,12 +832,8 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
@@ -880,13 +854,13 @@
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#blueGreenStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

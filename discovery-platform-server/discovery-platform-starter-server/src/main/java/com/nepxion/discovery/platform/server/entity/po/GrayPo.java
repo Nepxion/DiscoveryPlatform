@@ -38,7 +38,7 @@ public class GrayPo implements Serializable {
     @ApiModelProperty("兜底策略")
     private String basicStrategy;
 
-    @ApiModelProperty("灰度策略")
+    @ApiModelProperty("灰度条件策略")
     private String grayStrategy;
 
     @ApiModelProperty("路由服务编排")

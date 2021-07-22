@@ -32,4 +32,6 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
     void delete(Collection<Long> ids);
 
     List<String> listPortalNames();
+
+    void updatePublishFlag(String portalName, boolean flag);
 }

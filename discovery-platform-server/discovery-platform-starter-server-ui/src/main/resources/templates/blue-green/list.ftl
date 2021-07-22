@@ -184,7 +184,7 @@
                 if (obj.event === 'viewGraph') {
                     layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;查看拓扑图',
+                    title: '<i class="layui-icon layui-icon-component"></i>&nbsp;查看蓝绿拓扑图',
                     content: 'view?name=test',
                     area: ['1045px', '98%'],
                     btn: '关闭',

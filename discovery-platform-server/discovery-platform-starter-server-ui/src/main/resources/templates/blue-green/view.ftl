@@ -178,6 +178,8 @@
       var color = "#1296DB";
       if (cfg.target.indexOf(basicRouteId + '_') === 0) {
           color = "#B9AE12";
+      } else {
+          color = "#00A3AF";
       }
       var path = group.addShape("path", {
         attrs: {

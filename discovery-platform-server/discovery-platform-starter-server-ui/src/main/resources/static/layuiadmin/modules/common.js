@@ -13,12 +13,14 @@ layui.define(function (e) {
     admin.DEL_QUESTION = '确定要删除所选项吗?';
     admin.DEL_SUCCESS = '所选项已全部成功删除';
     admin.ACCESS_TOKEN = "n-d-access-token";
+    admin.SESSION_STATUS = 'n-d-session-status';
 
     admin.beforeRequest = function (jqXHR) {
         admin.addTokenHeader(jqXHR);
     }
 
     admin.afterResponse = function (data, textStatus, jqXHR) {
+        admin.dealAuthFailureStatus(jqXHR);
         admin.cacheToken(jqXHR);
     }
 
@@ -180,12 +182,27 @@ layui.define(function (e) {
         });
     };
 
+    admin.warning = function (title, content, callback, cancel) {
+        layer.open({
+            title: title,
+            content: content,
+            icon: 0,
+            btn: '确定',
+            yes: function () {
+                if (callback) callback();
+            },
+            cancel: function () {
+                if (cancel) cancel();
+            }
+        });
+    };
+
     admin.toJson = function (obj) {
         return JSON.parse(JSON.stringify(obj));
     };
 
     admin.quit = function () {
-        admin.post('do-quit', {}, function () {
+        admin.post('/do-quit', {}, function () {
             window.localStorage.removeItem(admin.ACCESS_TOKEN);
             admin.toLogin();
         });
@@ -214,6 +231,20 @@ layui.define(function (e) {
         return result;
     }
 
+    admin.dealAuthFailureStatus = function (jqXHR) {
+        let status = jqXHR.getResponseHeader(admin.SESSION_STATUS);
+        if (status) {
+            admin.removeToken();
+            if ('expired' === status) {
+                admin.warning('系统提示', '由于长时间未操作，账号已自动退出，请重新登录！',
+                    () => admin.quit(), () => admin.quit());
+            } else {
+                admin.warning('系统提示', '认证失败！',
+                    () => admin.quit(), () => admin.quit());
+            }
+        }
+    }
+
     admin.closeDelete = function (table, obj, index) {
         table.reload(obj.config.id, {
             done: function (result, page) {
@@ -230,15 +261,31 @@ layui.define(function (e) {
     admin.cacheToken = function (jqXHR) {
         const accessToken = jqXHR.getResponseHeader(admin.ACCESS_TOKEN);
         if (accessToken) {
-            window.localStorage.setItem(admin.ACCESS_TOKEN, accessToken);
+            admin.putCache(admin.ACCESS_TOKEN, accessToken);
         }
     }
 
     admin.addTokenHeader = function (jqXHR) {
-        const accessToken = window.localStorage.getItem(admin.ACCESS_TOKEN);
+        const accessToken = admin.getCache(admin.ACCESS_TOKEN);
         if (accessToken) {
             jqXHR.setRequestHeader(admin.ACCESS_TOKEN, accessToken);
         }
+    }
+
+    admin.removeToken = function () {
+        admin.removeCache(admin.ACCESS_TOKEN);
+    }
+
+    admin.putCache = function (key, value) {
+        return window.localStorage.setItem(key, value);
+    }
+
+    admin.getCache = function (key) {
+        return window.localStorage.getItem(key);
+    }
+
+    admin.removeCache = function (key) {
+        return window.localStorage.removeItem(key);
     }
 
     e("common", {});

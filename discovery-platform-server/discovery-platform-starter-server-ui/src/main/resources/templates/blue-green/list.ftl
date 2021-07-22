@@ -99,11 +99,9 @@
                             </button>
                         </@delete>
                         <@insert>
-                        <div class="layui-btn-group" style="margin-right: 10px;">
-                            <button class="layui-icon layui-icon-component" lay-event="viewGraph">
-                                <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;查看<b>拓扑</b>图
+                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="viewGraph">
+                                <i class="layui-icon layui-icon-component"></i>&nbsp;&nbsp;查看蓝绿拓扑图
                             </button>
-                        </div>
                         </@insert>
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">

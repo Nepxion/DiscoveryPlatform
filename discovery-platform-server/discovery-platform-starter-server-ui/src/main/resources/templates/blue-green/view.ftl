@@ -19,18 +19,6 @@
 <script src="${ctx}/js/g6/build.g6.js"></script>
 <script src="${ctx}/js/g6/dagre.min.js"></script>
 <script>
-  var _extends = Object.assign || function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-
   /**
    * 本案例演示如何使用G6自定义流程图：
    * 1、如何使用G6绘制流程图；
@@ -61,7 +49,7 @@
       if (cfg.type === 'begin') {
         return group.addShape('dom', {
           attrs: {
-            x: -6,
+            x: -24,
             y: 60,
             width: 48,
             height: 48,
@@ -73,11 +61,13 @@
       var color = "blue";
       if (cfg.id.indexOf(basicRouteId + '_') === 0) {
           color = "yellow";
+      } else if (greenRoutes.indexOf(cfg.id.substr(0, cfg.id.indexOf('_')))) {
+          color = "green"
       }
 
       var rect = group.addShape('dom', {
           attrs: {
-            x: 0,
+            x: -16,
             y: 0,
             width: 36,
             height: 36,
@@ -88,7 +78,7 @@
       if (cfg.routeId) {
         group.addShape('text', {
           attrs: {
-          x: 0,
+          x: -30,
           y: -35,
           text: cfg.routeId || '',
           fill: cfg.textColor ? cfg.textColor : '#666666',
@@ -101,7 +91,7 @@
       if (cfg.condition) {
         group.addShape('text', {
           attrs: {
-          x: -20,
+          x: -30,
           y: -15,
           text: cfg.condition || '',
           fill: cfg.textColor ? cfg.textColor : '#666666',
@@ -113,7 +103,7 @@
 
       group.addShape('text', {
         attrs: {
-        x: -10,
+        x: -30,
         y: 75,
         text: cfg.value ? 'version=' + cfg.value : '',
         fill: cfg.textColor ? cfg.textColor : '#666666',
@@ -178,9 +168,10 @@
       var color = "#1296DB";
       if (cfg.target.indexOf(basicRouteId + '_') === 0) {
           color = "#B9AE12";
-      } else {
-          color = "#00A3AF";
+      } else if (greenRoutes.indexOf(cfg.id.substr(0, cfg.id.indexOf('_')))) {
+          color = "#00A3AF"
       }
+
       var path = group.addShape("path", {
         attrs: {
           path: [
@@ -243,16 +234,21 @@
   });
 
   var data = ${config} || {nodes: [{id: "noConfig", label: "未配置"}]};
+  var index = 0;
+  var greenRoutes = [];
+  var basicRouteId;
   function getBasicRoute(data) {
      for (var i = 0; i < data.nodes.length; i ++) {
         var node = data.nodes[i];
         if (node.routeId && !node.condition) {
-            return node.routeId;
+            basicRouteId = node.routeId;
+        } else if (node.routeId && i % 2 === 1) {
+            greenRoutes.push(node.routeId);
         }
      }
   }
 
-  var basicRouteId = getBasicRoute(data);
+  getBasicRoute(data);
   graph.data(data);
   graph.render();
   graph.fitView();

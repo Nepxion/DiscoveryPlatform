@@ -24,8 +24,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class GraphUtils {
-	private GraphUtils(){}
+
 	private static final String BEGIN_NODE_ID = "begin";
+	private GraphUtils(){}
 	private static Map<String, GraphNodeDto> initServerNodeCache(StrategyRouteEntity route) {
 		Map<String, GraphNodeDto> nodeCache = new HashMap<>();
 		Map<String, String> serverWithVersion = JsonUtil.fromJson(route.getValue(), Map.class);
@@ -39,7 +40,7 @@ public class GraphUtils {
 		return nodeCache;
 	}
 
-	public static GraphDto changeRuleEntityToGraph(String portalName, RuleEntity ruleEntity) {
+	public static GraphDto convertRuleEntityToGraph(String portalName, RuleEntity ruleEntity) {
 		GraphDto graphDto = new GraphDto();
 		if (ruleEntity.getStrategyReleaseEntity() != null) {
 			List<StrategyConditionBlueGreenEntity> blueGreenList =

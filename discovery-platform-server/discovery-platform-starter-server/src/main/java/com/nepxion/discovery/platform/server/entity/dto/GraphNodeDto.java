@@ -19,8 +19,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class GraphNodeDto implements Serializable {
 
-	private static final long serialVersionUID = 5728555476871710353L;
-	private String id;
+    private static final long serialVersionUID = 5728555476871710353L;
+    private String id;
     private String label;
     private String type;
     private String value;

@@ -58,11 +58,11 @@
         });
       }
 
-      var color = "blue";
+      var color = "green";
       if (cfg.id.indexOf(basicRouteId + '_') === 0) {
           color = "yellow";
-      } else if (greenRoutes.indexOf(cfg.id.substr(0, cfg.id.indexOf('_')))) {
-          color = "green"
+      } else if (blueRoutes.includes(cfg.id.substr(0, cfg.id.indexOf('_')))) {
+          color = "blue"
       }
 
       var rect = group.addShape('dom', {
@@ -165,11 +165,11 @@
         y: (startPoint.y + 20)
       };
 
-      var color = "#1296DB";
+      var color = "#00A3AF";
       if (cfg.target.indexOf(basicRouteId + '_') === 0) {
           color = "#B9AE12";
-      } else if (greenRoutes.indexOf(cfg.id.substr(0, cfg.id.indexOf('_')))) {
-          color = "#00A3AF"
+      } else if (blueRoutes.includes(cfg.target.substr(0, cfg.target.indexOf('_')))) {
+          color = "#1296DB";
       }
 
       var path = group.addShape("path", {
@@ -235,15 +235,18 @@
 
   var data = ${config} || {nodes: [{id: "noConfig", label: "未配置"}]};
   var index = 0;
-  var greenRoutes = [];
+  var blueRoutes = [];
   var basicRouteId;
   function getBasicRoute(data) {
      for (var i = 0; i < data.nodes.length; i ++) {
         var node = data.nodes[i];
         if (node.routeId && !node.condition) {
             basicRouteId = node.routeId;
-        } else if (node.routeId && i % 2 === 1) {
-            greenRoutes.push(node.routeId);
+        } else if (node.routeId) {
+            if (index % 2 === 1) {
+                blueRoutes.push(node.routeId);
+            }
+            index ++;
         }
      }
   }
@@ -252,14 +255,6 @@
   graph.data(data);
   graph.render();
   graph.fitView();
-
-  graph.on('edge:click', function(evt) {
-    var target = evt.target;
-    var type = target.get('type');
-    if (type === 'circle') {
-      alert('你点击的是边上的圆点');
-    }
-  });
   </script>
 </body>
 </html>

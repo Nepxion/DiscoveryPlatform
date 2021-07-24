@@ -20,8 +20,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class GraphDto implements Serializable {
 
-	private static final long serialVersionUID = -3557880595989048996L;
-	private List<GraphNodeDto> nodes;
+    private static final long serialVersionUID = -3557880595989048996L;
+    private List<GraphNodeDto> nodes;
     private List<GraphLinkDto> edges;
 
     public List<GraphNodeDto> getNodes() {

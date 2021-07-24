@@ -182,14 +182,23 @@
 
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'viewGraph') {
-                    layer.open({
-                    type: 2,
-                    title: '<i class="layui-icon layui-icon-component"></i>&nbsp;查看蓝绿拓扑图',
-                    content: 'view?name=test',
-                    area: ['1045px', '98%'],
-                    btn: '关闭',
-                    shadeClose: true,
-                    resize: false});
+                    const portalName = admin.getCheckedData(table, obj, "portalName");
+                    if (portalName.length === 1) {
+                        layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-component"></i>&nbsp;查看蓝绿拓扑图',
+                        content: 'view?name=' + portalName,
+                        area: ['1045px', '98%'],
+                        btn: '关闭',
+                        shadeClose: true,
+                        resize: false});
+                        return;
+                    }
+                    var msg = '请先勾选要查看的项';
+                    if (portalName.length > 1) {
+                        msg = '只能选择一项，您勾选了' + portalName.length +'个选项';
+                    }
+                    admin.error(admin.SYSTEM_PROMPT, msg);
                 } else if (obj.event === 'addVersion') {
                     toAddPage(1);
                 } else if (obj.event === 'addRegion') {

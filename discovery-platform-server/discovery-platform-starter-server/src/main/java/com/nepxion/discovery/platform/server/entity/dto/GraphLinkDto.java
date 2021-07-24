@@ -19,8 +19,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class GraphLinkDto implements Serializable {
 
-	private static final long serialVersionUID = 3536615004773370039L;
-	private String source;
+    private static final long serialVersionUID = 3536615004773370039L;
+    private String source;
     private String target;
 
     public String getSource() {

@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
+import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
@@ -26,9 +27,6 @@ import com.nepxion.discovery.platform.server.entity.dto.GraphNodeDto;
 
 public class GraphUtils {
     private static final String BEGIN_NODE_ID = "begin";
-
-    private GraphUtils() {
-    }
 
     @SuppressWarnings("unchecked")
     private static Map<String, GraphNodeDto> initServerNodeCache(StrategyRouteEntity route) {
@@ -46,13 +44,14 @@ public class GraphUtils {
 
     public static GraphDto convertRuleEntityToGraph(String portalName, RuleEntity ruleEntity) {
         GraphDto graphDto = new GraphDto();
-        if (ruleEntity.getStrategyReleaseEntity() != null) {
-            List<StrategyConditionBlueGreenEntity> blueGreenList = ruleEntity.getStrategyReleaseEntity().getStrategyConditionBlueGreenEntityList();
 
-            List<StrategyRouteEntity> routeList = ruleEntity.getStrategyReleaseEntity().getStrategyRouteEntityList();
+        StrategyReleaseEntity strategyReleaseEntity = ruleEntity.getStrategyReleaseEntity();
+        if (strategyReleaseEntity != null) {
+            List<StrategyConditionBlueGreenEntity> strategyConditionBlueGreenEntityList = strategyReleaseEntity.getStrategyConditionBlueGreenEntityList();
+            List<StrategyRouteEntity> strategyRouteEntityList = strategyReleaseEntity.getStrategyRouteEntityList();
 
             Map<String, StrategyConditionBlueGreenEntity> routeWithCondition = new HashMap<>();
-            for (StrategyConditionBlueGreenEntity condition : blueGreenList) {
+            for (StrategyConditionBlueGreenEntity condition : strategyConditionBlueGreenEntityList) {
                 routeWithCondition.put(condition.getVersionId(), condition);
             }
 
@@ -64,7 +63,7 @@ public class GraphUtils {
             nodes.add(begin);
 
             List<GraphEdgeDto> edges = new ArrayList<>();
-            for (StrategyRouteEntity route : routeList) {
+            for (StrategyRouteEntity route : strategyRouteEntityList) {
                 Map<String, GraphNodeDto> nodeCache = initServerNodeCache(route);
                 nodes.addAll(nodeCache.values());
                 String sourceId = BEGIN_NODE_ID;

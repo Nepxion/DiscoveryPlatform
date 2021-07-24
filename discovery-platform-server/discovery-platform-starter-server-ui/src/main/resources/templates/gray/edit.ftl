@@ -239,10 +239,9 @@
             </div>
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
-            <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="grayStrategy" name="grayStrategy"/>
             <input type="hidden" id="header" name="header"/>
             <input type="hidden" id="routeService" name="routeService"/>
         </div>
@@ -260,45 +259,20 @@
                         }
                         ;
                         </#if>
-                        const conditionJson = <#if entity.condition!=''>${entity.condition};
+                        const grayStrategyJson = <#if entity.grayStrategy!=''>${entity.grayStrategy};
                         <#else>
                         {
                         }
                         ;
                         </#if>
-                        const routeJson = <#if entity.route!=''>${entity.route};
-                            <#else>{
-                        }
-                        ;
-                        </#if>
-                        const condition = [], route = [], routeService = [];
-                        for (const k in conditionJson) {
-                            condition.push(conditionJson[k]);
-                        }
-                        for (const k in routeJson) {
-                            route.push(routeJson[k]);
-                        }
                         for (const k in routeServiceJson) {
-                            routeService.push(routeServiceJson[k]);
+                            addRouteService(routeServiceJson[k]);
                         }
-
-                        for (let i = 0; i < routeService.length; i++) {
-                            addRouteService(routeService[i]);
+                        for (const k in grayStrategyJson) {
+                            addTabCondition(grayStrategyJson[k].condition, grayStrategyJson[k].route);
                         }
-
-                        const len = Math.max(condition.length, route.length);
-                        for (let i = 0; i < len; i++) {
-                            let c = null, r = null;
-                            if (i < condition.length) {
-                                c = condition[i];
-                            }
-                            if (i < route.length) {
-                                r = route[i];
-                            }
-                            addTabCondition(c, r);
-                        }
-                        <#if entity.strategy!=''>
-                        addStrategy(${entity.strategy});
+                        <#if entity.basicStrategy!=''>
+                        addBasicStrategy(${entity.basicStrategy});
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
@@ -331,7 +305,7 @@
                     }
 
                     $('#btnStrategyAdd').click(function () {
-                        addStrategy();
+                        addBasicStrategy();
                     });
 
                     $('#btnConditionAdd').click(function () {
@@ -546,7 +520,7 @@
                         });
                     }
 
-                    function addStrategy(data) {
+                    function addBasicStrategy(data) {
                         if ($('li[lay-id="' + TAB_STRATEGY + '"]').size() > 0) {
                             element.tabChange(TAB, TAB_STRATEGY);
                             admin.success('系统操作', '已存在兜底策略');
@@ -722,6 +696,16 @@
                                     'logic': data[i].logic
                                 });
                             }
+                            if (result.length < 1) {
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
+                                    'parameterName': '',
+                                    'operator': '==',
+                                    'value': '',
+                                    'logic': 'and'
+                                });
+                            }
                             return result;
                         }
                     }
@@ -751,6 +735,16 @@
                                     });
                                 }, false);
                             }
+                            if (result.length < 1) {
+                                routeCount++;
+                                result.push({
+                                    'index': routeCount,
+                                    'serviceName': '',
+                                    'value': '',
+                                    'serviceNameList': serviceNameList,
+                                    'valueList': []
+                                });
+                            }
                             return result;
                         }
                     }
@@ -773,6 +767,15 @@
                                     'index': rateCount,
                                     'routeName': data[i].routeName,
                                     'value': data[i].value,
+                                    'routeNameList': routeNameList
+                                });
+                            }
+                            if (result.length < 1) {
+                                rateCount++;
+                                result.push({
+                                    'index': rateCount,
+                                    'routeName': '',
+                                    'value': '',
                                     'routeNameList': routeNameList
                                 });
                             }
@@ -884,6 +887,14 @@
                                     'value': data[i].value
                                 });
                             }
+                            if (result.length < 1) {
+                                headerCount++;
+                                result.push({
+                                    'index': headerCount,
+                                    'headerName': '',
+                                    'value': ''
+                                });
+                            }
                             return result;
                         }
                     }
@@ -900,14 +911,14 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectGrayStrategy();
                         collectHeader();
                         collectRouteService();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -927,14 +938,13 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectGrayStrategy() {
+                        $('#grayStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -961,12 +971,8 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
@@ -987,13 +993,13 @@
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#grayStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

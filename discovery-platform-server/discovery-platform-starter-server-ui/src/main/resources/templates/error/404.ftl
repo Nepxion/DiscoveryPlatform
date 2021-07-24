@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="${ctx}/layuiadmin/layui/css/layui.css" media="all">
         <link rel="stylesheet" href="${ctx}/layuiadmin/style/admin.css" media="all">
     </head>
-    <body>
+    <body bgcolor="#ffffff">
 
     <div class="layui-fluid">
         <div class="layadmin-tips">

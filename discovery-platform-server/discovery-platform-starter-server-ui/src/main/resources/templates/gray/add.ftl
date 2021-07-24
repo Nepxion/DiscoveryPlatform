@@ -250,10 +250,9 @@
                 </script>
             </div>
 
-            <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="grayStrategy" name="grayStrategy"/>
             <input type="hidden" id="header" name="header"/>
             <input type="hidden" id="routeService" name="routeService"/>
         </div>
@@ -806,14 +805,14 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectGrayStrategy();
                         collectHeader();
                         collectRouteService();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -833,14 +832,13 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectGrayStrategy() {
+                        $('#grayStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -867,12 +865,8 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
@@ -893,13 +887,13 @@
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#grayStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

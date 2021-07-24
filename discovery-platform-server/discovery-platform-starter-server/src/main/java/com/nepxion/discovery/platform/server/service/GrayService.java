@@ -32,4 +32,6 @@ public interface GrayService extends BasePublishService<GrayDto> {
     void delete(Collection<Long> ids);
 
     List<String> listPortalNames();
+
+    void updatePublishFlag(String portalName, boolean flag);
 }

@@ -25,7 +25,7 @@ import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphEdgeDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphNodeDto;
 
-public class GraphUtils {
+public class GraphTool {
     private static final String BEGIN_NODE_ID = "begin";
 
     @SuppressWarnings("unchecked")

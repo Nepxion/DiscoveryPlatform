@@ -48,7 +48,7 @@ import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
-import com.nepxion.discovery.platform.server.tool.GraphUtils;
+import com.nepxion.discovery.platform.server.tool.GraphTool;
 
 public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper, BlueGreenDto> implements BlueGreenService {
     @Autowired
@@ -180,7 +180,7 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
     @Override
     public GraphDto viewGraph(String portalName) throws Exception {
         RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
-        return GraphUtils.convertRuleEntityToGraph(portalName, ruleEntity);
+        return GraphTool.convertRuleEntityToGraph(portalName, ruleEntity);
     }
 
     @TransactionWriter

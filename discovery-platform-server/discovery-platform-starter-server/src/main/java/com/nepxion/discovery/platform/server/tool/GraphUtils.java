@@ -25,12 +25,12 @@ import com.nepxion.discovery.platform.server.entity.dto.GraphLinkDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphNodeDto;
 
 public class GraphUtils {
-
     private static final String BEGIN_NODE_ID = "begin";
 
     private GraphUtils() {
     }
 
+    @SuppressWarnings("unchecked")
     private static Map<String, GraphNodeDto> initServerNodeCache(StrategyRouteEntity route) {
         Map<String, GraphNodeDto> nodeCache = new HashMap<>();
         Map<String, String> serverWithVersion = JsonUtil.fromJson(route.getValue(), Map.class);
@@ -47,11 +47,9 @@ public class GraphUtils {
     public static GraphDto convertRuleEntityToGraph(String portalName, RuleEntity ruleEntity) {
         GraphDto graphDto = new GraphDto();
         if (ruleEntity.getStrategyReleaseEntity() != null) {
-            List<StrategyConditionBlueGreenEntity> blueGreenList =
-                    ruleEntity.getStrategyReleaseEntity().getStrategyConditionBlueGreenEntityList();
+            List<StrategyConditionBlueGreenEntity> blueGreenList = ruleEntity.getStrategyReleaseEntity().getStrategyConditionBlueGreenEntityList();
 
-            List<StrategyRouteEntity> routeList
-                    = ruleEntity.getStrategyReleaseEntity().getStrategyRouteEntityList();
+            List<StrategyRouteEntity> routeList = ruleEntity.getStrategyReleaseEntity().getStrategyRouteEntityList();
 
             Map<String, StrategyConditionBlueGreenEntity> routeWithCondition = new HashMap<>();
             for (StrategyConditionBlueGreenEntity condition : blueGreenList) {

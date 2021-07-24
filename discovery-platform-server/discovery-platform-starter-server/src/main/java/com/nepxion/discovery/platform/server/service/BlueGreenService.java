@@ -11,29 +11,29 @@ package com.nepxion.discovery.platform.server.service;
  * @version 1.0
  */
 
+import java.util.Collection;
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
-import java.util.Collection;
-import java.util.List;
 
 public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
+    void publish() throws Exception;
 
-	void publish() throws Exception;
+    IPage<BlueGreenDto> page(String name, Integer page, Integer limit);
 
-	IPage<BlueGreenDto> page(String name, Integer page, Integer limit);
+    Boolean insert(BlueGreenPo blueGreenPo);
 
-	Boolean insert(BlueGreenPo blueGreenPo);
+    Boolean update(BlueGreenPo blueGreenPo);
 
-	Boolean update(BlueGreenPo blueGreenPo);
+    void logicDelete(Collection<Long> ids);
 
-	void logicDelete(Collection<Long> ids);
+    void delete(Collection<Long> ids);
 
-	void delete(Collection<Long> ids);
-
-	GraphDto viewGraph(String name) throws Exception;
+    GraphDto viewGraph(String name) throws Exception;
 
     List<String> listPortalNames();
 

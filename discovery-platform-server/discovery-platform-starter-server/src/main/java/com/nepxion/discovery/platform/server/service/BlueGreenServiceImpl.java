@@ -51,9 +51,9 @@ import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
 import com.nepxion.discovery.platform.server.tool.GraphUtils;
 
 public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper, BlueGreenDto> implements BlueGreenService {
-
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+
     @Lazy
     @Autowired
     private GrayService grayService;

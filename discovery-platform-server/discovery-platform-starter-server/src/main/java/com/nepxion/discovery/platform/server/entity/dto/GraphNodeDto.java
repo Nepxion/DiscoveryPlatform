@@ -1,12 +1,5 @@
 package com.nepxion.discovery.platform.server.entity.dto;
 
-import java.io.Serializable;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 /**
  * <p>Title: Nepxion Discovery</p>
  * <p>Description: Nepxion Discovery</p>
@@ -17,9 +10,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @version 1.0
  */
 
-public class GraphNodeDto implements Serializable {
+import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+public class GraphNodeDto implements Serializable {
     private static final long serialVersionUID = 5728555476871710353L;
+
     private String id;
     private String label;
     private String type;

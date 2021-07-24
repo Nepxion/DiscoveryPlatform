@@ -22,7 +22,7 @@ public class GraphDto implements Serializable {
     private static final long serialVersionUID = -3557880595989048996L;
 
     private List<GraphNodeDto> nodes;
-    private List<GraphLinkDto> edges;
+    private List<GraphEdgeDto> edges;
 
     public List<GraphNodeDto> getNodes() {
         return nodes;
@@ -32,11 +32,11 @@ public class GraphDto implements Serializable {
         this.nodes = nodes;
     }
 
-    public List<GraphLinkDto> getEdges() {
+    public List<GraphEdgeDto> getEdges() {
         return edges;
     }
 
-    public void setEdges(List<GraphLinkDto> edges) {
+    public void setEdges(List<GraphEdgeDto> edges) {
         this.edges = edges;
     }
 

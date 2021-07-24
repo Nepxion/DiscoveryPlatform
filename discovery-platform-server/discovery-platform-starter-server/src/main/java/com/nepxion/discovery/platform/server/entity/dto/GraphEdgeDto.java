@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class GraphLinkDto implements Serializable {
+public class GraphEdgeDto implements Serializable {
     private static final long serialVersionUID = 3536615004773370039L;
 
     private String source;

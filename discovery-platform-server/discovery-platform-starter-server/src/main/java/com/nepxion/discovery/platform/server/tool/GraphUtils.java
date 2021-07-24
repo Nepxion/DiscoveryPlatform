@@ -50,14 +50,8 @@ public class GraphUtils {
             List<StrategyConditionBlueGreenEntity> blueGreenList =
                     ruleEntity.getStrategyReleaseEntity().getStrategyConditionBlueGreenEntityList();
 
-//			List<StrategyConditionGrayEntity> grayList
-//				= ruleEntity.getStrategyReleaseEntity().getStrategyConditionGrayEntityList();
-
             List<StrategyRouteEntity> routeList
                     = ruleEntity.getStrategyReleaseEntity().getStrategyRouteEntityList();
-
-//			StrategyHeaderEntity headerEntity
-//				= ruleEntity.getStrategyReleaseEntity().getStrategyHeaderEntity();
 
             Map<String, StrategyConditionBlueGreenEntity> routeWithCondition = new HashMap<>();
             for (StrategyConditionBlueGreenEntity condition : blueGreenList) {

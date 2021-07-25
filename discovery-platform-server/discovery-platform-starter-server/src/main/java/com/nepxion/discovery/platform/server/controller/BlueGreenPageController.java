@@ -46,11 +46,11 @@ public class BlueGreenPageController {
     }
 
     @GetMapping("view")
-    public String view(Model model, @RequestParam("name") String name) throws Exception {
-        GraphDto config = blueGreenService.viewGraph(name);
+    public String view(Model model, @RequestParam("id") Long id) throws Exception {
+        GraphDto config = blueGreenService.viewGraph(id);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("name", name);
+        model.addAttribute("id", id);
         model.addAttribute("config", JsonUtil.toJson(config));
         return String.format("%s/%s", BlueGreenController.PREFIX, "view");
     }

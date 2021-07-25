@@ -33,7 +33,7 @@
    * node 特殊属性
    */
   var nodeExtraAttrs = {
-    begin: {
+    portal: {
       fill: "#9FD4FB",
     },
     end: {
@@ -46,7 +46,7 @@
    */
   G6.registerNode("node", {
     drawShape: function drawShape(cfg, group) {
-      if (cfg.type === 'begin') {
+      if (cfg.type === 'portal') {
         return group.addShape('dom', {
           attrs: {
             x: -24,
@@ -61,7 +61,7 @@
       var color = "green";
       if (cfg.id.indexOf(basicRouteId + '_') === 0) {
           color = "yellow";
-      } else if (blueRoutes.includes(cfg.id.substr(0, cfg.id.indexOf('_')))) {
+      } else if (blueRoutes.includes(cfg.routeId)) {
           color = "blue"
       }
 
@@ -75,25 +75,34 @@
           }
         });
 
-      if (cfg.routeId) {
-        group.addShape('text', {
-          attrs: {
-          x: -30,
-          y: -35,
-          text: cfg.routeId || '',
-          fill: cfg.textColor ? cfg.textColor : '#666666',
-          autoRotate: true,
-          refY: 10,
-          }
-        });
-      }
+      if (cfg.firstInRoute) {
+        var routeIdY = -35;
+        var condition = data.routeCondition[cfg.routeId];
+        debugger;
+        if (condition) {
+          var reg = RegExp(/\s+and\s+/g);
+          const regMatch = condition.match(reg);
+          const line = regMatch ? regMatch.length + 1: 1;
+          routeIdY = -20 - 15 * line;
+          condition = condition.replace(/\s+and\s+/g, "\r\nand ");
 
-      if (cfg.condition) {
+          group.addShape('text', {
+            attrs: {
+            x: -50,
+            y: -15,
+            text: condition || '',
+            fill: cfg.textColor ? cfg.textColor : '#666666',
+            autoRotate: true,
+            refY: 10,
+            }
+          });
+        }
+
         group.addShape('text', {
           attrs: {
-          x: -30,
-          y: -15,
-          text: cfg.condition || '',
+          x: -26,
+          y: routeIdY,
+          text: cfg.routeId || '',
           fill: cfg.textColor ? cfg.textColor : '#666666',
           autoRotate: true,
           refY: 10,
@@ -168,7 +177,7 @@
       var color = "#00A3AF";
       if (cfg.target.indexOf(basicRouteId + '_') === 0) {
           color = "#B9AE12";
-      } else if (blueRoutes.includes(cfg.target.substr(0, cfg.target.indexOf('_')))) {
+      } else if (blueRoutes.includes(cfg.routeId)) {
           color = "#1296DB";
       }
 
@@ -202,7 +211,7 @@
       type: "dagre",
       nodesep: 100,
       ranksepFunc : (d) => {
-        if (d.id === "begin") {
+        if (d.id === "portal") {
           return 150;
         }
         return 20;
@@ -234,17 +243,18 @@
   });
 
   var data = ${config} || {nodes: [{id: "noConfig", label: "未配置"}]};
-  var index = 0;
   var blueRoutes = [];
   var basicRouteId;
   function getBasicRoute(data) {
-     for (var i = 0; i < data.nodes.length; i ++) {
-        var node = data.nodes[i];
-        if (node.routeId && !node.condition) {
-            basicRouteId = node.routeId;
-        } else if (node.routeId) {
+     var index = 0;
+     var keys = Object.keys(data.routeCondition);
+     for (var i = keys.length - 1; i >= 0; i --) {
+        const key = keys[i];
+        if (!data.routeCondition[key]) {
+            basicRouteId = key;
+        } else {
             if (index % 2 === 1) {
-                blueRoutes.push(node.routeId);
+                blueRoutes.push(key);
             }
             index ++;
         }

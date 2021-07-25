@@ -33,7 +33,7 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
 
     void delete(Collection<Long> ids);
 
-    GraphDto viewGraph(String name) throws Exception;
+    GraphDto viewGraph(Long id) throws Exception;
 
     List<String> listPortalNames();
 

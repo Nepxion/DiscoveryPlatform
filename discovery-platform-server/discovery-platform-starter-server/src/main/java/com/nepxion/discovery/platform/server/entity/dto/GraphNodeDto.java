@@ -24,16 +24,8 @@ public class GraphNodeDto implements Serializable {
     private String label;
     private String type;
     private String value;
-    private String condition;
     private String routeId;
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
+    private boolean firstInRoute;
 
     public String getRouteId() {
         return routeId;
@@ -73,6 +65,14 @@ public class GraphNodeDto implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public boolean isFirstInRoute() {
+        return firstInRoute;
+    }
+
+    public void setFirstInRoute(boolean firstInRoute) {
+        this.firstInRoute = firstInRoute;
     }
 
     @Override

@@ -73,6 +73,9 @@ public class PlatformDiscoveryAdapter {
 
     public RuleEntity getConfig(String serviceName) throws Exception {
         String group = serviceResource.getGroup(serviceName);
+        if (group == null) {
+            group = serviceName;
+        }
         return configResource.getRemoteRuleEntity(group, serviceName);
     }
 

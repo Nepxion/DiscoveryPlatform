@@ -182,12 +182,12 @@
 
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'viewGraph') {
-                    const portalName = admin.getCheckedData(table, obj, "portalName");
-                    if (portalName.length === 1) {
+                    const id = admin.getCheckedData(table, obj, "id");
+                    if (id.length === 1) {
                         layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-component"></i>&nbsp;查看蓝绿拓扑图',
-                        content: 'view?name=' + portalName,
+                        content: 'view?id=' + id,
                         area: ['1045px', '98%'],
                         btn: '关闭',
                         shadeClose: true,
@@ -195,7 +195,7 @@
                         return;
                     }
                     var msg = '请先勾选要查看的项';
-                    if (portalName.length > 1) {
+                    if (id.length > 1) {
                         msg = '只能选择一项，您勾选了' + portalName.length +'个选项';
                     }
                     admin.error(admin.SYSTEM_PROMPT, msg);

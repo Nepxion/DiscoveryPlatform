@@ -11,7 +11,9 @@ package com.nepxion.discovery.platform.server.entity.dto;
  */
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -20,9 +22,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class GraphDto implements Serializable {
     private static final long serialVersionUID = -3557880595989048996L;
-
     private List<GraphNodeDto> nodes;
     private List<GraphEdgeDto> edges;
+    private Map<String, String> routeCondition = new HashMap<>();
 
     public List<GraphNodeDto> getNodes() {
         return nodes;
@@ -38,6 +40,14 @@ public class GraphDto implements Serializable {
 
     public void setEdges(List<GraphEdgeDto> edges) {
         this.edges = edges;
+    }
+
+    public Map<String, String> getRouteCondition() {
+        return routeCondition;
+    }
+
+    public void setRouteCondition(Map<String, String> routeCondition) {
+        this.routeCondition = routeCondition;
     }
 
     @Override

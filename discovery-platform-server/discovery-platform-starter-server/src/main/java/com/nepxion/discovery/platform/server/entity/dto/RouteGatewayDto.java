@@ -23,6 +23,12 @@ import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 public class RouteGatewayDto extends BaseStateEntity {
     private static final long serialVersionUID = 2636994152216571320L;
 
+    @TableField(value = "`portal_name`")
+    private String portalName;
+
+    @TableField(value = "`portal_type`")
+    private Integer portalType;
+
     @TableField(value = "`route_id`")
     private String routeId;
 
@@ -55,6 +61,22 @@ public class RouteGatewayDto extends BaseStateEntity {
 
     @TableField(value = "`create_times_in_day`")
     private Integer createTimesInDay;
+
+    public String getPortalName() {
+        return portalName;
+    }
+
+    public void setPortalName(String portalName) {
+        this.portalName = portalName;
+    }
+
+    public Integer getPortalType() {
+        return portalType;
+    }
+
+    public void setPortalType(Integer portalType) {
+        this.portalType = portalType;
+    }
 
     public String getRouteId() {
         return routeId;

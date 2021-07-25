@@ -33,7 +33,6 @@ import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.enums.Operation;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
-import com.nepxion.discovery.platform.server.tool.CommonTool;
 
 public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseStateEntity> extends ServiceImpl<M, T> implements BasePublishService<T> {
     @Autowired
@@ -48,23 +47,26 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
     }
 
     @TransactionWriter
-    public void enable(Serializable id, boolean enableFlag) {
+    public boolean enable(Serializable id, boolean enableFlag) {
         T t = getById(id);
+        if (t == null) {
+            return false;
+        }
         t.setEnableFlag(enableFlag);
-        update(t);
+        return update(t);
     }
 
     @TransactionWriter
-    public void update(T t) {
+    public boolean update(T t) {
         t = prepareUpdate(t);
         if (t == null) {
-            return;
+            return false;
         }
-        updateById(t);
+        return updateById(t);
     }
 
     @TransactionWriter
-    public void logicDelete(Collection<Long> ids) {
+    public boolean logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
             T t = getById(id);
             if (t == null) {
@@ -75,11 +77,12 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
             t.setOperation(Operation.DELETE.getCode());
             updateById(t);
         }
+        return true;
     }
 
     @TransactionWriter
-    public void delete(Collection<Long> ids) {
-        removeByIds(ids);
+    public boolean delete(Collection<Long> ids) {
+        return removeByIds(ids);
     }
 
     @TransactionWriter
@@ -102,17 +105,17 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         for (T item : toBePublishList) {
             if (item.getDeleteFlag()) {
                 toDeleteList.add(item);
-                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
+//                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
                 continue;
             }
             if (!item.getEnableFlag()) {
                 toUpdateList.add(item);
-                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
+//                CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
                 continue;
             }
             toUpdateList.add(item);
             Object object = publishAction.process(item);
-            CommonTool.addKVForList(usedMap, item.getPortalName(), object);
+//            CommonTool.addKVForList(usedMap, item.getPortalName(), object);
         }
 
         if (CollectionUtils.isEmpty(usedMap)) {

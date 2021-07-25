@@ -115,9 +115,9 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
     @SuppressWarnings("unchecked")
     @TransactionWriter
     @Override
-    public void insert(BlacklistDto blacklistDto) throws Exception {
+    public boolean insert(BlacklistDto blacklistDto) throws Exception {
         if (blacklistDto == null) {
-            return;
+            return false;
         }
         List<BlacklistDto> blacklistDtoList = new ArrayList<>();
 
@@ -136,6 +136,6 @@ public class BlacklistServiceImpl extends PlatformPublishAdapter<BlacklistMapper
             }
             blacklistDtoList.add(item);
         }
-        saveBatch(blacklistDtoList);
+        return saveBatch(blacklistDtoList);
     }
 }

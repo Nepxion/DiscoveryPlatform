@@ -19,88 +19,44 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 
-@TableName(value = "`t_gray`")
-public class GrayDto extends BaseStateEntity {
+@TableName(value = "`t_route_arrange`")
+public class RouteArrangeDto extends BaseStateEntity {
     private static final long serialVersionUID = 7349466331174113582L;
 
-    @TableField(value = "`portal_name`")
-    private String portalName;
+    @TableField(value = "`route_id`")
+    private String routeId;
 
-    @TableField(value = "`portal_type`")
-    private Integer portalType;
+    @TableField(value = "`strategy_type`")
+    private Integer strategyType;
 
-    @TableField(value = "`type`")
-    private Integer type;
-
-    @TableField(value = "`basic_strategy`")
-    private String basicStrategy;
-
-    @TableField(value = "`gray_strategy`")
-    private String grayStrategy;
-
-    @TableField(value = "`route_service`")
-    private String routeService;
-
-    @TableField(value = "`header`")
-    private String header;
+    @TableField(value = "`service_arrange`")
+    private String serviceArrange;
 
     @TableField(value = "`description`")
     private String description;
 
-    public String getPortalName() {
-        return portalName;
+    public String getRouteId() {
+        return routeId;
     }
 
-    public void setPortalName(String portalName) {
-        this.portalName = portalName;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 
-    public Integer getPortalType() {
-        return portalType;
+    public Integer getStrategyType() {
+        return strategyType;
     }
 
-    public void setPortalType(Integer portalType) {
-        this.portalType = portalType;
+    public void setStrategyType(Integer strategyType) {
+        this.strategyType = strategyType;
     }
 
-    public Integer getType() {
-        return type;
+    public String getServiceArrange() {
+        return serviceArrange;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getBasicStrategy() {
-        return basicStrategy;
-    }
-
-    public void setBasicStrategy(String basicStrategy) {
-        this.basicStrategy = basicStrategy;
-    }
-
-    public String getGrayStrategy() {
-        return grayStrategy;
-    }
-
-    public void setGrayStrategy(String grayStrategy) {
-        this.grayStrategy = grayStrategy;
-    }
-
-    public String getRouteService() {
-        return routeService;
-    }
-
-    public void setRouteService(String routeService) {
-        this.routeService = routeService;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
+    public void setServiceArrange(String serviceArrange) {
+        this.serviceArrange = serviceArrange;
     }
 
     public String getDescription() {
@@ -127,8 +83,8 @@ public class GrayDto extends BaseStateEntity {
     }
 
     public enum Type {
-        VERSION(1, "version strategy"),
-        REGION(2, "region strategy");
+        VERSION(1, "VERSION"),
+        REGION(2, "REGION");
 
         private final int code;
         private final String name;

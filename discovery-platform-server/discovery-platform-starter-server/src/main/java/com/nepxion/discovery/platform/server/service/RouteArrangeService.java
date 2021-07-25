@@ -11,27 +11,19 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.Collection;
-import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
-import com.nepxion.discovery.platform.server.entity.po.GrayPo;
+import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
-public interface GrayService extends BasePublishService<GrayDto> {
+public interface RouteArrangeService extends BasePublishService<RouteArrangeDto> {
     void publish() throws Exception;
 
-    IPage<GrayDto> page(String name, Integer page, Integer limit);
+    IPage<RouteArrangeDto> page(String description, Integer pageNum, Integer pageSize);
 
-    boolean insert(GrayPo grayPo);
-
-    boolean update(GrayPo grayPo);
+    boolean insert(RouteArrangeDto routeArrangeDto);
 
     boolean logicDelete(Collection<Long> ids);
 
     boolean delete(Collection<Long> ids);
-
-    List<String> listPortalNames();
-
-    boolean updatePublishFlag(String portalName, boolean flag);
 }

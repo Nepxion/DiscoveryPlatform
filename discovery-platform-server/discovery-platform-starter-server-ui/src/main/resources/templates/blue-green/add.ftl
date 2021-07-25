@@ -3,7 +3,6 @@
     <html lang="zh-CN">
     <head>
         <#include "../common/layui.ftl">
-        <link rel="stylesheet" href="${ctx}/css/layui-table-select.css" media="all">
     </head>
     <body>
 

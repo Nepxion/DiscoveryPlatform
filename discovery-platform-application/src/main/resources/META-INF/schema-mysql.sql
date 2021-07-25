@@ -191,7 +191,7 @@ INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (10, '主页', 'http://www.nepxion.com', b'1', b'1', b'0', 'layui-icon-home', 0, 1, '主页');
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (20, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, '服务发布');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2001, '链路编排', '/route/list', b'1', b'0', b'0', '', 20, 1, '蓝绿发布');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2001, '链路编排', '/route-arrange/list', b'1', b'0', b'0', '', 20, 1, '链路编排');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2002, '蓝绿发布', '/blue-green/list', b'1', b'0', b'0', '', 20, 2, '蓝绿发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2003, '灰度发布', '/gray/list', b'1', b'0', b'0', '', 20, 3, '灰度发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2004, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 20, 4, '流量侦测');

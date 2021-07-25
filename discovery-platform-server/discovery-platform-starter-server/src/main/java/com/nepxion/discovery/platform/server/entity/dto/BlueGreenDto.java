@@ -23,6 +23,12 @@ import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 public class BlueGreenDto extends BaseStateEntity {
     private static final long serialVersionUID = 7349466331174113582L;
 
+    @TableField(value = "`portal_name`")
+    private String portalName;
+
+    @TableField(value = "`portal_type`")
+    private Integer portalType;
+
     @TableField(value = "`type`")
     private Integer type;
 
@@ -37,6 +43,22 @@ public class BlueGreenDto extends BaseStateEntity {
 
     @TableField(value = "`description`")
     private String description;
+
+    public String getPortalName() {
+        return portalName;
+    }
+
+    public void setPortalName(String portalName) {
+        this.portalName = portalName;
+    }
+
+    public Integer getPortalType() {
+        return portalType;
+    }
+
+    public void setPortalType(Integer portalType) {
+        this.portalType = portalType;
+    }
 
     public Integer getType() {
         return type;

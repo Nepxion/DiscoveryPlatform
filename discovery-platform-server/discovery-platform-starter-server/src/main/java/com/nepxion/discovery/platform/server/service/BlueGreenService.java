@@ -23,15 +23,15 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
 
     IPage<BlueGreenDto> page(String name, Integer page, Integer limit);
 
-    Boolean insert(BlueGreenPo blueGreenPo);
+    boolean insert(BlueGreenPo blueGreenPo);
 
-    Boolean update(BlueGreenPo blueGreenPo);
+    boolean update(BlueGreenPo blueGreenPo);
 
-    void logicDelete(Collection<Long> ids);
+    boolean logicDelete(Collection<Long> ids);
 
-    void delete(Collection<Long> ids);
+    boolean delete(Collection<Long> ids);
 
     List<String> listPortalNames();
 
-    void updatePublishFlag(String portalName, boolean flag);
+    boolean updatePublishFlag(String portalName, boolean flag);
 }

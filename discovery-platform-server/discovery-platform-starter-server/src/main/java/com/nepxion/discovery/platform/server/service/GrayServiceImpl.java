@@ -157,7 +157,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
     @TransactionWriter
     @Override
-    public Boolean insert(GrayPo grayPo) {
+    public boolean insert(GrayPo grayPo) {
         GrayDto grayDto = prepareInsert(new GrayDto());
         grayDto.setPortalName(grayPo.getPortalName());
         grayDto.setPortalType(grayPo.getPortalType());
@@ -172,7 +172,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
     @TransactionWriter
     @Override
-    public Boolean update(GrayPo grayPo) {
+    public boolean update(GrayPo grayPo) {
         GrayDto grayDto = prepareUpdate(this.getById(grayPo.getId()));
         if (grayDto == null) {
             return false;
@@ -188,12 +188,12 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
     @TransactionWriter
     @Override
-    public void updatePublishFlag(String portalName, boolean flag) {
+    public boolean updatePublishFlag(String portalName, boolean flag) {
         LambdaUpdateWrapper<GrayDto> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper
                 .eq(GrayDto::getPortalName, portalName)
                 .set(GrayDto::getPublishFlag, flag);
-        update(updateWrapper);
+        return update(updateWrapper);
     }
 
     @TransactionReader

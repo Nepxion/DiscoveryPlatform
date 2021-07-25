@@ -148,7 +148,7 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @TransactionWriter
     @Override
-    public Boolean insert(BlueGreenPo blueGreenPo) {
+    public boolean insert(BlueGreenPo blueGreenPo) {
         BlueGreenDto blueGreenDto = prepareInsert(new BlueGreenDto());
         blueGreenDto.setPortalName(blueGreenPo.getPortalName());
         blueGreenDto.setPortalType(blueGreenPo.getPortalType());
@@ -162,7 +162,7 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @TransactionWriter
     @Override
-    public Boolean update(BlueGreenPo blueGreenPo) {
+    public boolean update(BlueGreenPo blueGreenPo) {
         BlueGreenDto blueGreenDto = prepareUpdate(this.getById(blueGreenPo.getId()));
         if (blueGreenDto == null) {
             return false;
@@ -177,12 +177,12 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @TransactionWriter
     @Override
-    public void updatePublishFlag(String portalName, boolean flag) {
+    public boolean updatePublishFlag(String portalName, boolean flag) {
         LambdaUpdateWrapper<BlueGreenDto> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper
                 .eq(BlueGreenDto::getPortalName, portalName)
                 .set(BlueGreenDto::getPublishFlag, flag);
-        update(updateWrapper);
+        return update(updateWrapper);
     }
 
     @TransactionReader

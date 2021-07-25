@@ -21,9 +21,9 @@ public interface BlacklistService extends BasePublishService<BlacklistDto> {
 
     IPage<BlacklistDto> page(String description, Integer pageNum, Integer pageSize);
 
-    void insert(BlacklistDto blacklistDto) throws Exception;
+    boolean insert(BlacklistDto blacklistDto) throws Exception;
 
-    void logicDelete(Collection<Long> ids);
+    boolean logicDelete(Collection<Long> ids);
 
-    void delete(Collection<Long> ids);
+    boolean delete(Collection<Long> ids);
 }

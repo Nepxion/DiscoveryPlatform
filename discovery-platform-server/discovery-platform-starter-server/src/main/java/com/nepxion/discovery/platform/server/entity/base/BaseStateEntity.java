@@ -20,12 +20,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 public class BaseStateEntity extends BaseEntity {
     private static final long serialVersionUID = 2636994153216571320L;
 
-    @TableField(value = "`portal_name`")
-    private String portalName;
-
-    @TableField(value = "`portal_type`")
-    private Integer portalType;
-
     @TableField(value = "`operation`")
     private Integer operation;
 
@@ -37,22 +31,6 @@ public class BaseStateEntity extends BaseEntity {
 
     @TableField(value = "`delete_flag`")
     private Boolean deleteFlag = false;
-
-    public String getPortalName() {
-        return portalName;
-    }
-
-    public void setPortalName(String portalName) {
-        this.portalName = portalName;
-    }
-
-    public Integer getPortalType() {
-        return portalType;
-    }
-
-    public void setPortalType(Integer portalType) {
-        this.portalType = portalType;
-    }
 
     public Integer getOperation() {
         return operation;

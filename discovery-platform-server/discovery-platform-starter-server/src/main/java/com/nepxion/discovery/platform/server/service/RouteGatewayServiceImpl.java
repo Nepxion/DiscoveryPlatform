@@ -104,10 +104,10 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
 
     @TransactionWriter
     @Override
-    public void insert(RouteGatewayDto routeGatewayDto) {
+    public boolean insert(RouteGatewayDto routeGatewayDto) {
         routeGatewayDto = prepareInsert(routeGatewayDto);
         if (routeGatewayDto == null) {
-            return;
+            return false;
         }
         routeGatewayDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfGateway = routeService.getNextMaxCreateTimesInDayOfGateway();
@@ -115,7 +115,7 @@ public class RouteGatewayServiceImpl extends PlatformPublishAdapter<RouteGateway
             routeGatewayDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfGateway));
         }
         routeGatewayDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfGateway);
-        save(routeGatewayDto);
+        return save(routeGatewayDto);
     }
 
     @SuppressWarnings("unchecked")

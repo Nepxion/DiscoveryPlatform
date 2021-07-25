@@ -52,9 +52,9 @@ import com.nepxion.discovery.platform.server.entity.po.GrayPo;
 import com.nepxion.discovery.platform.server.mapper.GrayMapper;
 
 public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto> implements GrayService {
-
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+
     @Lazy
     @Autowired
     private BlueGreenService blueGreenService;

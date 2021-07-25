@@ -7,6 +7,7 @@ package com.nepxion.discovery.platform.server.controller;
  * <p>Company: Nepxion</p>
  *
  * @author Ning Zhang
+ * @author Xuehui Ren
  * @version 1.0
  */
 
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
+import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
+import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
 
 @Controller
@@ -40,6 +43,16 @@ public class BlueGreenPageController {
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("type", BlueGreenDto.Type.get(type));
         return String.format("%s/%s", BlueGreenController.PREFIX, "add");
+    }
+
+    @GetMapping("view")
+    public String view(Model model, @RequestParam("id") Long id) throws Exception {
+        GraphDto config = blueGreenService.viewGraph(id);
+        model.addAttribute("operators", ArithmeticType.values());
+        model.addAttribute("logics", RelationalType.values());
+        model.addAttribute("id", id);
+        model.addAttribute("config", JsonUtil.toJson(config));
+        return String.format("%s/%s", BlueGreenController.PREFIX, "view");
     }
 
     @GetMapping("edit")

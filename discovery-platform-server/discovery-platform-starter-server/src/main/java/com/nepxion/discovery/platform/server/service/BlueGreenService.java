@@ -7,6 +7,7 @@ package com.nepxion.discovery.platform.server.service;
  * <p>Company: Nepxion</p>
  *
  * @author Ning Zhang
+ * @author Xuehui Ren
  * @version 1.0
  */
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
+import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
@@ -30,6 +32,8 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
     void logicDelete(Collection<Long> ids);
 
     void delete(Collection<Long> ids);
+
+    GraphDto viewGraph(Long id) throws Exception;
 
     List<String> listPortalNames();
 

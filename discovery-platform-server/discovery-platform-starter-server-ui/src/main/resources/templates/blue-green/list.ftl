@@ -98,6 +98,11 @@
                                 <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿
                             </button>
                         </@delete>
+                        <@insert>
+                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="viewGraph">
+                                <i class="layui-icon layui-icon-component"></i>&nbsp;&nbsp;查看蓝绿拓扑图
+                            </button>
+                        </@insert>
                         <@select>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
                                 <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿
@@ -176,7 +181,25 @@
             });
 
             table.on('toolbar(grid)', function (obj) {
-                if (obj.event === 'addVersion') {
+                if (obj.event === 'viewGraph') {
+                    const id = admin.getCheckedData(table, obj, "id");
+                    if (id.length === 1) {
+                        layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-component"></i>&nbsp;查看蓝绿拓扑图',
+                        content: 'view?id=' + id,
+                        area: ['1045px', '98%'],
+                        btn: '关闭',
+                        shadeClose: true,
+                        resize: false});
+                        return;
+                    }
+                    var msg = '请先勾选要查看的项';
+                    if (id.length > 1) {
+                        msg = '只能选择一项，您勾选了' + portalName.length +'个选项';
+                    }
+                    admin.error(admin.SYSTEM_PROMPT, msg);
+                } else if (obj.event === 'addVersion') {
                     toAddPage(1);
                 } else if (obj.event === 'addRegion') {
                     toAddPage(2);

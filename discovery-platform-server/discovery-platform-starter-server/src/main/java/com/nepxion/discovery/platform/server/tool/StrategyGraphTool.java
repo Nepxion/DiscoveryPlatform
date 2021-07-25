@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
 import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
@@ -26,7 +25,7 @@ import com.nepxion.discovery.platform.server.entity.dto.GraphDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphEdgeDto;
 import com.nepxion.discovery.platform.server.entity.dto.GraphNodeDto;
 
-public class BlueGreenAndGrayGraphTool {
+public class StrategyGraphTool {
     private static final String PORTAL_NODE_ID = "portal";
 
     private static List<GraphNodeDto> initAllGraphNodes(String portalName, List<StrategyRouteEntity> strategyRouteEntityList) {

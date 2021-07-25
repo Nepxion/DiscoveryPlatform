@@ -78,7 +78,6 @@
       if (cfg.firstInRoute) {
         var routeIdY = -35;
         var condition = data.routeCondition[cfg.routeId];
-        debugger;
         if (condition) {
           var reg = RegExp(/\s+and\s+/g);
           const regMatch = condition.match(reg);

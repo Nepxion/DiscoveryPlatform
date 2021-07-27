@@ -25,7 +25,7 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">服务列表</label>
+            <label class="layui-form-label">链路列表</label>
             <div class="layui-input-inline" style="width: 1000px">
                 <table id="grid" lay-filter="grid"></table>
 

@@ -11,16 +11,17 @@
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
             <div class="layui-input-inline" style="width: 1000px">
-                <input type="text" id="description" name="description" class="layui-input" placeholder="请输入该条链路编排的描述信息" autocomplete="off">
-                <input type="hidden" id="serviceArrange" name="serviceArrange"/>
+                <input type="text" id="description" name="description" class="layui-input" placeholder="请输入该条链路编排的描述信息" value="${entity.description}" autocomplete="off">
+                <input type="hidden" id="id" name="id" value="${entity.id}"/>
+                <input type="hidden" id="serviceArrange" name="serviceArrange" value="${entity.serviceArrange}"/>
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">策略类型</label>
             <div class="layui-input-block">
-                <input type="radio" name="strategyType" lay-filter="strategyType" value="1" title="版本" checked>
-                <input type="radio" name="strategyType" lay-filter="strategyType" value="2" title="区域">
+                <input type="radio" name="strategyType" lay-filter="strategyType" value="1" title="版本" ${(entity.strategyType==1) ? string('checked','')}>
+                <input type="radio" name="strategyType" lay-filter="strategyType" value="2" title="区域" ${(entity.strategyType==2) ? string('checked','')}>
             </div>
         </div>
 

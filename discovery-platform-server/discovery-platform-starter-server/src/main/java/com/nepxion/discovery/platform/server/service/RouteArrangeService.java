@@ -26,4 +26,6 @@ public interface RouteArrangeService extends BasePublishService<RouteArrangeDto>
     boolean logicDelete(Collection<Long> ids);
 
     boolean delete(Collection<Long> ids);
+
+    Long getNextIndex();
 }

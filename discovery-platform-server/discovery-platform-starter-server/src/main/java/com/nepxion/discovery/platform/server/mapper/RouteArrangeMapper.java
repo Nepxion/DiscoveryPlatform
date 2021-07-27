@@ -17,4 +17,5 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 
 @Mapper
 public interface RouteArrangeMapper extends BaseMapper<RouteArrangeDto> {
+    Long getNextIndex();
 }

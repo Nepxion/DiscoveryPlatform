@@ -26,6 +26,9 @@ public class RouteArrangeDto extends BaseStateEntity {
     @TableField(value = "`route_id`")
     private String routeId;
 
+    @TableField(value = "`index`")
+    private Long index;
+
     @TableField(value = "`strategy_type`")
     private Integer strategyType;
 
@@ -41,6 +44,14 @@ public class RouteArrangeDto extends BaseStateEntity {
 
     public void setRouteId(String routeId) {
         this.routeId = routeId;
+    }
+
+    public Long getIndex() {
+        return index;
+    }
+
+    public void setIndex(Long index) {
+        this.index = index;
     }
 
     public Integer getStrategyType() {

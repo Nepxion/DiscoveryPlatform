@@ -302,6 +302,7 @@ layui.define(function (e) {
                 }
             });
         }, null, false);
+        serviceNameList.sort();
         return serviceNameList;
     }
 
@@ -316,6 +317,7 @@ layui.define(function (e) {
                 }
             });
         }, null, false);
+        serviceMetadataList.sort();
         return serviceMetadataList;
     }
 

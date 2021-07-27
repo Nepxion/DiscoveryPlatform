@@ -183,6 +183,24 @@ CREATE TABLE IF NOT EXISTS `t_gray`  (
 ) COMMENT = '灰度发布信息';
 
 
+CREATE TABLE `t_route_arrange`  (
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `route_id`                  VARCHAR(128)                    NOT NULL COMMENT '服务链路标识',
+    `index`                     BIGINT(0) UNSIGNED              NOT NULL COMMENT '链路标识的下标索引',
+    `strategy_type`             INT(0) UNSIGNED                 NOT NULL COMMENT '策略类型(1: 版本, 2:区域)',
+    `service_arrange`           TEXT                            NOT NULL COMMENT '服务编排',
+    `description`               VARCHAR(128)                    NOT NULL COMMENT '链路编排的描述信息',
+    `operation`                 TINYINT(0) UNSIGNED             NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
+    `enable_flag`               TINYINT(0) UNSIGNED             NOT NULL COMMENT '是否启用',
+    `publish_flag`              TINYINT(0) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
+    `delete_flag`               TINYINT(0) UNSIGNED             NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
+    `create_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `update_time`               DATETIME(3)                     NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
+) COMMENT = '服务编排信息';
+
+
 INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`) VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');
 
 INSERT IGNORE INTO `sys_role`(`id`, `name`, `super_admin`, `description`) VALUES (1, '超级管理员', 1, '超级管理员, 拥有最高权限');

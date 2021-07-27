@@ -19,10 +19,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
+import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.mapper.RouteArrangeMapper;
 
 public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrangeMapper, RouteArrangeDto> implements RouteArrangeService {
+    private static final String PREFIX_ROUTE_ID = "route_";
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
@@ -42,8 +44,18 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
         return page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 
+    @TransactionReader
+    @Override
+    public Long getNextIndex() {
+        return baseMapper.getNextIndex();
+    }
+
+    @TransactionWriter
     @Override
     public boolean insert(RouteArrangeDto routeArrangeDto) {
+        routeArrangeDto = prepareInsert(routeArrangeDto);
+        routeArrangeDto.setIndex(getNextIndex());
+        routeArrangeDto.setRouteId(String.format("%s%s", PREFIX_ROUTE_ID, routeArrangeDto.getIndex()));
         return save(routeArrangeDto);
     }
 }

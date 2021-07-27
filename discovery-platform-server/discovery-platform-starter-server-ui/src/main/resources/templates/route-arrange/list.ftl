@@ -54,6 +54,14 @@
                     {{#  } }}
                 </script>
 
+                <script type="text/html" id="grid-bar">
+                    <@update>
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
+                            <i class="layui-icon layui-icon-edit"></i>编辑
+                        </a>
+                    </@update>
+                </script>
+
                 <script type="text/html" id="grid-toolbar">
                     <div class="layui-btn-container">
                         <@insert>
@@ -73,18 +81,6 @@
                             </button>
                         </@update>
                     </div>
-                </script>
-
-                <script type="text/html" id="grid-bar">
-                    <@update>
-                        {{#  if(d.enableFlag){ }}
-                        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="disable">
-                            <i class="layui-icon layui-icon-logout"></i>禁用</a>
-                        {{#  } else { }}
-                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="enable">
-                            <i class="layui-icon layui-icon-ok"></i>启用</a>
-                        {{#  } }}
-                    </@update>
                 </script>
             </div>
         </div>
@@ -130,7 +126,7 @@
                     },
                     {field: 'description', title: '描述信息'}
                     <@select>
-                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 90}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 75}
                     </@select>
                 ]],
                 done: function (res) {
@@ -145,13 +141,62 @@
                 }
             });
 
+            table.on('tool(grid)', function (obj) {
+                const data = obj.data;
+                if (obj.event === 'edit') {
+                    let t = '';
+                    if (data.strategyType === 1) {
+                        t = '编辑<b>版本</b>蓝绿';
+                    } else if (data.strategyType === 2) {
+                        t = '编辑<b>区域</b>蓝绿';
+                    }
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;' + t,
+                        content: 'edit?id=' + data.id,
+                        area: ['1175px', '98%'],
+                        btn: admin.BUTTONS,
+                        resize: false,
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                submit = layero.find('iframe').contents().find('#' + submitID),
+                                source = layero.find('iframe').contents().find('#callback');
+                            source.click();
+                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
+                                field['type'] = type;
+                                delete field['logic'];
+                                delete field['operator'];
+                                delete field['serviceName'];
+                                delete field['strategyServiceName'];
+                                delete field['strategyValue'];
+                                delete field['value'];
+                                delete field['ok'];
+                                admin.post('do-update', field, function () {
+                                    table.reload('grid');
+                                    updateStatus(true);
+                                    layer.close(index);
+                                }, function (result) {
+                                    admin.error(admin.OPT_FAILURE, result.error);
+                                });
+                            });
+                            submit.trigger('click');
+                        }
+                    });
+                }
+            });
+
             table.on('toolbar(grid)', function (obj) {
                 if (obj.event === 'add') {
                     layer.open({
                         type: 2,
                         title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增链路编排',
                         content: 'add',
-                        area: ['1170px', '98%'],
+                        area: ['1175px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -162,7 +207,7 @@
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
                                 delete field['serviceName'];
-                                delete field['content'];
+                                delete field['serviceValue'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -186,16 +231,6 @@
                     } else {
                         admin.error(admin.SYSTEM_PROMPT, admin.DEL_ERROR);
                     }
-                } else if (obj.event === 'working') {
-                    layer.open({
-                        type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的链路编排',
-                        content: 'working',
-                        shadeClose: true,
-                        shade: 0.8,
-                        area: ['90%', '82%'],
-                        btn: '关闭'
-                    });
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
                         layer.confirm('确定要发布链路编排吗？', function (index) {
@@ -207,31 +242,6 @@
                             });
                         });
                     }
-                }
-            });
-
-            table.on('tool(grid)', function (obj) {
-                const data = obj.data;
-                if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用链路编排吗？', function (index) {
-                        admin.post('do-disable', {"id": data.id}, function () {
-                            table.reload('grid');
-                            updateStatus(true);
-                            layer.close(index);
-                        }, function (result) {
-                            admin.error(admin.OPT_FAILURE, result.error);
-                        });
-                    });
-                } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用链路编排吗？', function (index) {
-                        admin.post('do-enable', {"id": data.id}, function () {
-                            table.reload('grid');
-                            updateStatus(true);
-                            layer.close(index);
-                        }, function (result) {
-                            admin.error(admin.OPT_FAILURE, result.error);
-                        });
-                    });
                 }
             });
 

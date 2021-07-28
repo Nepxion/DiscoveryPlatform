@@ -10,31 +10,13 @@ package com.nepxion.discovery.platform.server.service;
  * @version 1.0
  */
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.common.entity.RuleEntity;
-import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
-import com.nepxion.discovery.common.entity.StrategyEntity;
-import com.nepxion.discovery.common.entity.StrategyHeaderEntity;
-import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
-import com.nepxion.discovery.common.entity.StrategyRouteEntity;
-import com.nepxion.discovery.common.entity.StrategyRouteType;
+import com.nepxion.discovery.common.entity.*;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
@@ -45,6 +27,11 @@ import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper, BlueGreenDto> implements BlueGreenService {
 

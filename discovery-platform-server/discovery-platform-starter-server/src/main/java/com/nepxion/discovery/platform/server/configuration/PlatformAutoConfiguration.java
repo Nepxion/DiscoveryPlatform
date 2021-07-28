@@ -11,6 +11,8 @@ package com.nepxion.discovery.platform.server.configuration;
  * @version 1.0
  */
 
+import com.nepxion.discovery.platform.server.controller.*;
+import com.nepxion.discovery.platform.server.service.*;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,51 +23,12 @@ import com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.advice.ExceptionControllerAdvice;
 import com.nepxion.discovery.platform.server.advice.ModelAdvice;
-import com.nepxion.discovery.platform.server.controller.AdminController;
-import com.nepxion.discovery.platform.server.controller.AdminPageController;
-import com.nepxion.discovery.platform.server.controller.BlacklistController;
-import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
-import com.nepxion.discovery.platform.server.controller.ConsoleController;
-import com.nepxion.discovery.platform.server.controller.DashboardController;
-import com.nepxion.discovery.platform.server.controller.DashboardPageController;
-import com.nepxion.discovery.platform.server.controller.GrayController;
-import com.nepxion.discovery.platform.server.controller.GrayPageController;
-import com.nepxion.discovery.platform.server.controller.IndexController;
-import com.nepxion.discovery.platform.server.controller.IndexPageController;
-import com.nepxion.discovery.platform.server.controller.MenuController;
-import com.nepxion.discovery.platform.server.controller.MenuPageController;
-import com.nepxion.discovery.platform.server.controller.PermissionController;
-import com.nepxion.discovery.platform.server.controller.PermissionPageController;
-import com.nepxion.discovery.platform.server.controller.RoleController;
-import com.nepxion.discovery.platform.server.controller.RolePageController;
-import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
-import com.nepxion.discovery.platform.server.controller.RouteGatewayPageController;
-import com.nepxion.discovery.platform.server.controller.RouteZuulController;
-import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
 import com.nepxion.discovery.platform.server.properties.PlatformAuthProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformDataSourceProperties;
 import com.nepxion.discovery.platform.server.properties.PlatformServerProperties;
-import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
-import com.nepxion.discovery.platform.server.service.BlacklistService;
-import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
-import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
-import com.nepxion.discovery.platform.server.service.ConsoleService;
-import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
-import com.nepxion.discovery.platform.server.service.DicServiceImpl;
-import com.nepxion.discovery.platform.server.service.GrayService;
-import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
-import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
-import com.nepxion.discovery.platform.server.service.PermissionServiceImpl;
-import com.nepxion.discovery.platform.server.service.RoleServiceImpl;
-import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
-import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
-import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
@@ -211,6 +174,16 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
+    public InstanceInfoController instanceInfoController(){
+        return new InstanceInfoController();
+    }
+
+    @Bean
+    public InstanceInfoPageController instanceInfoPageController(){
+        return new InstanceInfoPageController();
+    }
+
+    @Bean
     public GrayController grayController() {
         return new GrayController();
     }
@@ -281,4 +254,10 @@ public class PlatformAutoConfiguration {
     public ConsoleService consoleService() {
         return new ConsoleServiceImpl();
     }
+
+    @Bean
+    public InstanceInfoService instanceInfoService(){
+        return new InstanceInfoServiceImpl();
+    }
+
 }

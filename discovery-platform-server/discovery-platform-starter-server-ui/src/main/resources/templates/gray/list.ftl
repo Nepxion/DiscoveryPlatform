@@ -129,10 +129,12 @@
     </div>
 
     <script>
+        debugger
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
             const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table;
             tableErrorHandler();
             form.on('submit(search)', function (data) {
+                debugger
                 const field = data.field;
                 table.reload('grid', {where: field});
                 updateStatus(false);

@@ -23,11 +23,13 @@
             <div class="layui-input-inline" style="width: 850px">
                 <div class="layui-row">
                     <div class="layui-col-md11">
-                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
+                        <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required"
+                                lay-search>
                         </select>
                     </div>
                     <div class="layui-col-md1">
-                        <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <a id="btnRefreshPortal" class="layui-btn layui-btn-sm"
+                           style="margin-left: 10px;width:60px;margin-top: 4px">
                             <i class="layui-icon">&#xe669;</i>
                         </a>
                     </div>
@@ -37,7 +39,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="margin-top: 15px">描述信息</label>
                 <div class="layui-input-inline" style="width: 850px;margin-top: 15px">
-                    <input type="text" name="description" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}蓝绿的描述信息" autocomplete="off">
+                    <input type="text" name="description" class="layui-input"
+                           placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}蓝绿的描述信息" autocomplete="off">
                 </div>
             </div>
 
@@ -137,7 +140,8 @@
                 <script type="text/html" id="tOperator$_INDEX_$">
                     <select name='operator' lay-filter='operator' tag="$_INDEX_$">
                         <#list operators as operator>
-                            <option value="${operator.value}" {{ d.operator=='${operator.value}' ?'selected="selected"' : '' }}>
+                            <option value="${operator.value}" {{ d.operator=='${operator.value}'
+                                    ?'selected="selected"' : '' }}>
                             ${operator.value}
                             </option>
                         </#list>
@@ -167,14 +171,16 @@
 
                 <div class="layui-row">
                     <div class="layui-col-md9">
-                        <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
+                        <input type="text" id="spelCondition$_INDEX_$" class="layui-input"
+                               placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
                     </div>
                     <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
                         <div class="layui-btn-group">
                             <button class="layui-btn layui-btn-sm" id="btnAssemble$_INDEX_$" tag="$_INDEX_$">
                                 <i class="layui-icon">&#xe674;</i>&nbsp;聚合条件
                             </button>
-                            <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$" tag="$_INDEX_$">
+                            <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$"
+                                    tag="$_INDEX_$">
                                 <i class="layui-icon">&#x1005;</i>&nbsp;校验条件
                             </button>
                         </div>
@@ -236,7 +242,8 @@
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
                     const TAB = 'tab', TAB_CONDITION = 'tabCondition', TAB_STRATEGY = 'tabStrategy';
-                    let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
+                    let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY,
+                        tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
 
                     setTimeout(function () {
                         reloadPortalName();
@@ -416,7 +423,12 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
+                                {
+                                    title: '${((type!'')=='VERSION')?string('版本号','区域值')}',
+                                    templet: '#tValue' + tabIndex,
+                                    unresize: true,
+                                    width: 323
+                                },
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: [newRouteRow()]
@@ -506,7 +518,11 @@
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
                                 {field: 'serviceName', templet: '#tStrategyServiceName', unresize: true, title: '服务名'},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
+                                {
+                                    title: '${((type!'')=='VERSION')?string('版本号','区域值')}',
+                                    templet: '#tStrategyValue',
+                                    unresize: true
+                                },
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: [newRouteRow()]

@@ -107,7 +107,7 @@
                 if (obj.event === 'add') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增应用',
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增应用',
                         content: 'add',
                         area: ['910px', '98%'],
                         btn: admin.BUTTONS,

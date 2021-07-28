@@ -13,7 +13,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
                 <div class="layui-input-inline" style="width: 850px">
-                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关类型<#elseif entity.portalType==2>服务类型<#elseif entity.portalType==3>组类型</#if>">
+                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关<#elseif entity.portalType==2>服务<#elseif entity.portalType==3>组</#if>">
                 </div>
             </div>
 
@@ -25,7 +25,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="margin-top: 15px">描述信息</label>
                 <div class="layui-input-inline" style="width: 850px;margin-top: 15px">
-                    <input type="text" name="description" value="${entity.description}" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}灰度的描述信息" autocomplete="off">
+                    <input type="text" name="description" class="layui-input" placeholder="请输入该${((type!'')=='VERSION')?string('版本','区域')}灰度的描述信息" autocomplete="off" value="${entity.description}">
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                 <div class="layui-input-block">
                     <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                     <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度策略</a>
-                    <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -45,6 +45,26 @@
                         <ul id="tabTitle" class="layui-tab-title">
                         </ul>
                         <div id="tabContent" class="layui-tab-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">路由编排</label>
+                <div class="layui-input-block">
+                    <a id="btnRouteAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加路由</a>
+                    <a id="btnRouteRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除路由</a>
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:-25px">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block" style="width: 850px">
+                    <div class="layui-tab layui-tab-brief" lay-filter="tabRoute">
+                        <ul id="tabRouteTitle" class="layui-tab-title">
+                        </ul>
+                        <div id="tabRouteContent" class="layui-tab-content">
                         </div>
                     </div>
                 </div>
@@ -77,23 +97,11 @@
             <div id="strategyTemplate" style="display: none">
                 <table class="layui-hide" id="gridStrategy" lay-filter="gridStrategy"></table>
 
-                <script type="text/html" id="tStrategyServiceName">
-                    <select name='strategyServiceName' lay-filter='strategyServiceName' lay-search>
-                        <option value="">请选择服务名称</option>
-                        {{# layui.each(d.serviceNameList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.serviceName==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="tStrategyValue">
-                    <select name='strategyValue' lay-filter='strategyValue' lay-search>
-                        <option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>
-                        {{# layui.each(d.valueList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.value==item ?
+                <script type="text/html" id="tStrategyRouteName">
+                    <select name='strategyRouteName' lay-filter='strategyRouteName' lay-search>
+                        <option value="">请选择路由名称</option>
+                        {{# layui.each(d.routeNameList, function(index, item){ }}
+                        <option value="{{ item }}" {{ d.routeName==item ?
                         'selected="selected"' : '' }}>
                         {{ item }}
                         </option>
@@ -169,12 +177,28 @@
                     </div>
                 </div>
 
-                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">路由策略</span>
+                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">流量配比</span>
 
                 <table class="layui-hide" id="gridRoute$_INDEX_$" lay-filter="gridRoute$_INDEX_$"></table>
 
-                <script type="text/html" id="tServiceName$_INDEX_$">
-                    <select name='serviceName' lay-filter='serviceName' tag="$_INDEX_$" lay-search>
+                <script type="text/html" id="tRouteName$_INDEX_$">
+                    <select name='routeName' lay-filter='routeName' tag="$_INDEX_$" lay-search>
+                        <option value="">请选择路由名称</option>
+                        {{# layui.each(d.routeNameList, function(index, item){ }}
+                        <option value="{{ item }}" {{ d.routeName==item ?
+                        'selected="selected"' : '' }}>
+                        {{ item }}
+                        </option>
+                        {{# }); }}
+                    </select>
+                </script>
+            </div>
+
+            <div id="routeTemplate" style="display: none">
+                <table class="layui-hide" id="gridRouteService$_INDEX_$" lay-filter="gridRouteService$_INDEX_$"></table>
+
+                <script type="text/html" id="tRouteServiceName$_INDEX_$">
+                    <select name='routeServiceName' lay-filter='routeServiceName' tag="$_INDEX_$" lay-search>
                         <option value="">请选择服务名称</option>
                         {{# layui.each(d.serviceNameList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceName==item ?
@@ -185,8 +209,8 @@
                     </select>
                 </script>
 
-                <script type="text/html" id="tValue$_INDEX_$">
-                    <select name='value' lay-filter='value' tag="$_INDEX_$" lay-search>
+                <script type="text/html" id="tRouteValue$_INDEX_$">
+                    <select name='routeValue' lay-filter='routeValue' tag="$_INDEX_$" lay-search>
                         <option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>
                         {{# layui.each(d.valueList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.value==item ?
@@ -200,13 +224,13 @@
                 <script type="text/html" id="grid-route-bar">
                     <@update>
                         <div class="layui-btn-group">
-                            <a class="layui-btn layui-btn-sm" lay-event="refreshRoute">
+                            <a class="layui-btn layui-btn-sm" tag="$_INDEX_$" lay-event="refreshRoute">
                                 <i class="layui-icon">&#xe669;</i>
                             </a>
-                            <a class="layui-btn layui-btn-sm" lay-event="addRoute">
+                            <a class="layui-btn layui-btn-sm" tag="$_INDEX_$" lay-event="addRoute">
                                 <i class="layui-icon">&#xe654;</i>
                             </a>
-                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeRoute">
+                            <a class="layui-btn layui-btn-warm layui-btn-sm" tag="$_INDEX_$" lay-event="removeRoute">
                                 <i class="layui-icon">&#xe67e;</i>
                             </a>
                         </div>
@@ -215,47 +239,45 @@
             </div>
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="strategy" name="strategy"/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="grayStrategy" name="grayStrategy"/>
             <input type="hidden" id="header" name="header"/>
+            <input type="hidden" id="routeService" name="routeService"/>
         </div>
         <script>
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
-                    const TAB = 'tab', TAB_CONDITION = 'tabCondition', TAB_STRATEGY = 'tabStrategy';
-                    let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
+                    const TAB = 'tab', TAB_ROUTE = 'tabRoute', TAB_STRATEGY = 'tabStrategy';
+                    let portalType = 1, serviceNameList = [], routeNameList = [], tabIndex = 0, tabRouteIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', tabSelectRoute = '', tabSelectRouteTitle = '', headerCount = 0, conditionCount = 0, routeCount = 0, rateCount = 0;
 
                     setTimeout(function () {
                         reloadPortalName();
-                        const conditionJson = <#if entity.condition!=''>${entity.condition};
+                        const routeServiceJson = <#if entity.routeService!=''>${entity.routeService};
                         <#else>
                         {
                         }
                         ;
                         </#if>
-                        const routeJson = <#if entity.route!=''>${entity.route};
-                            <#else>{
+                        const grayStrategyJson = <#if entity.grayStrategy!=''>${entity.grayStrategy};
+                        <#else>
+                        {
                         }
                         ;
                         </#if>
-                        const condition = [], route = [];
-                        for (const k in conditionJson) {
-                            condition.push(conditionJson[k]);
+                        for (const k in routeServiceJson) {
+                            addRouteService(routeServiceJson[k]);
                         }
-                        for (const k in routeJson) {
-                            route.push(routeJson[k]);
+                        for (const k in grayStrategyJson) {
+                            addTabCondition(grayStrategyJson[k].condition, grayStrategyJson[k].route);
                         }
-                        for (let i = 0; i < condition.length; i++) {
-                            addTabCondition(condition[i], route[i]);
-                        }
-                        <#if entity.strategy!=''>
-                        addStrategy(${entity.strategy});
+                        <#if entity.basicStrategy!=''>
+                        addBasicStrategy(${entity.basicStrategy});
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
-                    }, 50);
+                        element.tabChange(TAB_ROUTE, 'tabRouteService1');
+                    }, 100);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
@@ -263,7 +285,7 @@
                     });
 
                     function reloadPortalName() {
-                        admin.post('do-list-portal-names', {'portalName': '${entity.portalName}', 'portalTypeInt': portalType}, function (result) {
+                        admin.post('do-list-portal-names', {'portalTypeInt': portalType}, function (result) {
                             const selPortalName = $("select[name=portalName]");
                             let portalTypeName = '';
                             if (portalType == 1) {
@@ -275,27 +297,22 @@
                             }
                             selPortalName.html('<option value="">请选择' + portalTypeName + '名称</option>');
                             $.each(result.data, function (key, val) {
-                                let option;
-                                if (val == '${entity.portalName}') {
-                                    option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                                } else {
-                                    option = $("<option>").val(val).text(val);
-                                }
+                                let option = $("<option>").val(val).text(val);
                                 selPortalName.append(option);
                             });
                             layui.form.render('select');
-                        }, null);
+                        });
                     }
 
                     $('#btnStrategyAdd').click(function () {
-                        addStrategy();
+                        addBasicStrategy();
                     });
 
                     $('#btnConditionAdd').click(function () {
                         addTabCondition();
                     });
 
-                    $('#btnRemove').click(function () {
+                    $('#btnStrategyRemove').click(function () {
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
@@ -306,14 +323,30 @@
                         reloadPortalName();
                     });
 
+                    $('#btnRouteAdd').click(function () {
+                        addRouteService();
+                    });
+
+                    $('#btnRouteRemove').click(function () {
+                        layer.confirm('确定要删除 [' + tabSelectRouteTitle + '] 吗?', function (index) {
+                            element.tabDelete(TAB_ROUTE, tabSelectRoute);
+                            layer.close(index);
+                        });
+                    });
+
                     element.on('tab(tab)', function () {
                         tabSelect = $(this).attr('lay-id');
                         tabSelectTitle = $(this).html();
                     });
 
+                    element.on('tab(tabRoute)', function () {
+                        tabSelectRoute = $(this).attr('lay-id');
+                        tabSelectRouteTitle = $(this).html();
+                    });
+
                     function addTabCondition(condition, route) {
                         tabIndex++;
-                        const tabTitleId = TAB_CONDITION + tabIndex;
+                        const tabTitleId = 'tabCondition' + tabIndex;
                         const tabContentId = 'tabContent' + tabIndex;
                         const gridCondition = 'gridCondition' + tabIndex;
                         const gridRoute = 'gridRoute' + tabIndex;
@@ -337,11 +370,10 @@
                         });
 
                         $('#btnVerify' + tabIndex).click(function () {
-                            const index = $(this).attr('tag');
-                            const spelConditionId = 'spelCondition' + index;
+                            const spelConditionId = 'spelCondition' + $(this).attr('tag');
                             layer.open({
                                 type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
                                 content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
                                 area: ['645px', '235px'],
                                 btn: '关闭',
@@ -370,10 +402,13 @@
                                 {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                                 {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
-                            data: condition == undefined ? [newConditionRow()] : newConditionRow(condition)
+                            data: condition == undefined ? [newConditionRow()] : newConditionRow(condition),
+                            done: function () {
+                                $('#btnAssemble' + tabIndex).click();
+                            }
                         });
 
                         table.on('tool(' + gridCondition + ')', function (obj) {
@@ -432,14 +467,152 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
+                                {templet: '#tRouteName' + tabIndex, title: '路由名', unresize: true, width: 323},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
-                            data: route == undefined ? [newRouteRow(route)] : newRouteRow(route)
+                            data: route == undefined ? [newRateRow()] : newRateRow(route)
                         });
 
                         table.on('tool(' + gridRoute + ')', function (obj) {
+                            const gd = table.cache[gridRoute];
+                            if (obj.event === 'addRoute') {
+                                gd.push(newRateRow());
+                                reload(gridRoute, gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeRoute') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload(gridRoute, gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                }
+                            } else if (obj.event === 'refreshRoute') {
+                                refreshRouteNames();
+                                $.each(gd, function (index, item) {
+                                    if (item.index == obj.data.index) {
+                                        item['routeNameList'] = routeNameList;
+                                        return;
+                                    }
+                                });
+                                reload(gridRoute, gd);
+                            }
+                        });
+
+                        form.on('select(routeName)', function (obj) {
+                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            const routeName = obj.value;
+                            gd[dataIndex]['routeName'] = routeName;
+                            reload(gridId, gd);
+                        });
+
+                        form.on('select(value)', function (obj) {
+                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['value'] = obj.value;
+                            reload(gridId, gd);
+                        });
+                    }
+
+                    function addBasicStrategy(data) {
+                        if ($('li[lay-id="' + TAB_STRATEGY + '"]').size() > 0) {
+                            element.tabChange(TAB, TAB_STRATEGY);
+                            admin.success('系统操作', '已存在兜底策略');
+                            return;
+                        }
+                        $('#tabTitle').prepend('<li class="layui-this" tag="1" lay-id="tabStrategy">兜底策略</li>');
+                        $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show"></div>');
+                        $('#contentStrategy').append($('#strategyTemplate').html());
+                        element.render(TAB);
+                        element.tabChange(TAB, TAB_STRATEGY);
+                        table.render({
+                            elem: '#gridStrategy',
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', unresize: true, width: 50},
+                                {field: 'routeName', templet: '#tStrategyRouteName', unresize: true, title: '路由名'},
+                                {field: 'value', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            ]],
+                            data: data == undefined || data.length < 1 ? [newRateRow()] : newRateRow(data)
+                        });
+
+                        table.on('tool(gridStrategy)', function (obj) {
+                            const gd = table.cache['gridStrategy'];
+                            if (obj.event === 'addRoute') {
+                                gd.push(newRateRow());
+                                reload('gridStrategy', gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeRoute') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload('gridStrategy', gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                }
+                            } else if (obj.event === 'refreshRoute') {
+                                refreshRouteNames();
+                                $.each(gd, function (index, item) {
+                                    if (item.index == obj.data.index) {
+                                        item['routeNameList'] = routeNameList;
+                                        return;
+                                    }
+                                });
+                                reload('gridStrategy', gd);
+                            }
+                        });
+
+                        form.on('select(strategyRouteName)', function (obj) {
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache['gridStrategy'];
+                            const routeName = obj.value;
+                            gd[dataIndex]['routeName'] = routeName;
+                            reload('gridStrategy', gd);
+                        });
+                    }
+
+                    function addRouteService(routeService) {
+                        tabRouteIndex++;
+                        const tabTitleId = 'tabRouteService' + tabRouteIndex;
+                        const tabContentId = 'tabRouteContent' + tabRouteIndex;
+                        const gridRoute = 'gridRouteService' + tabRouteIndex;
+                        $('#tabRouteTitle').append('<li class="routeTitleClass" tag="' + tabRouteIndex + '" id="' + tabTitleId + '" lay-id="' + tabTitleId + '">路由' + tabRouteIndex + '</li>');
+                        $('#tabRouteContent').append('<div id="' + tabContentId + '" tag="' + tabRouteIndex + '" class="layui-tab-item"></div>');
+                        $('#' + tabContentId).append($('#routeTemplate').html().replaceAll('$_INDEX_$', tabRouteIndex));
+                        element.render(TAB_ROUTE);
+                        element.tabChange(TAB_ROUTE, tabTitleId);
+                        table.render({
+                            elem: '#' + gridRoute,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', unresize: true, width: 50},
+                                {field: 'serviceName', templet: '#tRouteServiceName' + tabRouteIndex, unresize: true, title: '服务名'},
+                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tRouteValue' + tabRouteIndex, unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            ]],
+                            data: routeService == undefined ? [newRouteRow()] : newRouteRow(routeService)
+                        });
+
+                        table.on('tool(gridRouteService' + tabRouteIndex + ')', function (obj) {
                             const gd = table.cache[gridRoute];
                             if (obj.event === 'addRoute') {
                                 gd.push(newRouteRow());
@@ -467,7 +640,6 @@
                                         return;
                                     }
                                 });
-
                                 refreshServiceValue(serviceName, function (vl) {
                                     $.each(gd, function (index, item) {
                                         if (item.index == obj.data.index) {
@@ -480,8 +652,8 @@
                             }
                         });
 
-                        form.on('select(serviceName)', function (obj) {
-                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
+                        form.on('select(routeServiceName)', function (obj) {
+                            const gridId = 'gridRouteService' + $(obj.elem).attr('tag');
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
                             const serviceName = obj.value;
@@ -492,103 +664,12 @@
                             });
                         });
 
-                        form.on('select(value)', function (obj) {
-                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
+                        form.on('select(routeValue)', function (obj) {
+                            const gridId = 'gridRouteService' + $(obj.elem).attr('tag');
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
-                            gd[dataIndex]['value'] = obj.value;
-                            reload(gridId, gd);
-                        });
-
-                        $('#btnAssemble' + tabIndex).click();
-                    }
-
-                    function addStrategy(data) {
-                        if ($('li[lay-id="' + TAB_STRATEGY + '"]').size() > 0) {
-                            element.tabChange(TAB, TAB_STRATEGY);
-                            admin.success('系统操作', '已存在兜底策略');
-                            return;
-                        }
-                        $('#tabTitle').prepend('<li class="layui-this" lay-id="tabStrategy">兜底策略</li>');
-                        $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show"></div>');
-                        $('#contentStrategy').append($('#strategyTemplate').html());
-                        element.render(TAB);
-                        element.tabChange(TAB, TAB_STRATEGY);
-                        table.render({
-                            elem: '#gridStrategy',
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'serviceName', templet: '#tStrategyServiceName', unresize: true, title: '服务名'},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
-                            ]],
-                            data: data == undefined || data.length < 1 ? [newRouteRow()] : newRouteRow(data)
-                        });
-
-                        table.on('tool(gridStrategy)', function (obj) {
-                            const gd = table.cache['gridStrategy'];
-                            if (obj.event === 'addRoute') {
-                                gd.push(newRouteRow());
-                                reload('gridStrategy', gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeRoute') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload('gridStrategy', gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                }
-                            } else if (obj.event === 'refreshRoute') {
-                                layer.load();
-                                let serviceName = '';
-                                refreshServiceNames();
-                                layer.closeAll('loading');
-                                $.each(gd, function (index, item) {
-                                    if (item.index == obj.data.index) {
-                                        item['serviceNameList'] = serviceNameList;
-                                        serviceName = item['serviceName'];
-                                        return;
-                                    }
-                                });
-                                refreshServiceValue(serviceName, function (vl) {
-                                    $.each(gd, function (index, item) {
-                                        if (item.index == obj.data.index) {
-                                            item['valueList'] = vl;
-                                            return;
-                                        }
-                                    });
-                                    reload('gridStrategy', gd);
-                                });
-                            }
-                        });
-
-                        form.on('select(strategyServiceName)', function (obj) {
-                            const gridId = 'gridStrategy';
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            const serviceName = obj.value;
-                            refreshServiceValue(serviceName, function (vl) {
-                                gd[dataIndex]['serviceName'] = serviceName;
-                                gd[dataIndex]['valueList'] = vl;
-                                reload(gridId, gd);
-                            });
-                        });
-
-                        form.on('select(strategyValue)', function (obj) {
-                            const gridId = 'gridStrategy';
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            const strategyValue = obj.value;
-                            gd[dataIndex]['value'] = strategyValue;
+                            const routeValue = obj.value;
+                            gd[dataIndex]['value'] = routeValue;
                             reload(gridId, gd);
                         });
                     }
@@ -613,6 +694,16 @@
                                     'operator': data[i].operator,
                                     'value': data[i].value,
                                     'logic': data[i].logic
+                                });
+                            }
+                            if (result.length < 1) {
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
+                                    'parameterName': '',
+                                    'operator': '==',
+                                    'value': '',
+                                    'logic': 'and'
                                 });
                             }
                             return result;
@@ -644,6 +735,50 @@
                                     });
                                 }, false);
                             }
+                            if (result.length < 1) {
+                                routeCount++;
+                                result.push({
+                                    'index': routeCount,
+                                    'serviceName': '',
+                                    'value': '',
+                                    'serviceNameList': serviceNameList,
+                                    'valueList': []
+                                });
+                            }
+                            return result;
+                        }
+                    }
+
+                    function newRateRow(data) {
+                        refreshRouteNames();
+                        if (data == undefined) {
+                            rateCount++;
+                            return {
+                                'index': rateCount,
+                                'routeName': '',
+                                'value': '',
+                                'routeNameList': routeNameList
+                            };
+                        } else {
+                            const result = [];
+                            for (let i = 0; i < data.length; i++) {
+                                rateCount++;
+                                result.push({
+                                    'index': rateCount,
+                                    'routeName': data[i].routeName,
+                                    'value': data[i].value,
+                                    'routeNameList': routeNameList
+                                });
+                            }
+                            if (result.length < 1) {
+                                rateCount++;
+                                result.push({
+                                    'index': rateCount,
+                                    'routeName': '',
+                                    'value': '',
+                                    'routeNameList': routeNameList
+                                });
+                            }
                             return result;
                         }
                     }
@@ -659,6 +794,18 @@
                                 }
                             });
                         }, null, false);
+                    }
+
+                    function refreshRouteNames() {
+                        const set = new Set();
+                        routeNameList = [];
+                        $('.routeTitleClass').each(function (i, item) {
+                            const val = $(item).html();
+                            if (!set.has(val)) {
+                                set.add(val);
+                                routeNameList.push(val);
+                            }
+                        });
                     }
 
                     function refreshServiceValue(serviceName, callback, async) {
@@ -740,6 +887,14 @@
                                     'value': data[i].value
                                 });
                             }
+                            if (result.length < 1) {
+                                headerCount++;
+                                result.push({
+                                    'index': headerCount,
+                                    'headerName': '',
+                                    'value': ''
+                                });
+                            }
                             return result;
                         }
                     }
@@ -756,19 +911,20 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectGrayStrategy();
                         collectHeader();
+                        collectRouteService();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
-                                if (item.serviceName != '' && item.value != '') {
+                                if (item.routeName != '' && item.value != '') {
                                     const data = {
-                                        'serviceName': item.serviceName,
+                                        'routeName': item.routeName,
                                         'value': item.value
                                     };
                                     const dataStr = JSON.stringify(data);
@@ -777,19 +933,18 @@
                                         dataStrategy.push(data);
                                     }
                                     $('#error').val('');
-                                } else if (item.serviceName + item.value != '') {
+                                } else if (item.routeName + item.value != '') {
                                     $('#error').val('兜底策略的服务名或版本号不允许为空');
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectGrayStrategy() {
+                        $('#grayStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -816,19 +971,15 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
                                 $.each(table.cache[gridRoute], function (index, item) {
-                                    if (item.serviceName != '' && item.value != '') {
+                                    if (item.routeName != '' && item.value != '') {
                                         const data = {
-                                            'serviceName': item.serviceName,
+                                            'routeName': item.routeName,
                                             'value': item.value
                                         };
                                         const dataStr = JSON.stringify(data);
@@ -837,18 +988,18 @@
                                             _dataRoute.push(data);
                                         }
                                         $('#error').val('');
-                                    } else if (item.serviceName + item.value != '') {
+                                    } else if (item.routeName + item.value != '') {
                                         $('#error').val('灰度策略' + tabIndex + '的路由策略的服务名或${((type!'')=='VERSION')?string('版本号','区域值')}不允许为空');
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#grayStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {
@@ -872,6 +1023,43 @@
                             }
                         });
                         $('#header').val(JSON.stringify(dataHeader));
+                    }
+
+                    function collectRouteService() {
+                        $('#routeService').val('');
+                        const routeService = {};
+                        $('#tabRouteTitle').find('li.routeTitleClass').each(function (i, it) {
+                            const tabIndex = $(this).attr('tag');
+                            if (tabIndex) {
+                                const _dataCondition = [], _setCondition = new Set();
+                                const gridRoutService = 'gridRouteService' + tabIndex;
+
+                                $.each(table.cache[gridRoutService], function (index, item) {
+                                    if (item.parameterName != '' && item.value != '') {
+                                        const data = {
+                                            'serviceName': item.serviceName,
+                                            'value': item.value
+                                        };
+                                        const dataStr = JSON.stringify(data);
+                                        if (!_setCondition.has(dataStr)) {
+                                            _setCondition.add(dataStr);
+                                            _dataCondition.push(data);
+                                        }
+                                        $('#error').val('');
+                                    } else if (item.serviceName + item.value != '') {
+                                        $('#error').val('路由' + tabIndex + '的服务名或版本号不允许为空');
+                                        return false;
+                                    }
+                                });
+
+                                routeService[$(it).html()] = _dataCondition;
+
+                                if ($('#error').val() !== '') {
+                                    return false;
+                                }
+                            }
+                        });
+                        $('#routeService').val(JSON.stringify(routeService));
                     }
                 }
             );

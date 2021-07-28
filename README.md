@@ -131,13 +131,58 @@ Polaris为Discovery高级定制版，特色功能
 ## 简介
 
 ### 功能概述
+Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，支持如下功能
+
+- 支持四个注册中心
+- 支持六个配置中心
+- 支持MySQL数据库和H2内存数据库，用户可以无缝扩展到其它数据库（例如，Oracle）
+- 支持数据库方式登录和Ldap方式登录
+- 支持Shiro和JWT的登录以及鉴权
+- 支持管理员/角色/权限配置
+- 支持页面配置，在线添加、删除、修改各类中间件主页或者业务系统主页的集成以及跳转
+- 支持蓝绿发布
+    - 支持蓝绿策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持蓝绿策略启用/禁用模式
+    - 支持蓝绿策略多实例动态路由一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级蓝绿策略和兜底策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持灰度发布
+    - 支持灰度策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持灰度策略启用/禁用模式
+    - 支持灰度策略多实例一致性检查
+    - 支持网关、服务、组为入口
+    - 支持无限级灰度策略编排
+    - 支持自定义蓝绿条件策略
+    - 支持蓝绿条件策略校验
+    - 支持内置Header
+- 支持双网关动态路由
+    - 支持网关动态路由双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持网关动态路由启用/禁用模式
+    - 支持网关动态路由多实例一致性检查
+    - 支持Spring Cloud Gateway内置断言器（基于Path、Host、Header、Cookie、Query、Method、RemoteAddr、Weight等无代码方式）和过滤器（基于StripPrefix、PrefixPath、RewritePath、RequestRateLimiter、CircuitBreaker、AddRequestHeader、AddRequestParameter、AddResponseHeader、RedirectTo等无代码方式）
+    - 支持用户自定义断言器和过滤器，可以实现类似Access Token、网页访问黑/白名单，自定义用户数据（List和Map结构）过滤等低代码方式
+    - 支持Zuul网关内置动态路由
+- 支持服务负载屏蔽的黑名单实例摘除
+    - 支持黑名单双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持黑名单启用/禁用模式
+    - 支持黑名单多实例一致性检查
+    - 基于时间戳前缀的全局唯一ID黑名单
+    - 基于IP地址和端口黑名单
+- 支持界面显示所连的注册中心和配置中心
+
+请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例
 
 ### 郑重致谢
-感谢如下小伙伴参与本平台的开发和测试
-- Pegasus
-- 星河
-- Ayang
-- rottenmu
+感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序
+- 张宁
+- 付向阳
+- 刘辉
+- 赵胜杰
+- 任学会
+- 肖龙
 
 ### 请联系我
 微信、钉钉、公众号和文档
@@ -152,6 +197,7 @@ Polaris为Discovery高级定制版，特色功能
 - [工程架构](#工程架构)
     - [工程清单](#工程清单)
     - [配置清单](#配置清单)
+    - [架构核心](#架构核心)
     - [依赖引入](#依赖引入)
 - [环境搭建](#环境搭建)
     - [云环境体验](#云环境体验)
@@ -162,18 +208,56 @@ Polaris为Discovery高级定制版，特色功能
         - [启动平台](#启动平台)
         - [本地环境平台登录](#本地环境平台登录)
         - [本地环境调用验证](#本地环境调用验证)
-- [操作手册](#操作手册)
-    - [平台登录](#平台登录)
-    - [服务发布](#服务发布)
-        - [蓝绿发布](#蓝绿发布)
-        - [灰度发布](#灰度发布)
-        - [流量侦测](#流量侦测)
-    - [实例管理](#实例管理)
-        - [实例信息](#实例信息)
-        - [实例摘除](#实例摘除)
-    - [路由配置](#路由配置)
-        - [Gateway网关路由](#Gateway网关路由)
-        - [Zuul网关路由](#Zuul网关路由)
+- [平台登录](#平台登录)
+- [主页](#主页)
+- [服务发布](#服务发布)
+    - [蓝绿发布](#蓝绿发布)
+        - [新增蓝绿](#新增蓝绿)
+        - [发布蓝绿](#发布蓝绿)
+        - [删除蓝绿](#删除蓝绿)
+        - [编辑蓝绿](#编辑蓝绿)
+        - [启用和禁用蓝绿](#启用和禁用蓝绿)
+        - [查看蓝绿拓扑图](#查看蓝绿拓扑图)
+        - [查看正在工作的蓝绿](#查看正在工作的蓝绿)
+    - [灰度发布](#灰度发布)
+    - [流量侦测](#流量侦测)
+- [实例管理](#实例管理)
+    - [实例信息](#实例信息)
+    - [实例摘除](#实例摘除)
+        - [新增黑名单](#新增黑名单)
+        - [发布黑名单](#发布黑名单)
+        - [删除黑名单](#删除黑名单)
+        - [启用和禁用黑名单](#启用和禁用黑名单)
+        - [查看正在工作的黑名单](#查看正在工作的黑名单)
+- [路由配置](#路由配置)
+    - [Gateway网关路由](#Gateway网关路由)
+        - [新增Gateway网关路由](#新增Gateway网关路由)
+        - [发布Gateway网关路由](#发布Gateway网关路由)
+        - [删除Gateway网关路由](#删除Gateway网关路由)
+        - [编辑Gateway网关路由](#编辑Gateway网关路由)
+        - [启用和禁用Gateway网关路由](#启用和禁用Gateway网关路由)
+        - [查看正在工作的Gateway网关路由](#查看正在工作的Gateway网关路由)
+    - [Zuul网关路由](#Zuul网关路由)
+        - [新增Zuul网关路由](#新增Zuul网关路由)
+        - [发布Zuul网关路由](#发布Zuul网关路由)
+        - [删除Zuul网关路由](#删除Zuul网关路由)
+        - [编辑Zuul网关路由](#编辑Zuul网关路由)
+        - [启用和禁用Zuul网关路由](#启用和禁用Zuul网关路由)
+        - [查看正在工作的Zuul网关路由](#查看正在工作的Zuul网关路由)
+- [基础应用](#基础应用)
+- [系统设置](#系统设置)
+    - [页面设置](#页面设置)
+- [授权配置](#授权配置)
+    - [管理员配置](#管理员配置)
+        - [新增管理员](#新增管理员)
+        - [删除管理员](#删除管理员)
+        - [编辑管理员](#编辑管理员)
+        - [重置管理员密码](#重置管理员密码)
+    - [角色配置](#角色配置)
+        - [新增角色](#新增角色)
+        - [删除角色](#删除角色)
+        - [编辑角色](#编辑角色)
+    - [权限配置](#权限配置)
 - [Star走势图](#Star走势图)
 
 ## 工程架构
@@ -197,16 +281,21 @@ Polaris为Discovery高级定制版，特色功能
 
 ### 配置清单
 
-配置文件位于discovery-platform-application/src/main/resources目录下
+配置文件位于discovery-platform-application/目录下
 
 | 配置文件 | 描述 |
 | --- | --- |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-mysql.properties | 平台MySQL数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> application-h2.properties | 平台H2内存数据库配置 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
-| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> pom.xml | 切换注册中心、配置中心、数据库等依赖引入 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等跟微服务相关的配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-mysql.properties | 平台MySQL数据库、HikariCP连接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-h2.properties | 平台H2内存数据库、HikariCP链接池配置 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
+| <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+
+### 架构核心
+
+![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Platform.jpg)
 
 ### 依赖引入
 
@@ -279,11 +368,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 #### 云环境调用验证
-通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
+通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据user值的改变，观测返回的调用结果是否符合预期
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan)
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=2)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi)
 
 ### 本地环境搭建
 
@@ -311,27 +400,366 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 本地环境调用验证
 参考[云环境调用验证](#云环境调用验证)，把IP地址改成localhost即可
 
-## 操作手册
+## 主页
 
-### 服务发布
+## 服务发布
 
-#### 蓝绿发布
+### 蓝绿发布
 
-#### 灰度发布
+导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
 
-#### 流量侦测
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-### 实例管理
+#### 新增蓝绿
 
-#### 实例信息
+①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
-#### 实例摘除
+② 确定〔入口类型〕和〔入口名称〕
 
-### 路由配置
+入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
+- `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
+- `组`属于全局订阅模式，即把蓝绿发布的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
 
-#### Gateway网关路由
+入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-#### Zuul网关路由
+③ 添加和删除策略
+
+策略类型，包括`兜底策略`和`蓝绿策略`，平台默认给出一个`兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
+
+〔策略配置〕工具栏上，点击如下按钮进行相关操作
+- 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+- 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
+
+④ 配置〔兜底策略〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
+
+兜底路由策略配置，包括如下步骤
+- 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+⑤ 配置〔蓝绿策略〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
+
+蓝绿条件策略配置，包括如下步骤
+- 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
+- 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
+- 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
+- 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
+- 执行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 执行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-4.jpg)
+
+- 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
+
+兜底路由策略配置，包括如下步骤
+- 操作模式和过程与兜底路由策略类似
+
+⑥ 设置〔内置参数〕
+
+当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
+
+内置参数配置包括如下步骤
+- 输入〔请求头〕
+- 输入〔值〕
+- 增加内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+⑦ 执行保存
+
+上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+
+#### 发布蓝绿
+
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
+
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
+
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
+
+#### 删除蓝绿
+
+〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔蓝绿发布〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreen.jpg"> 按钮进行删除
+
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`
+
+#### 编辑蓝绿
+
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`
+
+#### 启用和禁用蓝绿
+
+〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+
+`禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
+
+执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+
+接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
+#### 查看蓝绿拓扑图
+
+待补充
+
+#### 查看正在工作的蓝绿
+
+〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
+
+① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
+
+② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
+
+### 灰度发布
+
+待补充
+
+### 流量侦测
+
+待补充
+
+## 实例管理
+
+### 实例信息
+
+待补充
+
+### 实例摘除
+
+#### 新增黑名单
+
+① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
+
+② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框。黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-2.jpg)
+
+#### 发布黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 启用和禁用黑名单
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的黑名单
+
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
+
+待补充
+
+## 路由配置
+
+### Gateway网关路由
+
+#### 新增Gateway网关路由
+
+① 导航栏上选择〔路由配置〕/〔Gateway网关路由〕，进入Spring Cloud Gateway动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-1.jpg)
+
+② 〔Gateway网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+根据Spring Cloud Gateway网关的官方配置规范，结合如下界面进行配置。其中，断言器和过滤器包括内置和自定义两种模式
+
+内置断言器和过滤器模式是通过Spring Cloud Gateway网关内置相关类和解析模块来实现的，请参照界面提示进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-2.jpg)
+
+自定义断言器和过滤器是通过Spring Cloud Gateway网关使用者自定义和解析模块相关类来实现的，请参照界面提示进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-3.jpg)
+
+#### 发布Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Gateway网关路由
+
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Gateway网关路由
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Gateway网关路由
+
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
+
+### Zuul网关路由
+
+#### 新增Zuul网关路由
+
+① 导航栏上选择〔路由配置〕/〔Zuul网关路由〕，进入Zuul动态路由配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-1.jpg)
+
+② 〔Zuul网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+
+根据Zuul网关的官方配置规范，结合如下界面进行配置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-2.jpg)
+
+#### 发布Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+
+#### 删除Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+
+#### 编辑Zuul网关路由
+
+操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+
+#### 启用和禁用Zuul网关路由
+
+操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+
+#### 查看正在工作的Zuul网关路由
+
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
+
+## 基础应用
+
+基础应用，一般为企业的内部中间件聚合模块，通过平台的左侧菜单入口进行页面弹出方式的跳转
+
+新增、删除、修改基础应用外链，请参考[页面设置](#页面设置)
+
+## 系统设置
+
+### 页面设置
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Page-1.jpg)
+
+待补充
+
+## 授权配置
+
+### 管理员配置
+
+#### 新增管理员
+
+① 导航栏上选择〔授权配置〕/〔管理员配置〕，进入管理员配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
+
+② 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddAdmin.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-2.jpg)
+
+#### 删除管理员
+
+〔管理员配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
+
+#### 编辑管理员
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔编辑管理员〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-3.jpg)
+
+#### 重置管理员密码
+
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
+
+### 角色配置
+
+#### 新增角色
+
+① 导航栏上选择〔授权配置〕/〔角色配置〕，进入角色配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-1.jpg)
+
+② 〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRole.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增角色〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-2.jpg)
+
+#### 删除角色
+
+〔角色配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRole.jpg"> 按钮进行删除
+
+#### 编辑角色
+
+〔角色配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔编辑角色〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-3.jpg)
+
+### 权限配置
+
+#### 新增权限
+
+① 导航栏上选择〔授权配置〕/〔权限配置〕，进入权限配置界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-1.jpg)
+
+② 〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddPermission.jpg"> 按钮，弹出相应的对话框
+
+输入相关信息完成〔新增权限〕
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-2.jpg)
+
+#### 删除权限
+
+〔权限配置〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeletePermission.jpg"> 按钮进行删除
+
+#### 编辑权限
+
+〔权限配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="24" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonHas.jpg"> 按钮，完成权限编辑
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-3.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)

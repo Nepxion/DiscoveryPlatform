@@ -31,7 +31,7 @@
                         </select>
                     </div>
 
-                    <div class="layui-inline">入口列表</div>
+                    <div class="layui-inline">入口名称</div>
                     <div class="layui-inline" style="width:350px">
                         <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>
@@ -160,10 +160,12 @@
                     });
                     element.render();
 
-                    if (set.size <= 1) {
-                        $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有入口的灰度配置信息一致&nbsp;</h3></span>');
-                    } else {
-                        $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有入口的灰度配置信息不一致, 请检查&nbsp;</h3></span>');
+                    if (chooseGatewayName != '') {
+                        if (set.size <= 1) {
+                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有入口的灰度配置信息一致&nbsp;</h3></span>');
+                        } else {
+                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有入口的灰度配置信息不一致, 请检查&nbsp;</h3></span>');
+                        }
                     }
                 });
             }

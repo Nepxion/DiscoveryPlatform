@@ -13,7 +13,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">入口类型</label>
                 <div class="layui-input-inline" style="width: 850px">
-                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关类型<#elseif entity.portalType==2>服务类型<#elseif entity.portalType==3>组类型</#if>">
+                    <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关<#elseif entity.portalType==2>服务<#elseif entity.portalType==3>组</#if>">
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                 <div class="layui-input-block">
                     <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                     <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                    <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -216,9 +216,8 @@
 
             <input type="hidden" id="id" name="id" value="${entity.id}"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="strategy" name="strategy"/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
+            <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy"/>
             <input type="hidden" id="header" name="header"/>
         </div>
         <script>
@@ -229,33 +228,23 @@
 
                     setTimeout(function () {
                         reloadPortalName();
-                        const conditionJson = <#if entity.condition!=''>${entity.condition};
+                        const blueGreenStrategyJson = <#if entity.blueGreenStrategy!=''>${entity.blueGreenStrategy};
                         <#else>
                         {
                         }
                         ;
                         </#if>
-                        const routeJson = <#if entity.route!=''>${entity.route};
-                            <#else>{
+
+                        for (const k in blueGreenStrategyJson) {
+                            addTabCondition(blueGreenStrategyJson[k].condition, blueGreenStrategyJson[k].route);
                         }
-                        ;
-                        </#if>
-                        const condition = [], route = [];
-                        for (const k in conditionJson) {
-                            condition.push(conditionJson[k]);
-                        }
-                        for (const k in routeJson) {
-                            route.push(routeJson[k]);
-                        }
-                        for (let i = 0; i < condition.length; i++) {
-                            addTabCondition(condition[i], route[i]);
-                        }
-                        <#if entity.strategy!=''>
-                        addStrategy(${entity.strategy});
+
+                        <#if entity.basicStrategy!=''>
+                        addStrategy(${entity.basicStrategy});
                         <#else>
                         element.tabChange(TAB, TAB_CONDITION + 1);
                         </#if>
-                    }, 50);
+                    }, 100);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
@@ -295,7 +284,7 @@
                         addTabCondition();
                     });
 
-                    $('#btnRemove').click(function () {
+                    $('#btnStrategyRemove').click(function () {
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
@@ -341,7 +330,7 @@
                             const spelConditionId = 'spelCondition' + index;
                             layer.open({
                                 type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
                                 content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
                                 area: ['645px', '235px'],
                                 btn: '关闭',
@@ -370,7 +359,7 @@
                                 {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                                 {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
                             data: condition == undefined ? [newConditionRow()] : newConditionRow(condition)
@@ -615,6 +604,16 @@
                                     'logic': data[i].logic
                                 });
                             }
+                            if (result.length < 1) {
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
+                                    'parameterName': '',
+                                    'operator': '==',
+                                    'value': '',
+                                    'logic': 'and'
+                                });
+                            }
                             return result;
                         }
                     }
@@ -643,6 +642,16 @@
                                         'valueList': vl
                                     });
                                 }, false);
+                            }
+                            if (result.length < 1) {
+                                routeCount++;
+                                result.push({
+                                    'index': routeCount,
+                                    'serviceName': '',
+                                    'value': '',
+                                    'serviceNameList': serviceNameList,
+                                    'valueList': []
+                                });
                             }
                             return result;
                         }
@@ -740,6 +749,14 @@
                                     'value': data[i].value
                                 });
                             }
+                            if (result.length < 1) {
+                                headerCount++;
+                                result.push({
+                                    'index': headerCount,
+                                    'headerName': '',
+                                    'value': ''
+                                });
+                            }
                             return result;
                         }
                     }
@@ -756,13 +773,13 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectBlueGreenStrategy();
                         collectHeader();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -782,14 +799,13 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectBlueGreenStrategy() {
+                        $('#blueGreenStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -816,12 +832,8 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
@@ -842,13 +854,13 @@
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#blueGreenStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

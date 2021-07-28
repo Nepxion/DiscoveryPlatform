@@ -76,7 +76,7 @@
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布服务黑名单
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布黑名单
                             </button>
                         </@update>
                     </div>
@@ -158,7 +158,7 @@
                 if (obj.event === 'add') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;新增黑名单',
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增黑名单',
                         content: 'add',
                         area: ['1170px', '98%'],
                         btn: admin.BUTTONS,

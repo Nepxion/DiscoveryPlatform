@@ -28,6 +28,7 @@ public class JwtTool {
 
     public static String generateToken(AdminVo adminVo, String secret,
                                        Duration expireTime, Duration maxLiveTime) {
+        expireTime = expireTime.compareTo(maxLiveTime) > 0 ? maxLiveTime : expireTime;
         Date iat = new Date();
         long now = iat.getTime();
         return JWT.create()
@@ -40,13 +41,9 @@ public class JwtTool {
     }
 
     public static boolean verify(String token, String secret) {
-        try {
-            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secret)).build();
-            jwtVerifier.verify(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(secret)).build();
+        jwtVerifier.verify(token);
+        return true;
     }
 
     public static long decodeToken(String token) {

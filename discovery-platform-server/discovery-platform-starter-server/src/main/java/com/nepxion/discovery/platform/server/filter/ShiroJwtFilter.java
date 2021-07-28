@@ -10,11 +10,13 @@ package com.nepxion.discovery.platform.server.filter;
  * @version 1.0
  */
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -29,6 +31,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.entity.response.Result;
@@ -39,11 +43,18 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
+    public static final String N_D_SESSION_STATUS = "n-d-session-status";
+
+    public static final String SESSION_STATUS_EXPIRED = "expired";
+
+    public static final String SESSION_STATUS_INVALID = "invalid";
+
     private JwtToolWrapper jwtToolWrapper;
 
-    public  ShiroJwtFilter(JwtToolWrapper jwtToolWrapper) {
+    public ShiroJwtFilter(JwtToolWrapper jwtToolWrapper) {
         this.jwtToolWrapper = jwtToolWrapper;
     }
+
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
@@ -56,8 +67,16 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
     }
 
     @Override
-    protected void postHandle(ServletRequest request, ServletResponse response) {
-        this.fillCorsHeader(WebUtils.toHttp(request), WebUtils.toHttp(response));
+    protected void postHandle(ServletRequest request, ServletResponse response) throws Exception {
+        HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
+        fillCorsHeader(WebUtils.toHttp(request), httpServletResponse);
+
+        String sessionStatus = httpServletResponse.getHeader(N_D_SESSION_STATUS);
+        if (StringUtils.isNotBlank(sessionStatus)) {
+            httpServletResponse.resetBuffer();
+
+            buildAuthFailureResponse(httpServletResponse);
+        }
     }
 
     @Override
@@ -66,12 +85,19 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
             return true;
         }
         boolean allowed = false;
+        Throwable throwable = null;
         try {
             allowed = executeLogin(request, response);
         } catch (IllegalStateException e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+        } catch (JWTVerificationException e) {
+            throwable = e;
         } catch (Exception e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
+        }
+        if (!allowed && isAjaxRequest(WebUtils.toHttp(request))) {
+            addFailureStatus(response, throwable);
+            return Boolean.TRUE;
         }
         return allowed || super.isPermissive(mappedValue);
     }
@@ -88,7 +114,10 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
 
         try {
             tokenString = parseTokenValue(tokenString);
+            jwtToolWrapper.verify(tokenString);
             return new BearerToken(tokenString);
+        } catch (JWTVerificationException e) {
+            throw e;
         } catch (IllegalArgumentException e) {
             LOG.error(ExceptionTool.getRootCauseMessage(e), e);
         }
@@ -136,11 +165,36 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
         if (isBearerToken(token)) {
             return token.substring(DiscoveryConstant.BEARER.length()).trim();
         }
-        throw new IllegalArgumentException("Unknown token type begin with " + token.substring(10));
+        throw new IllegalArgumentException("Unknown token type begin with: "
+                + StringUtils.substring(token, 0, 10));
     }
 
     private boolean isBearerToken(String token) {
         return StringUtils.startsWith(token, DiscoveryConstant.BEARER);
+    }
+
+    public boolean isAjaxRequest(HttpServletRequest request) {
+        return StringUtils.equalsIgnoreCase("XMLHttpRequest", request.getHeader("X-Requested-With"));
+    }
+
+    public void addFailureStatus(ServletResponse servletResponse, Throwable throwable) {
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setContentType(MediaType.APPLICATION_JSON.toString());
+        String status = SESSION_STATUS_INVALID;
+        if (throwable instanceof TokenExpiredException) {
+            status = SESSION_STATUS_EXPIRED;
+        }
+        response.setHeader(N_D_SESSION_STATUS, status);
+    }
+
+    public void buildAuthFailureResponse(HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setContentType(MediaType.APPLICATION_JSON.toString());
+
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        response.setStatus(HttpStatus.OK.value());
+        Result<String> result = Result.ok(status.value(), status.getReasonPhrase());
+        response.getWriter().write(JsonUtil.toJson(result));
     }
 
 }

@@ -26,14 +26,11 @@ public class BlueGreenDto extends BaseStateEntity {
     @TableField(value = "`type`")
     private Integer type;
 
-    @TableField(value = "`strategy`")
-    private String strategy;
+    @TableField(value = "`basic_strategy`")
+    private String basicStrategy;
 
-    @TableField(value = "`condition`")
-    private String condition;
-
-    @TableField(value = "`route`")
-    private String route;
+    @TableField(value = "`blue_green_strategy`")
+    private String blueGreenStrategy;
 
     @TableField(value = "`header`")
     private String header;
@@ -49,28 +46,20 @@ public class BlueGreenDto extends BaseStateEntity {
         this.type = type;
     }
 
-    public String getStrategy() {
-        return strategy;
+    public String getBasicStrategy() {
+        return basicStrategy;
     }
 
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
+    public void setBasicStrategy(String basicStrategy) {
+        this.basicStrategy = basicStrategy;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getBlueGreenStrategy() {
+        return blueGreenStrategy;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
+    public void setBlueGreenStrategy(String blueGreenStrategy) {
+        this.blueGreenStrategy = blueGreenStrategy;
     }
 
     public String getHeader() {

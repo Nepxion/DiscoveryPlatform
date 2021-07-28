@@ -49,7 +49,7 @@
                 <div class="layui-input-block">
                     <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
                     <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                    <a id="btnRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -232,10 +232,9 @@
                 </script>
             </div>
 
-            <input type="hidden" id="strategy" name="strategy"/>
+            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="condition" name="condition"/>
-            <input type="hidden" id="route" name="route"/>
+            <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy"/>
             <input type="hidden" id="header" name="header"/>
         </div>
         <script>
@@ -285,7 +284,7 @@
                         addTabCondition();
                     });
 
-                    $('#btnRemove').click(function () {
+                    $('#btnStrategyRemove').click(function () {
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
@@ -331,7 +330,7 @@
                             const spelConditionId = 'spelCondition' + index;
                             layer.open({
                                 type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle"></i>&nbsp;检验条件',
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
                                 content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
                                 area: ['645px', '235px'],
                                 btn: '关闭',
@@ -360,7 +359,7 @@
                                 {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
                                 {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
                             data: [newConditionRow()]
@@ -708,13 +707,13 @@
                     }
 
                     $('#callback').click(function () {
-                        collectStrategy();
-                        collectCondition();
+                        collectBasicStrategy();
+                        collectBlueGreenStrategy();
                         collectHeader();
                     });
 
-                    function collectStrategy() {
-                        $('#strategy').val('');
+                    function collectBasicStrategy() {
+                        $('#basicStrategy').val('');
                         if ($('#contentStrategy').size() > 0) {
                             const dataStrategy = [], set = new Set();
                             $.each(table.cache['gridStrategy'], function (index, item) {
@@ -734,14 +733,13 @@
                                     return false;
                                 }
                             });
-                            $('#strategy').val(JSON.stringify(dataStrategy));
+                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
                         }
                     }
 
-                    function collectCondition() {
-                        $('#condition').val('');
-                        $('#route').val('');
-                        const dataCondition = {}, dataRoute = {};
+                    function collectBlueGreenStrategy() {
+                        $('#blueGreenStrategy').val('');
+                        const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -768,12 +766,8 @@
                                         return false;
                                     }
                                 });
-
                                 if ($('#error').val() !== '') {
                                     return false;
-                                }
-                                if (_dataCondition.length > 0) {
-                                    dataCondition['condition' + tabIndex] = _dataCondition;
                                 }
                                 const _dataRoute = [], _setRoute = new Set();
                                 const gridRoute = 'gridRoute' + tabIndex;
@@ -794,13 +788,13 @@
                                         return false;
                                     }
                                 });
-                                if (_dataRoute.length > 0) {
-                                    dataRoute['route' + tabIndex] = _dataRoute;
-                                }
+                                all['cr' + tabIndex] = {
+                                    'condition': _dataCondition,
+                                    'route': _dataRoute
+                                };
                             }
                         });
-                        $('#condition').val(JSON.stringify(dataCondition));
-                        $('#route').val(JSON.stringify(dataRoute));
+                        $('#blueGreenStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

@@ -16,8 +16,12 @@ import com.nepxion.discovery.platform.server.service.*;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 
 import com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
@@ -260,4 +264,19 @@ public class PlatformAutoConfiguration {
         return new InstanceInfoServiceImpl();
     }
 
+    public ErrorPageController errorPageController() {
+        return new ErrorPageController();
+    }
+
+    @Bean
+    public ErrorPageRegistrar errorPageRegistrar() {
+        return new ErrorPageRegistrar() {
+            @Override
+            public void registerErrorPages(ErrorPageRegistry registry) {
+                ErrorPage[] errorPages = new ErrorPage[1];
+                errorPages[0] = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404.do");
+                registry.addErrorPages(errorPages);
+            }
+        };
+    }
 }

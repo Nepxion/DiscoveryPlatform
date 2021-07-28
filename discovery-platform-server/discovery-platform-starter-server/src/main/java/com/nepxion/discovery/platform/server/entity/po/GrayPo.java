@@ -35,20 +35,20 @@ public class GrayPo implements Serializable {
     @ApiModelProperty("灰度发布策略类型(1:版本策略, 2:区域策略)")
     private Integer type;
 
-    @ApiModelProperty("条件策略")
-    private String condition;
+    @ApiModelProperty("兜底策略")
+    private String basicStrategy;
 
-    @ApiModelProperty("路由策略")
-    private String route;
+    @ApiModelProperty("灰度条件策略")
+    private String grayStrategy;
+
+    @ApiModelProperty("路由服务编排")
+    private String routeService;
 
     @ApiModelProperty("描述信息")
     private String description;
 
     @ApiModelProperty("内置参数")
     private String header;
-
-    @ApiModelProperty("兜底策略")
-    private String strategy;
 
     public Long getId() {
         return id;
@@ -82,20 +82,28 @@ public class GrayPo implements Serializable {
         this.type = type;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getBasicStrategy() {
+        return basicStrategy;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setBasicStrategy(String basicStrategy) {
+        this.basicStrategy = basicStrategy;
     }
 
-    public String getRoute() {
-        return route;
+    public String getGrayStrategy() {
+        return grayStrategy;
     }
 
-    public void setRoute(String route) {
-        this.route = route;
+    public void setGrayStrategy(String grayStrategy) {
+        this.grayStrategy = grayStrategy;
+    }
+
+    public String getRouteService() {
+        return routeService;
+    }
+
+    public void setRouteService(String routeService) {
+        this.routeService = routeService;
     }
 
     public String getDescription() {
@@ -112,14 +120,6 @@ public class GrayPo implements Serializable {
 
     public void setHeader(String header) {
         this.header = header;
-    }
-
-    public String getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
     }
 
     @Override

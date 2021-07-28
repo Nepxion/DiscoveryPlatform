@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,21 +21,25 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.entity.RegionWeightEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
-import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
+import com.nepxion.discovery.common.entity.StrategyConditionGrayEntity;
 import com.nepxion.discovery.common.entity.StrategyEntity;
 import com.nepxion.discovery.common.entity.StrategyHeaderEntity;
 import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteType;
+import com.nepxion.discovery.common.entity.VersionWeightEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
@@ -42,7 +47,6 @@ import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
-import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
 import com.nepxion.discovery.platform.server.entity.po.GrayPo;
 import com.nepxion.discovery.platform.server.mapper.GrayMapper;
@@ -51,6 +55,9 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+    @Lazy
+    @Autowired
+    private BlueGreenService blueGreenService;
 
     @Override
     public void publish() throws Exception {
@@ -78,55 +85,60 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                                 GrayServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
                             }
                         }
+                        blueGreenService.updatePublishFlag(portalName, false);
                     }
 
                     @Override
                     public void publishConfig(String portalName, List<Object> configList) throws Exception {
                         for (Object item : configList) {
-                            BlueGreenDto blueGreenDto = (BlueGreenDto) item;
-                            BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
+                            GrayDto grayDto = (GrayDto) item;
+                            GrayDto.Type type = GrayDto.Type.get(grayDto.getType());
 
                             RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                             StrategyReleaseEntity strategyReleaseEntity = new StrategyReleaseEntity();
-                            if (ruleEntity.getStrategyReleaseEntity() != null) {
-                                strategyReleaseEntity.setStrategyConditionGrayEntityList(ruleEntity.getStrategyReleaseEntity().getStrategyConditionGrayEntityList());
-                            }
 
-                            if (hasValue(blueGreenDto.getHeader())) {
+                            if (hasValue(grayDto.getHeader())) {
                                 StrategyHeaderEntity strategyHeaderEntity = new StrategyHeaderEntity();
-                                strategyHeaderEntity.setHeaderMap(toMap(blueGreenDto.getHeader()));
+                                strategyHeaderEntity.setHeaderMap(toMap(grayDto.getHeader()));
                                 strategyReleaseEntity.setStrategyHeaderEntity(strategyHeaderEntity);
                             }
 
-                            ConditionAndRoute conditionAndRoute = toConditionAndRoute(blueGreenDto);
-                            strategyReleaseEntity.setStrategyConditionBlueGreenEntityList(conditionAndRoute.getConditionBlueGreenEntityList());
+                            ConditionAndRoute conditionAndRoute = toConditionAndRoute(grayDto);
+                            strategyReleaseEntity.setStrategyConditionGrayEntityList(conditionAndRoute.getStrategyConditionGrayEntityList());
                             strategyReleaseEntity.setStrategyRouteEntityList(conditionAndRoute.getStrategyRouteEntityList());
 
-                            if (hasValue(blueGreenDto.getStrategy())) {
-                                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
-                                strategyConditionBlueGreenEntity.setId(PlatformConstant.BASIC_CONDITION);
+                            if (hasValue(grayDto.getBasicStrategy())) {
+                                List<Map<String, String>> basicStrategy = JsonUtil.fromJson(grayDto.getBasicStrategy(), new TypeReference<List<Map<String, String>>>() {
+                                });
 
-                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
-                                strategyRouteEntity.setId(PlatformConstant.BASIC_ROUTE);
+                                Map<String, Integer> weightMap = new LinkedHashMap<>();
+                                for (Map<String, String> map : basicStrategy) {
+                                    String routeName = conditionAndRoute.getRouteNameKeyMap().get(map.get(PlatformConstant.ROUTE_NAME));
+                                    weightMap.put(routeName, Integer.parseInt(map.get(PlatformConstant.VALUE)));
+                                }
+
+                                StrategyConditionGrayEntity strategyConditionGrayEntity = new StrategyConditionGrayEntity();
+                                strategyConditionGrayEntity.setId(PlatformConstant.BASIC_CONDITION);
 
                                 switch (Objects.requireNonNull(type)) {
                                     case VERSION:
-                                        strategyConditionBlueGreenEntity.setVersionId(PlatformConstant.BASIC_ROUTE);
-                                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
+                                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
+                                        versionWeightEntity.setWeightMap(weightMap);
+                                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
                                         break;
                                     case REGION:
-                                        strategyConditionBlueGreenEntity.setRegionId(PlatformConstant.BASIC_ROUTE);
-                                        strategyRouteEntity.setType(StrategyRouteType.REGION);
+                                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
+                                        regionWeightEntity.setWeightMap(weightMap);
+                                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
                                         break;
                                 }
-                                strategyRouteEntity.setValue(toServiceJson(blueGreenDto.getStrategy()));
-                                conditionAndRoute.getConditionBlueGreenEntityList().add(strategyConditionBlueGreenEntity);
-                                conditionAndRoute.getStrategyRouteEntityList().add(strategyRouteEntity);
+                                conditionAndRoute.getStrategyConditionGrayEntityList().add(strategyConditionGrayEntity);
                             }
 
                             ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
-                            GrayServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()), portalName, ruleEntity);
+                            GrayServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(grayDto.getPortalType()), portalName, ruleEntity);
                         }
+                        blueGreenService.updatePublishFlag(portalName, false);
                     }
                 }
         );
@@ -150,9 +162,9 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         grayDto.setPortalName(grayPo.getPortalName());
         grayDto.setPortalType(grayPo.getPortalType());
         grayDto.setType(grayPo.getType());
-        grayDto.setStrategy(grayPo.getStrategy());
-        grayDto.setCondition(grayPo.getCondition());
-        grayDto.setRoute(grayPo.getRoute());
+        grayDto.setBasicStrategy(grayPo.getBasicStrategy());
+        grayDto.setGrayStrategy(grayPo.getGrayStrategy());
+        grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
         grayDto.setDescription(grayPo.getDescription());
         return save(grayDto);
@@ -166,12 +178,22 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
             return false;
         }
         grayDto.setType(grayPo.getType());
-        grayDto.setStrategy(grayPo.getStrategy());
-        grayDto.setCondition(grayPo.getCondition());
-        grayDto.setRoute(grayPo.getRoute());
+        grayDto.setBasicStrategy(grayPo.getBasicStrategy());
+        grayDto.setGrayStrategy(grayPo.getGrayStrategy());
+        grayDto.setRouteService(grayPo.getRouteService());
         grayDto.setHeader(grayPo.getHeader());
         grayDto.setDescription(grayPo.getDescription());
         return updateById(grayDto);
+    }
+
+    @TransactionWriter
+    @Override
+    public void updatePublishFlag(String portalName, boolean flag) {
+        LambdaUpdateWrapper<GrayDto> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper
+                .eq(GrayDto::getPortalName, portalName)
+                .set(GrayDto::getPublishFlag, flag);
+        update(updateWrapper);
     }
 
     @TransactionReader
@@ -204,78 +226,88 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         return JsonUtil.getObjectMapper().writeValueAsString(toMap(arrayJson));
     }
 
-    private static ConditionAndRoute toConditionAndRoute(BlueGreenDto blueGreenDto) throws JsonProcessingException {
+    private static ConditionAndRoute toConditionAndRoute(GrayDto grayDto) throws JsonProcessingException {
         ConditionAndRoute conditionAndRoute = new ConditionAndRoute();
-        BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
+        GrayDto.Type type = GrayDto.Type.get(grayDto.getType());
 
-        if (StringUtils.isNotEmpty(blueGreenDto.getCondition())) {
-            Map<String, List<Map<String, String>>> conditionMap = JsonUtil.fromJson(blueGreenDto.getCondition(), new TypeReference<Map<String, List<Map<String, String>>>>() {
+        if (StringUtils.isNotEmpty(grayDto.getGrayStrategy())) {
+            Map<String, ConditionAndRouteJson> conditionRouteMap = JsonUtil.fromJson(grayDto.getGrayStrategy(), new TypeReference<Map<String, ConditionAndRouteJson>>() {
             });
-
-            List<StrategyConditionBlueGreenEntity> strategyConditionBlueGreenEntityList = new ArrayList<>();
-
+            Map<String, List<Map<String, String>>> routeServiceMap = JsonUtil.fromJson(grayDto.getRouteService(), new TypeReference<Map<String, List<Map<String, String>>>>() {
+            });
+            Map<String, String> routeNameKeyMap = new HashMap<>();
+            conditionAndRoute.setRouteNameKeyMap(routeNameKeyMap);
             int index = 0;
-            for (Map.Entry<String, List<Map<String, String>>> pair : conditionMap.entrySet()) {
-                if (pair.getValue().isEmpty()) {
-                    continue;
-                }
-
-                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
-                strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.CONDITION, index));
-
-                switch (Objects.requireNonNull(type)) {
-                    case VERSION:
-                        strategyConditionBlueGreenEntity.setVersionId(String.format(PlatformConstant.ROUTE, index));
-                        break;
-                    case REGION:
-                        strategyConditionBlueGreenEntity.setRegionId(String.format(PlatformConstant.ROUTE, index));
-                        break;
-                }
-                strategyConditionBlueGreenEntity.setExpression(pair.getValue().get(0).get(PlatformConstant.SPEL_CONDITION));
-                strategyConditionBlueGreenEntityList.add(strategyConditionBlueGreenEntity);
+            for (Map.Entry<String, List<Map<String, String>>> entry : routeServiceMap.entrySet()) {
+                routeNameKeyMap.put(entry.getKey(), String.format("route-%s", index));
                 index++;
             }
-            conditionAndRoute.setConditionBlueGreenEntityList(strategyConditionBlueGreenEntityList);
-        }
 
-        if (StringUtils.isNotEmpty(blueGreenDto.getRoute())) {
-            Map<String, List<Map<String, String>>> routeMap = JsonUtil.fromJson(blueGreenDto.getRoute(), new TypeReference<Map<String, List<Map<String, String>>>>() {
-            });
-
+            List<StrategyConditionGrayEntity> strategyConditionGrayEntityList = new ArrayList<>();
             List<StrategyRouteEntity> strategyRouteEntityList = new ArrayList<>();
+            conditionAndRoute.setStrategyConditionGrayEntityList(strategyConditionGrayEntityList);
+            conditionAndRoute.setStrategyRouteEntityList(strategyRouteEntityList);
 
-            int index = 0;
-            for (Map.Entry<String, List<Map<String, String>>> entry : routeMap.entrySet()) {
-                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
+            index = 0;
+            for (Map.Entry<String, ConditionAndRouteJson> pair : conditionRouteMap.entrySet()) {
+                List<Map<String, String>> conditionList = pair.getValue().getCondition();
+                List<Map<String, String>> routeList = pair.getValue().getRoute();
+
+                StrategyConditionGrayEntity strategyConditionGrayEntity = new StrategyConditionGrayEntity();
+                strategyConditionGrayEntity.setId(String.format(PlatformConstant.CONDITION, index));
+
+                Map<String, Integer> weightMap = new LinkedHashMap<>();
+                for (Map<String, String> map : routeList) {
+                    weightMap.put(routeNameKeyMap.get(map.get(PlatformConstant.ROUTE_NAME)),
+                            Integer.parseInt(map.get(PlatformConstant.VALUE)));
+                }
                 switch (Objects.requireNonNull(type)) {
                     case VERSION:
-                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getVersionId());
+                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
+                        versionWeightEntity.setWeightMap(weightMap);
+                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
+                        break;
+                    case REGION:
+                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
+                        regionWeightEntity.setWeightMap(weightMap);
+                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
+                        break;
+                }
+                strategyConditionGrayEntity.setExpression(conditionList.get(0).get(PlatformConstant.SPEL_CONDITION));
+                strategyConditionGrayEntityList.add(strategyConditionGrayEntity);
+                index++;
+            }
+
+            for (Map.Entry<String, List<Map<String, String>>> pair : routeServiceMap.entrySet()) {
+                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
+                strategyRouteEntity.setId(routeNameKeyMap.get(pair.getKey()));
+
+                switch (Objects.requireNonNull(type)) {
+                    case VERSION:
                         strategyRouteEntity.setType(StrategyRouteType.VERSION);
                         break;
                     case REGION:
-                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getRegionId());
                         strategyRouteEntity.setType(StrategyRouteType.REGION);
                         break;
                 }
-                strategyRouteEntity.setValue(toServiceJson(JsonUtil.toJson(entry.getValue())));
+                strategyRouteEntity.setValue(toServiceJson(JsonUtil.toJson(pair.getValue())));
                 strategyRouteEntityList.add(strategyRouteEntity);
-                index++;
             }
-            conditionAndRoute.setStrategyRouteEntityList(strategyRouteEntityList);
         }
         return conditionAndRoute;
     }
 
     private static class ConditionAndRoute {
-        private List<StrategyConditionBlueGreenEntity> conditionBlueGreenEntityList;
+        private List<StrategyConditionGrayEntity> strategyConditionGrayEntityList;
         private List<StrategyRouteEntity> strategyRouteEntityList;
+        private Map<String, String> routeNameKeyMap;
 
-        public List<StrategyConditionBlueGreenEntity> getConditionBlueGreenEntityList() {
-            return conditionBlueGreenEntityList;
+        public List<StrategyConditionGrayEntity> getStrategyConditionGrayEntityList() {
+            return strategyConditionGrayEntityList;
         }
 
-        public void setConditionBlueGreenEntityList(List<StrategyConditionBlueGreenEntity> conditionBlueGreenEntityList) {
-            this.conditionBlueGreenEntityList = conditionBlueGreenEntityList;
+        public void setStrategyConditionGrayEntityList(List<StrategyConditionGrayEntity> strategyConditionGrayEntityList) {
+            this.strategyConditionGrayEntityList = strategyConditionGrayEntityList;
         }
 
         public List<StrategyRouteEntity> getStrategyRouteEntityList() {
@@ -284,6 +316,35 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
         public void setStrategyRouteEntityList(List<StrategyRouteEntity> strategyRouteEntityList) {
             this.strategyRouteEntityList = strategyRouteEntityList;
+        }
+
+        public Map<String, String> getRouteNameKeyMap() {
+            return routeNameKeyMap;
+        }
+
+        public void setRouteNameKeyMap(Map<String, String> routeNameKeyMap) {
+            this.routeNameKeyMap = routeNameKeyMap;
+        }
+    }
+
+    private static class ConditionAndRouteJson {
+        private List<Map<String, String>> condition;
+        private List<Map<String, String>> route;
+
+        public List<Map<String, String>> getCondition() {
+            return condition;
+        }
+
+        public void setCondition(List<Map<String, String>> condition) {
+            this.condition = condition;
+        }
+
+        public List<Map<String, String>> getRoute() {
+            return route;
+        }
+
+        public void setRoute(List<Map<String, String>> route) {
+            this.route = route;
         }
     }
 }

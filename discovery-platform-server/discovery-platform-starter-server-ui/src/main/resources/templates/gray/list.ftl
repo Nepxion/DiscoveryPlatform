@@ -262,7 +262,7 @@
                 }
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;' + t,
                     content: 'add?type=' + type,
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,
@@ -281,10 +281,13 @@
                             field['type'] = type;
                             delete field['logic'];
                             delete field['operator'];
-                            delete field['serviceName'];
+                            delete field['routeName'];
                             delete field['strategyServiceName'];
                             delete field['strategyValue'];
+                            delete field['routeValue'];
                             delete field['value'];
+                            delete field['error'];
+                            delete field['routeServiceName'];
                             admin.post('do-insert', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);
@@ -301,13 +304,13 @@
             function toEditPage(id, type) {
                 let t = '';
                 if (type === 1) {
-                    t = '修改<b>版本</b>灰度';
+                    t = '编辑<b>版本</b>灰度';
                 } else if (type === 2) {
-                    t = '修改<b>区域</b>灰度';
+                    t = '编辑<b>区域</b>灰度';
                 }
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;' + t,
+                    title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;' + t,
                     content: 'edit?id=' + id,
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,
@@ -331,6 +334,8 @@
                             delete field['strategyValue'];
                             delete field['value'];
                             delete field['ok'];
+                            delete field['error'];
+                            delete field['routeServiceName'];
                             admin.post('do-update', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

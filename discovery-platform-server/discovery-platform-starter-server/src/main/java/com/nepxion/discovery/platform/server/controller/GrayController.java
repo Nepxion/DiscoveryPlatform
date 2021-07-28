@@ -120,6 +120,7 @@ public class GrayController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
+    @SuppressWarnings("unchecked")
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的灰度信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
@@ -155,7 +156,6 @@ public class GrayController {
         return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
     }
 
-
     @ApiOperation("新增灰度信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(GrayPo grayPo) {
@@ -165,8 +165,10 @@ public class GrayController {
     @ApiOperation("修改灰度信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(GrayPo grayPo) {
-        grayService.update(grayPo);
-        return Result.ok();
+        if (grayService.update(grayPo)) {
+            return Result.ok();
+        }
+        return Result.error("更新失败");
     }
 
     @ApiOperation("启用灰度")

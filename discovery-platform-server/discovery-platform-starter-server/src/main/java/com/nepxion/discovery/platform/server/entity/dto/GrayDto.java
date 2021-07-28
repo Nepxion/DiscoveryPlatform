@@ -26,14 +26,14 @@ public class GrayDto extends BaseStateEntity {
     @TableField(value = "`type`")
     private Integer type;
 
-    @TableField(value = "`strategy`")
-    private String strategy;
+    @TableField(value = "`basic_strategy`")
+    private String basicStrategy;
 
-    @TableField(value = "`condition`")
-    private String condition;
+    @TableField(value = "`gray_strategy`")
+    private String grayStrategy;
 
-    @TableField(value = "`route`")
-    private String route;
+    @TableField(value = "`route_service`")
+    private String routeService;
 
     @TableField(value = "`header`")
     private String header;
@@ -49,28 +49,28 @@ public class GrayDto extends BaseStateEntity {
         this.type = type;
     }
 
-    public String getStrategy() {
-        return strategy;
+    public String getBasicStrategy() {
+        return basicStrategy;
     }
 
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
+    public void setBasicStrategy(String basicStrategy) {
+        this.basicStrategy = basicStrategy;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getGrayStrategy() {
+        return grayStrategy;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setGrayStrategy(String grayStrategy) {
+        this.grayStrategy = grayStrategy;
     }
 
-    public String getRoute() {
-        return route;
+    public String getRouteService() {
+        return routeService;
     }
 
-    public void setRoute(String route) {
-        this.route = route;
+    public void setRouteService(String routeService) {
+        this.routeService = routeService;
     }
 
     public String getHeader() {

@@ -116,7 +116,7 @@
                 case 'add':
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1"></i>&nbsp;添加页面',
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增页面',
                         content: 'add',
                         area: ['520px', '610px'],
                         btn: admin.BUTTONS,
@@ -146,7 +146,7 @@
             if (obj.event = 'edit') {
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-edit"></i>&nbsp;编辑页面',
+                    title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑页面',
                     content: 'edit?id=' + data.id,
                     area: ['520px', '610px'],
                     btn: admin.BUTTONS,

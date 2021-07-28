@@ -16,14 +16,9 @@
 
     <div class="layui-fluid">
         <div class="layadmin-tips">
-            <i class="layui-icon" face>&#xe664;</i>
-
-            <div class="layui-text" style="font-size: 20px;color:red">
-                好像出错了呢
-            </div>
-
-            <div style="text-align:left;font-size: 20px">
-                ${error}
+                <img src="${ctx}/layuiadmin/lib/extend/layim/layim-assets/error/operate.gif">
+            <div class="layui-text" style="font-size: 20px">
+                ${msg}
             </div>
 
         </div>

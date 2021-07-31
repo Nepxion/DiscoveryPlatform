@@ -183,6 +183,7 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 - 赵胜杰
 - 任学会
 - 肖龙
+- 伊安娜
 
 ### 请联系我
 微信、钉钉、公众号和文档

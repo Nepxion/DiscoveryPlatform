@@ -119,7 +119,7 @@
                     cols: [[
                         {type: 'numbers', title: '序号', unresize: true, width: 50},
                         {title: '服务名', field: 'serviceName', templet: '#templateServiceName', unresize: true},
-                        {title: '${((metadataType!'')=='version')?string('版本号','区域')}', field: 'serviceValue', templet: '#templateServiceValue', unresize: true},
+                        {title: '实例', field: 'serviceValue', templet: '#templateServiceValue', unresize: true},
                         {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 160}
                     ]],
                     data: newServiceRow(serviceArrange)

@@ -40,6 +40,7 @@ public class BlueGreenPageController {
     @GetMapping("add")
     public String add(Model model) throws Exception {
         BlueGreenDto blueGreenDto = new BlueGreenDto();
+        blueGreenDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
         model.addAttribute("entity", blueGreenDto);

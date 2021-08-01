@@ -12,6 +12,7 @@ package com.nepxion.discovery.platform.server.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -31,8 +32,10 @@ public class RouteStrategyServiceImpl extends ServiceImpl<RouteStrategyMapper, R
                 .eq(RouteStrategyDto::getPortalType, portalType);
         remove(queryWrapper);
 
-        List<RouteStrategyDto> needInsert = new ArrayList<>(routeIdList.size());
-        for (String routeId : routeIdList) {
+        List<String> routeIdListDistinct = routeIdList.stream().distinct().collect(Collectors.toList());
+
+        List<RouteStrategyDto> needInsert = new ArrayList<>(routeIdListDistinct.size());
+        for (String routeId : routeIdListDistinct) {
             if (StringUtils.isEmpty(routeId)) {
                 continue;
             }

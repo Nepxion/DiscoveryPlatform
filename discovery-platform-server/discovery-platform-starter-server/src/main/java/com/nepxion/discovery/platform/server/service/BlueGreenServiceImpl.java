@@ -41,7 +41,6 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
 
@@ -151,18 +150,12 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
     @TransactionWriter
     @Override
     public boolean insert(StrategyPo strategyPo) {
-        RouteArrangeDto routeArrangeDto = routeArrangeService.getByRouteId(strategyPo.getBasicRouteId());
-        List<String> routeIdList = JsonUtil.fromJson(strategyPo.getRouteIds(), new TypeReference<List<String>>() {
-        });
-        routeStrategyService.save(strategyPo.getPortalName(), strategyPo.getPortalType(), routeIdList);
+        routeStrategyService.save(strategyPo.getPortalName(), strategyPo.getPortalType(), JsonUtil.fromJson(strategyPo.getRouteIds(), new TypeReference<List<String>>() {
+        }));
         BlueGreenDto blueGreenDto = prepareInsert(new BlueGreenDto());
         blueGreenDto.setPortalName(strategyPo.getPortalName());
         blueGreenDto.setPortalType(strategyPo.getPortalType());
-        if (routeArrangeDto != null) {
-            blueGreenDto.setBasicStrategy(routeArrangeDto.getServiceArrange());
-        } else {
-            blueGreenDto.setBasicStrategy(StringUtils.EMPTY);
-        }
+        blueGreenDto.setBasicBlueGreenStrategyRouteId(strategyPo.getBasicBlueGreenStrategyRouteId());
         blueGreenDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
         blueGreenDto.setHeader(strategyPo.getHeader());
         blueGreenDto.setDescription(strategyPo.getDescription());
@@ -176,7 +169,9 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
         if (blueGreenDto == null) {
             return false;
         }
-//        blueGreenDto.setBasicStrategy(strategyPo.getBasicStrategy());
+        routeStrategyService.save(blueGreenDto.getPortalName(), blueGreenDto.getPortalType(), JsonUtil.fromJson(strategyPo.getRouteIds(), new TypeReference<List<String>>() {
+        }));
+        blueGreenDto.setBasicBlueGreenStrategyRouteId(strategyPo.getBasicBlueGreenStrategyRouteId());
         blueGreenDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
         blueGreenDto.setHeader(strategyPo.getHeader());
         blueGreenDto.setDescription(strategyPo.getDescription());

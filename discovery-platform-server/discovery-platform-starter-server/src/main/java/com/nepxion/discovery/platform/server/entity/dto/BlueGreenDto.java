@@ -29,8 +29,8 @@ public class BlueGreenDto extends BaseStateEntity {
     @TableField(value = "`portal_type`")
     private Integer portalType;
 
-    @TableField(value = "`basic_strategy`")
-    private String basicStrategy;
+    @TableField(value = "`basic_blue_green_strategy_route_id`")
+    private String basicBlueGreenStrategyRouteId;
 
     @TableField(value = "`blue_green_strategy`")
     private String blueGreenStrategy;
@@ -57,12 +57,12 @@ public class BlueGreenDto extends BaseStateEntity {
         this.portalType = portalType;
     }
 
-    public String getBasicStrategy() {
-        return basicStrategy;
+    public String getBasicBlueGreenStrategyRouteId() {
+        return basicBlueGreenStrategyRouteId;
     }
 
-    public void setBasicStrategy(String basicStrategy) {
-        this.basicStrategy = basicStrategy;
+    public void setBasicBlueGreenStrategyRouteId(String basicBlueGreenStrategyRouteId) {
+        this.basicBlueGreenStrategyRouteId = basicBlueGreenStrategyRouteId;
     }
 
     public String getBlueGreenStrategy() {

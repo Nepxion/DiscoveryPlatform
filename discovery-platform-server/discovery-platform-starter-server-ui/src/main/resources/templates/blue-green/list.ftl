@@ -187,9 +187,11 @@
                                     admin.error('系统提示', field.error);
                                     return false;
                                 }
+                                delete field['id'];
                                 delete field['error'];
                                 delete field['logic'];
                                 delete field['operator'];
+                                delete field['basicBlueGreenRouteId'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -258,14 +260,9 @@
                                     admin.error('系统提示', field.error);
                                     return false;
                                 }
-                                field['type'] = type;
+                                delete field['error'];
                                 delete field['logic'];
                                 delete field['operator'];
-                                delete field['serviceName'];
-                                delete field['strategyServiceName'];
-                                delete field['strategyValue'];
-                                delete field['value'];
-                                delete field['ok'];
                                 admin.post('do-update', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);

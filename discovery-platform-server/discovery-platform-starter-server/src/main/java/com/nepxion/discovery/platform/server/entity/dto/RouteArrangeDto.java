@@ -93,14 +93,14 @@ public class RouteArrangeDto extends BaseStateEntity {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    public enum Type {
+    public enum StrategyType {
         VERSION(1, "VERSION"),
         REGION(2, "REGION");
 
         private final int code;
         private final String name;
 
-        Type(int code, String name) {
+        StrategyType(int code, String name) {
             this.code = code;
             this.name = name;
         }
@@ -113,8 +113,8 @@ public class RouteArrangeDto extends BaseStateEntity {
             return name;
         }
 
-        public static Type get(int code) {
-            for (Type item : Type.values()) {
+        public static StrategyType get(int code) {
+            for (StrategyType item : StrategyType.values()) {
                 if (item.getCode() == code) {
                     return item;
                 }
@@ -122,8 +122,8 @@ public class RouteArrangeDto extends BaseStateEntity {
             return null;
         }
 
-        public static Type get(String name) {
-            for (Type item : Type.values()) {
+        public static StrategyType get(String name) {
+            for (StrategyType item : StrategyType.values()) {
                 if (item.getName().equalsIgnoreCase(name)) {
                     return item;
                 }

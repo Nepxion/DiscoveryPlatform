@@ -618,10 +618,10 @@
                                     $('div[class="layui-table-mend"]').remove();
                                 }
                             } else if (obj.event === 'refreshRoute') {
-                                layer.load();
                                 let serviceName = '';
-                                refreshServiceNames();
-                                layer.closeAll('loading');
+                                admin.loading(function () {
+                                    refreshServiceNames();
+                                });
                                 $.each(gd, function (index, item) {
                                     if (item.index == obj.data.index) {
                                         item['serviceNameList'] = serviceNameList;
@@ -726,17 +726,10 @@
                         admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
                             const vl = [], set = new Set();
                             $.each(r.data, function (index, item) {
-                                <#if type=='VERSION'>
                                 if (!set.has(item.version)) {
                                     set.add(item.version);
                                     vl.push(item.version);
                                 }
-                                <#else>
-                                if (!set.has(item.region)) {
-                                    set.add(item.region);
-                                    vl.push(item.region);
-                                }
-                                </#if>
                             });
                             callback(vl);
                         });

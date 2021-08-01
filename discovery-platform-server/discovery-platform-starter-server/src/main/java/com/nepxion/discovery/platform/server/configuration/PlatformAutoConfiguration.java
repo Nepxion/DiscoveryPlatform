@@ -79,7 +79,10 @@ import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 import com.nepxion.discovery.platform.server.service.RouteArrangeServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteGatewayService;
 import com.nepxion.discovery.platform.server.service.RouteGatewayServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteService;
 import com.nepxion.discovery.platform.server.service.RouteServiceImpl;
+import com.nepxion.discovery.platform.server.service.RouteStrategyService;
+import com.nepxion.discovery.platform.server.service.RouteStrategyServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
@@ -279,7 +282,7 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public RouteServiceImpl routeService() {
+    public RouteService routeService() {
         return new RouteServiceImpl();
     }
 
@@ -296,6 +299,11 @@ public class PlatformAutoConfiguration {
     @Bean
     public RouteArrangeService routeArrangeService() {
         return new RouteArrangeServiceImpl();
+    }
+
+    @Bean
+    public RouteStrategyService routeStrategyService() {
+        return new RouteStrategyServiceImpl();
     }
 
     @Bean

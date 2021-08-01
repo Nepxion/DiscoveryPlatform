@@ -12,7 +12,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">链路描述</div>
                     <div class="layui-inline" style="width:500px">
-                        <input type="text" name="description" placeholder="请输入链路描述信息" autocomplete="off" class="layui-input">
+                        <input type="text" name="name" placeholder="请输入链路编排的描述信息" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-inline">
                         <button id="search" class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="search">
@@ -39,8 +39,8 @@
                     {{#  } }}
                 </script>
 
-                <script type="text/html" id="colPortalName">
-                    {{ d.portalName }} &nbsp;&nbsp;
+                <script type="text/html" id="tempRouteId">
+                    {{ d.routeId }} &nbsp;&nbsp;
                     {{#  if(!d.publishFlag){ }}
                     {{#  if(d.operation==1){ }}
                     <span class="layui-badge layui-bg-green"><b>增</b></span>
@@ -113,7 +113,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#templateState', width: 80},
-                    {title: '链路名称', field: 'routeId', width: 250},
+                    {title: '链路名称', templet: '#tempRouteId', width: 250},
                     {
                         title: '策略类型', width: 230, templet: function (d) {
                             if (d.strategyType == 1) {
@@ -164,18 +164,8 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
-                                if (field.error !== '') {
-                                    admin.error('系统提示', field.error);
-                                    return false;
-                                }
-                                field['type'] = type;
-                                delete field['logic'];
-                                delete field['operator'];
                                 delete field['serviceName'];
-                                delete field['strategyServiceName'];
-                                delete field['strategyValue'];
-                                delete field['value'];
-                                delete field['ok'];
+                                delete field['serviceValue'];
                                 admin.post('do-update', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);

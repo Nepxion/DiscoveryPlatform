@@ -15,7 +15,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
+import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
 public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
@@ -23,9 +23,9 @@ public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
 
     IPage<BlueGreenDto> page(String name, Integer page, Integer limit);
 
-    boolean insert(BlueGreenPo blueGreenPo);
+    boolean insert(StrategyPo strategyPo);
 
-    boolean update(BlueGreenPo blueGreenPo);
+    boolean update(StrategyPo strategyPo);
 
     boolean logicDelete(Collection<Long> ids);
 

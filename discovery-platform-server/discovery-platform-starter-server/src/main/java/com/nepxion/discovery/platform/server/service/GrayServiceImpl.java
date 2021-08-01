@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,15 +30,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.common.entity.RegionWeightEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionGrayEntity;
 import com.nepxion.discovery.common.entity.StrategyEntity;
 import com.nepxion.discovery.common.entity.StrategyHeaderEntity;
 import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
-import com.nepxion.discovery.common.entity.StrategyRouteType;
-import com.nepxion.discovery.common.entity.VersionWeightEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
@@ -92,7 +88,6 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                     public void publishConfig(String portalName, List<Object> configList) throws Exception {
                         for (Object item : configList) {
                             GrayDto grayDto = (GrayDto) item;
-                            GrayDto.Type type = GrayDto.Type.get(grayDto.getType());
 
                             RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
                             StrategyReleaseEntity strategyReleaseEntity = new StrategyReleaseEntity();
@@ -120,18 +115,18 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                                 StrategyConditionGrayEntity strategyConditionGrayEntity = new StrategyConditionGrayEntity();
                                 strategyConditionGrayEntity.setId(PlatformConstant.BASIC_CONDITION);
 
-                                switch (Objects.requireNonNull(type)) {
-                                    case VERSION:
-                                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
-                                        versionWeightEntity.setWeightMap(weightMap);
-                                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
-                                        break;
-                                    case REGION:
-                                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
-                                        regionWeightEntity.setWeightMap(weightMap);
-                                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
-                                        break;
-                                }
+//                                switch (Objects.requireNonNull(type)) {
+//                                    case VERSION:
+//                                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
+//                                        versionWeightEntity.setWeightMap(weightMap);
+//                                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
+//                                        break;
+//                                    case REGION:
+//                                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
+//                                        regionWeightEntity.setWeightMap(weightMap);
+//                                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
+//                                        break;
+//                                }
                                 conditionAndRoute.getStrategyConditionGrayEntityList().add(strategyConditionGrayEntity);
                             }
 
@@ -161,7 +156,6 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         GrayDto grayDto = prepareInsert(new GrayDto());
         grayDto.setPortalName(grayPo.getPortalName());
         grayDto.setPortalType(grayPo.getPortalType());
-        grayDto.setType(grayPo.getType());
         grayDto.setBasicStrategy(grayPo.getBasicStrategy());
         grayDto.setGrayStrategy(grayPo.getGrayStrategy());
         grayDto.setRouteService(grayPo.getRouteService());
@@ -177,7 +171,6 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
         if (grayDto == null) {
             return false;
         }
-        grayDto.setType(grayPo.getType());
         grayDto.setBasicStrategy(grayPo.getBasicStrategy());
         grayDto.setGrayStrategy(grayPo.getGrayStrategy());
         grayDto.setRouteService(grayPo.getRouteService());
@@ -228,7 +221,6 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
 
     private static ConditionAndRoute toConditionAndRoute(GrayDto grayDto) throws JsonProcessingException {
         ConditionAndRoute conditionAndRoute = new ConditionAndRoute();
-        GrayDto.Type type = GrayDto.Type.get(grayDto.getType());
 
         if (StringUtils.isNotEmpty(grayDto.getGrayStrategy())) {
             Map<String, ConditionAndRouteJson> conditionRouteMap = JsonUtil.fromJson(grayDto.getGrayStrategy(), new TypeReference<Map<String, ConditionAndRouteJson>>() {
@@ -261,18 +253,18 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                     weightMap.put(routeNameKeyMap.get(map.get(PlatformConstant.ROUTE_NAME)),
                             Integer.parseInt(map.get(PlatformConstant.VALUE)));
                 }
-                switch (Objects.requireNonNull(type)) {
-                    case VERSION:
-                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
-                        versionWeightEntity.setWeightMap(weightMap);
-                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
-                        break;
-                    case REGION:
-                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
-                        regionWeightEntity.setWeightMap(weightMap);
-                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
-                        break;
-                }
+//                switch (Objects.requireNonNull(type)) {
+//                    case VERSION:
+//                        VersionWeightEntity versionWeightEntity = new VersionWeightEntity();
+//                        versionWeightEntity.setWeightMap(weightMap);
+//                        strategyConditionGrayEntity.setVersionWeightEntity(versionWeightEntity);
+//                        break;
+//                    case REGION:
+//                        RegionWeightEntity regionWeightEntity = new RegionWeightEntity();
+//                        regionWeightEntity.setWeightMap(weightMap);
+//                        strategyConditionGrayEntity.setRegionWeightEntity(regionWeightEntity);
+//                        break;
+//                }
                 strategyConditionGrayEntity.setExpression(conditionList.get(0).get(PlatformConstant.SPEL_CONDITION));
                 strategyConditionGrayEntityList.add(strategyConditionGrayEntity);
                 index++;
@@ -282,14 +274,14 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                 StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
                 strategyRouteEntity.setId(routeNameKeyMap.get(pair.getKey()));
 
-                switch (Objects.requireNonNull(type)) {
-                    case VERSION:
-                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
-                        break;
-                    case REGION:
-                        strategyRouteEntity.setType(StrategyRouteType.REGION);
-                        break;
-                }
+//                switch (Objects.requireNonNull(type)) {
+//                    case VERSION:
+//                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
+//                        break;
+//                    case REGION:
+//                        strategyRouteEntity.setType(StrategyRouteType.REGION);
+//                        break;
+//                }
                 strategyRouteEntity.setValue(toServiceJson(JsonUtil.toJson(pair.getValue())));
                 strategyRouteEntityList.add(strategyRouteEntity);
             }

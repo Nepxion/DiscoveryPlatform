@@ -10,33 +10,25 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.common.entity.ResultEntity;
 import com.nepxion.discovery.common.util.JsonUtil;
-import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
 import com.nepxion.discovery.platform.server.entity.po.ListSearchNamePo;
+import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,13 +37,8 @@ import io.swagger.annotations.ApiOperation;
 @Api("蓝绿发布相关接口")
 @RestController
 @RequestMapping(BlueGreenController.PREFIX)
-public class BlueGreenController {
+public class BlueGreenController extends StrategyController {
     public static final String PREFIX = "blue-green";
-
-    @Autowired
-    private BlueGreenService blueGreenService;
-    @Autowired
-    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @ApiOperation("获取蓝绿发布信息列表")
     @PostMapping("do-list")
@@ -59,67 +46,6 @@ public class BlueGreenController {
         IPage<BlueGreenDto> blueGreenDtoPage = blueGreenService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(blueGreenDtoPage.getRecords(), blueGreenDtoPage.getTotal());
     }
-
-    @ApiOperation("通过服务名称获取所有该服务的信息")
-    @PostMapping("do-list-service-metadata")
-    public Result<List<InstanceEntity>> doListServiceMetadata(@RequestParam("serviceName") String serviceName) {
-        if (StringUtils.isEmpty(serviceName)) {
-            return Result.ok(new ArrayList<>());
-        }
-        return Result.ok(platformDiscoveryAdapter.getInstanceList(serviceName));
-    }
-
-    @ApiOperation("获取所有入口的名称")
-    @PostMapping("do-list-portal-names")
-    public Result<List<String>> doListPortalNames(@RequestParam(name = "portalName", defaultValue = "") String portalName,
-                                                  @RequestParam(value = "portalTypeInt", required = false) Integer portalTypeInt,
-                                                  @RequestParam(value = "portalTypeStr", required = false) String portalTypeStr,
-                                                  @RequestParam(value = "excludeDb", required = false, defaultValue = "true") Boolean excludeDb) {
-        if (portalTypeInt == null && StringUtils.isEmpty(portalTypeStr)) {
-            return Result.ok(new ArrayList<>());
-        }
-        BaseStateEntity.PortalType portalType = null;
-        if (portalTypeInt != null) {
-            portalType = BaseStateEntity.PortalType.get(portalTypeInt);
-        } else if (StringUtils.isNotEmpty(portalTypeStr)) {
-            portalType = BaseStateEntity.PortalType.valueOf(portalTypeStr);
-        }
-
-        List<String> result = new ArrayList<>();
-        switch (Objects.requireNonNull(portalType)) {
-            case GATEWAY:
-                result.addAll(platformDiscoveryAdapter.getGatewayNames());
-                break;
-            case SERVICE:
-                result.addAll(platformDiscoveryAdapter.getServiceNames());
-                break;
-            case GROUP:
-                result.addAll(platformDiscoveryAdapter.getGroupNames());
-                break;
-        }
-        if (excludeDb) {
-            boolean flag = result.contains(portalName);
-            List<String> portNameList = blueGreenService.listPortalNames();
-            result.removeAll(portNameList);
-            if (StringUtils.isNotEmpty(portalName) && flag) {
-                result.add(portalName);
-            }
-        }
-        return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
-    }
-
-    @ApiOperation("获取所有服务的名称")
-    @PostMapping("do-list-service-names")
-    public Result<List<String>> doListServiceNames() {
-        return Result.ok(platformDiscoveryAdapter.getServiceNames());
-    }
-
-    @ApiOperation("获取所有服务的名称")
-    @PostMapping("do-list-gateway-names")
-    public Result<List<String>> doListGatewayNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
-    }
-
 
     @SuppressWarnings("unchecked")
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
@@ -151,23 +77,16 @@ public class BlueGreenController {
         return Result.ok(result);
     }
 
-    @ApiOperation("校验自定义表达式")
-    @PostMapping("validate-expression")
-    public Result<Boolean> validateExpression(@RequestParam("expression") String expression, @RequestParam("validation") String validation) {
-        return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
-    }
-
-
     @ApiOperation("新增蓝绿信息")
     @PostMapping("do-insert")
-    public Result<Boolean> doInsert(BlueGreenPo blueGreenPo) {
-        return Result.ok(blueGreenService.insert(blueGreenPo));
+    public Result<Boolean> doInsert(StrategyPo strategyPo) {
+        return Result.ok(blueGreenService.insert(strategyPo));
     }
 
     @ApiOperation("修改蓝绿信息")
     @PostMapping("do-update")
-    public Result<?> doUpdate(BlueGreenPo blueGreenPo) {
-        if (blueGreenService.update(blueGreenPo)) {
+    public Result<?> doUpdate(StrategyPo strategyPo) {
+        if (blueGreenService.update(strategyPo)) {
             return Result.ok();
         }
         return Result.error("更新失败");
@@ -195,13 +114,6 @@ public class BlueGreenController {
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
         blueGreenService.logicDelete(new HashSet<>(idList));
-        return Result.ok();
-    }
-
-    @ApiOperation("发布蓝绿")
-    @PostMapping("do-publish")
-    public Result<?> doPublish() throws Exception {
-        blueGreenService.publish();
         return Result.ok();
     }
 }

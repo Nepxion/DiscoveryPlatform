@@ -114,12 +114,6 @@ public class GrayController {
         return Result.ok(platformDiscoveryAdapter.getServiceNames());
     }
 
-    @ApiOperation("获取所有服务的名称")
-    @PostMapping("do-list-gateway-names")
-    public Result<List<String>> doListGatewayNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
-    }
-
     @SuppressWarnings("unchecked")
     @ApiOperation("获取Spring Cloud Gateway网关正在工作的灰度信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")

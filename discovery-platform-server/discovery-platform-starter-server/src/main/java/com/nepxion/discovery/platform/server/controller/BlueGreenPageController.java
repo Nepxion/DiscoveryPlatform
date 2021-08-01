@@ -22,12 +22,15 @@ import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 
 @Controller
 @RequestMapping(BlueGreenController.PREFIX)
 public class BlueGreenPageController {
     @Autowired
     private BlueGreenService blueGreenService;
+    @Autowired
+    private RouteArrangeService routeArrangeService;
 
     @GetMapping("list")
     public String list() {
@@ -35,10 +38,11 @@ public class BlueGreenPageController {
     }
 
     @GetMapping("add")
-    public String add(Model model, @RequestParam("type") Integer type) throws Exception {
+    public String add(Model model) throws Exception {
+        BlueGreenDto blueGreenDto = new BlueGreenDto();
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(type));
+        model.addAttribute("entity", blueGreenDto);
         return String.format("%s/%s", BlueGreenController.PREFIX, "add");
     }
 
@@ -47,7 +51,6 @@ public class BlueGreenPageController {
         BlueGreenDto blueGreenDto = blueGreenService.getById(id);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(blueGreenDto.getType()));
         model.addAttribute("entity", blueGreenDto);
         return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
     }

@@ -29,9 +29,6 @@ public class GrayDto extends BaseStateEntity {
     @TableField(value = "`portal_type`")
     private Integer portalType;
 
-    @TableField(value = "`type`")
-    private Integer type;
-
     @TableField(value = "`basic_strategy`")
     private String basicStrategy;
 
@@ -61,14 +58,6 @@ public class GrayDto extends BaseStateEntity {
 
     public void setPortalType(Integer portalType) {
         this.portalType = portalType;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public String getBasicStrategy() {

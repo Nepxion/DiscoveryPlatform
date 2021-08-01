@@ -33,6 +33,9 @@ public class RouteArrangePageController {
 
     @GetMapping("add")
     public String add(Model model) throws Exception {
+        RouteArrangeDto routeArrangeDto = new RouteArrangeDto();
+        routeArrangeDto.setStrategyType(RouteArrangeDto.StrategyType.VERSION.getCode());
+        model.addAttribute("entity", routeArrangeDto);
         return String.format("%s/%s", RouteArrangeController.PREFIX, "add");
     }
 

@@ -155,7 +155,7 @@
             }
 
             function newRow() {
-                refreshServiceNames();
+                getServiceNames();
                 count++;
                 return {
                     'index': count,
@@ -214,10 +214,10 @@
                         $('div[class="layui-table-mend"]').remove();
                     }
                 } else if (obj.event === 'refresh') {
-                    layer.load();
                     let serviceName = '';
-                    refreshServiceNames();
-                    layer.closeAll('loading');
+                    admin.loading(function () {
+                        refreshServiceNames();
+                    });
                     $.each(gd, function (index, item) {
                         if (item.index == obj.data.index) {
                             item['serviceNameList'] = serviceNameList;
@@ -249,19 +249,6 @@
                     });
                 }
             });
-
-            function refreshServiceNames() {
-                admin.postQuiet('do-list-service-names', {}, function (result) {
-                    const set = new Set();
-                    serviceNameList = [];
-                    $.each(result.data, function (index, item) {
-                        if (!set.has(item)) {
-                            set.add(item);
-                            serviceNameList.push(item);
-                        }
-                    });
-                }, null, false);
-            }
 
             function reload(data) {
                 $.each(data, function (i, d) {

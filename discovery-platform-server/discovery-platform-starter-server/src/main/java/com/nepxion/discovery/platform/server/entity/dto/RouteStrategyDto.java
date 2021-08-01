@@ -17,29 +17,37 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
+import com.nepxion.discovery.platform.server.entity.base.BaseEntity;
 
-@TableName(value = "`t_blue_green`")
-public class BlueGreenDto extends BaseStateEntity {
-    private static final long serialVersionUID = 7349466331174113582L;
+@TableName(value = "`t_route_strategy`")
+public class RouteStrategyDto extends BaseEntity {
+    private static final long serialVersionUID = 4355066428260017679L;
 
+    /**
+     * 服务链路标识
+     */
+    @TableField(value = "`route_id`")
+    private String routeId;
+
+    /**
+     * 网关/服务/组名称
+     */
     @TableField(value = "`portal_name`")
     private String portalName;
 
+    /**
+     * 入口类型(1: 网关, 2:服务, 3:组)
+     */
     @TableField(value = "`portal_type`")
     private Integer portalType;
 
-    @TableField(value = "`basic_strategy`")
-    private String basicStrategy;
+    public String getRouteId() {
+        return routeId;
+    }
 
-    @TableField(value = "`blue_green_strategy`")
-    private String blueGreenStrategy;
-
-    @TableField(value = "`header`")
-    private String header;
-
-    @TableField(value = "`description`")
-    private String description;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
 
     public String getPortalName() {
         return portalName;
@@ -55,38 +63,6 @@ public class BlueGreenDto extends BaseStateEntity {
 
     public void setPortalType(Integer portalType) {
         this.portalType = portalType;
-    }
-
-    public String getBasicStrategy() {
-        return basicStrategy;
-    }
-
-    public void setBasicStrategy(String basicStrategy) {
-        this.basicStrategy = basicStrategy;
-    }
-
-    public String getBlueGreenStrategy() {
-        return blueGreenStrategy;
-    }
-
-    public void setBlueGreenStrategy(String blueGreenStrategy) {
-        this.blueGreenStrategy = blueGreenStrategy;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override

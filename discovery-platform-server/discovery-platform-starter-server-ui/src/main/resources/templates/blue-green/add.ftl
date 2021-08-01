@@ -41,11 +41,27 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">策略配置</label>
+                <label class="layui-form-label">兜底策略</label>
+                <div class="layui-input-inline" style="width: 850px">
+                    <div class="layui-row">
+                        <div class="layui-col-md11">
+                            <select id="basicRouteId" name="basicRouteId" autocomplete="off" class="layui-select" lay-search>
+                            </select>
+                        </div>
+                        <div class="layui-col-md1">
+                            <a id="btnRefreshRouteId" tag="basicRouteId" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                                <i class="layui-icon">&#xe669;</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">条件策略</label>
                 <div class="layui-input-block">
-                    <a id="btnStrategyAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底策略</a>
-                    <a id="btnConditionAdd" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
-                    <a id="btnStrategyRemove" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿</a>
+                    <a id="btnRemoveStrategy" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
                 </div>
             </div>
 
@@ -85,52 +101,8 @@
 
             <input id="callback" type="button" style="display: none"/>
 
-            <div id="strategyTemplate" style="display: none">
-                <table class="layui-hide" id="gridStrategy" lay-filter="gridStrategy"></table>
-
-                <script type="text/html" id="tStrategyServiceName">
-                    <select name='strategyServiceName' lay-filter='strategyServiceName' lay-search>
-                        <option value="">请选择服务名称</option>
-                        {{# layui.each(d.serviceNameList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.serviceName==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="tStrategyValue">
-                    <select name='strategyValue' lay-filter='strategyValue' lay-search>
-                        <option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>
-                        {{# layui.each(d.valueList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.value==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="grid-route-bar">
-                    <@update>
-                        <div class="layui-btn-group">
-                            <a class="layui-btn layui-btn-sm" lay-event="refreshRoute">
-                                <i class="layui-icon">&#xe669;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-sm" lay-event="addRoute">
-                                <i class="layui-icon">&#xe654;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeRoute">
-                                <i class="layui-icon">&#xe67e;</i>
-                            </a>
-                        </div>
-                    </@update>
-                </script>
-            </div>
-
-            <div id="conditionTemplate" style="display: none">
-                <span class="layui-badge layui-bg-blue">条件策略</span>
+            <div id="blueGreenTemplate" style="display: none">
+                <span class="layui-badge layui-bg-blue">条件设置</span>
                 <table class="layui-hide" id="gridCondition$_INDEX_$" lay-filter="gridCondition$_INDEX_$"></table>
 
                 <script type="text/html" id="tOperator$_INDEX_$">
@@ -180,453 +152,49 @@
                     </div>
                 </div>
 
-                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">路由策略</span>
+                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">选择链路</span>
 
-                <table class="layui-hide" id="gridRoute$_INDEX_$" lay-filter="gridRoute$_INDEX_$"></table>
-
-                <script type="text/html" id="tServiceName$_INDEX_$">
-                    <select name='serviceName' lay-filter='serviceName' tag="$_INDEX_$" lay-search>
-                        <option value="">请选择服务名称</option>
-                        {{# layui.each(d.serviceNameList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.serviceName==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="tValue$_INDEX_$">
-                    <select name='value' lay-filter='value' tag="$_INDEX_$" lay-search>
-                        <option value="">请选择${((type!'')=='VERSION')?string('版本号','区域值')}</option>
-                        {{# layui.each(d.valueList, function(index, item){ }}
-                        <option value="{{ item }}" {{ d.value==item ?
-                        'selected="selected"' : '' }}>
-                        {{ item }}
-                        </option>
-                        {{# }); }}
-                    </select>
-                </script>
-
-                <script type="text/html" id="grid-route-bar">
-                    <@update>
-                        <div class="layui-btn-group">
-                            <a class="layui-btn layui-btn-sm" lay-event="refreshRoute">
-                                <i class="layui-icon">&#xe669;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-sm" lay-event="addRoute">
-                                <i class="layui-icon">&#xe654;</i>
-                            </a>
-                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeRoute">
-                                <i class="layui-icon">&#xe67e;</i>
-                            </a>
-                        </div>
-                    </@update>
-                </script>
+                <div class="layui-row" style="margin-top: 10px;">
+                    <div class="layui-col-md11">
+                        <select id="routeId$_INDEX_$" autocomplete="off" class="layui-select" lay-search>
+                        </select>
+                    </div>
+                    <div class="layui-col-md1">
+                        <a id="btnReloadRoute$_INDEX_$" tag="routeId$_INDEX_$" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                            <i class="layui-icon">&#xe669;</i>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <input type="hidden" id="basicStrategy" name="basicStrategy"/>
+            <input type="hidden" id="id" name="id" value="${entity.id!''}"/>
             <input type="hidden" id="error" name="error" value=""/>
-            <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy"/>
-            <input type="hidden" id="header" name="header"/>
+            <input type="hidden" id="routeIds" name="routeIds" value=""/>
+            <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy" value=""/>
+            <input type="hidden" id="header" name="header" value=""/>
         </div>
         <script>
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
-                    const TAB = 'tab', TAB_CONDITION = 'tabCondition', TAB_STRATEGY = 'tabStrategy';
-                    let portalType = 1, serviceNameList = [], tabIndex = 0, tabSelect = TAB_STRATEGY, tabSelectTitle = '兜底策略', headerCount = 0, conditionCount = 0, routeCount = 0;
+                    const TAB = 'tab', TAB_CONDITION = 'tabCondition';
+                    let portalType = 1, tabIndex = 0, tabSelectTitle = '', headerCount = 0, blueGreenCount = 0;
 
                     setTimeout(function () {
-                        reloadPortalName();
+                        $('#btnRefreshPortal').click();
+                        $('#btnRefreshRouteId').click();
                         addTabCondition();
                         addTabCondition();
-                        addStrategy();
+                        element.tabChange(TAB, TAB_CONDITION + 1);
                     }, 50);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
-                        reloadPortalName();
-                    });
-
-                    function reloadPortalName() {
-                        admin.post('do-list-portal-names', {'portalTypeInt': portalType}, function (result) {
-                            const selPortalName = $("select[name=portalName]");
-                            let portalTypeName = '';
-                            if (portalType == 1) {
-                                portalTypeName = '网关';
-                            } else if (portalType == 2) {
-                                portalTypeName = '服务';
-                            } else if (portalType == 3) {
-                                portalTypeName = '组';
-                            }
-                            selPortalName.html('<option value="">请选择' + portalTypeName + '名称</option>');
-                            $.each(result.data, function (key, val) {
-                                let option = $("<option>").val(val).text(val);
-                                selPortalName.append(option);
-                            });
-                            layui.form.render('select');
-                        });
-                    }
-
-                    $('#btnStrategyAdd').click(function () {
-                        addStrategy();
-                    });
-
-                    $('#btnConditionAdd').click(function () {
-                        addTabCondition();
-                    });
-
-                    $('#btnStrategyRemove').click(function () {
-                        layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
-                            element.tabDelete(TAB, tabSelect);
-                            layer.close(index);
-                        });
-                    });
-
-                    $('#btnRefreshPortal').click(function () {
-                        reloadPortalName();
+                        $('#btnRefreshPortal').click();
                     });
 
                     element.on('tab(tab)', function () {
-                        tabSelect = $(this).attr('lay-id');
                         tabSelectTitle = $(this).html();
                     });
-
-                    function addTabCondition() {
-                        tabIndex++;
-                        const tabTitleId = TAB_CONDITION + tabIndex;
-                        const tabContentId = 'tabContent' + tabIndex;
-                        const gridCondition = 'gridCondition' + tabIndex;
-                        const gridRoute = 'gridRoute' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">蓝绿策略' + tabIndex + '</li>');
-                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
-                        $('#' + tabContentId).append($('#conditionTemplate').html().replaceAll('$_INDEX_$', tabIndex));
-                        element.render(TAB);
-
-                        $('#btnAssemble' + tabIndex).click(function () {
-                            const index = $(this).attr('tag');
-                            const spelConditionId = 'spelCondition' + index;
-                            let spelExpress = '';
-
-                            const gd = table.cache[gridCondition];
-                            $.each(gd, function (index, item) {
-                                if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
-                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
-                                }
-                            });
-                            $('#' + spelConditionId).val($.trim(spelExpress.substring(0, spelExpress.length - 4)));
-                        });
-
-                        $('#btnVerify' + tabIndex).click(function () {
-                            const index = $(this).attr('tag');
-                            const spelConditionId = 'spelCondition' + index;
-                            layer.open({
-                                type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
-                                content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
-                                area: ['645px', '235px'],
-                                btn: '关闭',
-                                resize: false,
-                                yes: function (index, layero) {
-                                    const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                        submit = layero.find('iframe').contents().find('#' + submitID);
-                                    iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                        layer.close(index);
-                                    });
-                                    submit.trigger('click');
-                                }
-                            });
-                        });
-
-                        table.render({
-                            elem: '#' + gridCondition,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', width: 50},
-                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
-                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
-                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
-                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
-                            ]],
-                            data: [newConditionRow()]
-                        });
-
-                        table.on('tool(' + gridCondition + ')', function (obj) {
-                            const gd = table.cache[gridCondition];
-                            if (obj.event === 'addCondition') {
-                                gd.push(newConditionRow());
-                                reload(gridCondition, gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeCondition') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload(gridCondition, gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                    const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
-                                    $('#btnAssemble' + tabIndex).click();
-                                }
-                            }
-                        });
-
-                        table.on('edit(' + gridCondition + ')', function (obj) {
-                            const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
-                            $('#btnAssemble' + tabIndex).click();
-                        });
-
-                        form.on('select(operator)', function (obj) {
-                            const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridCondition' + tabIndex;
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['operator'] = obj.value;
-                            reload(gridId, gd);
-                            $('#btnAssemble' + tabIndex).click();
-                        });
-
-                        form.on('select(logic)', function (obj) {
-                            const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridCondition' + tabIndex;
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['logic'] = obj.value;
-                            reload(gridId, gd);
-                            $('#btnAssemble' + tabIndex).click();
-                        });
-
-                        table.render({
-                            elem: '#' + gridRoute,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {templet: '#tServiceName' + tabIndex, title: '服务名', unresize: true, width: 323},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tValue' + tabIndex, unresize: true, width: 323},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
-                            ]],
-                            data: [newRouteRow()]
-                        });
-
-                        table.on('tool(' + gridRoute + ')', function (obj) {
-                            const gd = table.cache[gridRoute];
-                            if (obj.event === 'addRoute') {
-                                gd.push(newRouteRow());
-                                reload(gridRoute, gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeRoute') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload(gridRoute, gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                }
-                            } else if (obj.event === 'refreshRoute') {
-                                layer.load();
-                                let serviceName = '';
-                                refreshServiceNames();
-                                layer.closeAll('loading');
-                                $.each(gd, function (index, item) {
-                                    if (item.index == obj.data.index) {
-                                        item['serviceNameList'] = serviceNameList;
-                                        serviceName = item['serviceName'];
-                                        return;
-                                    }
-                                });
-
-                                refreshServiceValue(serviceName, function (vl) {
-                                    $.each(gd, function (index, item) {
-                                        if (item.index == obj.data.index) {
-                                            item['valueList'] = vl;
-                                            return;
-                                        }
-                                    });
-                                    reload(gridRoute, gd);
-                                });
-                            }
-                        });
-
-                        form.on('select(serviceName)', function (obj) {
-                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            const serviceName = obj.value;
-                            refreshServiceValue(serviceName, function (vl) {
-                                gd[dataIndex]['serviceName'] = serviceName;
-                                gd[dataIndex]['valueList'] = vl;
-                                reload(gridId, gd);
-                            });
-                        });
-
-                        form.on('select(value)', function (obj) {
-                            const gridId = 'gridRoute' + $(obj.elem).attr('tag');
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['value'] = obj.value;
-                            reload(gridId, gd);
-                        });
-                    }
-
-                    function addStrategy() {
-                        if ($('li[lay-id="' + TAB_STRATEGY + '"]').size() > 0) {
-                            element.tabChange(TAB, TAB_STRATEGY);
-                            admin.success('系统操作', '已存在兜底策略');
-                            return;
-                        }
-                        $('#tabTitle').prepend('<li class="layui-this" lay-id="tabStrategy">兜底策略</li>');
-                        $('#tabContent').prepend('<div id="contentStrategy" class="layui-tab-item layui-show"></div>');
-                        $('#contentStrategy').append($('#strategyTemplate').html());
-                        element.render(TAB);
-                        element.tabChange(TAB, TAB_STRATEGY);
-                        table.render({
-                            elem: '#gridStrategy',
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'serviceName', templet: '#tStrategyServiceName', unresize: true, title: '服务名'},
-                                {title: '${((type!'')=='VERSION')?string('版本号','区域值')}', templet: '#tStrategyValue', unresize: true},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
-                            ]],
-                            data: [newRouteRow()]
-                        });
-
-                        table.on('tool(gridStrategy)', function (obj) {
-                            const gd = table.cache['gridStrategy'];
-                            if (obj.event === 'addRoute') {
-                                gd.push(newRouteRow());
-                                reload('gridStrategy', gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeRoute') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload('gridStrategy', gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                }
-                            } else if (obj.event === 'refreshRoute') {
-                                layer.load();
-                                let serviceName = '';
-                                refreshServiceNames();
-                                layer.closeAll('loading');
-                                $.each(gd, function (index, item) {
-                                    if (item.index == obj.data.index) {
-                                        item['serviceNameList'] = serviceNameList;
-                                        serviceName = item['serviceName'];
-                                        return;
-                                    }
-                                });
-                                refreshServiceValue(serviceName, function (vl) {
-                                    $.each(gd, function (index, item) {
-                                        if (item.index == obj.data.index) {
-                                            item['valueList'] = vl;
-                                            return;
-                                        }
-                                    });
-                                    reload('gridStrategy', gd);
-                                });
-                            }
-                        });
-
-                        form.on('select(strategyServiceName)', function (obj) {
-                            const gridId = 'gridStrategy';
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            const serviceName = obj.value;
-                            refreshServiceValue(serviceName, function (vl) {
-                                gd[dataIndex]['serviceName'] = serviceName;
-                                gd[dataIndex]['valueList'] = vl;
-                                reload(gridId, gd);
-                            });
-                        });
-
-                        form.on('select(strategyValue)', function (obj) {
-                            const gridId = 'gridStrategy';
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            const strategyValue = obj.value;
-                            gd[dataIndex]['value'] = strategyValue;
-                            reload(gridId, gd);
-                        });
-                    }
-
-                    function newConditionRow() {
-                        conditionCount++;
-                        return {
-                            'index': conditionCount,
-                            'parameterName': '',
-                            'operator': '==',
-                            'value': '',
-                            'logic': 'and'
-                        };
-                    }
-
-                    function newRouteRow() {
-                        refreshServiceNames();
-                        routeCount++;
-                        return {
-                            'index': routeCount,
-                            'serviceName': '',
-                            'value': '',
-                            'serviceNameList': serviceNameList,
-                            'valueList': []
-                        };
-                    }
-
-                    function refreshServiceNames() {
-                        admin.postQuiet('do-list-service-names', {}, function (result) {
-                            const set = new Set();
-                            serviceNameList = [];
-                            $.each(result.data, function (index, item) {
-                                if (!set.has(item)) {
-                                    set.add(item);
-                                    serviceNameList.push(item);
-                                }
-                            });
-                        }, null, false);
-                    }
-
-                    function refreshServiceValue(serviceName, callback) {
-                        admin.post('do-list-service-metadata', {'serviceName': serviceName}, function (r) {
-                            const vl = [], set = new Set();
-                            $.each(r.data, function (index, item) {
-                                <#if type=='VERSION'>
-                                if (!set.has(item.version)) {
-                                    set.add(item.version);
-                                    vl.push(item.version);
-                                }
-                                <#else>
-                                if (!set.has(item.region)) {
-                                    set.add(item.region);
-                                    vl.push(item.region);
-                                }
-                                </#if>
-                            });
-                            callback(vl);
-                        });
-                    }
 
                     table.render({
                         elem: '#gridHeader',
@@ -647,13 +215,13 @@
                             {field: 'value', title: '值', unresize: true, edit: 'text'},
                             {title: '操作', align: 'center', toolbar: '#grid-header-bar', unresize: true, width: 110}
                         ]],
-                        data: [newHeaderRow()]
+                        data: newHeaderRow()
                     });
 
                     table.on('tool(gridHeader)', function (obj) {
                         const gd = table.cache['gridHeader'];
                         if (obj.event === 'addHeader') {
-                            gd.push(newHeaderRow());
+                            gd.push(newHeaderRow()[0]);
                             reload('gridHeader', gd);
                             $('div[class="layui-table-mend"]').remove();
                         } else if (obj.event === 'removeHeader') {
@@ -669,13 +237,178 @@
                         }
                     });
 
+                    $('#btnRefreshPortal').click(function () {
+                        admin.post('do-list-portal-names', {'portalTypeInt': portalType}, function (result) {
+                            const selPortalName = $("select[name=portalName]");
+                            let portalTypeName = '';
+                            if (portalType == 1) {
+                                portalTypeName = '网关';
+                            } else if (portalType == 2) {
+                                portalTypeName = '服务';
+                            } else if (portalType == 3) {
+                                portalTypeName = '组';
+                            }
+                            selPortalName.html('<option value="">请选择' + portalTypeName + '名称</option>');
+                            $.each(result.data, function (key, val) {
+                                let option = $("<option>").val(val).text(val);
+                                selPortalName.append(option);
+                            });
+                            layui.form.render('select');
+                        });
+                    });
+
+                    $('#btnRefreshRouteId').click(function () {
+                        bindRouteSelect($(this).attr('tag'));
+                    });
+
+                    $('#btnAddBlueGreen').click(function () {
+                        addTabCondition();
+                    });
+
+                    $('#btnRemoveStrategy').click(function () {
+                        layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
+                            element.tabDelete(TAB, tabSelect);
+                            layer.close(index);
+                        });
+                    });
+
+                    function addTabCondition() {
+                        tabIndex++;
+                        const tabTitleId = TAB_CONDITION + tabIndex, tabContentId = 'tabContent' + tabIndex, gridCondition = 'gridCondition' + tabIndex, btnReloadRoute = 'btnReloadRoute' + tabIndex;
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '">蓝绿策略' + tabIndex + '</li>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
+                        element.render(TAB);
+                        $('#btnAssemble' + tabIndex).click(function () {
+                            const index = $(this).attr('tag');
+                            const spelConditionId = 'spelCondition' + index;
+                            let spelExpress = '';
+
+                            const gd = table.cache[gridCondition];
+                            $.each(gd, function (index, item) {
+                                if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
+                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
+                                }
+                            });
+                            $('#' + spelConditionId).val($.trim(spelExpress.substring(0, spelExpress.length - 4)));
+                        });
+                        $('#btnVerify' + tabIndex).click(function () {
+                            const index = $(this).attr('tag');
+                            const spelConditionId = 'spelCondition' + index;
+                            layer.open({
+                                type: 2,
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
+                                content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
+                                area: ['645px', '235px'],
+                                btn: '关闭',
+                                resize: false,
+                                yes: function (index, layero) {
+                                    const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                        submit = layero.find('iframe').contents().find('#' + submitID);
+                                    iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                        layer.close(index);
+                                    });
+                                    submit.trigger('click');
+                                }
+                            });
+                        });
+                        table.render({
+                            elem: '#' + gridCondition,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', width: 50},
+                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
+                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
+                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
+                            ]],
+                            data: newBlueGreenRow()
+                        });
+                        table.on('tool(' + gridCondition + ')', function (obj) {
+                            const gd = table.cache[gridCondition];
+                            if (obj.event === 'addCondition') {
+                                gd.push(newConditionRow());
+                                reload(gridCondition, gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeCondition') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload(gridCondition, gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                    const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                                    $('#btnAssemble' + tabIndex).click();
+                                }
+                            }
+                        });
+                        table.on('edit(' + gridCondition + ')', function (obj) {
+                            const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        form.on('select(operator)', function (obj) {
+                            const tabIndex = $(obj.elem).attr('tag');
+                            const gridId = 'gridCondition' + tabIndex;
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['operator'] = obj.value;
+                            reload(gridId, gd);
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        form.on('select(logic)', function (obj) {
+                            const tabIndex = $(obj.elem).attr('tag');
+                            const gridId = 'gridCondition' + tabIndex;
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['logic'] = obj.value;
+                            reload(gridId, gd);
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        $('#' + btnReloadRoute).click(function () {
+                            bindRouteSelect($(this).attr('tag'));
+                        });
+                        $('#' + btnReloadRoute).click();
+                    }
+
+                    function bindRouteSelect(id) {
+                        admin.loading(function () {
+                            const routeNames = admin.getRoutes();
+                            const sel = $('#' + id);
+                            sel.html('<option value="">请选择链路编排标识</option>');
+                            $.each(routeNames, function (key, val) {
+                                let option = $("<option>").val(val).text(val);
+                                sel.append(option);
+                            });
+                            layui.form.render('select');
+                        });
+                    }
+
+                    function newBlueGreenRow() {
+                        blueGreenCount++;
+                        return [{
+                            'index': blueGreenCount,
+                            'parameterName': '',
+                            'operator': '==',
+                            'value': '',
+                            'logic': 'and'
+                        }];
+                    }
+
                     function newHeaderRow() {
                         headerCount++;
-                        return {
+                        return [{
                             'index': headerCount,
                             'headerName': '',
                             'value': ''
-                        };
+                        }];
                     }
 
                     function reload(gridId, data) {
@@ -690,39 +423,15 @@
                     }
 
                     $('#callback').click(function () {
-                        collectBasicStrategy();
                         collectBlueGreenStrategy();
                         collectHeader();
                     });
 
-                    function collectBasicStrategy() {
-                        $('#basicStrategy').val('');
-                        if ($('#contentStrategy').size() > 0) {
-                            const dataStrategy = [], set = new Set();
-                            $.each(table.cache['gridStrategy'], function (index, item) {
-                                if (item.serviceName != '' && item.value != '') {
-                                    const data = {
-                                        'serviceName': item.serviceName,
-                                        'value': item.value
-                                    };
-                                    const dataStr = JSON.stringify(data);
-                                    if (!set.has(dataStr)) {
-                                        set.add(dataStr);
-                                        dataStrategy.push(data);
-                                    }
-                                    $('#error').val('');
-                                } else if (item.serviceName + item.value != '') {
-                                    $('#error').val('兜底策略的服务名或版本号不允许为空');
-                                    return false;
-                                }
-                            });
-                            $('#basicStrategy').val(JSON.stringify(dataStrategy));
-                        }
-                    }
-
                     function collectBlueGreenStrategy() {
                         $('#blueGreenStrategy').val('');
+                        $('#routeIds').val('');
                         const all = {};
+                        const routeIds = [];
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
@@ -752,32 +461,17 @@
                                 if ($('#error').val() !== '') {
                                     return false;
                                 }
-                                const _dataRoute = [], _setRoute = new Set();
-                                const gridRoute = 'gridRoute' + tabIndex;
-                                $.each(table.cache[gridRoute], function (index, item) {
-                                    if (item.serviceName != '' && item.value != '') {
-                                        const data = {
-                                            'serviceName': item.serviceName,
-                                            'value': item.value
-                                        };
-                                        const dataStr = JSON.stringify(data);
-                                        if (!_setRoute.has(dataStr)) {
-                                            _setRoute.add(dataStr);
-                                            _dataRoute.push(data);
-                                        }
-                                        $('#error').val('');
-                                    } else if (item.serviceName + item.value != '') {
-                                        $('#error').val('蓝绿策略' + tabIndex + '的路由策略的服务名或${((type!'')=='VERSION')?string('版本号','区域值')}不允许为空');
-                                        return false;
-                                    }
-                                });
+                                const routeId = $('#routeId' + tabIndex).val();
+
                                 all['cr' + tabIndex] = {
                                     'condition': _dataCondition,
-                                    'route': _dataRoute
+                                    'routeId': routeId
                                 };
+                                routeIds.push(routeId);
                             }
                         });
                         $('#blueGreenStrategy').val(JSON.stringify(all));
+                        $('#routeIds').val(JSON.stringify(routeIds));
                     }
 
                     function collectHeader() {

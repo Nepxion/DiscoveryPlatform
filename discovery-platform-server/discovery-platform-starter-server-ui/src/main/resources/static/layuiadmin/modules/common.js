@@ -28,6 +28,14 @@ layui.define(function (e) {
         admin.cacheToken(jqXHR);
     }
 
+    admin.loading = function (action) {
+        layer.load();
+        if (action) {
+            action();
+        }
+        layer.closeAll('loading');
+    }
+
     admin.postQuiet = function (url, data, success, error, async) {
         if (async == undefined) {
             async = true;
@@ -292,13 +300,44 @@ layui.define(function (e) {
         return window.localStorage.removeItem(key);
     }
 
-    admin.refreshServiceName = function () {
+    admin.getRoutes = function () {
+        const set = new Set(), routeNameList = [];
+        admin.postQuiet(getContextPath() + '/common/do-list-route-names', {}, function (result) {
+            $.each(result.data, function (index, item) {
+                const name = $.trim(item);
+                if (!set.has(name)) {
+                    set.add(name);
+                    routeNameList.push($.trim(name));
+                }
+            });
+        }, null, false);
+        routeNameList.sort();
+        return routeNameList;
+    }
+
+    admin.getGatewayName = function () {
+        const set = new Set(), gatewayNameList = [];
+        admin.postQuiet(getContextPath() + '/common/do-list-gateway-names', {}, function (result) {
+            $.each(result.data, function (index, item) {
+                const name = $.trim(item);
+                if (!set.has(name)) {
+                    set.add(name);
+                    gatewayNameList.push($.trim(name));
+                }
+            });
+        }, null, false);
+        gatewayNameList.sort();
+        return gatewayNameList;
+    }
+
+    admin.getServiceName = function () {
         const set = new Set(), serviceNameList = [];
         admin.postQuiet(getContextPath() + '/common/do-list-service-names', {}, function (result) {
             $.each(result.data, function (index, item) {
-                if (!set.has(item)) {
-                    set.add(item);
-                    serviceNameList.push($.trim(item));
+                const name = $.trim(item);
+                if (!set.has(name)) {
+                    set.add(name);
+                    serviceNameList.push($.trim(name));
                 }
             });
         }, null, false);
@@ -306,19 +345,28 @@ layui.define(function (e) {
         return serviceNameList;
     }
 
-    admin.refreshServiceMetadata = function (serviceName, metadataName) {
+    admin.getServiceMetadata = function (serviceName, metadataName) {
         const set = new Set(), serviceMetadataList = [];
         admin.post(getContextPath() + '/common/do-list-service-metadata', {'serviceName': serviceName}, function (result) {
             $.each(result.data, function (index, item) {
                 const key = item[metadataName];
-                if (!set.has(key)) {
-                    set.add(key);
-                    serviceMetadataList.push(key);
+                const name = $.trim(key);
+                if (!set.has(name)) {
+                    set.add(name);
+                    serviceMetadataList.push(name);
                 }
             });
         }, null, false);
         serviceMetadataList.sort();
         return serviceMetadataList;
+    }
+
+    admin.getMetadataName = function (strategyType) {
+        if (strategyType == 1) {
+            return 'version';
+        } else if (strategyType == 2) {
+            return 'region';
+        }
     }
 
     e("common", {});

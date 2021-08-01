@@ -10,12 +10,15 @@ package com.nepxion.discovery.platform.server.service;
  * @version 1.0
  */
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
@@ -31,6 +34,25 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
     @Override
     public void publish() throws Exception {
 
+    }
+
+    @TransactionReader
+    @Override
+    public RouteArrangeDto getByRouteId(String routeId) {
+        if (StringUtils.isEmpty(routeId)) {
+            return null;
+        }
+        LambdaQueryWrapper<RouteArrangeDto> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(RouteArrangeDto::getRouteId, routeId);
+        return getOne(queryWrapper);
+    }
+
+    @TransactionReader
+    @Override
+    public List<RouteArrangeDto> list() {
+        LambdaQueryWrapper<RouteArrangeDto> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByAsc(RouteArrangeDto::getRouteId, RouteArrangeDto::getCreateTime);
+        return list(queryWrapper);
     }
 
     @TransactionReader
@@ -54,6 +76,9 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
     @Override
     public boolean insert(RouteArrangeDto routeArrangeDto) {
         routeArrangeDto = prepareInsert(routeArrangeDto);
+        if (StringUtils.isEmpty(routeArrangeDto.getServiceArrange())) {
+            routeArrangeDto.setServiceArrange(DiscoveryConstant.EMPTY_JSON_RULE_MULTIPLE);
+        }
         routeArrangeDto.setIndex(getNextIndex());
         routeArrangeDto.setRouteId(String.format("%s%s", PREFIX_ROUTE_ID, routeArrangeDto.getIndex()));
         return save(routeArrangeDto);

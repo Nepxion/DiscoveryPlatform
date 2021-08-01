@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.Collection;
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
@@ -28,4 +29,8 @@ public interface RouteArrangeService extends BasePublishService<RouteArrangeDto>
     boolean delete(Collection<Long> ids);
 
     Long getNextIndex();
+
+    List<RouteArrangeDto> list();
+
+    RouteArrangeDto getByRouteId(String routeId);
 }

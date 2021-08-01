@@ -628,10 +628,10 @@
                                     $('div[class="layui-table-mend"]').remove();
                                 }
                             } else if (obj.event === 'refreshRoute') {
-                                layer.load();
                                 let serviceName = '';
-                                refreshServiceNames();
-                                layer.closeAll('loading');
+                                admin.loading(function () {
+                                    refreshServiceNames();
+                                });
                                 $.each(gd, function (index, item) {
                                     if (item.index == obj.data.index) {
                                         item['serviceNameList'] = serviceNameList;

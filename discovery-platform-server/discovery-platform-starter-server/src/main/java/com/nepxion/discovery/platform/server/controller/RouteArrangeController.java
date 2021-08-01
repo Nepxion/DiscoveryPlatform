@@ -38,19 +38,19 @@ public class RouteArrangeController {
     private RouteArrangeService routeArrangeService;
 
     @ApiOperation("获取链路编排列表")
-    @PostMapping("do-list")
+    @RequestMapping("do-list")
     public Result<List<RouteArrangeDto>> doList(ListSearchNamePo listSearchNamePo) {
         IPage<RouteArrangeDto> routeArrangeDtoPage = routeArrangeService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(routeArrangeDtoPage.getRecords(), routeArrangeDtoPage.getTotal());
     }
 
-    @ApiOperation("新增链路")
+    @ApiOperation("新增服务编排")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(RouteArrangeDto routeArrangeDto) {
         return Result.ok(routeArrangeService.insert(routeArrangeDto));
     }
 
-    @ApiOperation("修改链路")
+    @ApiOperation("修改服务编排")
     @PostMapping("do-update")
     public Result<?> doUpdate(RouteArrangeDto routeArrangeDto) {
         if (routeArrangeService.update(routeArrangeDto)) {
@@ -59,27 +59,7 @@ public class RouteArrangeController {
         return Result.error("更新失败");
     }
 
-    @ApiOperation("启用链路")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
-    @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
-        if (routeArrangeService.enable(id, true)) {
-            return Result.ok();
-        }
-        return Result.error("启用链路失败");
-    }
-
-    @ApiOperation("禁用链路")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
-    @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
-        if (routeArrangeService.enable(id, false)) {
-            return Result.ok();
-        }
-        return Result.error("启用链路失败");
-    }
-
-    @ApiOperation("删除链路")
+    @ApiOperation("删除服务编排")
     @ApiImplicitParam(name = "ids", value = "蓝绿id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
@@ -88,7 +68,7 @@ public class RouteArrangeController {
         return Result.ok();
     }
 
-    @ApiOperation("发布链路")
+    @ApiOperation("发布服务编排")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         routeArrangeService.publish();

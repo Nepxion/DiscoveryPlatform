@@ -10,12 +10,10 @@ package com.nepxion.discovery.platform.server.service;
  * @version 1.0
  */
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,10 +31,8 @@ import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
 import com.nepxion.discovery.common.entity.StrategyEntity;
-import com.nepxion.discovery.common.entity.StrategyHeaderEntity;
 import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
-import com.nepxion.discovery.common.entity.StrategyRouteType;
 import com.nepxion.discovery.common.util.JsonUtil;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
@@ -45,13 +41,19 @@ import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.entity.po.BlueGreenPo;
+import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
+import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.mapper.BlueGreenMapper;
 
 public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper, BlueGreenDto> implements BlueGreenService {
 
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+    @Autowired
+    private RouteArrangeService routeArrangeService;
+    @Autowired
+    private RouteStrategyService routeStrategyService;
+
     @Lazy
     @Autowired
     private GrayService grayService;
@@ -87,49 +89,49 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
                     @Override
                     public void publishConfig(String portalName, List<Object> configList) throws Exception {
-                        for (Object item : configList) {
-                            BlueGreenDto blueGreenDto = (BlueGreenDto) item;
-                            BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
-
-                            RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
-                            StrategyReleaseEntity strategyReleaseEntity = new StrategyReleaseEntity();
-
-                            if (hasValue(blueGreenDto.getHeader())) {
-                                StrategyHeaderEntity strategyHeaderEntity = new StrategyHeaderEntity();
-                                strategyHeaderEntity.setHeaderMap(toMap(blueGreenDto.getHeader()));
-                                strategyReleaseEntity.setStrategyHeaderEntity(strategyHeaderEntity);
-                            }
-
-                            ConditionAndRoute conditionAndRoute = toConditionAndRoute(blueGreenDto);
-                            strategyReleaseEntity.setStrategyConditionBlueGreenEntityList(conditionAndRoute.getConditionBlueGreenEntityList());
-                            strategyReleaseEntity.setStrategyRouteEntityList(conditionAndRoute.getStrategyRouteEntityList());
-
-                            if (hasValue(blueGreenDto.getBasicStrategy())) {
-                                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
-                                strategyConditionBlueGreenEntity.setId(PlatformConstant.BASIC_CONDITION);
-
-                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
-                                strategyRouteEntity.setId(PlatformConstant.BASIC_ROUTE);
-
-                                switch (Objects.requireNonNull(type)) {
-                                    case VERSION:
-                                        strategyConditionBlueGreenEntity.setVersionId(PlatformConstant.BASIC_ROUTE);
-                                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
-                                        break;
-                                    case REGION:
-                                        strategyConditionBlueGreenEntity.setRegionId(PlatformConstant.BASIC_ROUTE);
-                                        strategyRouteEntity.setType(StrategyRouteType.REGION);
-                                        break;
-                                }
-                                strategyRouteEntity.setValue(toServiceJson(blueGreenDto.getBasicStrategy()));
-                                conditionAndRoute.getConditionBlueGreenEntityList().add(strategyConditionBlueGreenEntity);
-                                conditionAndRoute.getStrategyRouteEntityList().add(strategyRouteEntity);
-                            }
-
-                            ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
-                            BlueGreenServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()), portalName, ruleEntity);
-                        }
-                        grayService.updatePublishFlag(portalName, false);
+//                        for (Object item : configList) {
+//                            BlueGreenDto blueGreenDto = (BlueGreenDto) item;
+//                            BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
+//
+//                            RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
+//                            StrategyReleaseEntity strategyReleaseEntity = new StrategyReleaseEntity();
+//
+//                            if (hasValue(blueGreenDto.getHeader())) {
+//                                StrategyHeaderEntity strategyHeaderEntity = new StrategyHeaderEntity();
+//                                strategyHeaderEntity.setHeaderMap(toMap(blueGreenDto.getHeader()));
+//                                strategyReleaseEntity.setStrategyHeaderEntity(strategyHeaderEntity);
+//                            }
+//
+//                            ConditionAndRoute conditionAndRoute = toConditionAndRoute(blueGreenDto);
+//                            strategyReleaseEntity.setStrategyConditionBlueGreenEntityList(conditionAndRoute.getConditionBlueGreenEntityList());
+//                            strategyReleaseEntity.setStrategyRouteEntityList(conditionAndRoute.getStrategyRouteEntityList());
+//
+//                            if (hasValue(blueGreenDto.getBasicStrategy())) {
+//                                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
+//                                strategyConditionBlueGreenEntity.setId(PlatformConstant.BASIC_CONDITION);
+//
+//                                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
+//                                strategyRouteEntity.setId(PlatformConstant.BASIC_ROUTE);
+//
+//                                switch (Objects.requireNonNull(type)) {
+//                                    case VERSION:
+//                                        strategyConditionBlueGreenEntity.setVersionId(PlatformConstant.BASIC_ROUTE);
+//                                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
+//                                        break;
+//                                    case REGION:
+//                                        strategyConditionBlueGreenEntity.setRegionId(PlatformConstant.BASIC_ROUTE);
+//                                        strategyRouteEntity.setType(StrategyRouteType.REGION);
+//                                        break;
+//                                }
+//                                strategyRouteEntity.setValue(toServiceJson(blueGreenDto.getBasicStrategy()));
+//                                conditionAndRoute.getConditionBlueGreenEntityList().add(strategyConditionBlueGreenEntity);
+//                                conditionAndRoute.getStrategyRouteEntityList().add(strategyRouteEntity);
+//                            }
+//
+//                            ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
+//                            BlueGreenServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(blueGreenDto.getPortalType()), portalName, ruleEntity);
+//                        }
+//                        grayService.updatePublishFlag(portalName, false);
                     }
                 }
         );
@@ -148,30 +150,36 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
 
     @TransactionWriter
     @Override
-    public boolean insert(BlueGreenPo blueGreenPo) {
+    public boolean insert(StrategyPo strategyPo) {
+        RouteArrangeDto routeArrangeDto = routeArrangeService.getByRouteId(strategyPo.getBasicRouteId());
+        List<String> routeIdList = JsonUtil.fromJson(strategyPo.getRouteIds(), new TypeReference<List<String>>() {
+        });
+        routeStrategyService.save(strategyPo.getPortalName(), strategyPo.getPortalType(), routeIdList);
         BlueGreenDto blueGreenDto = prepareInsert(new BlueGreenDto());
-        blueGreenDto.setPortalName(blueGreenPo.getPortalName());
-        blueGreenDto.setPortalType(blueGreenPo.getPortalType());
-        blueGreenDto.setType(blueGreenPo.getType());
-        blueGreenDto.setBasicStrategy(blueGreenPo.getBasicStrategy());
-        blueGreenDto.setBlueGreenStrategy(blueGreenPo.getBlueGreenStrategy());
-        blueGreenDto.setHeader(blueGreenPo.getHeader());
-        blueGreenDto.setDescription(blueGreenPo.getDescription());
+        blueGreenDto.setPortalName(strategyPo.getPortalName());
+        blueGreenDto.setPortalType(strategyPo.getPortalType());
+        if (routeArrangeDto != null) {
+            blueGreenDto.setBasicStrategy(routeArrangeDto.getServiceArrange());
+        } else {
+            blueGreenDto.setBasicStrategy(StringUtils.EMPTY);
+        }
+        blueGreenDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
+        blueGreenDto.setHeader(strategyPo.getHeader());
+        blueGreenDto.setDescription(strategyPo.getDescription());
         return save(blueGreenDto);
     }
 
     @TransactionWriter
     @Override
-    public boolean update(BlueGreenPo blueGreenPo) {
-        BlueGreenDto blueGreenDto = prepareUpdate(this.getById(blueGreenPo.getId()));
+    public boolean update(StrategyPo strategyPo) {
+        BlueGreenDto blueGreenDto = prepareUpdate(this.getById(strategyPo.getId()));
         if (blueGreenDto == null) {
             return false;
         }
-        blueGreenDto.setType(blueGreenPo.getType());
-        blueGreenDto.setBasicStrategy(blueGreenPo.getBasicStrategy());
-        blueGreenDto.setBlueGreenStrategy(blueGreenPo.getBlueGreenStrategy());
-        blueGreenDto.setHeader(blueGreenPo.getHeader());
-        blueGreenDto.setDescription(blueGreenPo.getDescription());
+//        blueGreenDto.setBasicStrategy(strategyPo.getBasicStrategy());
+        blueGreenDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
+        blueGreenDto.setHeader(strategyPo.getHeader());
+        blueGreenDto.setDescription(strategyPo.getDescription());
         return updateById(blueGreenDto);
     }
 
@@ -216,55 +224,56 @@ public class BlueGreenServiceImpl extends PlatformPublishAdapter<BlueGreenMapper
     }
 
     private static ConditionAndRoute toConditionAndRoute(BlueGreenDto blueGreenDto) throws JsonProcessingException {
-        ConditionAndRoute conditionAndRoute = new ConditionAndRoute();
-        BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
-
-        if (StringUtils.isNotEmpty(blueGreenDto.getBlueGreenStrategy())) {
-            Map<String, ConditionAndRouteJson> conditionRouteMap = JsonUtil.fromJson(blueGreenDto.getBlueGreenStrategy(), new TypeReference<Map<String, ConditionAndRouteJson>>() {
-            });
-
-            List<StrategyConditionBlueGreenEntity> strategyConditionBlueGreenEntityList = new ArrayList<>();
-            List<StrategyRouteEntity> strategyRouteEntityList = new ArrayList<>();
-            conditionAndRoute.setConditionBlueGreenEntityList(strategyConditionBlueGreenEntityList);
-            conditionAndRoute.setStrategyRouteEntityList(strategyRouteEntityList);
-
-            int index = 0;
-            for (Map.Entry<String, ConditionAndRouteJson> pair : conditionRouteMap.entrySet()) {
-                List<Map<String, String>> conditionList = pair.getValue().getCondition();
-                List<Map<String, String>> routeList = pair.getValue().getRoute();
-
-                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
-                strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.CONDITION, index));
-
-                switch (Objects.requireNonNull(type)) {
-                    case VERSION:
-                        strategyConditionBlueGreenEntity.setVersionId(String.format(PlatformConstant.ROUTE, index));
-                        break;
-                    case REGION:
-                        strategyConditionBlueGreenEntity.setRegionId(String.format(PlatformConstant.ROUTE, index));
-                        break;
-                }
-                strategyConditionBlueGreenEntity.setExpression(conditionList.get(0).get(PlatformConstant.SPEL_CONDITION));
-                strategyConditionBlueGreenEntityList.add(strategyConditionBlueGreenEntity);
-
-                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
-                switch (Objects.requireNonNull(type)) {
-                    case VERSION:
-                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getVersionId());
-                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
-                        break;
-                    case REGION:
-                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getRegionId());
-                        strategyRouteEntity.setType(StrategyRouteType.REGION);
-                        break;
-                }
-                strategyRouteEntity.setValue(toServiceJson(JsonUtil.toJson(routeList)));
-                strategyRouteEntityList.add(strategyRouteEntity);
-
-                index++;
-            }
-        }
-        return conditionAndRoute;
+//        ConditionAndRoute conditionAndRoute = new ConditionAndRoute();
+//        BlueGreenDto.Type type = BlueGreenDto.Type.get(blueGreenDto.getType());
+//
+//        if (StringUtils.isNotEmpty(blueGreenDto.getBlueGreenStrategy())) {
+//            Map<String, ConditionAndRouteJson> conditionRouteMap = JsonUtil.fromJson(blueGreenDto.getBlueGreenStrategy(), new TypeReference<Map<String, ConditionAndRouteJson>>() {
+//            });
+//
+//            List<StrategyConditionBlueGreenEntity> strategyConditionBlueGreenEntityList = new ArrayList<>();
+//            List<StrategyRouteEntity> strategyRouteEntityList = new ArrayList<>();
+//            conditionAndRoute.setConditionBlueGreenEntityList(strategyConditionBlueGreenEntityList);
+//            conditionAndRoute.setStrategyRouteEntityList(strategyRouteEntityList);
+//
+//            int index = 0;
+//            for (Map.Entry<String, ConditionAndRouteJson> pair : conditionRouteMap.entrySet()) {
+//                List<Map<String, String>> conditionList = pair.getValue().getCondition();
+//                List<Map<String, String>> routeList = pair.getValue().getRoute();
+//
+//                StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
+//                strategyConditionBlueGreenEntity.setId(String.format(PlatformConstant.CONDITION, index));
+//
+//                switch (Objects.requireNonNull(type)) {
+//                    case VERSION:
+//                        strategyConditionBlueGreenEntity.setVersionId(String.format(PlatformConstant.ROUTE, index));
+//                        break;
+//                    case REGION:
+//                        strategyConditionBlueGreenEntity.setRegionId(String.format(PlatformConstant.ROUTE, index));
+//                        break;
+//                }
+//                strategyConditionBlueGreenEntity.setExpression(conditionList.get(0).get(PlatformConstant.SPEL_CONDITION));
+//                strategyConditionBlueGreenEntityList.add(strategyConditionBlueGreenEntity);
+//
+//                StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
+//                switch (Objects.requireNonNull(type)) {
+//                    case VERSION:
+//                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getVersionId());
+//                        strategyRouteEntity.setType(StrategyRouteType.VERSION);
+//                        break;
+//                    case REGION:
+//                        strategyRouteEntity.setId(conditionAndRoute.getConditionBlueGreenEntityList().get(index).getRegionId());
+//                        strategyRouteEntity.setType(StrategyRouteType.REGION);
+//                        break;
+//                }
+//                strategyRouteEntity.setValue(toServiceJson(JsonUtil.toJson(routeList)));
+//                strategyRouteEntityList.add(strategyRouteEntity);
+//
+//                index++;
+//            }
+//        }
+//        return conditionAndRoute;
+        return null;
     }
 
     private static class ConditionAndRoute {

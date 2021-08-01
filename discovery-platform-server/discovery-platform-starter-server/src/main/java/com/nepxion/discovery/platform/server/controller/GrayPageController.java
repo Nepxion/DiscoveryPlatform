@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
-import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
 import com.nepxion.discovery.platform.server.entity.dto.GrayDto;
 import com.nepxion.discovery.platform.server.service.GrayService;
 
@@ -36,10 +35,9 @@ public class GrayPageController {
     }
 
     @GetMapping("add")
-    public String add(Model model, @RequestParam("type") Integer type) throws Exception {
+    public String add(Model model) throws Exception {
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(type));
         return String.format("%s/%s", GrayController.PREFIX, "add");
     }
 
@@ -48,7 +46,6 @@ public class GrayPageController {
         GrayDto grayDto = grayService.getById(id);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("type", BlueGreenDto.Type.get(grayDto.getType()));
         model.addAttribute("entity", grayDto);
         return String.format("%s/%s", GrayController.PREFIX, "edit");
     }

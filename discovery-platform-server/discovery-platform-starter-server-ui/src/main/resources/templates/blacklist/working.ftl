@@ -68,23 +68,21 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("do-list-gateway-names", {}, function (data) {
-                    data = data.data;
-                    const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="">请选择网关名称</option>');
-                    $.each(data, function (key, val) {
-                        let option;
-                        if (chooseGatewayName == val) {
-                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                            chooseGatewayName = val;
-                        } else {
-                            option = $("<option>").val(val).text(val);
-                        }
-                        selGatewayName.append(option);
-                    });
-                    layui.form.render('select');
-                    reloadGrid();
+                const gatewayNames = admin.getGatewayName();
+                const selGatewayName = $("select[name=gatewayName]");
+                selGatewayName.html('<option value="">请选择网关名称</option>');
+                $.each(gatewayNames, function (key, val) {
+                    let option;
+                    if (chooseGatewayName == val) {
+                        option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                        chooseGatewayName = val;
+                    } else {
+                        option = $("<option>").val(val).text(val);
+                    }
+                    selGatewayName.append(option);
                 });
+                layui.form.render('select');
+                reloadGrid();
             });
 
             function reloadGrid() {

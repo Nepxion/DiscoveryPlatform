@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `sys_admin`
 (
-    `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT UNSIGNED                 NOT NULL COMMENT '主键',
     `login_mode`                INT UNSIGNED                    NOT NULL COMMENT '登录类型(1:database, 2:ldap)',
     `sys_role_id`               BIGINT UNSIGNED                 NOT NULL COMMENT '角色id(sys_role表的主键)',
     `username`                  VARCHAR(64)                     NOT NULL COMMENT '管理员的登陆用户名',
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `sys_admin`
 
 CREATE TABLE IF NOT EXISTS `sys_menu`
 (
-    `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT UNSIGNED                 NOT NULL COMMENT '主键',
     `name`                      VARCHAR(64)                     NOT NULL COMMENT '菜单名称',
     `url`                       VARCHAR(128)                    NOT NULL COMMENT '菜单的链接跳转地址',
     `show_flag`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '菜单是否出现在菜单栏',
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
 
 CREATE TABLE IF NOT EXISTS `sys_permission`
 (
-    `id`                         BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                         BIGINT UNSIGNED                 NOT NULL COMMENT '主键',
     `sys_role_id`                BIGINT UNSIGNED                 NOT NULL COMMENT 'sys_role的主键id',
     `sys_menu_id`                BIGINT UNSIGNED                 NOT NULL COMMENT 'sys_menu的主键id',
     `can_insert`                 TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否能新增(true:能, false:不能)',
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `sys_permission`
 
 CREATE TABLE IF NOT EXISTS `sys_role`
 (
-    `id`                        BIGINT UNSIGNED                 NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT UNSIGNED                 NOT NULL COMMENT '主键',
     `name`                      VARCHAR(64)                     NOT NULL COMMENT '角色名称',
     `super_admin`               TINYINT(1) UNSIGNED             NOT NULL COMMENT '是否是超级管理员(1:是, 0:否)',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '角色描述信息',
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `sys_role`
 
 CREATE TABLE IF NOT EXISTS `sys_dic`
 (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `name`                      VARCHAR(64)                     NOT NULL COMMENT '属性名称',
     `value`                     VARCHAR(128)                    NOT NULL COMMENT '属性值',
     `description`               VARCHAR(64)                     NOT NULL COMMENT '描述信息',
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `sys_dic`
 ) COMMENT ='字典信息';
 
 CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关)',
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `t_route_gateway`  (
 ) COMMENT = 'Gateway网关路由信息';
 
 CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `route_id`                  VARCHAR(64)                     NOT NULL COMMENT '路由id',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关)',
@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `t_route_zuul`  (
 ) COMMENT = 'Zuul网关路由信息';
 
 CREATE TABLE IF NOT EXISTS `t_blacklist`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
     `service_name`              VARCHAR(64)                     NOT NULL COMMENT '服务名称',
@@ -144,10 +144,9 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
 ) COMMENT = '实例摘除信息';
 
 CREATE TABLE IF NOT EXISTS `t_blue_green`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
-    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '蓝绿发布策略类型(1:版本策略, 2:区域策略)',
     `basic_strategy`            TEXT                            NOT NULL COMMENT '蓝绿兜底信息',
     `blue_green_strategy`       TEXT                            NOT NULL COMMENT '蓝绿策略信息',
     `header`                    TEXT                            NOT NULL COMMENT '蓝绿发布header请求头编排',
@@ -163,10 +162,9 @@ CREATE TABLE IF NOT EXISTS `t_blue_green`  (
 ) COMMENT = '蓝绿发布信息';
 
 CREATE TABLE IF NOT EXISTS `t_gray`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
-    `type`                      INT(0) UNSIGNED                 NOT NULL COMMENT '灰度发布策略类型(1:版本策略, 2:区域策略)',
     `basic_strategy`            TEXT                            NOT NULL COMMENT '灰度兜底信息',
     `gray_strategy`             TEXT                            NOT NULL COMMENT '灰度策略信息',
     `route_service`             TEXT                            NOT NULL COMMENT '灰度发布路由服务编排',
@@ -182,9 +180,8 @@ CREATE TABLE IF NOT EXISTS `t_gray`  (
     UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
 ) COMMENT = '灰度发布信息';
 
-
 CREATE TABLE `t_route_arrange`  (
-    `id`                        BIGINT(0) UNSIGNED              NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`                        BIGINT(0) UNSIGNED              NOT NULL COMMENT '主键',
     `route_id`                  VARCHAR(128)                    NOT NULL COMMENT '服务链路标识',
     `index`                     BIGINT(0) UNSIGNED              NOT NULL COMMENT '链路标识的下标索引',
     `strategy_type`             INT(0) UNSIGNED                 NOT NULL COMMENT '策略类型(1: 版本, 2:区域)',
@@ -200,6 +197,17 @@ CREATE TABLE `t_route_arrange`  (
     UNIQUE INDEX `idx_route_id`(`route_id`) USING BTREE
 ) COMMENT = '服务编排信息';
 
+CREATE TABLE `t_route_strategy`  (
+    `id`                        BIGINT(0)                       UNSIGNED NOT NULL COMMENT '主键',
+    `portal_name`               VARCHAR(128)                    NOT NULL COMMENT '网关/服务/组名称',
+    `portal_type`               INT(0) UNSIGNED                 NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
+    `route_id`                  VARCHAR(128)                    NOT NULL COMMENT '服务链路标识',
+    `create_time`               DATETIME(3) NOT                 NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `update_time`               DATETIME(3) NOT                 NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX `idx_portal_name_type`(`portal_name`, `portal_type`) USING BTREE,
+    INDEX `idx_route_id`(`route_id`) USING BTREE
+) COMMENT = '路由与蓝绿(或灰度)的映射关系';
 
 INSERT IGNORE INTO `sys_admin`(`id`, `login_mode`, `sys_role_id`, `username`, `password`, `name`, `phone_number`, `email`, `description`) VALUES (1, 1, 1, 'admin', 'ebc255e6a0c6711a4366bc99ebafb54f', '超级管理员', '18000000000', 'administrator@nepxion.com', '超级管理员');
 

@@ -20,10 +20,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "蓝绿路由信息")
-public class BlueGreenPo implements Serializable {
+@ApiModel(description = "蓝绿或灰度信息")
+public class StrategyPo implements Serializable {
     private static final long serialVersionUID = 7174491897001035436L;
-    @ApiModelProperty("蓝绿id")
+    @ApiModelProperty("蓝绿或灰度的唯一标识id")
     private Long id;
 
     @ApiModelProperty("入口类型")
@@ -32,11 +32,11 @@ public class BlueGreenPo implements Serializable {
     @ApiModelProperty("入口名称")
     private String portalName;
 
-    @ApiModelProperty("蓝绿发布策略类型(1:版本策略, 2:区域策略)")
-    private Integer type;
+    @ApiModelProperty("涉及到的所有链路编排标识")
+    private String routeIds;
 
-    @ApiModelProperty("兜底策略")
-    private String basicStrategy;
+    @ApiModelProperty("用于兜底的链路编排标识")
+    private String basicRouteId;
 
     @ApiModelProperty("蓝绿条件策略")
     private String blueGreenStrategy;
@@ -71,20 +71,20 @@ public class BlueGreenPo implements Serializable {
         this.portalName = portalName;
     }
 
-    public Integer getType() {
-        return type;
+    public String getRouteIds() {
+        return routeIds;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setRouteIds(String routeIds) {
+        this.routeIds = routeIds;
     }
 
-    public String getBasicStrategy() {
-        return basicStrategy;
+    public String getBasicRouteId() {
+        return basicRouteId;
     }
 
-    public void setBasicStrategy(String basicStrategy) {
-        this.basicStrategy = basicStrategy;
+    public void setBasicRouteId(String basicRouteId) {
+        this.basicRouteId = basicRouteId;
     }
 
     public String getBlueGreenStrategy() {

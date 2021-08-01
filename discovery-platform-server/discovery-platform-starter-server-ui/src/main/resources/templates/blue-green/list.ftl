@@ -81,15 +81,8 @@
                     <div class="layui-btn-container">
                         <@insert>
                             <div class="layui-btn-group">
-                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
-                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿
-                                </button>
-                            </div>
-                        </@insert>
-                        <@insert>
-                            <div class="layui-btn-group">
-                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addRegion">
-                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>区域</b>蓝绿
+                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="add">
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿
                                 </button>
                             </div>
                         </@insert>
@@ -157,7 +150,6 @@
                     {title: '状态', align: 'center', templet: '#colState', width: 80},
                     {title: '入口名称', templet: '#colPortalName', width: 300},
                     {title: '入口类型', align: 'center', templet: '#colPortalType', width: 150},
-                    {title: '策略类型', align: 'center', templet: '#colType', width: 150},
                     {field: 'description', title: '描述信息'}
                     <@select>
                     , {fixed: 'right', title: '操作', align: 'center', toolbar: '#grid-bar', width: 150}
@@ -176,10 +168,39 @@
             });
 
             table.on('toolbar(grid)', function (obj) {
-                if (obj.event === 'addVersion') {
-                    toAddPage(1);
-                } else if (obj.event === 'addRegion') {
-                    toAddPage(2);
+                if (obj.event === 'add') {
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增蓝绿',
+                        content: 'add',
+                        area: ['1045px', '98%'],
+                        btn: admin.BUTTONS,
+                        resize: false,
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                submit = layero.find('iframe').contents().find('#' + submitID),
+                                source = layero.find('iframe').contents().find('#callback');
+                            source.click();
+                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
+                                delete field['error'];
+                                delete field['logic'];
+                                delete field['operator'];
+                                admin.post('do-insert', field, function () {
+                                    table.reload('grid');
+                                    updateStatus(true);
+                                    layer.close(index);
+                                }, function (result) {
+                                    admin.error(admin.OPT_FAILURE, result.error);
+                                });
+                            });
+                            submit.trigger('click');
+                        }
+                    });
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
@@ -219,7 +240,43 @@
             table.on('tool(grid)', function (obj) {
                 const data = obj.data;
                 if (obj.event === 'edit') {
-                    toEditPage(data.id, data.type);
+                    layer.open({
+                        type: 2,
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿',
+                        content: 'edit?id=' + data.id,
+                        area: ['1045px', '98%'],
+                        btn: admin.BUTTONS,
+                        resize: false,
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                submit = layero.find('iframe').contents().find('#' + submitID),
+                                source = layero.find('iframe').contents().find('#callback');
+                            source.click();
+                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
+                                field['type'] = type;
+                                delete field['logic'];
+                                delete field['operator'];
+                                delete field['serviceName'];
+                                delete field['strategyServiceName'];
+                                delete field['strategyValue'];
+                                delete field['value'];
+                                delete field['ok'];
+                                admin.post('do-update', field, function () {
+                                    table.reload('grid');
+                                    updateStatus(true);
+                                    layer.close(index);
+                                }, function (result) {
+                                    admin.error(admin.OPT_FAILURE, result.error);
+                                });
+                            });
+                            submit.trigger('click');
+                        }
+                    });
                 } else if (obj.event === 'disable') {
                     layer.confirm('确定要禁用蓝绿发布吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
@@ -249,97 +306,6 @@
                 } else {
                     $("#btnPublish").addClass('layui-btn-disabled');
                 }
-            }
-
-            function toAddPage(type) {
-                let t = '';
-                if (type === 1) {
-                    t = '新增<b>版本</b>蓝绿';
-                } else if (type === 2) {
-                    t = '新增<b>区域</b>蓝绿';
-                }
-                layer.open({
-                    type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;' + t,
-                    content: 'add?type=' + type,
-                    area: ['1045px', '98%'],
-                    btn: admin.BUTTONS,
-                    resize: false,
-                    yes: function (index, layero) {
-                        const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                            submit = layero.find('iframe').contents().find('#' + submitID),
-                            source = layero.find('iframe').contents().find('#callback');
-                        source.click();
-                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            const field = data.field;
-                            if (field.error !== '') {
-                                admin.error('系统提示', field.error);
-                                return false;
-                            }
-                            field['type'] = type;
-                            delete field['logic'];
-                            delete field['operator'];
-                            delete field['serviceName'];
-                            delete field['strategyServiceName'];
-                            delete field['strategyValue'];
-                            delete field['value'];
-                            admin.post('do-insert', field, function () {
-                                table.reload('grid');
-                                updateStatus(true);
-                                layer.close(index);
-                            }, function (result) {
-                                admin.error(admin.OPT_FAILURE, result.error);
-                            });
-                        });
-                        submit.trigger('click');
-                    }
-                });
-            }
-
-            function toEditPage(id, type) {
-                let t = '';
-                if (type === 1) {
-                    t = '编辑<b>版本</b>蓝绿';
-                } else if (type === 2) {
-                    t = '编辑<b>区域</b>蓝绿';
-                }
-                layer.open({
-                    type: 2,
-                    title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;' + t,
-                    content: 'edit?id=' + id,
-                    area: ['1045px', '98%'],
-                    btn: admin.BUTTONS,
-                    resize: false,
-                    yes: function (index, layero) {
-                        const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                            submit = layero.find('iframe').contents().find('#' + submitID),
-                            source = layero.find('iframe').contents().find('#callback');
-                        source.click();
-                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                            const field = data.field;
-                            if (field.error !== '') {
-                                admin.error('系统提示', field.error);
-                                return false;
-                            }
-                            field['type'] = type;
-                            delete field['logic'];
-                            delete field['operator'];
-                            delete field['serviceName'];
-                            delete field['strategyServiceName'];
-                            delete field['strategyValue'];
-                            delete field['value'];
-                            delete field['ok'];
-                            admin.post('do-update', field, function () {
-                                table.reload('grid');
-                                updateStatus(true);
-                                layer.close(index);
-                            }, function (result) {
-                                admin.error(admin.OPT_FAILURE, result.error);
-                            });
-                        });
-                        submit.trigger('click');
-                    }
-                });
             }
         });
     </script>

@@ -300,9 +300,9 @@ layui.define(function (e) {
         return window.localStorage.removeItem(key);
     }
 
-    admin.getRoutes = function () {
+    admin.getRoutes = function (strategyType) {
         const set = new Set(), routeNameList = [];
-        admin.postQuiet(getContextPath() + '/common/do-list-route-names', {}, function (result) {
+        admin.postQuiet(getContextPath() + '/common/do-list-route-names', {'strategyType': strategyType}, function (result) {
             $.each(result.data, function (index, item) {
                 const name = $.trim(item);
                 if (!set.has(name)) {
@@ -367,6 +367,17 @@ layui.define(function (e) {
         } else if (strategyType == 2) {
             return 'region';
         }
+    }
+
+    admin.distinct = function (list) {
+        const result = [], set = new Set();
+        $.each(list, function (index, item) {
+            if (item && !set.has(item)) {
+                set.add(item);
+                result.push(item);
+            }
+        });
+        return result;
     }
 
     e("common", {});

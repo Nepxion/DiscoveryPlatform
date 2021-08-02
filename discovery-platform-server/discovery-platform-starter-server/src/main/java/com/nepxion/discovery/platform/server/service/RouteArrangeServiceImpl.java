@@ -49,8 +49,11 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
 
     @TransactionReader
     @Override
-    public List<RouteArrangeDto> list() {
+    public List<RouteArrangeDto> list(Integer strategyType) {
         LambdaQueryWrapper<RouteArrangeDto> queryWrapper = new LambdaQueryWrapper<>();
+        if (strategyType != null) {
+            queryWrapper.eq(RouteArrangeDto::getStrategyType, strategyType);
+        }
         queryWrapper.orderByAsc(RouteArrangeDto::getRouteId, RouteArrangeDto::getCreateTime);
         return list(queryWrapper);
     }

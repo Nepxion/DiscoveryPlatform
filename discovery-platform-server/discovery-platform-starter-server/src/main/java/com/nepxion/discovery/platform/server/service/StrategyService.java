@@ -14,14 +14,14 @@ import java.util.Collection;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
+import com.nepxion.discovery.platform.server.entity.dto.StrategyDto;
 import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.service.base.BasePublishService;
 
-public interface BlueGreenService extends BasePublishService<BlueGreenDto> {
+public interface StrategyService extends BasePublishService<StrategyDto> {
     void publish() throws Exception;
 
-    IPage<BlueGreenDto> page(String name, Integer page, Integer limit);
+    IPage<StrategyDto> page(String name, Integer page, Integer limit);
 
     boolean insert(StrategyPo strategyPo);
 

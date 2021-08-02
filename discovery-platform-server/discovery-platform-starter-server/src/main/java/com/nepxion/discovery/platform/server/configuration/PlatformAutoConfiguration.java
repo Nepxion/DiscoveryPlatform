@@ -28,8 +28,6 @@ import com.nepxion.discovery.platform.server.controller.AdminController;
 import com.nepxion.discovery.platform.server.controller.AdminPageController;
 import com.nepxion.discovery.platform.server.controller.BlacklistController;
 import com.nepxion.discovery.platform.server.controller.BlacklistPageController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenController;
-import com.nepxion.discovery.platform.server.controller.BlueGreenPageController;
 import com.nepxion.discovery.platform.server.controller.CommonController;
 import com.nepxion.discovery.platform.server.controller.ConsoleController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
@@ -51,6 +49,8 @@ import com.nepxion.discovery.platform.server.controller.RouteGatewayController;
 import com.nepxion.discovery.platform.server.controller.RouteGatewayPageController;
 import com.nepxion.discovery.platform.server.controller.RouteZuulController;
 import com.nepxion.discovery.platform.server.controller.RouteZuulPageController;
+import com.nepxion.discovery.platform.server.controller.StrategyController;
+import com.nepxion.discovery.platform.server.controller.StrategyPageController;
 import com.nepxion.discovery.platform.server.event.PlatformPublisher;
 import com.nepxion.discovery.platform.server.event.PlatformSubscriber;
 import com.nepxion.discovery.platform.server.mapper.AdminMapper;
@@ -61,8 +61,6 @@ import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.service.AdminServiceImpl;
 import com.nepxion.discovery.platform.server.service.BlacklistService;
 import com.nepxion.discovery.platform.server.service.BlacklistServiceImpl;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
-import com.nepxion.discovery.platform.server.service.BlueGreenServiceImpl;
 import com.nepxion.discovery.platform.server.service.ConsoleService;
 import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicService;
@@ -85,6 +83,8 @@ import com.nepxion.discovery.platform.server.service.RouteStrategyService;
 import com.nepxion.discovery.platform.server.service.RouteStrategyServiceImpl;
 import com.nepxion.discovery.platform.server.service.RouteZuulService;
 import com.nepxion.discovery.platform.server.service.RouteZuulServiceImpl;
+import com.nepxion.discovery.platform.server.service.StrategyService;
+import com.nepxion.discovery.platform.server.service.StrategyServiceImpl;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.eventbus.annotation.EnableEventBus;
 
@@ -175,8 +175,8 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public BlueGreenPageController blueGreenPageController() {
-        return new BlueGreenPageController();
+    public StrategyPageController strategyPageController() {
+        return new StrategyPageController();
     }
 
     @Bean
@@ -240,8 +240,8 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public BlueGreenController blueGreenController() {
-        return new BlueGreenController();
+    public StrategyController strategyController() {
+        return new StrategyController();
     }
 
     @Bean
@@ -312,8 +312,8 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public BlueGreenService blueGreenService() {
-        return new BlueGreenServiceImpl();
+    public StrategyService strategyServices() {
+        return new StrategyServiceImpl();
     }
 
     @Bean

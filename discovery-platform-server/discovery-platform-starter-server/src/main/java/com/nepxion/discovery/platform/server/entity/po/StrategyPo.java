@@ -26,11 +26,14 @@ public class StrategyPo implements Serializable {
     @ApiModelProperty("蓝绿或灰度的唯一标识id")
     private Long id;
 
-    @ApiModelProperty("入口类型")
-    private Integer portalType;
-
     @ApiModelProperty("入口名称")
     private String portalName;
+
+    @ApiModelProperty("入口类型(1: 网关, 2:服务, 3:组)")
+    private Integer portalType;
+
+    @ApiModelProperty("策略类型(1: 版本, 2: 区域)")
+    private Integer strategyType;
 
     @ApiModelProperty("涉及到的所有链路编排标识")
     private String routeIds;
@@ -55,6 +58,14 @@ public class StrategyPo implements Serializable {
         this.id = id;
     }
 
+    public String getPortalName() {
+        return portalName;
+    }
+
+    public void setPortalName(String portalName) {
+        this.portalName = portalName;
+    }
+
     public Integer getPortalType() {
         return portalType;
     }
@@ -63,12 +74,12 @@ public class StrategyPo implements Serializable {
         this.portalType = portalType;
     }
 
-    public String getPortalName() {
-        return portalName;
+    public Integer getStrategyType() {
+        return strategyType;
     }
 
-    public void setPortalName(String portalName) {
-        this.portalName = portalName;
+    public void setStrategyType(Integer strategyType) {
+        this.strategyType = strategyType;
     }
 
     public String getRouteIds() {

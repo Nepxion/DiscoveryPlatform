@@ -50,7 +50,7 @@
                 <script type="text/html" id="grid-route-bar">
                     <div class="layui-btn-group">
                         <@select>
-                            <a class="layui-btn layui-btn-sm" lay-event="refresh">
+                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh">
                                 <i class="layui-icon">&#xe669;</i>
                             </a>
                         </@select>
@@ -79,13 +79,14 @@
     <script type="text/javascript">
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
             const admin = layui.admin, $ = layui.$, form = layui.form, table = layui.table;
-            let rowCount = 0, metadataName = 'version';
+            let rowCount = 0, metadataName = 'version', strategyType = null;
             tableErrorHandler();
             const serviceArrange = ${((entity.serviceArrange!'')?length>0)?string((entity.serviceArrange!''),'[]')};
             setTimeout(function () {
                 metadataName = admin.getMetadataName(${entity.strategyType!'1'});
                 form.on('radio(strategyType)', function (data) {
                     let needUpdate = false;
+                    strategyType = data.value;
                     if (data.value == 1 && metadataName != 'version') {
                         metadataName = 'version';
                         needUpdate = true;
@@ -119,10 +120,16 @@
                     cols: [[
                         {type: 'numbers', title: '序号', unresize: true, width: 50},
                         {title: '服务名', field: 'serviceName', templet: '#templateServiceName', unresize: true},
-                        {title: '实例', field: 'serviceValue', templet: '#templateServiceValue', unresize: true},
+                        {title: '版本', field: 'serviceValue', templet: '#templateServiceValue', unresize: true},
                         {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 160}
                     ]],
-                    data: newServiceRow(serviceArrange)
+                    data: newServiceRow(serviceArrange),
+                    done: function () {
+                        if (strategyType == null) {
+                            strategyType = ${entity.strategyType!'1'};
+                        }
+                        toggleStrategyType(strategyType);
+                    }
                 });
 
                 table.on('tool(grid)', function (obj) {
@@ -224,6 +231,17 @@
                     table.reload(gridId, {'data': data});
                 } else {
                     table.reload(gridId);
+                }
+            }
+
+            function toggleStrategyType(strategyType) {
+                strategyType = parseInt(strategyType);
+                if (strategyType == 1) {
+                    $('th[data-field=serviceValue] > div.layui-table-cell > span').html('版本');
+                } else if (strategyType == 2) {
+                    $('th[data-field=serviceValue] > div.layui-table-cell > span').html('区域');
+                } else {
+                    $('th[data-field=serviceValue] > div.layui-table-cell > span').html('实例');
                 }
             }
 

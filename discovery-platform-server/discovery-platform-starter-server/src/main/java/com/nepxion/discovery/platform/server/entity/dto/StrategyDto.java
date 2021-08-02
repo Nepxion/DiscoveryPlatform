@@ -19,8 +19,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 
-@TableName(value = "`t_blue_green`")
-public class BlueGreenDto extends BaseStateEntity {
+@TableName(value = "`t_strategy`")
+public class StrategyDto extends BaseStateEntity {
     private static final long serialVersionUID = 7349466331174113582L;
 
     @TableField(value = "`portal_name`")
@@ -29,11 +29,20 @@ public class BlueGreenDto extends BaseStateEntity {
     @TableField(value = "`portal_type`")
     private Integer portalType;
 
+    @TableField(value = "`strategy_type`")
+    private Integer strategyType;
+
     @TableField(value = "`basic_blue_green_strategy_route_id`")
     private String basicBlueGreenStrategyRouteId;
 
     @TableField(value = "`blue_green_strategy`")
     private String blueGreenStrategy;
+
+    @TableField(value = "`basic_gray_strategy`")
+    private String basicGrayStrategy;
+
+    @TableField(value = "`gray_strategy`")
+    private String grayStrategy;
 
     @TableField(value = "`header`")
     private String header;
@@ -51,6 +60,14 @@ public class BlueGreenDto extends BaseStateEntity {
 
     public Integer getPortalType() {
         return portalType;
+    }
+
+    public Integer getStrategyType() {
+        return strategyType;
+    }
+
+    public void setStrategyType(Integer strategyType) {
+        this.strategyType = strategyType;
     }
 
     public void setPortalType(Integer portalType) {
@@ -71,6 +88,22 @@ public class BlueGreenDto extends BaseStateEntity {
 
     public void setBlueGreenStrategy(String blueGreenStrategy) {
         this.blueGreenStrategy = blueGreenStrategy;
+    }
+
+    public String getBasicGrayStrategy() {
+        return basicGrayStrategy;
+    }
+
+    public void setBasicGrayStrategy(String basicGrayStrategy) {
+        this.basicGrayStrategy = basicGrayStrategy;
+    }
+
+    public String getGrayStrategy() {
+        return grayStrategy;
+    }
+
+    public void setGrayStrategy(String grayStrategy) {
+        this.grayStrategy = grayStrategy;
     }
 
     public String getHeader() {

@@ -41,10 +41,9 @@ public class CommonController {
 
     @ApiOperation("获取所有链路编排的信息")
     @PostMapping("do-list-route-names")
-    public Result<List<String>> doListRouteNames() {
-        return Result.ok(routeArrangeService.list().stream().map(i -> i.getRouteId()).collect(Collectors.toList()));
+    public Result<List<String>> doListRouteNames(@RequestParam("strategyType") Integer strategyType) {
+        return Result.ok(routeArrangeService.list(strategyType).stream().map(i -> i.getRouteId()).collect(Collectors.toList()));
     }
-
 
     @ApiOperation("获取所有Spring Cloud Gateway网关名称")
     @PostMapping("do-list-gateway-names")

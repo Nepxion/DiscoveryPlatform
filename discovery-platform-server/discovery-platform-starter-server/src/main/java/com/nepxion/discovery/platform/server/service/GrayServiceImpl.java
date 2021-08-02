@@ -53,7 +53,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
     @Lazy
     @Autowired
-    private BlueGreenService blueGreenService;
+    private StrategyService blueGreenService;
 
     @Override
     public void publish() throws Exception {

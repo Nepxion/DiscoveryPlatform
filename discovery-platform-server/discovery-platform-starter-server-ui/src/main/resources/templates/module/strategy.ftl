@@ -1,3 +1,5 @@
+<#include "condition.ftl">
+<#include "rate.ftl">
 <#macro strategy>
     <#assign isUpdate=(entity.portalName!'')!=''>
     <div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
@@ -52,9 +54,19 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">条件策略</label>
                 <div class="layui-input-block">
-                    <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底蓝绿</a>
-                    <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加条件蓝绿</a>
-                    <a id="btnRemoveStrategy" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    <div class="layui-btn-group">
+                        <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底蓝绿</a>
+                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加条件蓝绿</a>
+                    </div>
+
+                    <div class="layui-btn-group">
+                        <a id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底灰度</a>
+                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加条件灰度</a>
+                    </div>
+
+                    <div class="layui-btn-group">
+                        <a id="btnRemoveStrategy" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                    </div>
                 </div>
             </div>
 
@@ -109,57 +121,8 @@
                     </div>
                 </div>
             </div>
-
             <div id="blueGreenTemplate" style="display: none">
-                <span class="layui-badge layui-bg-blue">条件设置</span>
-                <table class="layui-hide" id="gridCondition$_INDEX_$" lay-filter="gridCondition$_INDEX_$"></table>
-
-                <script type="text/html" id="tOperator$_INDEX_$">
-                    <select name='operator' lay-filter='operator' tag="$_INDEX_$">
-                        <#list operators as operator>
-                            <option value="${operator.value}" {{ d.operator=='${operator.value}' ?'selected="selected"' : '' }}>
-                            ${operator.value}
-                            </option>
-                        </#list>
-                    </select>
-                </script>
-
-                <script type="text/html" id="tLogic$_INDEX_$">
-                    <select name='logic' lay-filter='logic' tag="$_INDEX_$">
-                        <#list logics as logic>
-                            <option value="${logic.value}" {{ d.logic=='${logic.value}' ?'selected="selected"' : '' }}>
-                            ${logic.value}
-                            </option>
-                        </#list>
-                    </select>
-                </script>
-
-                <script type="text/html" id="grid-condition-bar">
-                    <@update>
-                        <div class="layui-btn-group">
-                            <a class="layui-btn layui-btn-sm" lay-event="addCondition">
-                                <i class="layui-icon">&#xe654;</i></a>
-                            <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeCondition">
-                                <i class="layui-icon">&#xe67e;</i></a>
-                        </div>
-                    </@update>
-                </script>
-
-                <div class="layui-row">
-                    <div class="layui-col-md9">
-                        <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
-                    </div>
-                    <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
-                        <div class="layui-btn-group">
-                            <button class="layui-btn layui-btn-sm" id="btnAssemble$_INDEX_$" tag="$_INDEX_$">
-                                <i class="layui-icon">&#xe674;</i>&nbsp;聚合条件
-                            </button>
-                            <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$" tag="$_INDEX_$">
-                                <i class="layui-icon">&#x1005;</i>&nbsp;校验条件
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <@condition gridId="gridBlueGreen"/>
 
                 <span class="layui-badge layui-bg-blue" style="margin-top:15px;">选择链路</span>
 
@@ -169,25 +132,42 @@
                         </select>
                     </div>
                     <div class="layui-col-md1">
-                        <a id="btnReloadRoute$_INDEX_$" tag="routeId$_INDEX_$" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <a id="btnReloadBlueGreenRoute$_INDEX_$" tag="routeId$_INDEX_$" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
                             <i class="layui-icon">&#xe669;</i>
                         </a>
                     </div>
                 </div>
             </div>
 
+            <div id="basicGrayTemplate" style="display: none">
+                <@rate gridId="gridBasicGrayRate"/>
+            </div>
+
+            <div id="grayTemplate" style="display: none">
+                <@condition gridId="gridGray"/>
+                <br/>
+                <@rate gridId="gridGrayRate"/>
+            </div>
+
             <input type="hidden" id="id" name="id" value="${entity.id!''}"/>
             <input type="hidden" id="error" name="error" value=""/>
+            <input type="hidden" id="strategyType" name="strategyType" value="${strategyType}"/>
             <input type="hidden" id="routeIds" name="routeIds" value=""/>
             <input type="hidden" id="basicBlueGreenStrategyRouteId" name="basicBlueGreenStrategyRouteId" value=""/>
             <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy" value=""/>
+            <input type="hidden" id="basicGrayStrategy" name="basicGrayStrategy" value=""/>
+            <input type="hidden" id="grayStrategy" name="grayStrategy" value=""/>
             <input type="hidden" id="header" name="header" value=""/>
         </div>
         <script>
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
-                    const TAB = 'tab', TAB_STRATEGY = 'tabStrategy', TAB_STRATEGY_BASIC_BLUE_GREEN = TAB_STRATEGY + 'BasicBlueGreen';
-                    let portalType = 1, tabIndex = 0, tabSelectTitle = '', tabSelect, headerCount = 0, blueGreenCount = 0;
+                    const TAB = 'tab', TAB_STRATEGY_BLUE_GREEN = 'tabStrategyBlueGreen', TAB_STRATEGY_GRAY = 'tabStrategyGray';
+                    const TAB_STRATEGY_BASIC_BLUE_GREEN = TAB_STRATEGY_BLUE_GREEN + 'BasicBlueGreen';
+                    const TAB_STRATEGY_BASIC_GRAY = TAB_STRATEGY_GRAY + 'Gray';
+                    let routeIds = [];
+                    let portalType = 1, tabIndex = 0, tabSelectTitle = '', tabSelect, headerCount = 0;
+                    let blueGreenCount = 0, basicGrayCount = 0, grayCount = 0;
                     const blueGreenStrategy = ${((entity.blueGreenStrategy!'')?length>0)?string((entity.blueGreenStrategy!''),'{}')};
                     const basicBlueGreenStrategyRouteId = '${((entity.basicBlueGreenStrategyRouteId!'')?length>0)?string((entity.basicBlueGreenStrategyRouteId!''),'')}';
                     const header = ${((entity.header!'')?length>0)?string((entity.header!''),'[]')};
@@ -211,11 +191,11 @@
                             addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                         } else {
-                            element.tabChange(TAB, TAB_STRATEGY + 1);
+                            element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + 1);
                         }
                         </#if>
 
-                    }, 50);
+                    }, 100);
 
                     form.on('radio(portalType)', function (opt) {
                         portalType = opt.value;
@@ -295,7 +275,17 @@
 
                     $('#btnAddBlueGreen').click(function () {
                         addTabBlueGreen();
-                        element.tabChange(TAB, TAB_STRATEGY + tabIndex);
+                        element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + tabIndex);
+                    });
+
+                    $('#btnAddBasicGray').click(function () {
+                        addTabBasicGray();
+                        element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                    });
+
+                    $('#btnAddGray').click(function () {
+                        addTabGray();
+                        element.tabChange(TAB, TAB_STRATEGY_GRAY + tabIndex);
                     });
 
                     $('#btnRemoveStrategy').click(function () {
@@ -313,10 +303,14 @@
                         return $('li[lay-id="' + TAB_STRATEGY_BASIC_BLUE_GREEN + '"]').size() > 0;
                     }
 
+                    function existBasicGray() {
+                        return $('li[lay-id="' + TAB_STRATEGY_BASIC_GRAY + '"]').size() > 0;
+                    }
+
                     function addTabBasicBlueGreen(data) {
                         if (existBasicBlueGreen()) {
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            admin.success('系统操作', '已存在兜底策略');
+                            admin.success('系统操作', '已存在蓝绿兜底策略');
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
@@ -332,7 +326,7 @@
 
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
-                        const tabTitleId = TAB_STRATEGY + tabIndex, tabContentId = 'tabContent' + tabIndex, gridCondition = 'gridCondition' + tabIndex, btnReloadRoute = 'btnReloadRoute' + tabIndex;
+                        const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
                         $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: blue">蓝绿策略<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
@@ -342,7 +336,7 @@
                             const spelConditionId = 'spelCondition' + index;
                             let spelExpress = '';
 
-                            const gd = table.cache[gridCondition];
+                            const gd = table.cache[gridBlueGreen];
                             $.each(gd, function (index, item) {
                                 if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
                                     spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
@@ -371,7 +365,7 @@
                             });
                         });
                         table.render({
-                            elem: '#' + gridCondition,
+                            elem: '#' + gridBlueGreen,
                             cellMinWidth: 80,
                             page: false,
                             limit: 99999999,
@@ -386,13 +380,13 @@
                                 {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
-                            data: newBlueGreenRow(condition)
+                            data: newConditionRow(condition)
                         });
-                        table.on('tool(' + gridCondition + ')', function (obj) {
-                            const gd = table.cache[gridCondition];
+                        table.on('tool(' + gridBlueGreen + ')', function (obj) {
+                            const gd = table.cache[gridBlueGreen];
                             if (obj.event === 'addCondition') {
-                                gd.push(newConditionRow());
-                                reload(gridCondition, gd);
+                                gd.push(newConditionRow()[0]);
+                                reload(gridBlueGreen, gd);
                                 $('div[class="layui-table-mend"]').remove();
                             } else if (obj.event === 'removeCondition') {
                                 if (gd.length > 1) {
@@ -401,20 +395,20 @@
                                             gd.remove(item);
                                         }
                                     });
-                                    reload(gridCondition, gd);
+                                    reload(gridBlueGreen, gd);
                                     $('div[class="layui-table-mend"]').remove();
                                     const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
                                     $('#btnAssemble' + tabIndex).click();
                                 }
                             }
                         });
-                        table.on('edit(' + gridCondition + ')', function (obj) {
+                        table.on('edit(' + gridBlueGreen + ')', function (obj) {
                             const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
                             $('#btnAssemble' + tabIndex).click();
                         });
                         form.on('select(operator)', function (obj) {
                             const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridCondition' + tabIndex;
+                            const gridId = 'gridBlueGreen' + tabIndex;
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
                             gd[dataIndex]['operator'] = obj.value;
@@ -423,25 +417,139 @@
                         });
                         form.on('select(logic)', function (obj) {
                             const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridCondition' + tabIndex;
+                            const gridId = 'gridBlueGreen' + tabIndex;
                             const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
                             const gd = table.cache[gridId];
                             gd[dataIndex]['logic'] = obj.value;
                             reload(gridId, gd);
                             $('#btnAssemble' + tabIndex).click();
                         });
-                        $('#' + btnReloadRoute).click(function () {
+                        $('#' + btnReloadBlueGreenRoute).click(function () {
                             bindRouteSelect($(this).attr('tag'), routeId);
                         });
-                        $('#' + btnReloadRoute).click();
+                        $('#' + btnReloadBlueGreenRoute).click();
                         $('#btnAssemble' + tabIndex).click();
+                    }
+
+                    function addTabBasicGray(data) {
+                        const gridId = 'gridBasicGrayRate';
+                        if (existBasicGray()) {
+                            element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                            admin.success('系统操作', '已存在灰度兜底策略');
+                            return;
+                        }
+                        const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
+                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: green">灰度兜底</span></li>');
+                        $('#tabContent').prepend('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
+                        element.render(TAB);
+
+                        table.render({
+                            elem: '#' + gridId,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', unresize: true, width: 50},
+                                {field: 'routeId', templet: '#templateRouteId', unresize: true, title: '路由名'},
+                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            ]],
+                            data: newRateRow()
+                        });
+
+                        table.on('tool(' + gridId + ')', function (obj) {
+                            const gd = table.cache[gridId];
+                            if (obj.event === 'addRoute') {
+                                gd.push(newRateRow()[0]);
+                                reload(gridId, gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeRoute') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload(gridId, gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                }
+                            } else if (obj.event === 'refreshRoute') {
+                                admin.loading(function () {
+                                    $.each(gd, function (index, item) {
+                                        if (item.index == obj.data.index) {
+                                            item['routeIdList'] = admin.getRoutes(${strategyType});
+                                            return;
+                                        }
+                                    });
+                                    reload(gridId, gd);
+                                });
+                            }
+                        });
+
+                        form.on('select(basicGrayRouteId)', function (obj) {
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['routeId'] = obj.value;
+                            reload(gridId, gd);
+                        });
+                    }
+
+                    function addTabGray(condition, routeId) {
+                        tabIndex++;
+                        const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
+                        const gridGray = 'gridGray' + tabIndex, btnReloadGrayRoute = 'btnReloadGrayRoute' + tabIndex;
+                        const gridGrayRate = 'gridGrayRate' + tabIndex;
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: green">灰度策略<b>' + tabIndex + '</b></span></li>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
+                        element.render(TAB);
+
+                        table.render({
+                            elem: '#' + gridGray,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', width: 50},
+                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
+                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
+                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
+                            ]],
+                            data: newConditionRow(condition)
+                        });
+
+                        table.render({
+                            elem: '#' + gridGrayRate,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', unresize: true, width: 50},
+                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名'},
+                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            ]],
+                            data: newRateRow()
+                        });
                     }
 
                     function bindRouteSelect(id, data) {
                         admin.loading(function () {
-                            let basicStrategyRouteId = '${entity.basicStrategyRouteId!'null'}';
+                            let basicStrategyRouteId = '${entity.basicStrategyRouteId!''}';
                             if (data) basicStrategyRouteId = data;
-                            const routeNames = admin.getRoutes();
+                            const routeNames = admin.getRoutes(${strategyType});
                             const sel = $('#' + id);
                             sel.html('<option value="">请选择链路编排标识</option>');
                             $.each(routeNames, function (key, val) {
@@ -457,7 +565,7 @@
                         });
                     }
 
-                    function newBlueGreenRow(data) {
+                    function newConditionRow(data) {
                         if (data) {
                             const result = [];
                             for (let i = 0; i < data.length; i++) {
@@ -523,6 +631,17 @@
                         }
                     }
 
+                    function newRateRow() {
+                        basicGrayCount++;
+                        const routeNames = admin.getRoutes(${strategyType});
+                        return [{
+                            'index': basicGrayCount,
+                            'routeId': '',
+                            'rate': '',
+                            'routeIdList': routeNames
+                        }];
+                    }
+
                     function reload(gridId, data) {
                         $.each(data, function (i, d) {
                             d.index = i;
@@ -535,30 +654,33 @@
                     }
 
                     $('#callback').click(function () {
+                        routeIds = [];
                         collectBasicBlueGreenStrategy();
                         collectBlueGreenStrategy();
+                        collectBasicGrayStrategy();
+                        collectGrayStrategy();
                         collectHeader();
+                        $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
                     });
 
                     function collectBasicBlueGreenStrategy() {
                         $('#basicBlueGreenStrategyRouteId').val('');
                         if (existBasicBlueGreen()) {
                             $('#basicBlueGreenStrategyRouteId').val($('#basicBlueGreenRouteId').val());
+                            routeIds.push($('#basicBlueGreenStrategyRouteId').val());
                         }
                     }
 
                     function collectBlueGreenStrategy() {
                         $('#blueGreenStrategy').val('');
-                        $('#routeIds').val('');
                         const all = {};
-                        const routeIds = [], routeIdSet = new Set();
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             if (tabIndex) {
                                 const _dataCondition = [], _setCondition = new Set();
-                                const gridCondition = 'gridCondition' + tabIndex;
+                                const gridBlueGreen = 'gridBlueGreen' + tabIndex;
                                 const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
-                                $.each(table.cache[gridCondition], function (index, item) {
+                                $.each(table.cache[gridBlueGreen], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
                                         const data = {
                                             'parameterName': item.parameterName,
@@ -588,17 +710,19 @@
                                         'condition': _dataCondition,
                                         'routeId': routeId
                                     };
-                                }
-
-                                if (routeId && !routeIdSet.has(routeId)) {
-                                    routeIdSet.add(routeId);
                                     routeIds.push(routeId);
                                 }
                             }
                         });
                         $('#blueGreenStrategy').val(JSON.stringify(all));
-                        routeIds.push($('#basicBlueGreenStrategyRouteId').val());
-                        $('#routeIds').val(JSON.stringify(routeIds));
+                    }
+
+                    function collectBasicGrayStrategy() {
+                        $('#basicGrayStrategy').val('');
+                    }
+
+                    function collectGrayStrategy() {
+                        $('#grayStrategy').val('');
                     }
 
                     function collectHeader() {

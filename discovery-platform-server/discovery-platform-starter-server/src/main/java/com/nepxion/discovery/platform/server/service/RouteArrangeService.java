@@ -30,7 +30,7 @@ public interface RouteArrangeService extends BasePublishService<RouteArrangeDto>
 
     Long getNextIndex();
 
-    List<RouteArrangeDto> list();
+    List<RouteArrangeDto> list(Integer strategyType);
 
     RouteArrangeDto getByRouteId(String routeId);
 }

@@ -10,9 +10,9 @@
         <div class="layui-card">
             <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
-                    <div class="layui-inline">蓝绿发布描述</div>
+                    <div class="layui-inline">蓝绿灰度描述</div>
                     <div class="layui-inline" style="width:500px">
-                        <input type="text" name="description" placeholder="请输入蓝绿发布描述" autocomplete="off" class="layui-input">
+                        <input type="text" name="description" placeholder="请输入蓝绿灰度描述" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-inline">
                         <button id="search" class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="search">
@@ -81,24 +81,31 @@
                     <div class="layui-btn-container">
                         <@insert>
                             <div class="layui-btn-group">
-                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="add">
-                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿
+                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿灰度(版本)
+                                </button>
+                                <button class="layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="addRegion">
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿灰度(区域)
                                 </button>
                             </div>
                         </@insert>
                         <@delete>
-                            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" style="margin-left: 10px">
-                                <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿
-                            </button>
+                            <div class="layui-btn-group">
+                                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" style="margin-left: 10px">
+                                    <i class="layui-icon layui-icon-delete"></i>&nbsp;&nbsp;删除蓝绿灰度
+                                </button>
+                            </div>
                         </@delete>
                         <@select>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
-                                <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿
-                            </button>
+                            <div class="layui-btn-group">
+                                <button class="layui-btn layui-btn-sm layui-btn-primary layuiadmin-btn-admin" lay-event="working">
+                                    <i class="layui-icon layui-icon-read"></i>&nbsp;&nbsp;查看正在工作的蓝绿灰度
+                                </button>
+                            </div>
                         </@select>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿灰度
                             </button>
                         </@update>
                     </div>
@@ -168,45 +175,14 @@
             });
 
             table.on('toolbar(grid)', function (obj) {
-                if (obj.event === 'add') {
-                    layer.open({
-                        type: 2,
-                        title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增蓝绿',
-                        content: 'add',
-                        area: ['1045px', '98%'],
-                        btn: admin.BUTTONS,
-                        resize: false,
-                        yes: function (index, layero) {
-                            const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                submit = layero.find('iframe').contents().find('#' + submitID),
-                                source = layero.find('iframe').contents().find('#callback');
-                            source.click();
-                            iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                const field = data.field;
-                                if (field.error !== '') {
-                                    admin.error('系统提示', field.error);
-                                    return false;
-                                }
-                                delete field['id'];
-                                delete field['error'];
-                                delete field['logic'];
-                                delete field['operator'];
-                                delete field['basicBlueGreenRouteId'];
-                                admin.post('do-insert', field, function () {
-                                    table.reload('grid');
-                                    updateStatus(true);
-                                    layer.close(index);
-                                }, function (result) {
-                                    admin.error(admin.OPT_FAILURE, result.error);
-                                });
-                            });
-                            submit.trigger('click');
-                        }
-                    });
+                if (obj.event === 'addVersion') {
+                    toAddPage(1);
+                } else if (obj.event === 'addRegion') {
+                    toAddPage(2);
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的蓝绿信息',
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的蓝绿灰度信息',
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
@@ -227,11 +203,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布蓝绿信息吗？', function (index) {
+                        layer.confirm('确定要发布蓝绿灰度信息吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '蓝绿信息发布成功, 已立即生效');
+                                admin.success('系统提示', '蓝绿灰度信息发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });
@@ -244,7 +220,7 @@
                 if (obj.event === 'edit') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿',
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿灰度',
                         content: 'edit?id=' + data.id,
                         area: ['1045px', '98%'],
                         btn: admin.BUTTONS,
@@ -275,7 +251,7 @@
                         }
                     });
                 } else if (obj.event === 'disable') {
-                    layer.confirm('确定要禁用蓝绿发布吗？', function (index) {
+                    layer.confirm('确定要禁用蓝绿灰度吗？', function (index) {
                         admin.post('do-disable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -285,7 +261,7 @@
                         });
                     });
                 } else if (obj.event === 'enable') {
-                    layer.confirm('确定要启用蓝绿发布吗？', function (index) {
+                    layer.confirm('确定要启用蓝绿灰度吗？', function (index) {
                         admin.post('do-enable', {"id": data.id}, function () {
                             table.reload('grid');
                             updateStatus(true);
@@ -296,6 +272,49 @@
                     });
                 }
             });
+
+            function toAddPage(strategyType) {
+                let title = '';
+                if (strategyType == 1) {
+                    title = '版本';
+                } else if (strategyType == 2) {
+                    title = '区域';
+                }
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增蓝绿灰度(<b>' + title + '</b>)',
+                    content: 'add?strategyType=' + strategyType,
+                    area: ['1045px', '98%'],
+                    btn: admin.BUTTONS,
+                    resize: false,
+                    yes: function (index, layero) {
+                        const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                            submit = layero.find('iframe').contents().find('#' + submitID),
+                            source = layero.find('iframe').contents().find('#callback');
+                        source.click();
+                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                            const field = data.field;
+                            if (field.error !== '') {
+                                admin.error('系统提示', field.error);
+                                return false;
+                            }
+                            delete field['id'];
+                            delete field['error'];
+                            delete field['logic'];
+                            delete field['operator'];
+                            delete field['basicBlueGreenRouteId'];
+                            admin.post('do-insert', field, function () {
+                                table.reload('grid');
+                                updateStatus(true);
+                                layer.close(index);
+                            }, function (result) {
+                                admin.error(admin.OPT_FAILURE, result.error);
+                            });
+                        });
+                        submit.trigger('click');
+                    }
+                });
+            }
 
             function updateStatus(needUpdate) {
                 if (needUpdate) {

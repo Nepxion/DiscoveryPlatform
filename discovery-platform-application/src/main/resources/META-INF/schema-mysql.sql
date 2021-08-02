@@ -143,13 +143,16 @@ CREATE TABLE IF NOT EXISTS `t_blacklist`  (
     INDEX `idx_service_name`(`service_name`) USING BTREE
 ) COMMENT = '实例摘除信息';
 
-CREATE TABLE IF NOT EXISTS `t_blue_green`  (
+CREATE TABLE IF NOT EXISTS `t_strategy`  (
     `id`                                        BIGINT(0) UNSIGNED                  NOT NULL COMMENT '主键',
     `portal_name`                               VARCHAR(128)                        NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`                               INT(0) UNSIGNED                     NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
+    `strategy_type`                             INT(0) UNSIGNED                     NOT NULL COMMENT '策略类型(1: 版本, 2: 区域)',
     `basic_blue_green_strategy_route_id`        VARCHAR(128)                        NOT NULL COMMENT '用于蓝绿兜底的链路编排标识',
     `blue_green_strategy`                       TEXT                                NOT NULL COMMENT '蓝绿策略信息',
-    `header`                                    TEXT                                NOT NULL COMMENT '蓝绿发布header请求头编排',
+    `basic_gray_strategy`                       TEXT                                NOT NULL COMMENT '灰度兜底信息',
+    `gray_strategy`                             TEXT                                NOT NULL COMMENT '灰度策略信息',
+    `header`                                    TEXT                                NOT NULL COMMENT 'header请求头编排',
     `description`                               VARCHAR(128)                        NOT NULL COMMENT '描述信息',
     `operation`                                 TINYINT(0) UNSIGNED                 NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
     `enable_flag`                               TINYINT(0) UNSIGNED                 NOT NULL COMMENT '是否启用',
@@ -159,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `t_blue_green`  (
     `update_time`                               DATETIME(3)                         NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
-) COMMENT = '蓝绿发布信息';
+) COMMENT = '蓝绿或灰度信息';
 
 CREATE TABLE IF NOT EXISTS `t_gray`  (
     `id`                                        BIGINT(0) UNSIGNED                  NOT NULL COMMENT '主键',
@@ -218,7 +221,7 @@ INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, 
 
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (20, '服务发布', '', b'1', b'0', b'0', 'layui-icon-release', 0, 2, '服务发布');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2001, '链路编排', '/route-arrange/list', b'1', b'0', b'0', '', 20, 1, '链路编排');
-INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2002, '蓝绿灰度', '/blue-green/list', b'1', b'0', b'0', '', 20, 2, '蓝绿灰度');
+INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2002, '蓝绿灰度', '/strategy/list', b'1', b'0', b'0', '', 20, 2, '蓝绿灰度');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2003, '灰度发布-待删除', '/gray/list', b'1', b'0', b'0', '', 20, 3, '灰度发布-待删除');
 INSERT IGNORE INTO `sys_menu`(`id`, `name`, `url`, `show_flag`, `default_flag`, `blank_flag`, `icon_class`, `parent_id`, `order`, `description`) VALUES (2004, '流量侦测', '/inspector/list', b'1', b'0', b'0', '', 20, 4, '流量侦测');
 

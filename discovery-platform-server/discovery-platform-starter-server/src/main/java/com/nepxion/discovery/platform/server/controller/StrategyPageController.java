@@ -20,51 +20,53 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
-import com.nepxion.discovery.platform.server.entity.dto.BlueGreenDto;
-import com.nepxion.discovery.platform.server.service.BlueGreenService;
+import com.nepxion.discovery.platform.server.entity.dto.StrategyDto;
 import com.nepxion.discovery.platform.server.service.RouteArrangeService;
+import com.nepxion.discovery.platform.server.service.StrategyService;
 
 @Controller
-@RequestMapping(BlueGreenController.PREFIX)
-public class BlueGreenPageController {
+@RequestMapping(StrategyController.PREFIX)
+public class StrategyPageController {
     @Autowired
-    private BlueGreenService blueGreenService;
+    private StrategyService blueGreenService;
     @Autowired
     private RouteArrangeService routeArrangeService;
 
     @GetMapping("list")
     public String list() {
-        return String.format("%s/%s", BlueGreenController.PREFIX, "list");
+        return String.format("%s/%s", StrategyController.PREFIX, "list");
     }
 
     @GetMapping("add")
-    public String add(Model model) throws Exception {
-        BlueGreenDto blueGreenDto = new BlueGreenDto();
-        blueGreenDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
+    public String add(Model model, @RequestParam("strategyType") Integer strategyType) throws Exception {
+        StrategyDto strategyDto = new StrategyDto();
+        strategyDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
+        model.addAttribute("strategyType", strategyType);
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("entity", blueGreenDto);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "add");
+        model.addAttribute("entity", strategyDto);
+        return String.format("%s/%s", StrategyController.PREFIX, "add");
     }
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        BlueGreenDto blueGreenDto = blueGreenService.getById(id);
+        StrategyDto strategyDto = blueGreenService.getById(id);
+        model.addAttribute("strategyType", strategyDto.getStrategyType());
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());
-        model.addAttribute("entity", blueGreenDto);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "edit");
+        model.addAttribute("entity", strategyDto);
+        return String.format("%s/%s", StrategyController.PREFIX, "edit");
     }
 
     @GetMapping("verify")
     public String verify(Model model, @RequestParam(name = "expression") String expression) {
         model.addAttribute("expression", expression);
-        return String.format("%s/%s", BlueGreenController.PREFIX, "verify");
+        return String.format("%s/%s", StrategyController.PREFIX, "verify");
     }
 
     @GetMapping("working")
     public String working(Model model) {
         model.addAttribute("portalTypes", BaseStateEntity.PortalType.values());
-        return String.format("%s/%s", BlueGreenController.PREFIX, "working");
+        return String.format("%s/%s", StrategyController.PREFIX, "working");
     }
 }

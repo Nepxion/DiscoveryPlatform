@@ -56,8 +56,8 @@ public class GrayController {
     @ApiOperation("获取灰度发布信息列表")
     @PostMapping("do-list")
     public Result<List<GrayDto>> doList(ListSearchNamePo listSearchNamePo) {
-        IPage<GrayDto> blueGreenDtoPage = grayService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
-        return Result.ok(blueGreenDtoPage.getRecords(), blueGreenDtoPage.getTotal());
+        IPage<GrayDto> grayDtoPage = grayService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
+        return Result.ok(grayDtoPage.getRecords(), grayDtoPage.getTotal());
     }
 
     @ApiOperation("通过服务名称获取所有该服务的信息")

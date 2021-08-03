@@ -183,7 +183,7 @@
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的灰度信息',
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的灰度',
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
@@ -204,11 +204,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布灰度信息吗？', function (index) {
+                        layer.confirm('确定要发布灰度吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '灰度信息发布成功, 已立即生效');
+                                admin.success('系统提示', '灰度发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });

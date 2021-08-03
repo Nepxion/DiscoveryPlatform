@@ -82,10 +82,10 @@
                         <@insert>
                             <div class="layui-btn-group">
                                 <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addVersion">
-                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿灰度(版本)
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>版本</b>蓝绿灰度
                                 </button>
-                                <button class="layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="addRegion">
-                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增蓝绿灰度(区域)
+                                <button class="layui-btn layui-btn-sm layuiadmin-btn-admin" lay-event="addRegion">
+                                    <i class="layui-icon layui-icon-add-1"></i>&nbsp;&nbsp;新增<b>区域</b>蓝绿灰度
                                 </button>
                             </div>
                         </@insert>
@@ -182,7 +182,7 @@
                 } else if (obj.event === 'working') {
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的蓝绿灰度信息',
+                        title: '<i class="layui-icon layui-icon-read"></i>&nbsp;查看正在工作的蓝绿灰度',
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
@@ -203,11 +203,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布蓝绿灰度信息吗？', function (index) {
+                        layer.confirm('确定要发布蓝绿灰度吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '蓝绿灰度信息发布成功, 已立即生效');
+                                admin.success('系统提示', '蓝绿灰度发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });
@@ -282,7 +282,7 @@
                 }
                 layer.open({
                     type: 2,
-                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增蓝绿灰度(<b>' + title + '</b>)',
+                    title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增<b>' + title + '</b>蓝绿灰度',
                     content: 'add?strategyType=' + strategyType,
                     area: ['1045px', '98%'],
                     btn: admin.BUTTONS,

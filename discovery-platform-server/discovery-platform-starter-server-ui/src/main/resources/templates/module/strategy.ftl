@@ -52,16 +52,16 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">条件策略</label>
+                <label class="layui-form-label">策略配置</label>
                 <div class="layui-input-block">
                     <div class="layui-btn-group">
-                        <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底蓝绿</a>
-                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加条件蓝绿</a>
+                        <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿兜底策略</a>
+                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿条件策略</a>
                     </div>
 
                     <div class="layui-btn-group">
-                        <a id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加兜底灰度</a>
-                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加条件灰度</a>
+                        <a id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度兜底策略</a>
+                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度条件策略</a>
                     </div>
 
                     <div class="layui-btn-group">
@@ -107,7 +107,7 @@
             <input id="callback" type="button" style="display: none"/>
 
             <div id="basicBlueGreenTemplate" style="display: none">
-                <span class="layui-badge layui-bg-blue">选择蓝绿兜底链路</span>
+                <span class="layui-badge layui-bg-blue">链路选取</span>
 
                 <div class="layui-row" style="margin-top: 10px;">
                     <div class="layui-col-md11">
@@ -124,7 +124,7 @@
             <div id="blueGreenTemplate" style="display: none">
                 <@condition gridId="gridBlueGreen"/>
 
-                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">选择链路</span>
+                <span class="layui-badge layui-bg-blue" style="margin-top:15px;">链路选取</span>
 
                 <div class="layui-row" style="margin-top: 10px;">
                     <div class="layui-col-md11">
@@ -314,7 +314,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
-                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: blue">蓝绿兜底</span></li>');
+                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿兜底</span></li>');
                         $('#tabContent').prepend('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
@@ -327,7 +327,7 @@
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: blue">蓝绿策略<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
@@ -439,7 +439,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
-                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: green">灰度兜底</span></li>');
+                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度兜底</span></li>');
                         $('#tabContent').prepend('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
@@ -503,7 +503,7 @@
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
                         const gridGray = 'gridGray' + tabIndex, btnReloadGrayRoute = 'btnReloadGrayRoute' + tabIndex;
                         const gridGrayRate = 'gridGrayRate' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: green">灰度策略<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);

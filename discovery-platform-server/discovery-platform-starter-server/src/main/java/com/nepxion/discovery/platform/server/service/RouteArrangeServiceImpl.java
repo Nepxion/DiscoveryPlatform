@@ -23,11 +23,11 @@ import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.mapper.RouteArrangeMapper;
 
 public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrangeMapper, RouteArrangeDto> implements RouteArrangeService {
-    private static final String PREFIX_ROUTE_ID = "route_";
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
@@ -83,7 +83,7 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
             routeArrangeDto.setServiceArrange(DiscoveryConstant.EMPTY_JSON_RULE_MULTIPLE);
         }
         routeArrangeDto.setIndex(getNextIndex());
-        routeArrangeDto.setRouteId(String.format("%s%s", PREFIX_ROUTE_ID, routeArrangeDto.getIndex()));
+        routeArrangeDto.setRouteId(String.format(PlatformConstant.ROUTE, routeArrangeDto.getIndex()));
         return save(routeArrangeDto);
     }
 }

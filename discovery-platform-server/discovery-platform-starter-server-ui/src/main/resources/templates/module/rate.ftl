@@ -3,7 +3,7 @@
     <table class="layui-hide" id="${gridId}$_INDEX_$" lay-filter="${gridId}$_INDEX_$"></table>
 
     <script type="text/html" id="templateRouteId$_INDEX_$">
-        <select name='basicGrayRouteId' lay-filter='basicGrayRouteId' lay-search>
+        <select name='grayRouteId$_INDEX_$' lay-filter='grayRouteId$_INDEX_$' lay-search>
             <option value="">请选择链路名称</option>
             {{# layui.each(d.routeIdList, function(index, item){ }}
             <option value="{{ item }}" {{ d.routeId==item ?

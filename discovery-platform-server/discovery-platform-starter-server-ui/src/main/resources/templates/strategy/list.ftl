@@ -303,6 +303,7 @@
                             delete field['logic'];
                             delete field['operator'];
                             delete field['basicBlueGreenRouteId'];
+                            delete field['grayRouteId'];
                             admin.post('do-insert', field, function () {
                                 table.reload('grid');
                                 updateStatus(true);

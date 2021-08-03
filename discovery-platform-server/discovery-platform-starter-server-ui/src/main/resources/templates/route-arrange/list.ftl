@@ -77,7 +77,7 @@
                         </@delete>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布链路
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿灰度
                             </button>
                         </@update>
                     </div>
@@ -223,11 +223,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布链路编排吗？', function (index) {
+                        layer.confirm('确定要发布蓝绿灰度吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '链路编排发布成功, 已立即生效');
+                                admin.success('系统提示', '蓝绿灰度发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });

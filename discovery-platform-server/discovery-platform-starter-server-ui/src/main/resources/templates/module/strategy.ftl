@@ -182,17 +182,21 @@
                         addTabBlueGreen();
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                         <#else>
+                        let hasBasicBlueGreen = false;
+                        if (basicBlueGreenStrategyRouteId != '') {
+                            addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
+                            hasBasicBlueGreen = true;
+                        }
+
                         for (const k in blueGreenStrategy) {
                             const condition = blueGreenStrategy[k].condition;
                             const routeId = blueGreenStrategy[k].routeId;
                             addTabBlueGreen(condition, routeId);
                         }
-                        if (basicBlueGreenStrategyRouteId != '') {
-                            addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
+                        if (hasBasicBlueGreen)
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                        } else {
+                        else
                             element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + 1);
-                        }
                         </#if>
 
                     }, 100);
@@ -314,8 +318,8 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
-                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿兜底</span></li>');
-                        $('#tabContent').prepend('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: blue">蓝绿兜底</span></li>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
                         $('#btnRefreshBlueGreenRouteId').click(function () {
@@ -327,222 +331,39 @@
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: blue">蓝绿条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
-                        $('#btnAssemble' + tabIndex).click(function () {
-                            const index = $(this).attr('tag');
-                            const spelConditionId = 'spelCondition' + index;
-                            let spelExpress = '';
-
-                            const gd = table.cache[gridBlueGreen];
-                            $.each(gd, function (index, item) {
-                                if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
-                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
-                                }
-                            });
-                            $('#' + spelConditionId).val($.trim(spelExpress.substring(0, spelExpress.length - 4)));
-                        });
-                        $('#btnVerify' + tabIndex).click(function () {
-                            const index = $(this).attr('tag');
-                            const spelConditionId = 'spelCondition' + index;
-                            layer.open({
-                                type: 2,
-                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
-                                content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
-                                area: ['645px', '235px'],
-                                btn: '关闭',
-                                resize: false,
-                                yes: function (index, layero) {
-                                    const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
-                                        submit = layero.find('iframe').contents().find('#' + submitID);
-                                    iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
-                                        layer.close(index);
-                                    });
-                                    submit.trigger('click');
-                                }
-                            });
-                        });
-                        table.render({
-                            elem: '#' + gridBlueGreen,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', width: 50},
-                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
-                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
-                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
-                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
-                            ]],
-                            data: newConditionRow(condition)
-                        });
-                        table.on('tool(' + gridBlueGreen + ')', function (obj) {
-                            const gd = table.cache[gridBlueGreen];
-                            if (obj.event === 'addCondition') {
-                                gd.push(newConditionRow()[0]);
-                                reload(gridBlueGreen, gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeCondition') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload(gridBlueGreen, gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                    const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
-                                    $('#btnAssemble' + tabIndex).click();
-                                }
-                            }
-                        });
-                        table.on('edit(' + gridBlueGreen + ')', function (obj) {
-                            const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
-                            $('#btnAssemble' + tabIndex).click();
-                        });
-                        form.on('select(operator)', function (obj) {
-                            const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridBlueGreen' + tabIndex;
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['operator'] = obj.value;
-                            reload(gridId, gd);
-                            $('#btnAssemble' + tabIndex).click();
-                        });
-                        form.on('select(logic)', function (obj) {
-                            const tabIndex = $(obj.elem).attr('tag');
-                            const gridId = 'gridBlueGreen' + tabIndex;
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['logic'] = obj.value;
-                            reload(gridId, gd);
-                            $('#btnAssemble' + tabIndex).click();
-                        });
+                        initConditionGrid('gridBlueGreen', tabIndex, condition);
                         $('#' + btnReloadBlueGreenRoute).click(function () {
                             bindRouteSelect($(this).attr('tag'), routeId);
-                        });
-                        $('#' + btnReloadBlueGreenRoute).click();
-                        $('#btnAssemble' + tabIndex).click();
+                        }).click();
                     }
 
                     function addTabBasicGray(data) {
-                        const gridId = 'gridBasicGrayRate';
                         if (existBasicGray()) {
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
                             admin.success('系统操作', '已存在灰度兜底策略');
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
-                        $('#tabTitle').prepend('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度兜底</span></li>');
-                        $('#tabContent').prepend('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: slategray">灰度兜底</span></li>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
-
-                        table.render({
-                            elem: '#' + gridId,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'routeId', templet: '#templateRouteId', unresize: true, title: '路由名'},
-                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
-                            ]],
-                            data: newRateRow()
-                        });
-
-                        table.on('tool(' + gridId + ')', function (obj) {
-                            const gd = table.cache[gridId];
-                            if (obj.event === 'addRoute') {
-                                gd.push(newRateRow()[0]);
-                                reload(gridId, gd);
-                                $('div[class="layui-table-mend"]').remove();
-                            } else if (obj.event === 'removeRoute') {
-                                if (gd.length > 1) {
-                                    $.each(gd, function (i, item) {
-                                        if (item && item.index == obj.data.index) {
-                                            gd.remove(item);
-                                        }
-                                    });
-                                    reload(gridId, gd);
-                                    $('div[class="layui-table-mend"]').remove();
-                                }
-                            } else if (obj.event === 'refreshRoute') {
-                                admin.loading(function () {
-                                    $.each(gd, function (index, item) {
-                                        if (item.index == obj.data.index) {
-                                            item['routeIdList'] = admin.getRoutes(${strategyType});
-                                            return;
-                                        }
-                                    });
-                                    reload(gridId, gd);
-                                });
-                            }
-                        });
-
-                        form.on('select(basicGrayRouteId)', function (obj) {
-                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
-                            const gd = table.cache[gridId];
-                            gd[dataIndex]['routeId'] = obj.value;
-                            reload(gridId, gd);
-                        });
+                        initRateGrid('gridBasicGrayRate', '');
                     }
 
-                    function addTabGray(condition, routeId) {
+                    function addTabGray(condition) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
-                        const gridGray = 'gridGray' + tabIndex, btnReloadGrayRoute = 'btnReloadGrayRoute' + tabIndex;
-                        const gridGrayRate = 'gridGrayRate' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: slategray">灰度条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
-
-                        table.render({
-                            elem: '#' + gridGray,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', width: 50},
-                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
-                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
-                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
-                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
-                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
-                            ]],
-                            data: newConditionRow(condition)
-                        });
-
-                        table.render({
-                            elem: '#' + gridGrayRate,
-                            cellMinWidth: 80,
-                            page: false,
-                            limit: 99999999,
-                            limits: [99999999],
-                            even: false,
-                            loading: false,
-                            cols: [[
-                                {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名'},
-                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
-                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
-                            ]],
-                            data: newRateRow()
-                        });
+                        initConditionGrid('gridGray', tabIndex, condition);
+                        initRateGrid('gridGrayRate', tabIndex);
                     }
 
                     function bindRouteSelect(id, data) {
@@ -653,6 +474,158 @@
                         }
                     }
 
+                    function initConditionGrid(prefixGridId, tabIndex, defaultCondition) {
+                        const gridId = prefixGridId + tabIndex;
+                        $('#btnAssemble' + tabIndex).click(function () {
+                            const index = $(this).attr('tag');
+                            const spelConditionId = 'spelCondition' + index;
+                            let spelExpress = '';
+
+                            const gd = table.cache[gridId];
+                            $.each(gd, function (index, item) {
+                                if (item.parameterName != '' && item.operator != '' && item.value != '' && item.logic != '') {
+                                    spelExpress = spelExpress + "#H['" + item.parameterName + "'] " + item.operator + " '" + item.value + "' " + (item.logic == undefined ? "" : item.logic) + " ";
+                                }
+                            });
+                            $('#' + spelConditionId).val($.trim(spelExpress.substring(0, spelExpress.length - 4)));
+                        });
+                        $('#btnVerify' + tabIndex).click(function () {
+                            const index = $(this).attr('tag');
+                            const spelConditionId = 'spelCondition' + index;
+                            layer.open({
+                                type: 2,
+                                title: '<i class="layui-icon layui-icon-ok-circle" style="color: #1E9FFF;"></i>&nbsp;校验条件',
+                                content: 'verify?expression=' + escape($('#' + spelConditionId).val()),
+                                area: ['645px', '235px'],
+                                btn: '关闭',
+                                resize: false,
+                                yes: function (index, layero) {
+                                    const iframeWindow = window['layui-layer-iframe' + index], submitID = 'btn_confirm',
+                                        submit = layero.find('iframe').contents().find('#' + submitID);
+                                    iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                                        layer.close(index);
+                                    });
+                                    submit.trigger('click');
+                                }
+                            });
+                        });
+                        table.render({
+                            elem: '#' + gridId,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', width: 50},
+                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
+                                {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
+                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
+                                {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
+                                {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
+                            ]],
+                            data: newConditionRow(defaultCondition)
+                        });
+                        table.on('tool(' + gridId + ')', function (obj) {
+                            const gd = table.cache[gridId];
+                            if (obj.event === 'addCondition') {
+                                gd.push(newConditionRow()[0]);
+                                reload(gridId, gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeCondition') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload(gridId, gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                    const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                                    $('#btnAssemble' + tabIndex).click();
+                                }
+                            }
+                        });
+                        table.on('edit(' + gridId + ')', function (obj) {
+                            const tabIndex = $(obj.tr).find('select[name="operator"]').attr('tag');
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        form.on('select(operator)', function (obj) {
+                            const tabIndex = $(obj.elem).attr('tag');
+                            const gridId = prefixGridId + tabIndex;
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['operator'] = obj.value;
+                            reload(gridId, gd);
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        form.on('select(logic)', function (obj) {
+                            const tabIndex = $(obj.elem).attr('tag');
+                            const gridId = prefixGridId + tabIndex;
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['logic'] = obj.value;
+                            reload(gridId, gd);
+                            $('#btnAssemble' + tabIndex).click();
+                        });
+                        $('#btnAssemble' + tabIndex).click();
+                    }
+
+                    function initRateGrid(prefixGridId, tabIndex) {
+                        const gridId = prefixGridId + tabIndex;
+                        table.render({
+                            elem: '#' + gridId,
+                            cellMinWidth: 80,
+                            page: false,
+                            limit: 99999999,
+                            limits: [99999999],
+                            even: false,
+                            loading: false,
+                            cols: [[
+                                {type: 'numbers', title: '序号', unresize: true, width: 50},
+                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名'},
+                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
+                                {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
+                            ]],
+                            data: newRateRow()
+                        });
+                        table.on('tool(' + gridId + ')', function (obj) {
+                            const gd = table.cache[gridId];
+                            if (obj.event === 'addRoute') {
+                                gd.push(newRateRow()[0]);
+                                reload(gridId, gd);
+                                $('div[class="layui-table-mend"]').remove();
+                            } else if (obj.event === 'removeRoute') {
+                                if (gd.length > 1) {
+                                    $.each(gd, function (i, item) {
+                                        if (item && item.index == obj.data.index) {
+                                            gd.remove(item);
+                                        }
+                                    });
+                                    reload(gridId, gd);
+                                    $('div[class="layui-table-mend"]').remove();
+                                }
+                            } else if (obj.event === 'refreshRoute') {
+                                admin.loading(function () {
+                                    $.each(gd, function (index, item) {
+                                        if (item.index == obj.data.index) {
+                                            item['routeIdList'] = admin.getRoutes(${strategyType});
+                                            return;
+                                        }
+                                    });
+                                    reload(gridId, gd);
+                                });
+                            }
+                        });
+                        form.on('select(grayRouteId' + tabIndex + ')', function (obj) {
+                            const dataIndex = $(obj.elem).parent().parent().parent().attr('data-index');
+                            const gd = table.cache[gridId];
+                            gd[dataIndex]['routeId'] = obj.value;
+                            reload(gridId, gd);
+                        });
+                    }
+
                     $('#callback').click(function () {
                         routeIds = [];
                         collectBasicBlueGreenStrategy();
@@ -696,7 +669,7 @@
                                         }
                                         $('#error').val('');
                                     } else if (item.parameterName + item.value != '') {
-                                        $('#error').val('蓝绿策略' + tabIndex + '的条件策略的参数名或值不允许为空');
+                                        $('#error').val('蓝绿条件' + tabIndex + '的参数名或值不允许为空');
                                         return false;
                                     }
                                 });
@@ -719,10 +692,67 @@
 
                     function collectBasicGrayStrategy() {
                         $('#basicGrayStrategy').val('');
+                        const all = [], set = new Set();
+                        $.each(table.cache['gridBasicGrayRate'], function (index, item) {
+                            const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
+                            if (!set.has(key)) {
+                                set.add(key);
+                                all.push(json);
+                            }
+                        });
+                        $('#basicGrayStrategy').val(JSON.stringify(all));
                     }
 
                     function collectGrayStrategy() {
                         $('#grayStrategy').val('');
+                        const all = {};
+                        $('#tabContent').find('.layui-tab-item').each(function () {
+                            const tabIndex = $(this).attr('tag');
+                            if (tabIndex) {
+                                const _dataCondition = [], _setCondition = new Set();
+                                const gridGray = 'gridGray' + tabIndex, gridGrayRate = 'gridGrayRate' + tabIndex;
+                                const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
+                                $.each(table.cache[gridGray], function (index, item) {
+                                    if (item.parameterName != '' && item.value != '') {
+                                        const data = {
+                                            'parameterName': item.parameterName,
+                                            'operator': item.operator,
+                                            'value': item.value,
+                                            'logic': item.logic,
+                                            'spelCondition': spelCondition
+                                        };
+                                        const dataStr = JSON.stringify(data);
+                                        if (!_setCondition.has(dataStr)) {
+                                            _setCondition.add(dataStr);
+                                            _dataCondition.push(data);
+                                        }
+                                        $('#error').val('');
+                                    } else if (item.parameterName + item.value != '') {
+                                        $('#error').val('灰度条件' + tabIndex + '的参数名或值不允许为空');
+                                        return false;
+                                    }
+                                });
+                                if ($('#error').val() !== '') {
+                                    return false;
+                                }
+                                const _rates = [], _setRates = new Set();
+                                $.each(table.cache[gridGrayRate], function (index, item) {
+                                    const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
+                                    routeIds.push(item.routeId);
+                                    if (!_setRates.has(key)) {
+                                        _setRates.add(key);
+                                        _rates.push(json);
+                                    }
+                                });
+                                if (_dataCondition.length > 0 || _rates.length > 0) {
+                                    all['cr' + tabIndex] = {
+                                        'condition': _dataCondition,
+                                        'rate': _rates
+                                    };
+                                }
+                            }
+                        });
+                        $('#grayStrategy').val(JSON.stringify(all));
                     }
 
                     function collectHeader() {

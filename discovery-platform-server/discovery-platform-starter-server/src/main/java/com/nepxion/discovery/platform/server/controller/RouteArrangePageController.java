@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nepxion.discovery.platform.server.constant.PlatformConstant;
 import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 
@@ -34,6 +35,7 @@ public class RouteArrangePageController {
     @GetMapping("add")
     public String add(Model model) throws Exception {
         RouteArrangeDto routeArrangeDto = new RouteArrangeDto();
+        routeArrangeDto.setRouteId(String.format(PlatformConstant.ROUTE, routeArrangeService.getNextIndex()));
         routeArrangeDto.setStrategyType(RouteArrangeDto.StrategyType.VERSION.getCode());
         model.addAttribute("entity", routeArrangeDto);
         return String.format("%s/%s", RouteArrangeController.PREFIX, "add");

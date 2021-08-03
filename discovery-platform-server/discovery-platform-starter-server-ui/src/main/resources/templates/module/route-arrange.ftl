@@ -44,7 +44,7 @@
 
                 <script type="text/html" id="templateServiceValue">
                     <select name='serviceValue' lay-filter='serviceValue' lay-search>
-                        <option value="">请选择${((metadataType!'')=='version')?string('版本号','区域')}</option>
+                        <option value="">请选择${((metadataType!'')=='version')?string('版本','区域')}</option>
                         {{# layui.each(d.serviceValueList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceValue==item ?
                         'selected="selected"' : '' }}>

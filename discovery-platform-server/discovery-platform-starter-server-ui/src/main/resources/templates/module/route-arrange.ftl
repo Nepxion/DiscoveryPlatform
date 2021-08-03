@@ -4,7 +4,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">描述信息</label>
             <div class="layui-input-inline" style="width: 1000px">
-                <input type="text" id="description" name="description" class="layui-input" placeholder="请输入该条链路编排的描述信息" autocomplete="off" value="${entity.description!''}">
+                <input type="text" id="description" name="description" class="layui-input" placeholder="请输入该条链路的描述信息" autocomplete="off" value="${entity.description!''}">
                 <input type="hidden" id="id" name="id" value="${entity.id!''}"/>
                 <input type="hidden" id="serviceArrange" name="serviceArrange"/>
             </div>

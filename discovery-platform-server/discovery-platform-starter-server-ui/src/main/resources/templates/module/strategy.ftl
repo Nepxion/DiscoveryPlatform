@@ -551,7 +551,7 @@
                             if (data) basicStrategyRouteId = data;
                             const routeNames = admin.getRoutes(${strategyType});
                             const sel = $('#' + id);
-                            sel.html('<option value="">请选择链路编排标识</option>');
+                            sel.html('<option value="">请选择链路名称</option>');
                             $.each(routeNames, function (key, val) {
                                 let option;
                                 if (basicStrategyRouteId == val) {

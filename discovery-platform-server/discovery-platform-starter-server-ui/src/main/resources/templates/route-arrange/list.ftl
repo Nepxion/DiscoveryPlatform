@@ -12,7 +12,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">链路描述</div>
                     <div class="layui-inline" style="width:500px">
-                        <input type="text" name="name" placeholder="请输入链路编排的描述信息" autocomplete="off" class="layui-input">
+                        <input type="text" name="name" placeholder="请输入链路的描述信息" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-inline">
                         <button id="search" class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="search">

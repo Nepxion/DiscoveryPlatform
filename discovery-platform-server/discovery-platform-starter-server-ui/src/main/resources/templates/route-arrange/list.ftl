@@ -77,7 +77,7 @@
                         </@delete>
                         <@update>
                             <button id="btnPublish" class="layui-btn-disabled layui-btn layui-btn-sm layui-btn-normal layuiadmin-btn-admin" lay-event="publish" style="margin-left: 50px">
-                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布蓝绿灰度
+                                <i class="layui-icon layui-icon-release"></i>&nbsp;&nbsp;发布链路
                             </button>
                         </@update>
                     </div>

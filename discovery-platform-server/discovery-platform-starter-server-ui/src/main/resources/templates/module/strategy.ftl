@@ -671,6 +671,10 @@
                         collectGrayStrategy();
                         collectHeader();
                         $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
+
+                        if ($('#basicBlueGreenStrategyRouteId').val() != '' && $('#basicGrayStrategy').val() != '') {
+                            $('#error').val('蓝绿兜底和灰度兜底只能同时存在一个');
+                        }
                     });
 
                     function collectBasicBlueGreenStrategy() {
@@ -816,7 +820,6 @@
                     }
                 }
             )
-            ;
         </script>
     </div>
 </#macro>

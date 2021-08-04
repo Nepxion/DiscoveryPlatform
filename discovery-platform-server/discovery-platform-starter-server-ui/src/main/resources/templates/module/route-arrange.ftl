@@ -44,7 +44,7 @@
 
                 <script type="text/html" id="templateServiceValue">
                     <select name='serviceValue' lay-filter='serviceValue' lay-search>
-                        <option value="">请选择${((metadataType!'')=='version')?string('版本','区域')}</option>
+                        <option value="">请选择版本</option>
                         {{# layui.each(d.serviceValueList, function(index, item){ }}
                         <option value="{{ item }}" {{ d.serviceValue==item ?
                         'selected="selected"' : '' }}>
@@ -245,10 +245,13 @@
                 strategyType = parseInt(strategyType);
                 if (strategyType == 1) {
                     $('th[data-field=serviceValue] > div.layui-table-cell > span').html('版本');
+                    $('td[data-field=serviceValue] > div.layui-table-cell input').attr('placeholder', '请选择版本');
                 } else if (strategyType == 2) {
                     $('th[data-field=serviceValue] > div.layui-table-cell > span').html('区域');
+                    $('td[data-field=serviceValue] > div.layui-table-cell input').attr('placeholder', '请选择区域');
                 } else {
                     $('th[data-field=serviceValue] > div.layui-table-cell > span').html('实例');
+                    $('td[data-field=serviceValue] > div.layui-table-cell input').attr('placeholder', '请选择实例');
                 }
             }
 

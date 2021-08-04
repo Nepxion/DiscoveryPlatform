@@ -33,8 +33,6 @@ import com.nepxion.discovery.platform.server.controller.ConsoleController;
 import com.nepxion.discovery.platform.server.controller.DashboardController;
 import com.nepxion.discovery.platform.server.controller.DashboardPageController;
 import com.nepxion.discovery.platform.server.controller.ErrorPageController;
-import com.nepxion.discovery.platform.server.controller.GrayController;
-import com.nepxion.discovery.platform.server.controller.GrayPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
 import com.nepxion.discovery.platform.server.controller.IndexPageController;
 import com.nepxion.discovery.platform.server.controller.MenuController;
@@ -180,11 +178,6 @@ public class PlatformAutoConfiguration {
     }
 
     @Bean
-    public GrayPageController grayPageController() {
-        return new GrayPageController();
-    }
-
-    @Bean
     public DashboardController dashboardController() {
         return new DashboardController();
     }
@@ -242,11 +235,6 @@ public class PlatformAutoConfiguration {
     @Bean
     public StrategyController strategyController() {
         return new StrategyController();
-    }
-
-    @Bean
-    public GrayController grayController() {
-        return new GrayController();
     }
 
     @Bean

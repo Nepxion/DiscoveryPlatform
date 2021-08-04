@@ -155,7 +155,7 @@
             }
 
             function newRow() {
-                getServiceNames();
+                const serviceNames= admin.getServiceName();
                 count++;
                 return {
                     'index': count,
@@ -164,7 +164,7 @@
                     'contents': [],
                     'uuid': '',
                     'address': '',
-                    'serviceNameList': serviceNameList
+                    'serviceNameList': serviceNames
                 };
             }
 

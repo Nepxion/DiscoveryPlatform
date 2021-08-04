@@ -44,6 +44,12 @@ public class StrategyPo implements Serializable {
     @ApiModelProperty("蓝绿条件策略")
     private String blueGreenStrategy;
 
+    @ApiModelProperty("用于灰度兜底的信息")
+    private String basicGrayStrategy;
+
+    @ApiModelProperty("灰度条件策略")
+    private String grayStrategy;
+
     @ApiModelProperty("描述信息")
     private String description;
 
@@ -104,6 +110,22 @@ public class StrategyPo implements Serializable {
 
     public void setBlueGreenStrategy(String blueGreenStrategy) {
         this.blueGreenStrategy = blueGreenStrategy;
+    }
+
+    public String getBasicGrayStrategy() {
+        return basicGrayStrategy;
+    }
+
+    public void setBasicGrayStrategy(String basicGrayStrategy) {
+        this.basicGrayStrategy = basicGrayStrategy;
+    }
+
+    public String getGrayStrategy() {
+        return grayStrategy;
+    }
+
+    public void setGrayStrategy(String grayStrategy) {
+        this.grayStrategy = grayStrategy;
     }
 
     public String getDescription() {

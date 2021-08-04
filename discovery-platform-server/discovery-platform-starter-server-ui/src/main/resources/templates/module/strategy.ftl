@@ -167,7 +167,9 @@
                     const TAB_STRATEGY_BASIC_GRAY = TAB_STRATEGY_GRAY + 'Gray';
                     let routeIds = [];
                     let portalType = 1, tabIndex = 0, tabSelectTitle = '', tabSelect, headerCount = 0;
-                    let blueGreenCount = 0, basicGrayCount = 0, grayCount = 0;
+                    let conditionCount = 0, rateCount = 0;
+                    const basicGrayStrategy = ${((entity.basicGrayStrategy!'')?length>0)?string((entity.basicGrayStrategy!''),'[]')};
+                    const grayStrategy = ${((entity.grayStrategy!'')?length>0)?string((entity.grayStrategy!''),'{}')};
                     const blueGreenStrategy = ${((entity.blueGreenStrategy!'')?length>0)?string((entity.blueGreenStrategy!''),'{}')};
                     const basicBlueGreenStrategyRouteId = '${((entity.basicBlueGreenStrategyRouteId!'')?length>0)?string((entity.basicBlueGreenStrategyRouteId!''),'')}';
                     const header = ${((entity.header!'')?length>0)?string((entity.header!''),'[]')};
@@ -187,18 +189,22 @@
                             addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
                             hasBasicBlueGreen = true;
                         }
-
                         for (const k in blueGreenStrategy) {
                             const condition = blueGreenStrategy[k].condition;
                             const routeId = blueGreenStrategy[k].routeId;
                             addTabBlueGreen(condition, routeId);
                         }
+
+                        addTabBasicGray(basicGrayStrategy);
+                        for (const k in grayStrategy) {
+                            addTabGray(grayStrategy[k].condition, grayStrategy[k].rate);
+                        }
+
                         if (hasBasicBlueGreen)
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                         else
                             element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + 1);
                         </#if>
-
                     }, 100);
 
                     form.on('radio(portalType)', function (opt) {
@@ -296,10 +302,17 @@
                         if ($('#tabContent > div').size() < 1) {
                             admin.error("系统提示", "删除策略失败, 条件策略已空");
                             return;
+                        } else if (tabSelectTitle.length < 50 || tabSelectTitle == '') {
+                            admin.error("系统提示", "请先选中要删除的选项卡");
+                            return;
                         }
+
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
+                            if ($('#tabContent').find('.layui-tab-item').size() < 1) {
+                                tabSelectTitle = '';
+                            }
                         });
                     });
 
@@ -352,10 +365,10 @@
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
-                        initRateGrid('gridBasicGrayRate', '');
+                        initRateGrid('gridBasicGrayRate', '', data);
                     }
 
-                    function addTabGray(condition) {
+                    function addTabGray(condition, rate) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
                         $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="22" height="22" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度条件<b>' + tabIndex + '</b></span></li>');
@@ -363,7 +376,7 @@
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
                         initConditionGrid('gridGray', tabIndex, condition);
-                        initRateGrid('gridGrayRate', tabIndex);
+                        initRateGrid('gridGrayRate', tabIndex, rate);
                     }
 
                     function bindRouteSelect(id, data) {
@@ -387,80 +400,104 @@
                     }
 
                     function newConditionRow(data) {
+                        const result = [];
                         if (data) {
-                            const result = [];
                             for (let i = 0; i < data.length; i++) {
-                                blueGreenCount++;
-                                return [{
-                                    'index': blueGreenCount,
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
                                     'parameterName': data[i].parameterName,
                                     'operator': data[i].operator,
                                     'value': data[i].value,
                                     'logic': data[i].logic
-                                }];
+                                });
                             }
                             if (result.length < 1) {
-                                blueGreenCount++;
-                                return [{
-                                    'index': blueGreenCount,
+                                conditionCount++;
+                                result.push({
+                                    'index': conditionCount,
                                     'parameterName': '',
                                     'operator': '==',
                                     'value': '',
                                     'logic': 'and'
-                                }];
+                                });
                             }
-                            return result;
                         } else {
-                            blueGreenCount++;
-                            return [{
-                                'index': blueGreenCount,
+                            conditionCount++;
+                            result.push({
+                                'index': conditionCount,
                                 'parameterName': '',
                                 'operator': '==',
                                 'value': '',
                                 'logic': 'and'
-                            }];
+                            });
                         }
+                        return result;
                     }
 
                     function newHeaderRow(data) {
+                        const result = [];
                         if (data) {
-                            const result = [];
                             for (let i = 0; i < data.length; i++) {
                                 headerCount++;
-                                return [{
+                                result.push({
                                     'index': headerCount,
                                     'headerName': data[i].headerName,
                                     'value': data[i].value
-                                }];
+                                });
                             }
                             if (result.length < 1) {
                                 headerCount++;
-                                return [{
+                                result.push({
                                     'index': headerCount,
                                     'headerName': '',
                                     'value': ''
-                                }];
+                                });
                             }
-                            return result;
                         } else {
                             headerCount++;
-                            return [{
+                            result.push({
                                 'index': headerCount,
                                 'headerName': '',
                                 'value': ''
-                            }];
+                            });
                         }
+                        return result;
                     }
 
-                    function newRateRow() {
-                        basicGrayCount++;
+                    function newRateRow(data) {
+                        const result = [];
                         const routeNames = admin.getRoutes(${strategyType});
-                        return [{
-                            'index': basicGrayCount,
-                            'routeId': '',
-                            'rate': '',
-                            'routeIdList': routeNames
-                        }];
+                        if (data) {
+                            for (let i = 0; i < data.length; i++) {
+                                rateCount++;
+                                result.push({
+                                    'index': rateCount,
+                                    'routeId': data[i].routeId,
+                                    'rate': data[i].rate,
+                                    'routeIdList': routeNames
+                                });
+                            }
+                            if (result.length < 1) {
+                                rateCount++;
+                                result.push({
+                                    'index': rateCount,
+                                    'routeId': '',
+                                    'rate': '',
+                                    'routeIdList': routeNames
+                                });
+                            }
+                            return result;
+                        } else {
+                            rateCount++;
+                            result.push({
+                                'index': rateCount,
+                                'routeId': '',
+                                'rate': '',
+                                'routeIdList': routeNames
+                            });
+                        }
+                        return result;
                     }
 
                     function reload(gridId, data) {
@@ -572,7 +609,7 @@
                         $('#btnAssemble' + tabIndex).click();
                     }
 
-                    function initRateGrid(prefixGridId, tabIndex) {
+                    function initRateGrid(prefixGridId, tabIndex, defaultRate) {
                         const gridId = prefixGridId + tabIndex;
                         table.render({
                             elem: '#' + gridId,
@@ -588,7 +625,7 @@
                                 {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
-                            data: newRateRow()
+                            data: newRateRow(defaultRate)
                         });
                         table.on('tool(' + gridId + ')', function (obj) {
                             const gd = table.cache[gridId];
@@ -778,7 +815,8 @@
                         $('#header').val(JSON.stringify(dataHeader));
                     }
                 }
-            );
+            )
+            ;
         </script>
     </div>
 </#macro>

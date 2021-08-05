@@ -57,7 +57,7 @@
                 <script type="text/html" id="grid-route-bar">
                     <div class="layui-btn-group">
                         <@select>
-                            <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh">
+                            <a class="layui-btn layui-btn-sm" lay-event="refresh">
                                 <i class="layui-icon">&#xe669;</i>
                             </a>
                         </@select>

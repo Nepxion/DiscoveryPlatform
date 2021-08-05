@@ -222,7 +222,7 @@
                         type: 2,
                         title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿灰度',
                         content: 'edit?id=' + data.id,
-                        area: ['1045px', '98%'],
+                        area: ['1095px', '98%'],
                         btn: admin.BUTTONS,
                         resize: false,
                         yes: function (index, layero) {
@@ -284,7 +284,7 @@
                     type: 2,
                     title: '<i class="layui-icon layui-icon-add-1" style="color: #009688;"></i>&nbsp;新增<b>' + title + '</b>蓝绿灰度',
                     content: 'add?strategyType=' + strategyType,
-                    area: ['1045px', '98%'],
+                    area: ['1095px', '98%'],
                     btn: admin.BUTTONS,
                     resize: false,
                     yes: function (index, layero) {

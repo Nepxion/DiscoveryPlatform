@@ -15,7 +15,7 @@
                 </div>
 
                 <label class="layui-form-label">入口名称</label>
-                <div class="layui-input-inline" style="width: 850px">
+                <div class="layui-input-inline" style="width: 900px">
                     <div class="layui-row">
                         <div class="layui-col-md11">
                             <select id="portalName" name="portalName" lay-filter="portalName" lay-verify="required" lay-search>
@@ -31,14 +31,14 @@
             <#else>
                 <div class="layui-form-item">
                     <label class="layui-form-label">入口类型</label>
-                    <div class="layui-input-inline" style="width: 850px">
+                    <div class="layui-input-inline" style="width: 900px">
                         <input type="text" readonly="readonly" class="layui-input layui-disabled" value="<#if entity.portalType==1>网关<#elseif entity.portalType==2>服务<#elseif entity.portalType==3>组</#if>">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="margin-top: 15px">入口名称</label>
-                    <div class="layui-input-inline" style="width: 850px;margin-top: 15px">
+                    <div class="layui-input-inline" style="width: 900px;margin-top: 15px">
                         <input type="text" name="portalName" class="layui-input layui-disabled" readonly="readonly" value="${entity.portalName!''}">
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label" style="margin-top: 15px">描述信息</label>
-                <div class="layui-input-inline" style="width: 850px;margin-top: 15px">
+                <div class="layui-input-inline" style="width: 900px;margin-top: 15px">
                     <input type="text" name="description" class="layui-input" placeholder="请输入描述信息" autocomplete="off" value="${entity.description!''}">
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
             <div class="layui-form-item" style="margin-top:-25px">
                 <label class="layui-form-label"></label>
-                <div class="layui-input-block" style="width: 850px">
+                <div class="layui-input-block" style="width: 900px">
                     <div class="layui-tab layui-tab-brief" lay-filter="tab">
                         <ul id="tabTitle" class="layui-tab-title">
                         </ul>
@@ -84,7 +84,7 @@
 
             <div class="layui-form-item" style="margin-top:-25px">
                 <label class="layui-form-label">内置参数</label>
-                <div class="layui-input-block" style="width: 850px">
+                <div class="layui-input-block" style="width: 900px">
                     <table class="layui-hide" id="gridHeader" lay-filter="gridHeader"></table>
 
                     <script type="text/html" id="grid-header-bar">
@@ -556,9 +556,9 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', width: 50},
-                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 242},
+                                {field: 'parameterName', title: '参数名', unresize: true, edit: 'text', width: 267},
                                 {title: '运算符', templet: '#tOperator' + tabIndex, unresize: true, width: 100},
-                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 242},
+                                {field: 'value', title: '值', edit: 'text', unresize: true, width: 267},
                                 {title: '关系符', templet: '#tLogic' + tabIndex, unresize: true, width: 100},
                                 {title: '操作', align: 'center', toolbar: '#grid-condition-bar', unresize: true, width: 110}
                             ]],
@@ -621,8 +621,8 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名'},
-                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true},
+                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名', width: 348},
+                                {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true, width: 348},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
                             data: newRateRow(defaultRate)

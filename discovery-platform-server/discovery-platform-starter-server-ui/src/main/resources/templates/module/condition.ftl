@@ -34,16 +34,16 @@
     </script>
 
     <div class="layui-row">
-        <div class="layui-col-md9">
+        <div class="layui-col-md10">
             <input type="text" id="spelCondition$_INDEX_$" class="layui-input" placeholder="聚合条件表达式或者自定义条件表达式" autocomplete="off">
         </div>
-        <div class="layui-col-md3" style="text-align:center;margin-top: 3px;">
+        <div class="layui-col-md2" style="text-align:center;margin-top: 3px;">
             <div class="layui-btn-group">
                 <button class="layui-btn layui-btn-sm" id="btnAssemble$_INDEX_$" tag="$_INDEX_$">
-                    <i class="layui-icon">&#xe674;</i>&nbsp;聚合条件
+                    <i class="layui-icon">&#xe674;</i>&nbsp;聚合
                 </button>
                 <button class="layui-btn layui-btn-sm layui-btn-normal" id="btnVerify$_INDEX_$" tag="$_INDEX_$">
-                    <i class="layui-icon">&#x1005;</i>&nbsp;校验条件
+                    <i class="layui-icon">&#x1005;</i>&nbsp;校验
                 </button>
             </div>
         </div>

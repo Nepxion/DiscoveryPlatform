@@ -109,7 +109,7 @@
             <div id="basicBlueGreenTemplate" style="display: none">
                 <span class="layui-badge layui-bg-blue">链路选取</span>
 
-                <div class="layui-row" style="margin-top: 10px;">
+                <div class="layui-row" style="margin-top: 10px;margin-bottom: 10px;">
                     <div class="layui-col-md11">
                         <select id="basicBlueGreenRouteId" name="basicBlueGreenRouteId" autocomplete="off" class="layui-select" lay-search>
                         </select>
@@ -126,7 +126,7 @@
 
                 <span class="layui-badge layui-bg-blue" style="margin-top:15px;">链路选取</span>
 
-                <div class="layui-row" style="margin-top: 10px;">
+                <div class="layui-row" style="margin-top: 10px;margin-bottom: 10px;">
                     <div class="layui-col-md11">
                         <select id="routeId$_INDEX_$" autocomplete="off" class="layui-select" lay-search>
                         </select>

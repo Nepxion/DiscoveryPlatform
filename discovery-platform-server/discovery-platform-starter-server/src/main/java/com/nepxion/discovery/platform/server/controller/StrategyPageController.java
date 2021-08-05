@@ -28,7 +28,7 @@ import com.nepxion.discovery.platform.server.service.StrategyService;
 @RequestMapping(StrategyController.PREFIX)
 public class StrategyPageController {
     @Autowired
-    private StrategyService blueGreenService;
+    private StrategyService strategyService;
     @Autowired
     private RouteArrangeService routeArrangeService;
 
@@ -50,7 +50,7 @@ public class StrategyPageController {
 
     @GetMapping("edit")
     public String edit(Model model, @RequestParam(name = "id") Long id) {
-        StrategyDto strategyDto = blueGreenService.getById(id);
+        StrategyDto strategyDto = strategyService.getById(id);
         model.addAttribute("strategyType", strategyDto.getStrategyType());
         model.addAttribute("operators", ArithmeticType.values());
         model.addAttribute("logics", RelationalType.values());

@@ -47,7 +47,7 @@ import io.swagger.annotations.ApiOperation;
 public class StrategyController {
     public static final String PREFIX = "strategy";
     @Autowired
-    protected StrategyService blueGreenService;
+    protected StrategyService strategyService;
     @Autowired
     protected PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
@@ -81,7 +81,7 @@ public class StrategyController {
         }
         if (excludeDb) {
             boolean flag = result.contains(portalName);
-            List<String> portNameList = blueGreenService.listPortalNames();
+            List<String> portNameList = strategyService.listPortalNames();
             result.removeAll(portNameList);
             if (StringUtils.isNotEmpty(portalName) && flag) {
                 result.add(portalName);
@@ -99,14 +99,14 @@ public class StrategyController {
     @ApiOperation("发布蓝绿")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
-        blueGreenService.publish();
+        strategyService.publish();
         return Result.ok();
     }
 
     @ApiOperation("获取蓝绿发布信息列表")
     @PostMapping("do-list")
     public Result<List<StrategyDto>> doList(ListSearchNamePo listSearchNamePo) {
-        IPage<StrategyDto> strategyDtoPage = blueGreenService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
+        IPage<StrategyDto> strategyDtoPage = strategyService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(strategyDtoPage.getRecords(), strategyDtoPage.getTotal());
     }
 
@@ -143,13 +143,13 @@ public class StrategyController {
     @ApiOperation("新增蓝绿信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(StrategyPo strategyPo) {
-        return Result.ok(blueGreenService.insert(strategyPo));
+        return Result.ok(strategyService.insert(strategyPo));
     }
 
     @ApiOperation("修改蓝绿信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(StrategyPo strategyPo) {
-        if (blueGreenService.update(strategyPo)) {
+        if (strategyService.update(strategyPo)) {
             return Result.ok();
         }
         return Result.error("更新失败");
@@ -159,7 +159,7 @@ public class StrategyController {
     @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) {
-        blueGreenService.enable(id, true);
+        strategyService.enable(id, true);
         return Result.ok();
     }
 
@@ -167,7 +167,7 @@ public class StrategyController {
     @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) {
-        blueGreenService.enable(id, false);
+        strategyService.enable(id, false);
         return Result.ok();
     }
 
@@ -176,7 +176,7 @@ public class StrategyController {
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
-        blueGreenService.logicDelete(new HashSet<>(idList));
+        strategyService.logicDelete(new HashSet<>(idList));
         return Result.ok();
     }
 }

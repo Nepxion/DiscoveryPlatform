@@ -53,7 +53,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
     @Lazy
     @Autowired
-    private StrategyService blueGreenService;
+    private StrategyService strategyService;
 
     @Override
     public void publish() throws Exception {
@@ -81,7 +81,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                                 GrayServiceImpl.super.publishConfig(portalType, portalName, ruleEntity);
                             }
                         }
-                        blueGreenService.updatePublishFlag(portalName, false);
+                        strategyService.updatePublishFlag(portalName, false);
                     }
 
                     @Override
@@ -133,7 +133,7 @@ public class GrayServiceImpl extends PlatformPublishAdapter<GrayMapper, GrayDto>
                             ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
                             GrayServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(grayDto.getPortalType()), portalName, ruleEntity);
                         }
-                        blueGreenService.updatePublishFlag(portalName, false);
+                        strategyService.updatePublishFlag(portalName, false);
                     }
                 }
         );

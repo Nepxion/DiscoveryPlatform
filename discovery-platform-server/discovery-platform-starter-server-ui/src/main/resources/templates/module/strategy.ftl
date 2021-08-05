@@ -56,12 +56,12 @@
                 <div class="layui-input-block">
                     <div class="layui-btn-group">
                         <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿兜底策略</a>
-                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿条件策略</a>
+                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
                     </div>
 
                     <div class="layui-btn-group">
                         <a id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度兜底策略</a>
-                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度条件策略</a>
+                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度策略</a>
                     </div>
 
                     <div class="layui-btn-group">
@@ -331,7 +331,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿兜底</span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;蓝绿兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
@@ -344,7 +344,7 @@
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="18" height="18" src="${ctx}/images/graph/service_blue_green_64.png">&nbsp;蓝绿<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
@@ -361,7 +361,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度兜底</span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
@@ -371,7 +371,7 @@
                     function addTabGray(condition, rate) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
@@ -710,7 +710,7 @@
                                         }
                                         $('#error').val('');
                                     } else if (item.parameterName + item.value != '') {
-                                        $('#error').val('蓝绿条件' + tabIndex + '的参数名或值不允许为空');
+                                        $('#error').val('蓝绿' + tabIndex + '的参数名或值不允许为空');
                                         return false;
                                     }
                                 });
@@ -769,7 +769,7 @@
                                         }
                                         $('#error').val('');
                                     } else if (item.parameterName + item.value != '') {
-                                        $('#error').val('灰度条件' + tabIndex + '的参数名或值不允许为空');
+                                        $('#error').val('灰度' + tabIndex + '的参数名或值不允许为空');
                                         return false;
                                     }
                                 });

@@ -331,7 +331,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="22" height="22" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;蓝绿兜底</span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
@@ -344,7 +344,7 @@
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="22" height="22" src="${ctx}/images/graph/service_blue_green_64.png">&nbsp;蓝绿条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>蓝绿条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
@@ -361,7 +361,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="22" height="22" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
@@ -371,7 +371,7 @@
                     function addTabGray(condition, rate) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
-                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span><img width="22" height="22" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度条件<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span>灰度条件<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);

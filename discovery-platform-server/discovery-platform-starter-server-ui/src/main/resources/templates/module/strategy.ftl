@@ -302,7 +302,7 @@
                         if ($('#tabContent > div').size() < 1) {
                             admin.error("系统提示", "删除策略失败, 条件策略已空");
                             return;
-                        } else if (tabSelectTitle.length < 50 || tabSelectTitle == '') {
+                        } else if (tabSelectTitle.length == 47 || tabSelectTitle == '') {
                             admin.error("系统提示", "请先选中要删除的选项卡");
                             return;
                         }

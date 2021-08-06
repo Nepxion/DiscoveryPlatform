@@ -51,8 +51,8 @@
             <div class="layui-input-inline" style="width: 740px;margin-top:-20px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">内置</li>
-                        <li>自定义</li>
+                        <li class="layui-this" style="color: black">内置</li>
+                        <li style="color: black">自定义</li>
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
@@ -77,8 +77,8 @@
             <div class="layui-input-inline" style="width: 740px;margin-top:-40px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">内置</li>
-                        <li>自定义</li>
+                        <li class="layui-this" style="color: black">内置</li>
+                        <li style="color: black">自定义</li>
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">

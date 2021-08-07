@@ -40,13 +40,10 @@ import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
-
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOG = LoggerFactory.getLogger(ShiroJwtFilter.class);
 
     public static final String N_D_SESSION_STATUS = "n-d-session-status";
-
     public static final String SESSION_STATUS_EXPIRED = "expired";
-
     public static final String SESSION_STATUS_INVALID = "invalid";
 
     private JwtToolWrapper jwtToolWrapper;
@@ -196,5 +193,4 @@ public class ShiroJwtFilter extends BasicHttpAuthenticationFilter {
         Result<String> result = Result.ok(status.value(), status.getReasonPhrase());
         response.getWriter().write(JsonUtil.toJson(result));
     }
-
 }

@@ -22,14 +22,12 @@ import com.nepxion.discovery.platform.server.properties.PlatformAuthProperties;
 import com.nepxion.discovery.platform.server.tool.JwtTool;
 
 public class JwtToolWrapper {
-
-    private Logger LOG = LoggerFactory.getLogger(JwtToolWrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JwtToolWrapper.class);
 
     private static final String DEFAULT_SECRET = "LvQg8gdN2HwDx9SWO3j9bbBtgiGJLG8A";
     private static final Integer DEFAULT_RENEW_THRESHOLD = 1;
 
     private PlatformAuthProperties authProperties;
-
     private PlatformAuthProperties.TokenProperties tokenProperties;
 
     public JwtToolWrapper(PlatformAuthProperties authProperties) {
@@ -84,5 +82,4 @@ public class JwtToolWrapper {
         }
         tokenProperties.setRenewThreshold(renewThreshold);
     }
-
 }

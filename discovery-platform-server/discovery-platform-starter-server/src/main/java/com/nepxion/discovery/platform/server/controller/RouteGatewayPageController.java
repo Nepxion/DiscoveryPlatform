@@ -25,7 +25,6 @@ import com.nepxion.discovery.platform.server.tool.CommonTool;
 @Controller
 @RequestMapping(RouteGatewayController.PREFIX)
 public class RouteGatewayPageController {
-
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 

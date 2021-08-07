@@ -24,9 +24,9 @@ public interface RouteZuulService extends BasePublishService<RouteZuulDto> {
 
     IPage<RouteZuulDto> page(String description, Integer pageNum, Integer pageSize);
 
-    void insert(RouteZuulDto routeZuulDto);
+    boolean insert(RouteZuulDto routeZuulDto);
 
-    void logicDelete(Collection<Long> ids);
+    boolean logicDelete(Collection<Long> ids);
 
-    void delete(Collection<Long> ids);
+    boolean delete(Collection<Long> ids);
 }

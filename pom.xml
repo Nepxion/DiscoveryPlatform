@@ -221,9 +221,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Nepxion/Discovery</url>
-        <connection>scm:git:https://github.com/Nepxion/Discovery.git</connection>
-        <developerConnection>scm:git:https://github.com/Nepxion/Discovery.git</developerConnection>
+        <url>https://github.com/Nepxion/DiscoveryPlatform</url>
+        <connection>scm:git:https://github.com/Nepxion/DiscoveryPlatform.git</connection>
+        <developerConnection>scm:git:https://github.com/Nepxion/DiscoveryPlatform.git</developerConnection>
         <tag>v${project.version}</tag>
     </scm>
 
@@ -242,6 +242,12 @@
         <developer>
             <name>Ning Zhang</name>
             <email>349409664@qq.com</email>
+            <url>http://www.nepxion.com</url>
+        </developer>
+
+        <developer>
+            <name>Long Xiao</name>
+            <email>1961142421@qq.com</email>
             <url>http://www.nepxion.com</url>
         </developer>
     </developers>

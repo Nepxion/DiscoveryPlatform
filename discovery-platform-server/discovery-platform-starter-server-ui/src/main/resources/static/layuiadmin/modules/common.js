@@ -15,6 +15,10 @@ layui.define(function (e) {
     admin.ACCESS_TOKEN = "n-d-access-token";
     admin.SESSION_STATUS = 'n-d-session-status';
 
+    function getContextPath() {
+        return $('#contextPath').val();
+    }
+
     admin.beforeRequest = function (jqXHR) {
         admin.addTokenHeader(jqXHR);
     }
@@ -22,6 +26,14 @@ layui.define(function (e) {
     admin.afterResponse = function (data, textStatus, jqXHR) {
         admin.dealAuthFailureStatus(jqXHR);
         admin.cacheToken(jqXHR);
+    }
+
+    admin.loading = function (action) {
+        layer.load();
+        if (action) {
+            action();
+        }
+        layer.closeAll('loading');
     }
 
     admin.postQuiet = function (url, data, success, error, async) {
@@ -39,7 +51,7 @@ layui.define(function (e) {
             },
             complete: function (xhr) {
                 admin.afterResponse(null, null, xhr);
-                if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
+                if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
                     admin.toLogin();
                 } else {
                     const result = xhr.responseJSON;
@@ -107,7 +119,7 @@ layui.define(function (e) {
             },
             complete: function (xhr) {
                 admin.afterResponse(null, null, xhr);
-                if (xhr.responseText.indexOf("<div class=\"layadmin-user-login-main\">") > -1) {
+                if (xhr.responseText.indexOf('<div class="layadmin-user-login-main">') > -1) {
                     admin.toLogin();
                 } else {
                     const result = xhr.responseJSON;
@@ -202,7 +214,7 @@ layui.define(function (e) {
     };
 
     admin.quit = function () {
-        admin.post('/do-quit', {}, function () {
+        admin.post(getContextPath() + '/do-quit', {}, function () {
             window.localStorage.removeItem(admin.ACCESS_TOKEN);
             admin.toLogin();
         });
@@ -216,7 +228,7 @@ layui.define(function (e) {
 
     admin.toLogin = function () {
         admin.initPage();
-        location.href = '/'
+        location.href = getContextPath() + '/'
     }
 
     admin.getCheckedData = function (table, obj, field) {
@@ -288,6 +300,85 @@ layui.define(function (e) {
         return window.localStorage.removeItem(key);
     }
 
-    e("common", {});
+    admin.getRoutes = function (strategyType) {
+        const set = new Set(), routeNameList = [];
+        admin.postQuiet(getContextPath() + '/common/do-list-route-arrange', {'strategyType': strategyType}, function (result) {
+            $.each(result.data, function (index, item) {
+                const name = $.trim(JSON.stringify(item));
+                if (!set.has(name)) {
+                    set.add(name);
+                    routeNameList.push(item);
+                }
+            });
+        }, null, false);
+        routeNameList.sort();
+        return routeNameList;
+    }
 
+    admin.getGatewayName = function () {
+        const set = new Set(), gatewayNameList = [];
+        admin.postQuiet(getContextPath() + '/common/do-list-gateway-names', {}, function (result) {
+            $.each(result.data, function (index, item) {
+                const name = $.trim(item);
+                if (!set.has(name)) {
+                    set.add(name);
+                    gatewayNameList.push($.trim(name));
+                }
+            });
+        }, null, false);
+        gatewayNameList.sort();
+        return gatewayNameList;
+    }
+
+    admin.getServiceName = function () {
+        const set = new Set(), serviceNameList = [];
+        admin.postQuiet(getContextPath() + '/common/do-list-service-names', {}, function (result) {
+            $.each(result.data, function (index, item) {
+                const name = $.trim(item);
+                if (!set.has(name)) {
+                    set.add(name);
+                    serviceNameList.push($.trim(name));
+                }
+            });
+        }, null, false);
+        serviceNameList.sort();
+        return serviceNameList;
+    }
+
+    admin.getServiceMetadata = function (serviceName, metadataName) {
+        const set = new Set(), serviceMetadataList = [];
+        admin.post(getContextPath() + '/common/do-list-service-metadata', {'serviceName': serviceName}, function (result) {
+            $.each(result.data, function (index, item) {
+                const key = item[metadataName];
+                const name = $.trim(key);
+                if (!set.has(name)) {
+                    set.add(name);
+                    serviceMetadataList.push(name);
+                }
+            });
+        }, null, false);
+        serviceMetadataList.sort();
+        return serviceMetadataList;
+    }
+
+    admin.getMetadataName = function (strategyType) {
+        if (strategyType == 1) {
+            return 'version';
+        } else if (strategyType == 2) {
+            return 'region';
+        }
+    }
+
+    admin.distinct = function (list) {
+        const result = [], set = new Set();
+        $.each(list, function (index, item) {
+            if (item && !set.has(item)) {
+                set.add(item);
+                result.push(item);
+            }
+        });
+        return result;
+    }
+
+    e("common", {});
 });

@@ -44,8 +44,8 @@
             <div class="layui-input-inline" style="width: 740px;margin-top:-20px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">内置</li>
-                        <li>自定义</li>
+                        <li class="layui-this" style="color: black">内置</li>
+                        <li style="color: black">自定义</li>
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
@@ -72,8 +72,8 @@
             <div class="layui-input-inline" style="width: 740px;margin-top:-40px">
                 <div class="layui-tab layui-tab-brief">
                     <ul class="layui-tab-title">
-                        <li class="layui-this">内置</li>
-                        <li>自定义</li>
+                        <li class="layui-this" style="color: black">内置</li>
+                        <li style="color: black">自定义</li>
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
@@ -180,29 +180,29 @@
             });
 
             function reloadServiceName() {
-                admin.post('do-list-service-names', {}, function (result) {
-                    const selServiceName = $("select[name=uri1]");
-                    if (!firstLoad) {
-                        $('#uri').val('');
+                const serviceNames = admin.getServiceName();
+                const selServiceName = $("select[name=uri1]");
+                if (!firstLoad) {
+                    $('#uri').val('');
+                }
+                selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
+                let chooseIndex = 1;
+                $.each(serviceNames, function (i, v) {
+                    let option;
+                    const value = 'lb://' + v;
+                    if (serviceName == value) {
+                        option = $("<option>").attr('selected', 'selected').attr('tag', v).val(value).text(value);
+                        chooseIndex = i + 1;
+                    } else {
+                        option = $("<option>").attr('tag', v).val(value).text(value);
                     }
-                    selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
-                    let index = 0, chooseIndex = 1;
-                    $.each(result.data, function (key, val) {
-                        let option;
-                        const value = 'lb://' + val;
-                        if (serviceName == value) {
-                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
-                            chooseIndex = index + 1;
-                        } else {
-                            option = $("<option>").attr('tag', val).val(value).text(value);
-                        }
-                        selServiceName.append(option);
-                        index++;
-                    });
-                    layui.form.render('select');
-                    chooseSelectOption('uri1', chooseIndex);
-                    firstLoad = false;
-                }, null, firstLoad);
+                    selServiceName.append(option);
+                });
+                layui.form.render('select');
+                chooseSelectOption('uri1', chooseIndex);
+                firstLoad = false;
+
+
             }
         });
     </script>

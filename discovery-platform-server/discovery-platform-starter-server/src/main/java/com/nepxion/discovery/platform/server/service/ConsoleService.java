@@ -11,9 +11,7 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 public interface ConsoleService {
-    
     String getDiscoveryType();
 
     String getConfigType();
-
 }

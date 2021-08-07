@@ -10,6 +10,8 @@ package com.nepxion.discovery.platform.server.entity.base;
  * @version 1.0
  */
 
+import java.lang.reflect.Field;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,12 +21,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 
 public class BaseStateEntity extends BaseEntity {
     private static final long serialVersionUID = 2636994153216571320L;
-
-    @TableField(value = "`portal_name`")
-    private String portalName;
-
-    @TableField(value = "`portal_type`")
-    private Integer portalType;
 
     @TableField(value = "`operation`")
     private Integer operation;
@@ -37,22 +33,6 @@ public class BaseStateEntity extends BaseEntity {
 
     @TableField(value = "`delete_flag`")
     private Boolean deleteFlag = false;
-
-    public String getPortalName() {
-        return portalName;
-    }
-
-    public void setPortalName(String portalName) {
-        this.portalName = portalName;
-    }
-
-    public Integer getPortalType() {
-        return portalType;
-    }
-
-    public void setPortalType(Integer portalType) {
-        this.portalType = portalType;
-    }
 
     public Integer getOperation() {
         return operation;
@@ -84,6 +64,26 @@ public class BaseStateEntity extends BaseEntity {
 
     public void setDeleteFlag(Boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public String getPortalName() {
+        try {
+            Field portalNameField = this.getClass().getDeclaredField("portalName");
+            portalNameField.setAccessible(true);
+            return portalNameField.get(this).toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Integer getPortalType() {
+        try {
+            Field portalTypeField = this.getClass().getDeclaredField("portalType");
+            portalTypeField.setAccessible(true);
+            return Integer.parseInt(portalTypeField.get(this).toString());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

@@ -91,10 +91,10 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
 
     @TransactionWriter
     @Override
-    public void insert(RouteZuulDto routeZuulDto) {
+    public boolean insert(RouteZuulDto routeZuulDto) {
         routeZuulDto = prepareInsert(routeZuulDto);
         if (routeZuulDto == null) {
-            return;
+            return false;
         }
         routeZuulDto.setPortalType(BaseStateEntity.PortalType.GATEWAY.getCode());
         Integer nextMaxCreateTimesInDayOfZuul = routeService.getNextMaxCreateTimesInDayOfZuul();
@@ -102,6 +102,6 @@ public class RouteZuulServiceImpl extends PlatformPublishAdapter<RouteZuulMapper
             routeZuulDto.setRouteId(SequenceTool.getSequenceId(nextMaxCreateTimesInDayOfZuul));
         }
         routeZuulDto.setCreateTimesInDay(nextMaxCreateTimesInDayOfZuul);
-        save(routeZuulDto);
+        return save(routeZuulDto);
     }
 }

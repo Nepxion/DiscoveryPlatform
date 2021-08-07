@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nepxion.discovery.platform.server.mapper.StrategyMapper">
+
+    <select id="listPortalNames" resultType="java.lang.String">
+        SELECT DISTINCT `portal_name`
+        FROM `t_strategy`
+    </select>
+
+    <select id="getUnPublish" resultType="com.nepxion.discovery.platform.server.entity.dto.StrategyDto">
+        SELECT *
+        FROM (
+                 SELECT `p`.*
+                 FROM `t_route_arrange` `a`
+                 INNER JOIN `t_route_strategy` `s` ON `s`.route_id = `a`.`route_id`
+                 INNER JOIN `t_strategy` `p` ON `p`.`portal_name` = `s`.`portal_name` AND `p`.`portal_type` = `s`.`portal_type`
+                 WHERE `a`.`publish_flag` = 0
+
+                 UNION
+
+                 SELECT *
+                 FROM `t_strategy`
+                 WHERE `publish_flag` = 0
+             ) `r`
+        ORDER BY `portal_name` ASC
+    </select>
+</mapper>

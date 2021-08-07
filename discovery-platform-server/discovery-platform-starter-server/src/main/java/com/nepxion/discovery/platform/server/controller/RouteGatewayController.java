@@ -91,12 +91,6 @@ public class RouteGatewayController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
     }
 
-    @ApiOperation("获取所有Spring Cloud Gateway服务名称")
-    @PostMapping("do-list-service-names")
-    public Result<List<String>> doListServiceNames() {
-        return Result.ok(platformDiscoveryAdapter.getServiceNames());
-    }
-
     @ApiOperation("添加Spring Cloud Gateway网关的路由")
     @PostMapping("do-insert")
     public Result<?> doInsert(RouteGatewayDto routeGateway) {
@@ -106,7 +100,7 @@ public class RouteGatewayController {
 
     @ApiOperation("更新Spring Cloud Gateway网关的路由")
     @PostMapping("do-update")
-    public Result<?> doUpdate(RouteGatewayDto routeGateway) {
+    public Result<?> doUpdate(RouteGatewayDto routeGateway) throws Exception {
         routeGatewayService.update(routeGateway);
         return Result.ok();
     }
@@ -114,7 +108,7 @@ public class RouteGatewayController {
     @ApiOperation("启用Spring Cloud Gateway网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         routeGatewayService.enable(id, true);
         return Result.ok();
     }
@@ -122,7 +116,7 @@ public class RouteGatewayController {
     @ApiOperation("禁用Spring Cloud Gateway网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         routeGatewayService.enable(id, false);
         return Result.ok();
     }

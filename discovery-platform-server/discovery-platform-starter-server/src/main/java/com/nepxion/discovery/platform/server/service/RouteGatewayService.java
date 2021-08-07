@@ -24,9 +24,9 @@ public interface RouteGatewayService extends BasePublishService<RouteGatewayDto>
 
     IPage<RouteGatewayDto> page(String description, Integer pageNum, Integer pageSize);
 
-    void insert(RouteGatewayDto routeGatewayDto);
+    boolean insert(RouteGatewayDto routeGatewayDto);
 
-    void logicDelete(Collection<Long> ids);
+    boolean logicDelete(Collection<Long> ids);
 
-    void delete(Collection<Long> ids);
+    boolean delete(Collection<Long> ids);
 }

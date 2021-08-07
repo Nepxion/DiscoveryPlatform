@@ -19,7 +19,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "platform.server.auth")
 public class PlatformAuthProperties {
-
     private TokenProperties token = new TokenProperties();
 
     public TokenProperties getToken() {
@@ -40,18 +39,15 @@ public class PlatformAuthProperties {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return ToStringBuilder.reflectionToString(this);
     }
 
     public static class TokenProperties {
-
         private String secret;
-
         private Duration expireTime = Duration.ofDays(1);
-
         private Duration maxLiveTime = Duration.ofDays(1);
-
         private Integer renewThreshold = 1;
 
         public String getSecret() {
@@ -100,5 +96,4 @@ public class PlatformAuthProperties {
             return ToStringBuilder.reflectionToString(this);
         }
     }
-
 }

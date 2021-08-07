@@ -68,23 +68,21 @@
             });
 
             $("#btnRefreshGateway").click(function () {
-                admin.post("do-list-gateway-names", {}, function (data) {
-                    data = data.data;
-                    const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="">请选择网关名称</option>');
-                    $.each(data, function (key, val) {
-                        let option;
-                        if (chooseGatewayName == val) {
-                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                            chooseGatewayName = val;
-                        } else {
-                            option = $("<option>").val(val).text(val);
-                        }
-                        selGatewayName.append(option);
-                    });
-                    layui.form.render('select');
-                    reloadGrid();
+                const gatewayNames = admin.getGatewayName();
+                const selGatewayName = $("select[name=gatewayName]");
+                selGatewayName.html('<option value="">请选择网关名称</option>');
+                $.each(gatewayNames, function (key, val) {
+                    let option;
+                    if (chooseGatewayName == val) {
+                        option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                        chooseGatewayName = val;
+                    } else {
+                        option = $("<option>").val(val).text(val);
+                    }
+                    selGatewayName.append(option);
                 });
+                layui.form.render('select');
+                reloadGrid();
             });
 
             function reloadGrid() {
@@ -146,9 +144,9 @@
                         element.render();
 
                         if (set.size <= 1) {
-                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的黑名单信息一致&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的黑名单一致&nbsp;</h3></span>');
                         } else {
-                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的黑名单信息不一致, 请检查&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的黑名单不一致, 请检查&nbsp;</h3></span>');
                         }
                     });
                 } else {

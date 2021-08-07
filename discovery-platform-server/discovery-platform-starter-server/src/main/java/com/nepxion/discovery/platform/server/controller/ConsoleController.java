@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/console")
 public class ConsoleController {
-
     @Autowired
     private ConsoleService consoleService;
 
@@ -41,5 +40,4 @@ public class ConsoleController {
 
         return Result.ok(configType);
     }
-
 }

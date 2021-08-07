@@ -84,5 +84,4 @@ public class JwtTool {
         // (cur - iat) / (exp - cur) >= 1
         return Math.floor((cur - iat) / (exp - cur)) >= renewThreshold;
     }
-
 }

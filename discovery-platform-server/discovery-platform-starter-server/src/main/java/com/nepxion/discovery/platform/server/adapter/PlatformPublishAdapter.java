@@ -48,23 +48,26 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
     }
 
     @TransactionWriter
-    public void enable(Serializable id, boolean enableFlag) {
+    public boolean enable(Serializable id, boolean enableFlag) throws Exception {
         T t = getById(id);
+        if (t == null) {
+            return false;
+        }
         t.setEnableFlag(enableFlag);
-        update(t);
+        return update(t);
     }
 
     @TransactionWriter
-    public void update(T t) {
+    public boolean update(T t) throws Exception {
         t = prepareUpdate(t);
         if (t == null) {
-            return;
+            return false;
         }
-        updateById(t);
+        return updateById(t);
     }
 
     @TransactionWriter
-    public void logicDelete(Collection<Long> ids) {
+    public boolean logicDelete(Collection<Long> ids) {
         for (Long id : ids) {
             T t = getById(id);
             if (t == null) {
@@ -75,17 +78,30 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
             t.setOperation(Operation.DELETE.getCode());
             updateById(t);
         }
+        return true;
     }
 
     @TransactionWriter
-    public void delete(Collection<Long> ids) {
-        removeByIds(ids);
+    public boolean delete(Collection<Long> ids) {
+        return removeByIds(ids);
     }
 
     @TransactionWriter
     protected void publish(Collection<String> gatewayNameCollection, PublishAction<T> publishAction) throws Exception {
-        Set<String> gatewayNameSet = new HashSet<>(gatewayNameCollection);
         List<T> toBePublishList = list();
+        publish(gatewayNameCollection, toBePublishList, publishAction);
+    }
+
+    @TransactionWriter
+    protected void publish(List<T> toBePublishList, PublishAction<T> publishAction) throws Exception {
+        List<String> gatewayNameCollection = toBePublishList.stream().map(T::getPortalName).collect(Collectors.toList());
+        publish(gatewayNameCollection, toBePublishList, publishAction);
+    }
+
+
+    @TransactionWriter
+    protected void publish(Collection<String> portalNameCollection, List<T> toBePublishList, PublishAction<T> publishAction) throws Exception {
+        Set<String> gatewayNameSet = new HashSet<>(portalNameCollection);
 
         if (CollectionUtils.isEmpty(toBePublishList)) {
             for (String gatewayName : gatewayNameSet) {
@@ -100,6 +116,9 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         Map<String, List<Object>> usedMap = new HashMap<>(toBePublishList.size());
 
         for (T item : toBePublishList) {
+            if (item.getPublishFlag()) {
+                continue;
+            }
             if (item.getDeleteFlag()) {
                 toDeleteList.add(item);
                 CommonTool.addKVForList(unusedMap, item.getPortalName(), item);
@@ -115,15 +134,12 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
             CommonTool.addKVForList(usedMap, item.getPortalName(), object);
         }
 
-        if (CollectionUtils.isEmpty(usedMap)) {
-            for (Map.Entry<String, List<T>> entry : unusedMap.entrySet()) {
-                publishAction.publishEmptyConfig(entry.getKey(), entry.getValue());
-            }
-        } else {
-            for (Map.Entry<String, List<Object>> entry : usedMap.entrySet()) {
-                String gatewayName = entry.getKey();
-                publishAction.publishConfig(gatewayName, entry.getValue());
-            }
+        for (Map.Entry<String, List<T>> entry : unusedMap.entrySet()) {
+            publishAction.publishEmptyConfig(entry.getKey(), entry.getValue());
+        }
+        for (Map.Entry<String, List<Object>> entry : usedMap.entrySet()) {
+            String gatewayName = entry.getKey();
+            publishAction.publishConfig(gatewayName, entry.getValue());
         }
 
         if (!CollectionUtils.isEmpty(toDeleteList)) {

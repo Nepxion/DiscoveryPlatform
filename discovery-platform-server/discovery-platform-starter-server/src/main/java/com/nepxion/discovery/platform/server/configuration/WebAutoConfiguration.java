@@ -60,6 +60,7 @@ public class WebAutoConfiguration extends WebMvcConfigurationSupport {
         });
         objectMapper.registerModule(module);
         converter.setObjectMapper(objectMapper);
+        converters.add(0, converter);
     }
 
     @Bean

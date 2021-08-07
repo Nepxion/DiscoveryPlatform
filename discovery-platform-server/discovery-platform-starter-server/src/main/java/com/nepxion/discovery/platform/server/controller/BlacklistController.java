@@ -83,7 +83,7 @@ public class BlacklistController {
     @ApiOperation("启用黑名单")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         blacklistService.enable(id, true);
         return Result.ok();
     }
@@ -91,7 +91,7 @@ public class BlacklistController {
     @ApiOperation("禁用黑名单")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         blacklistService.enable(id, false);
         return Result.ok();
     }
@@ -110,12 +110,6 @@ public class BlacklistController {
     public Result<?> doPublish() throws Exception {
         blacklistService.publish();
         return Result.ok();
-    }
-
-    @ApiOperation("获取所有网关的名称")
-    @PostMapping("do-list-gateway-names")
-    public Result<List<String>> doListGatewayNames() {
-        return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
 
     @SuppressWarnings("unchecked")
@@ -199,11 +193,4 @@ public class BlacklistController {
         }
         return Result.ok(result.stream().distinct().sorted(Comparator.naturalOrder()).collect(Collectors.toList()));
     }
-
-    @ApiOperation("获取所有服务的名称")
-    @PostMapping("do-list-service-names")
-    public Result<List<String>> doListServiceNames() {
-        return Result.ok(platformDiscoveryAdapter.getServiceNames());
-    }
-
 }

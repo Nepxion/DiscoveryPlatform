@@ -10,7 +10,7 @@ package com.nepxion.discovery.platform.server.service;
  * @version 1.0
  */
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nepxion.discovery.platform.server.entity.dto.SysDicDto;
 import com.nepxion.discovery.platform.server.mapper.DicMapper;
@@ -18,8 +18,7 @@ import com.nepxion.discovery.platform.server.mapper.DicMapper;
 public class DicServiceImpl extends ServiceImpl<DicMapper, SysDicDto> implements DicService {
     @Override
     public String getByName(String name) {
-        QueryWrapper<SysDicDto> queryWrapper = new QueryWrapper<>();
-        SysDicDto sysDic = getOne(queryWrapper);
+        SysDicDto sysDic = getOne(Wrappers.lambdaQuery(SysDicDto.class).eq(SysDicDto::getName, name));
         if (sysDic == null) {
             return null;
         }

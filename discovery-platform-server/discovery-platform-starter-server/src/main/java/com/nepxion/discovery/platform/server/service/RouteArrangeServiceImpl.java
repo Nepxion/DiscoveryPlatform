@@ -23,7 +23,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
 import com.nepxion.discovery.platform.server.adapter.PlatformPublishAdapter;
 import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
@@ -36,11 +35,10 @@ import com.nepxion.discovery.platform.server.exception.PlatformException;
 import com.nepxion.discovery.platform.server.mapper.RouteArrangeMapper;
 
 public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrangeMapper, RouteArrangeDto> implements RouteArrangeService {
-    @Autowired
-    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
     @Lazy
     @Autowired
     private StrategyService strategyService;
+
     @Autowired
     private RouteStrategyService routeStrategyService;
 
@@ -97,6 +95,7 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
         return getOne(queryWrapper);
     }
 
+    @SuppressWarnings("unchecked")
     @TransactionReader
     @Override
     public List<RouteArrangeDto> list(Integer strategyType) {

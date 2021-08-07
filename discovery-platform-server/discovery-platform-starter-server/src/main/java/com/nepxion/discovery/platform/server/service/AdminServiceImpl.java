@@ -45,7 +45,6 @@ import com.nepxion.discovery.platform.server.tool.CommonTool;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {
-
     public static final Logger LOG = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Autowired

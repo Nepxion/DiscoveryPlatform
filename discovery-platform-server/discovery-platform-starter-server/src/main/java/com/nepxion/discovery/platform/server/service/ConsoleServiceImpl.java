@@ -17,7 +17,6 @@ import com.nepxion.discovery.console.resource.ServiceResource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ConsoleServiceImpl implements ConsoleService {
-
     @Autowired
     private ServiceResource serviceResource;
 
@@ -35,5 +34,4 @@ public class ConsoleServiceImpl implements ConsoleService {
         ConfigType configType = configResource.getConfigType();
         return configType.getValue();
     }
-
 }

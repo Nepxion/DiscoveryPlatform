@@ -51,12 +51,13 @@ import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.mapper.StrategyMapper;
 
 public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, StrategyDto> implements StrategyService {
-
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
+
     @Lazy
     @Autowired
     private RouteArrangeService routeArrangeService;
+
     @Autowired
     private RouteStrategyService routeStrategyService;
 

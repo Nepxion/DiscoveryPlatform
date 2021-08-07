@@ -17,4 +17,5 @@ import com.nepxion.discovery.platform.server.entity.dto.RouteStrategyDto;
 
 @Mapper
 public interface RouteStrategyMapper extends BaseMapper<RouteStrategyDto> {
+
 }

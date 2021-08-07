@@ -214,5 +214,4 @@ public class ShiroAutoConfiguration {
     public JwtCredentialsMatcher jwtCredentialsMatcher(){
         return new JwtCredentialsMatcher();
     }
-
 }

@@ -24,12 +24,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
-import com.nepxion.discovery.platform.server.interceptor.LoginInterceptor;
 import com.nepxion.discovery.platform.server.service.AdminService;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class AuthRealm extends AuthorizingRealm {
-    private static final Logger LOG = LoggerFactory.getLogger(LoginInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthRealm.class);
+
     @Autowired
     private AdminService adminService;
 
@@ -65,5 +65,4 @@ public class AuthRealm extends AuthorizingRealm {
     public boolean supports(AuthenticationToken token) {
         return UsernamePasswordToken.class.isAssignableFrom(token.getClass());
     }
-
 }

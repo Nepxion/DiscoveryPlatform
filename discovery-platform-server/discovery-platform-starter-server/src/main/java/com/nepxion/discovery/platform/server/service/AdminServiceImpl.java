@@ -47,6 +47,8 @@ import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> implements AdminService, InitializingBean {
     public static final Logger LOG = LoggerFactory.getLogger(AdminServiceImpl.class);
 
+    private static final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
+
     @Autowired
     private RoleService roleService;
 
@@ -55,14 +57,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, SysAdminDto> impl
 
     private JwtToolWrapper jwtToolWrapper;
 
-    private static final Set<String> SUPER_ADMIN_USER_NAME_LIST = new HashSet<>();
-
     @Override
     public void setJwtToolWrapper(JwtToolWrapper jwtToolWrapper) {
         this.jwtToolWrapper = jwtToolWrapper;
     }
 
-    @Override public JwtToolWrapper getJwtToolWrapper() {
+    @Override 
+    public JwtToolWrapper getJwtToolWrapper() {
         if (null == jwtToolWrapper) {
             throw new NullPointerException("No jwtToolWrapper is set");
         }

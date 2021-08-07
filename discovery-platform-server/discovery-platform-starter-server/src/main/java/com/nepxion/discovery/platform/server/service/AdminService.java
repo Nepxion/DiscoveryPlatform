@@ -24,7 +24,6 @@ import com.nepxion.discovery.platform.server.entity.vo.AdminVo;
 import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 
 public interface AdminService extends AuthenticationResource {
-
     void setJwtToolWrapper(JwtToolWrapper jwtToolWrapper);
 
     JwtToolWrapper getJwtToolWrapper();

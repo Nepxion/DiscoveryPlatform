@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class BlacklistVo implements Serializable {
     private static final long serialVersionUID = 7349466331174113582L;
+
     private String gatewayName;
     private String serviceName;
     private Integer serviceBlacklistType;
@@ -70,6 +71,4 @@ public class BlacklistVo implements Serializable {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-
-
 }

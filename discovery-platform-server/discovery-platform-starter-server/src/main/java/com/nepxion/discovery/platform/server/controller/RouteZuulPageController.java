@@ -23,7 +23,6 @@ import com.nepxion.discovery.platform.server.service.RouteZuulService;
 @Controller
 @RequestMapping(RouteZuulController.PREFIX)
 public class RouteZuulPageController {
-
     @Autowired
     private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 

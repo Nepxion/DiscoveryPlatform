@@ -73,14 +73,14 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
                 if (portalType != null) {
                     switch (portalType) {
                         case GATEWAY:
-                            throw new PlatformException(String.format("路由链路[%s]正在被网关[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
+                            throw new PlatformException(String.format("链路[%s]正在被网关[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
                         case SERVICE:
-                            throw new PlatformException(String.format("路由链路[%s]正在被服务[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
+                            throw new PlatformException(String.format("链路[%s]正在被服务[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
                         case GROUP:
-                            throw new PlatformException(String.format("路由链路[%s]正在被组[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
+                            throw new PlatformException(String.format("链路[%s]正在被组[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
                     }
                 }
-                throw new PlatformException(String.format("路由链路[%s]正在被[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
+                throw new PlatformException(String.format("链路[%s]正在被[%s]使用", routeArrangeDto.getRouteId(), routeStrategyDto.getPortalName()));
             }
         }
         return super.logicDelete(ids);

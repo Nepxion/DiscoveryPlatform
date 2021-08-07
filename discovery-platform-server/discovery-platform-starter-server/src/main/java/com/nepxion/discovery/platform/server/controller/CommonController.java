@@ -41,7 +41,7 @@ public class CommonController {
     private RouteArrangeService routeArrangeService;
 
     @ApiOperation("获取所有链路编排的信息")
-    @PostMapping("do-list-route-names")
+    @PostMapping("do-list-route-arrange")
     public Result<List<RouteArrangeDto>> doListRouteNames(@RequestParam("strategyType") Integer strategyType) {
         return Result.ok(routeArrangeService.list(strategyType));
     }

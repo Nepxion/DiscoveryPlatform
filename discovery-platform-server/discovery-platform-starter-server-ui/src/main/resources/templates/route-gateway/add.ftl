@@ -212,32 +212,30 @@
             }
 
             function reloadServiceName() {
-                admin.post('do-list-service-names', {}, function (result) {
-                    const selServiceName = $("#uri1");
-                    $('#uri').val('');
-                    $("#serviceName").val('');
-                    $("#predicates").val('');
-                    $("#filters").val('');
-                    selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
-                    let index = 0, chooseIndex = 1;
-                    $.each(result.data, function (key, val) {
-                        let option;
-                        const value = 'lb://' + val;
-                        if (serviceName == undefined && index == 0) {
-                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
-                            chooseIndex = index + 1;
-                        } else if (serviceName == value) {
-                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
-                            chooseIndex = index + 1;
-                        } else {
-                            option = $("<option>").attr('tag', val).val(value).text(value);
-                        }
-                        selServiceName.append(option);
-                        index++;
-                    });
-                    layui.form.render('select');
-                    chooseSelectOption('uri1', chooseIndex);
+                const serviceNames = admin.getServiceName();
+                const selServiceName = $("#uri1");
+                $('#uri').val('');
+                $("#serviceName").val('');
+                $("#predicates").val('');
+                $("#filters").val('');
+                selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
+                let chooseIndex = 1;
+                $.each(serviceNames, function (i, v) {
+                    let option;
+                    const value = 'lb://' + v;
+                    if (serviceName == undefined && i == 0) {
+                        option = $("<option>").attr('selected', 'selected').attr('tag', v).val(value).text(value);
+                        chooseIndex = i + 1;
+                    } else if (serviceName == value) {
+                        option = $("<option>").attr('selected', 'selected').attr('tag', v).val(value).text(value);
+                        chooseIndex = i + 1;
+                    } else {
+                        option = $("<option>").attr('tag', v).val(value).text(value);
+                    }
+                    selServiceName.append(option);
                 });
+                layui.form.render('select');
+                chooseSelectOption('uri1', chooseIndex);
             }
         });
     </script>

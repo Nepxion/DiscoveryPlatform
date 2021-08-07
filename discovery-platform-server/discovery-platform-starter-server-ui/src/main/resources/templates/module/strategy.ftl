@@ -351,9 +351,11 @@
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
                         $('#btnRefreshBlueGreenRouteId').click(function () {
-                            bindRouteSelect($(this).attr('tag'), data);
+                            admin.loading(function () {
+                                bindRouteSelect($(this).attr('tag'), data);
+                            });
                         });
-                        $('#btnRefreshBlueGreenRouteId').click();
+                        bindRouteSelect($(this).attr('tag'), data);
                     }
 
                     function addTabBlueGreen(condition, routeId) {
@@ -365,8 +367,11 @@
                         element.render(TAB);
                         initConditionGrid('gridBlueGreen', tabIndex, condition);
                         $('#' + btnReloadBlueGreenRoute).click(function () {
-                            bindRouteSelect($(this).attr('tag'), routeId);
-                        }).click();
+                            admin.loading(function () {
+                                bindRouteSelect($(this).attr('tag'), routeId);
+                            });
+                        });
+                        bindRouteSelect($(this).attr('tag'), routeId);
                     }
 
                     function addTabBasicGray(data) {
@@ -395,25 +400,23 @@
                     }
 
                     function bindRouteSelect(id, data) {
-                        admin.loading(function () {
-                            let basicStrategyRouteId = '${entity.basicStrategyRouteId!''}';
-                            if (data) basicStrategyRouteId = data;
-                            const routes = admin.getRoutes(${strategyType});
-                            const sel = $('#' + id);
-                            sel.html('<option value="">请选择链路名称</option>');
-                            $.each(routes, function (key, val) {
-                                let option;
-                                const k = val.routeId;
-                                const v = val.routeId + ' (' + val.description + ')';
-                                if (basicStrategyRouteId == k) {
-                                    option = $("<option>").attr('selected', 'selected').val(k).text(v);
-                                } else {
-                                    option = $("<option>").val(k).text(v);
-                                }
-                                sel.append(option);
-                            });
-                            layui.form.render('select');
+                        let basicStrategyRouteId = '${entity.basicStrategyRouteId!''}';
+                        if (data) basicStrategyRouteId = data;
+                        const routes = admin.getRoutes(${strategyType});
+                        const sel = $('#' + id);
+                        sel.html('<option value="">请选择链路名称</option>');
+                        $.each(routes, function (key, val) {
+                            let option;
+                            const k = val.routeId;
+                            const v = val.routeId + ' (' + val.description + ')';
+                            if (basicStrategyRouteId == k) {
+                                option = $("<option>").attr('selected', 'selected').val(k).text(v);
+                            } else {
+                                option = $("<option>").val(k).text(v);
+                            }
+                            sel.append(option);
                         });
+                        layui.form.render('select');
                     }
 
                     function newConditionRow(data) {

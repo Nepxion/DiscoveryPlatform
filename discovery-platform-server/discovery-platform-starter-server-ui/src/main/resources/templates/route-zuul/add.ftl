@@ -150,27 +150,24 @@
             }
 
             function reloadServiceName() {
-                admin.post('do-list-service-names', {}, function (result) {
-                    const selServiceId = $("select[name=serviceId]");
-                    selServiceId.html('<option value="">请选择服务</option>');
-                    let index = 0, chooseIndex = 1;
-                    $.each(result.data, function (key, val) {
-                        let option;
-                        if (serviceName == undefined && index == 0) {
-                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                            chooseIndex = index + 1;
-                        } else if (serviceName == val) {
-                            option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                            chooseIndex = index + 1;
-                        } else {
-                            option = $("<option>").val(val).text(val);
-                        }
-                        selServiceId.append(option);
-                        index++;
-                    });
-                    layui.form.render('select');
-                    chooseSelectOption('serviceId', chooseIndex);
+                const serviceNames = admin.getServiceName();
+                const selServiceId = $("select[name=serviceId]");
+                selServiceId.html('<option value="">请选择服务</option>');
+                let chooseIndex = 1;
+                $.each(serviceNames, function (i, v) {
+                    let option;
+                    if (serviceName == undefined && i == 0) {
+                        option = $("<option>").attr('selected', 'selected').val(v).text(v);
+                    } else if (v == serviceName) {
+                        option = $("<option>").attr('selected', 'selected').val(v).text(v);
+                        chooseIndex = i + 1;
+                    } else {
+                        option = $("<option>").val(v).text(v);
+                    }
+                    selServiceId.append(option);
                 });
+                layui.form.render('select');
+                chooseSelectOption('serviceId', chooseIndex);
             }
         });
     </script>

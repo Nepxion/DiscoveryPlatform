@@ -180,29 +180,29 @@
             });
 
             function reloadServiceName() {
-                admin.post('do-list-service-names', {}, function (result) {
-                    const selServiceName = $("select[name=uri1]");
-                    if (!firstLoad) {
-                        $('#uri').val('');
+                const serviceNames = admin.getServiceName();
+                const selServiceName = $("select[name=uri1]");
+                if (!firstLoad) {
+                    $('#uri').val('');
+                }
+                selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
+                let chooseIndex = 1;
+                $.each(serviceNames, function (i, v) {
+                    let option;
+                    const value = 'lb://' + v;
+                    if (serviceName == value) {
+                        option = $("<option>").attr('selected', 'selected').attr('tag', v).val(value).text(value);
+                        chooseIndex = i + 1;
+                    } else {
+                        option = $("<option>").attr('tag', v).val(value).text(value);
                     }
-                    selServiceName.html('<option value="">请选择或输入转发的目标地址</option>');
-                    let index = 0, chooseIndex = 1;
-                    $.each(result.data, function (key, val) {
-                        let option;
-                        const value = 'lb://' + val;
-                        if (serviceName == value) {
-                            option = $("<option>").attr('selected', 'selected').attr('tag', val).val(value).text(value);
-                            chooseIndex = index + 1;
-                        } else {
-                            option = $("<option>").attr('tag', val).val(value).text(value);
-                        }
-                        selServiceName.append(option);
-                        index++;
-                    });
-                    layui.form.render('select');
-                    chooseSelectOption('uri1', chooseIndex);
-                    firstLoad = false;
-                }, null, firstLoad);
+                    selServiceName.append(option);
+                });
+                layui.form.render('select');
+                chooseSelectOption('uri1', chooseIndex);
+                firstLoad = false;
+
+
             }
         });
     </script>

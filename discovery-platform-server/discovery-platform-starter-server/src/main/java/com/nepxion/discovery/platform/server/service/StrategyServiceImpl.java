@@ -64,6 +64,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
     @Override
     public void publish() throws Exception {
         List<StrategyDto> strategyDtoList = getUnPublish();
+
         this.publish(strategyDtoList, new PublishAction<StrategyDto>() {
             @Override
             public Object process(StrategyDto strategyDto) {
@@ -103,6 +104,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             }
         });
         routeArrangeService.updatePublish(true);
+        routeArrangeService.removeWithLogicDeleteIsTrue();
     }
 
     @TransactionReader

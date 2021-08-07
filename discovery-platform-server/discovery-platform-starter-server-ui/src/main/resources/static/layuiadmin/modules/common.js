@@ -302,7 +302,7 @@ layui.define(function (e) {
 
     admin.getRoutes = function (strategyType) {
         const set = new Set(), routeNameList = [];
-        admin.postQuiet(getContextPath() + '/common/do-list-route-names', {'strategyType': strategyType}, function (result) {
+        admin.postQuiet(getContextPath() + '/common/do-list-route-arrange', {'strategyType': strategyType}, function (result) {
             $.each(result.data, function (index, item) {
                 const name = $.trim(JSON.stringify(item));
                 if (!set.has(name)) {

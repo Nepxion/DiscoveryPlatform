@@ -142,4 +142,10 @@ public class RouteArrangeServiceImpl extends PlatformPublishAdapter<RouteArrange
     public void updatePublish(boolean publishFlag) {
         update(Wrappers.lambdaUpdate(RouteArrangeDto.class).set(RouteArrangeDto::getPublishFlag, publishFlag));
     }
+
+    @TransactionWriter
+    @Override
+    public void removeWithLogicDeleteIsTrue() {
+        remove(Wrappers.lambdaQuery(RouteArrangeDto.class).eq(RouteArrangeDto::getDeleteFlag, true));
+    }
 }

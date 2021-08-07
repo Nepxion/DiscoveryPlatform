@@ -59,12 +59,6 @@ public class RouteZuulController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteZuulService.GATEWAY_TYPE));
     }
 
-    @ApiOperation("获取所有Spring Cloud Gateway服务名称")
-    @PostMapping("do-list-service-names")
-    public Result<List<String>> doListServiceNames() {
-        return Result.ok(platformDiscoveryAdapter.getServiceNames());
-    }
-
     @ApiOperation("获取Zuul网关的路由信息列表")
     @PostMapping("do-list")
     public Result<List<RouteZuulDto>> doList(ListSearchGatewayPo listSearchGatewayPo) {

@@ -35,4 +35,6 @@ public interface RouteArrangeService extends BasePublishService<RouteArrangeDto>
     RouteArrangeDto getByRouteId(String routeId);
 
     void updatePublish(boolean publishFlag);
+
+    void removeWithLogicDeleteIsTrue();
 }

@@ -91,12 +91,6 @@ public class RouteGatewayController {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames(RouteGatewayService.GATEWAY_TYPE));
     }
 
-    @ApiOperation("获取所有Spring Cloud Gateway服务名称")
-    @PostMapping("do-list-service-names")
-    public Result<List<String>> doListServiceNames() {
-        return Result.ok(platformDiscoveryAdapter.getServiceNames());
-    }
-
     @ApiOperation("添加Spring Cloud Gateway网关的路由")
     @PostMapping("do-insert")
     public Result<?> doInsert(RouteGatewayDto routeGateway) {

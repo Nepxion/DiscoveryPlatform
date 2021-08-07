@@ -21,7 +21,6 @@ import com.nepxion.discovery.common.entity.ArithmeticType;
 import com.nepxion.discovery.common.entity.RelationalType;
 import com.nepxion.discovery.platform.server.entity.base.BaseStateEntity;
 import com.nepxion.discovery.platform.server.entity.dto.StrategyDto;
-import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 import com.nepxion.discovery.platform.server.service.StrategyService;
 
 @Controller
@@ -29,8 +28,6 @@ import com.nepxion.discovery.platform.server.service.StrategyService;
 public class StrategyPageController {
     @Autowired
     private StrategyService strategyService;
-    @Autowired
-    private RouteArrangeService routeArrangeService;
 
     @GetMapping("list")
     public String list() {

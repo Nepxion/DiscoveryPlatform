@@ -29,28 +29,29 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
-@Api("服务编排相关接口")
+@Api("链路编排相关接口")
 @RestController
 @RequestMapping(RouteArrangeController.PREFIX)
 public class RouteArrangeController {
     public static final String PREFIX = "route-arrange";
+
     @Autowired
     private RouteArrangeService routeArrangeService;
 
-    @ApiOperation("获取链路编排列表")
+    @ApiOperation("获取链路列表")
     @RequestMapping("do-list")
     public Result<List<RouteArrangeDto>> doList(ListSearchNamePo listSearchNamePo) {
         IPage<RouteArrangeDto> routeArrangeDtoPage = routeArrangeService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
         return Result.ok(routeArrangeDtoPage.getRecords(), routeArrangeDtoPage.getTotal());
     }
 
-    @ApiOperation("新增服务编排")
+    @ApiOperation("新增链路")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(RouteArrangeDto routeArrangeDto) {
         return Result.ok(routeArrangeService.insert(routeArrangeDto));
     }
 
-    @ApiOperation("修改服务编排")
+    @ApiOperation("修改链路")
     @PostMapping("do-update")
     public Result<?> doUpdate(RouteArrangeDto routeArrangeDto) throws Exception {
         if (routeArrangeService.update(routeArrangeDto)) {
@@ -59,8 +60,8 @@ public class RouteArrangeController {
         return Result.error("更新失败");
     }
 
-    @ApiOperation("删除服务编排")
-    @ApiImplicitParam(name = "ids", value = "蓝绿id, 多个用逗号分隔", required = true, dataType = "String")
+    @ApiOperation("删除链路")
+    @ApiImplicitParam(name = "ids", value = "链路id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);
@@ -68,7 +69,7 @@ public class RouteArrangeController {
         return Result.ok();
     }
 
-    @ApiOperation("发布服务编排")
+    @ApiOperation("发布链路")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         routeArrangeService.publish();

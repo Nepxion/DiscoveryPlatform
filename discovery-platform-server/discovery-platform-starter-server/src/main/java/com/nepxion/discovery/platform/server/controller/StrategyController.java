@@ -41,15 +41,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
-@Api("蓝绿发布相关接口")
+@Api("蓝绿灰度发布相关接口")
 @RestController
 @RequestMapping(StrategyController.PREFIX)
 public class StrategyController {
     public static final String PREFIX = "strategy";
+
     @Autowired
-    protected StrategyService strategyService;
+    private StrategyService strategyService;
+
     @Autowired
-    protected PlatformDiscoveryAdapter platformDiscoveryAdapter;
+    private PlatformDiscoveryAdapter platformDiscoveryAdapter;
 
     @ApiOperation("获取所有入口的名称")
     @PostMapping("do-list-portal-names")
@@ -96,14 +98,14 @@ public class StrategyController {
         return Result.ok(platformDiscoveryAdapter.validateExpression(expression, validation));
     }
 
-    @ApiOperation("发布蓝绿")
+    @ApiOperation("发布蓝绿灰度")
     @PostMapping("do-publish")
     public Result<?> doPublish() throws Exception {
         strategyService.publish();
         return Result.ok();
     }
 
-    @ApiOperation("获取蓝绿发布信息列表")
+    @ApiOperation("获取蓝绿灰度发布信息列表")
     @PostMapping("do-list")
     public Result<List<StrategyDto>> doList(ListSearchNamePo listSearchNamePo) {
         IPage<StrategyDto> strategyDtoPage = strategyService.page(listSearchNamePo.getName(), listSearchNamePo.getPage(), listSearchNamePo.getLimit());
@@ -111,7 +113,7 @@ public class StrategyController {
     }
 
     @SuppressWarnings("unchecked")
-    @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿信息")
+    @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿灰度信息")
     @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
     @PostMapping("do-list-working")
     public Result<Map<String, String>> doListWorking(@RequestParam(value = "portalType", required = true, defaultValue = StringUtils.EMPTY) String portalType,
@@ -140,13 +142,13 @@ public class StrategyController {
         return Result.ok(result);
     }
 
-    @ApiOperation("新增蓝绿信息")
+    @ApiOperation("新增蓝绿灰度信息")
     @PostMapping("do-insert")
     public Result<Boolean> doInsert(StrategyPo strategyPo) {
         return Result.ok(strategyService.insert(strategyPo));
     }
 
-    @ApiOperation("修改蓝绿信息")
+    @ApiOperation("修改蓝绿灰度信息")
     @PostMapping("do-update")
     public Result<?> doUpdate(StrategyPo strategyPo) {
         if (strategyService.update(strategyPo)) {
@@ -155,24 +157,24 @@ public class StrategyController {
         return Result.error("更新失败");
     }
 
-    @ApiOperation("启用蓝绿")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @ApiOperation("启用蓝绿灰度")
+    @ApiImplicitParam(name = "id", value = "蓝绿灰度id", required = true, dataType = "String")
     @PostMapping("do-enable")
     public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         strategyService.enable(id, true);
         return Result.ok();
     }
 
-    @ApiOperation("禁用蓝绿")
-    @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
+    @ApiOperation("禁用蓝绿灰度")
+    @ApiImplicitParam(name = "id", value = "蓝绿灰度id", required = true, dataType = "String")
     @PostMapping("do-disable")
     public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         strategyService.enable(id, false);
         return Result.ok();
     }
 
-    @ApiOperation("删除蓝绿")
-    @ApiImplicitParam(name = "ids", value = "蓝绿id, 多个用逗号分隔", required = true, dataType = "String")
+    @ApiOperation("删除蓝绿灰度")
+    @ApiImplicitParam(name = "ids", value = "蓝绿灰度id, 多个用逗号分隔", required = true, dataType = "String")
     @PostMapping("do-delete")
     public Result<?> doDelete(@RequestParam(value = "ids") String ids) {
         List<Long> idList = CommonTool.parseList(ids, ",", Long.class);

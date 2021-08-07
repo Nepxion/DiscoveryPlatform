@@ -12,7 +12,6 @@ package com.nepxion.discovery.platform.server.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api("管理员相关接口")
+@Api("通用接口")
 @RestController
 @RequestMapping(CommonController.PREFIX)
 public class CommonController {
@@ -51,7 +50,6 @@ public class CommonController {
     public Result<List<String>> doListGatewayNames() {
         return Result.ok(platformDiscoveryAdapter.getGatewayNames());
     }
-
 
     @ApiOperation("获取所有Spring Cloud Gateway服务名称")
     @PostMapping("do-list-service-names")

@@ -34,4 +34,6 @@ public interface StrategyService extends BasePublishService<StrategyDto> {
     List<String> listPortalNames();
 
     boolean updatePublishFlag(String portalName, boolean flag);
+
+    List<StrategyDto> getUnPublish();
 }

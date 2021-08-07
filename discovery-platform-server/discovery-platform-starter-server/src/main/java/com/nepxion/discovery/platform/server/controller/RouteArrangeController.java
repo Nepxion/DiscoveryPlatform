@@ -52,7 +52,7 @@ public class RouteArrangeController {
 
     @ApiOperation("修改服务编排")
     @PostMapping("do-update")
-    public Result<?> doUpdate(RouteArrangeDto routeArrangeDto) {
+    public Result<?> doUpdate(RouteArrangeDto routeArrangeDto) throws Exception {
         if (routeArrangeService.update(routeArrangeDto)) {
             return Result.ok();
         }

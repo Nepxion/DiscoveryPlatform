@@ -33,4 +33,6 @@ public interface RouteArrangeService extends BasePublishService<RouteArrangeDto>
     List<RouteArrangeDto> list(Integer strategyType);
 
     RouteArrangeDto getByRouteId(String routeId);
+
+    void updatePublish(boolean publishFlag);
 }

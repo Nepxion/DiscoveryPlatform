@@ -12,6 +12,12 @@ package com.nepxion.discovery.platform.server.service;
 
 import java.util.List;
 
+import com.nepxion.discovery.platform.server.entity.dto.RouteStrategyDto;
+
 public interface RouteStrategyService {
     boolean save(String portalName, Integer portalType, List<String> routeIdList);
+
+    List<RouteStrategyDto> getByPortalNameAndPortalType(String portalName, Integer portalType);
+
+    List<RouteStrategyDto> getByRouteId(String routeId);
 }

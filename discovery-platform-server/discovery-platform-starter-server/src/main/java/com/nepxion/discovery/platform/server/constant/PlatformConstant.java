@@ -36,6 +36,8 @@ public class PlatformConstant {
     public static final String ROUTE_NAME = "routeName";
     public static final String VALUE = "value";
     public static final String SPEL_CONDITION = "spelCondition";
+    public static final String ROUTE_ID = "routeId";
+    public static final String RATE = "rate";
 
     public static final String CONDITION = "condition-%s";
     public static final String BASIC_CONDITION = "basic-condition";

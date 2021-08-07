@@ -10,6 +10,8 @@ package com.nepxion.discovery.platform.server.entity.base;
  * @version 1.0
  */
 
+import java.lang.reflect.Field;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -62,6 +64,26 @@ public class BaseStateEntity extends BaseEntity {
 
     public void setDeleteFlag(Boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public String getPortalName() {
+        try {
+            Field portalNameField = this.getClass().getDeclaredField("portalName");
+            portalNameField.setAccessible(true);
+            return portalNameField.get(this).toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Integer getPortalType() {
+        try {
+            Field portalTypeField = this.getClass().getDeclaredField("portalType");
+            portalTypeField.setAccessible(true);
+            return Integer.parseInt(portalTypeField.get(this).toString());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

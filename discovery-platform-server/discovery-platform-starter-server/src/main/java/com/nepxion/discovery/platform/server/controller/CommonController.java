@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.entity.InstanceEntity;
 import com.nepxion.discovery.platform.server.adapter.PlatformDiscoveryAdapter;
+import com.nepxion.discovery.platform.server.entity.dto.RouteArrangeDto;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.RouteArrangeService;
 import io.swagger.annotations.Api;
@@ -41,8 +42,8 @@ public class CommonController {
 
     @ApiOperation("获取所有链路编排的信息")
     @PostMapping("do-list-route-names")
-    public Result<List<String>> doListRouteNames(@RequestParam("strategyType") Integer strategyType) {
-        return Result.ok(routeArrangeService.list(strategyType).stream().map(i -> i.getRouteId()).collect(Collectors.toList()));
+    public Result<List<RouteArrangeDto>> doListRouteNames(@RequestParam("strategyType") Integer strategyType) {
+        return Result.ok(routeArrangeService.list(strategyType));
     }
 
     @ApiOperation("获取所有Spring Cloud Gateway网关名称")

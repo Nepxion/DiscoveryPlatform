@@ -63,8 +63,6 @@ import com.nepxion.discovery.platform.server.service.ConsoleService;
 import com.nepxion.discovery.platform.server.service.ConsoleServiceImpl;
 import com.nepxion.discovery.platform.server.service.DicService;
 import com.nepxion.discovery.platform.server.service.DicServiceImpl;
-import com.nepxion.discovery.platform.server.service.GrayService;
-import com.nepxion.discovery.platform.server.service.GrayServiceImpl;
 import com.nepxion.discovery.platform.server.service.MenuService;
 import com.nepxion.discovery.platform.server.service.MenuServiceImpl;
 import com.nepxion.discovery.platform.server.service.PermissionService;
@@ -302,11 +300,6 @@ public class PlatformAutoConfiguration {
     @Bean
     public StrategyService strategyServices() {
         return new StrategyServiceImpl();
-    }
-
-    @Bean
-    public GrayService grayService() {
-        return new GrayServiceImpl();
     }
 
     @Bean

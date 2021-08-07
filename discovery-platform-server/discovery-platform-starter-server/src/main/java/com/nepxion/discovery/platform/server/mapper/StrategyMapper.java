@@ -20,4 +20,6 @@ import com.nepxion.discovery.platform.server.entity.dto.StrategyDto;
 @Mapper
 public interface StrategyMapper extends BaseMapper<StrategyDto> {
     List<String> listPortalNames();
+
+    List<StrategyDto> getUnPublish();
 }

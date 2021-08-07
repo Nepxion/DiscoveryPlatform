@@ -185,7 +185,7 @@
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                         <#else>
                         let hasBasicBlueGreen = false;
-                        if (basicBlueGreenStrategyRouteId != '') {
+                        if (!isEmpty(basicBlueGreenStrategyRouteId)) {
                             addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
                             hasBasicBlueGreen = true;
                         }
@@ -195,7 +195,10 @@
                             addTabBlueGreen(condition, routeId);
                         }
 
-                        addTabBasicGray(basicGrayStrategy);
+                        if (!isEmpty(basicGrayStrategy)) {
+                            addTabBasicGray(basicGrayStrategy);
+                        }
+
                         for (const k in grayStrategy) {
                             addTabGray(grayStrategy[k].condition, grayStrategy[k].rate);
                         }
@@ -310,6 +313,10 @@
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
+
+                            const layId = $('#tabTitle>li:last').attr('lay-id');
+                            element.tabChange(TAB, layId);
+
                             if ($('#tabContent').find('.layui-tab-item').size() < 1) {
                                 tabSelectTitle = '';
                             }
@@ -383,15 +390,17 @@
                         admin.loading(function () {
                             let basicStrategyRouteId = '${entity.basicStrategyRouteId!''}';
                             if (data) basicStrategyRouteId = data;
-                            const routeNames = admin.getRoutes(${strategyType});
+                            const routes = admin.getRoutes(${strategyType});
                             const sel = $('#' + id);
                             sel.html('<option value="">请选择链路名称</option>');
-                            $.each(routeNames, function (key, val) {
+                            $.each(routes, function (key, val) {
                                 let option;
-                                if (basicStrategyRouteId == val) {
-                                    option = $("<option>").attr('selected', 'selected').val(val).text(val);
+                                const k = val.routeId;
+                                const v = val.routeId + ' (' + val.description + ')';
+                                if (basicStrategyRouteId == k) {
+                                    option = $("<option>").attr('selected', 'selected').val(k).text(v);
                                 } else {
-                                    option = $("<option>").val(val).text(val);
+                                    option = $("<option>").val(k).text(v);
                                 }
                                 sel.append(option);
                             });
@@ -663,6 +672,10 @@
                         });
                     }
 
+                    function isEmpty(val) {
+                        return val == undefined || val == '' || val == '{}' || val == '[]' || val == '[{}]';
+                    }
+
                     $('#callback').click(function () {
                         routeIds = [];
                         collectBasicBlueGreenStrategy();
@@ -690,10 +703,10 @@
                         const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
-                            if (tabIndex) {
+                            const gridBlueGreen = 'gridBlueGreen' + tabIndex;
+                            const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
+                            if (tabIndex && spelCondition) {
                                 const _dataCondition = [], _setCondition = new Set();
-                                const gridBlueGreen = 'gridBlueGreen' + tabIndex;
-                                const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
                                 $.each(table.cache[gridBlueGreen], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
                                         const data = {
@@ -733,15 +746,17 @@
 
                     function collectBasicGrayStrategy() {
                         $('#basicGrayStrategy').val('');
-                        const all = [], set = new Set();
-                        $.each(table.cache['gridBasicGrayRate'], function (index, item) {
-                            const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
-                            if (!set.has(key)) {
-                                set.add(key);
-                                all.push(json);
-                            }
-                        });
-                        $('#basicGrayStrategy').val(JSON.stringify(all));
+                        if (existBasicGray()) {
+                            const all = [], set = new Set();
+                            $.each(table.cache['gridBasicGrayRate'], function (index, item) {
+                                const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
+                                if (!set.has(key)) {
+                                    set.add(key);
+                                    all.push(json);
+                                }
+                            });
+                            $('#basicGrayStrategy').val(JSON.stringify(all));
+                        }
                     }
 
                     function collectGrayStrategy() {
@@ -749,10 +764,10 @@
                         const all = {};
                         $('#tabContent').find('.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
-                            if (tabIndex) {
+                            const gridGray = 'gridGray' + tabIndex, gridGrayRate = 'gridGrayRate' + tabIndex;
+                            const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
+                            if (tabIndex && spelCondition) {
                                 const _dataCondition = [], _setCondition = new Set();
-                                const gridGray = 'gridGray' + tabIndex, gridGrayRate = 'gridGrayRate' + tabIndex;
-                                const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
                                 $.each(table.cache[gridGray], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
                                         const data = {

@@ -304,10 +304,10 @@ layui.define(function (e) {
         const set = new Set(), routeNameList = [];
         admin.postQuiet(getContextPath() + '/common/do-list-route-names', {'strategyType': strategyType}, function (result) {
             $.each(result.data, function (index, item) {
-                const name = $.trim(item);
+                const name = $.trim(JSON.stringify(item));
                 if (!set.has(name)) {
                     set.add(name);
-                    routeNameList.push($.trim(name));
+                    routeNameList.push(item);
                 }
             });
         }, null, false);

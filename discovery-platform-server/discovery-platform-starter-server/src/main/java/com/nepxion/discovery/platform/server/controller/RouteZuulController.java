@@ -102,7 +102,7 @@ public class RouteZuulController {
 
     @ApiOperation("更新Zuul网关的路由")
     @PostMapping("do-update")
-    public Result<?> doUpdate(RouteZuulDto routeZuulDto) {
+    public Result<?> doUpdate(RouteZuulDto routeZuulDto) throws Exception {
         routeZuulService.update(routeZuulDto);
         return Result.ok();
     }
@@ -110,7 +110,7 @@ public class RouteZuulController {
     @ApiOperation("启用Zuul网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         routeZuulService.enable(id, true);
         return Result.ok();
     }
@@ -118,7 +118,7 @@ public class RouteZuulController {
     @ApiOperation("禁用Zuul网关的路由")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         routeZuulService.enable(id, false);
         return Result.ok();
     }

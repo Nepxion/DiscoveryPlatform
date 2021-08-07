@@ -158,7 +158,7 @@ public class StrategyController {
     @ApiOperation("启用蓝绿")
     @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
     @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         strategyService.enable(id, true);
         return Result.ok();
     }
@@ -166,7 +166,7 @@ public class StrategyController {
     @ApiOperation("禁用蓝绿")
     @ApiImplicitParam(name = "id", value = "蓝绿id", required = true, dataType = "String")
     @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         strategyService.enable(id, false);
         return Result.ok();
     }

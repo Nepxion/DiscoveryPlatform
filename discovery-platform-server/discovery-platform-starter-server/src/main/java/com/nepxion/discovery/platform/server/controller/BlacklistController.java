@@ -83,7 +83,7 @@ public class BlacklistController {
     @ApiOperation("启用黑名单")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-enable")
-    public Result<?> doEnable(@RequestParam(value = "id") Long id) {
+    public Result<?> doEnable(@RequestParam(value = "id") Long id) throws Exception {
         blacklistService.enable(id, true);
         return Result.ok();
     }
@@ -91,7 +91,7 @@ public class BlacklistController {
     @ApiOperation("禁用黑名单")
     @ApiImplicitParam(name = "id", value = "路由id", required = true, dataType = "String")
     @PostMapping("do-disable")
-    public Result<?> doDisable(@RequestParam(value = "id") Long id) {
+    public Result<?> doDisable(@RequestParam(value = "id") Long id) throws Exception {
         blacklistService.enable(id, false);
         return Result.ok();
     }

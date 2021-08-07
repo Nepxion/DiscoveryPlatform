@@ -71,9 +71,9 @@ public class PlatformDiscoveryAdapter {
         return configResource.fromRuleEntity(ruleEntity);
     }
 
-    public RuleEntity getConfig(String serviceName) throws Exception {
-        String group = serviceResource.getGroup(serviceName);
-        return configResource.getRemoteRuleEntity(group, serviceName);
+    public RuleEntity getConfig(String portalName) throws Exception {
+        String group = serviceResource.getGroup(portalName);
+        return configResource.getRemoteRuleEntity(group, portalName);
     }
 
     public void publishConfig(String serviceName, RuleEntity ruleEntity) throws Exception {

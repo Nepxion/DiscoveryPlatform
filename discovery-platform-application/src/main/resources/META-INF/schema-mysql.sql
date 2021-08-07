@@ -202,9 +202,9 @@ CREATE TABLE `t_route_arrange`  (
 
 CREATE TABLE `t_route_strategy`  (
     `id`                                        BIGINT(0)                           UNSIGNED NOT NULL COMMENT '主键',
+    `route_id`                                  VARCHAR(128)                        NOT NULL COMMENT '服务链路标识',
     `portal_name`                               VARCHAR(128)                        NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`                               INT(0) UNSIGNED                     NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
-    `route_id`                                  VARCHAR(128)                        NOT NULL COMMENT '服务链路标识',
     `create_time`                               DATETIME(3) NOT                     NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `update_time`                               DATETIME(3) NOT                     NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,

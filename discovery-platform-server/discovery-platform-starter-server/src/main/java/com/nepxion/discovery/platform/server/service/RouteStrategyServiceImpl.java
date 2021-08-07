@@ -18,7 +18,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nepxion.discovery.platform.server.annotation.TransactionReader;
 import com.nepxion.discovery.platform.server.annotation.TransactionWriter;
 import com.nepxion.discovery.platform.server.entity.dto.RouteStrategyDto;
 import com.nepxion.discovery.platform.server.mapper.RouteStrategyMapper;
@@ -50,5 +52,21 @@ public class RouteStrategyServiceImpl extends ServiceImpl<RouteStrategyMapper, R
             saveBatch(needInsert);
         }
         return true;
+    }
+
+    @TransactionReader
+    @Override
+    public List<RouteStrategyDto> getByPortalNameAndPortalType(String portalName, Integer portalType) {
+        return list(Wrappers
+                .lambdaQuery(RouteStrategyDto.class)
+                .eq(RouteStrategyDto::getPortalName, portalName)
+                .eq(RouteStrategyDto::getPortalType, portalType)
+                .orderByAsc(RouteStrategyDto::getRouteId));
+    }
+
+    @TransactionReader
+    @Override
+    public List<RouteStrategyDto> getByRouteId(String routeId) {
+        return list(Wrappers.lambdaQuery(RouteStrategyDto.class).eq(RouteStrategyDto::getRouteId, routeId).orderByAsc(RouteStrategyDto::getPortalName));
     }
 }

@@ -34,7 +34,6 @@ import com.nepxion.discovery.platform.server.shiro.JwtToolWrapper;
 import com.nepxion.discovery.platform.server.tool.ExceptionTool;
 
 public class LdapAdminService implements AdminService {
-
     public static final Logger LOG = LoggerFactory.getLogger(LdapAdminService.class);
 
     private LdapService ldapService;
@@ -140,7 +139,6 @@ public class LdapAdminService implements AdminService {
         }
         return result;
     }
-
 
     @Override
     public SysAdminDto getByUserName(String username) throws Exception {

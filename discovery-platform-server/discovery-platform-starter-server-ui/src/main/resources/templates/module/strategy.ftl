@@ -341,8 +341,15 @@
 
                     function addTabBasicBlueGreen(data) {
                         if (existBasicBlueGreen()) {
-                            element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            admin.success('系统操作', '已存在蓝绿兜底策略');
+                            admin.error('系统操作', '已存在蓝绿兜底策略', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
+                            });
+                            return;
+                        }
+                        if (existBasicGray()) {
+                            admin.error('系统操作', '蓝绿兜底和灰度兜底只能同时存在一个', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                            });
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
@@ -350,12 +357,18 @@
                         $('#tabContent').append('<div style="width:900px" id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
+                        let isFirst = true;
                         $('#btnRefreshBlueGreenRouteId').click(function () {
-                            admin.loading(function () {
-                                bindRouteSelect($(this).attr('tag'), data);
-                            });
-                        });
-                        bindRouteSelect($(this).attr('tag'), data);
+                            const id = $(this).attr('tag');
+                            if (isFirst) {
+                                bindRouteSelect(id, data);
+                                isFirst = false;
+                            } else {
+                                admin.loading(function () {
+                                    bindRouteSelect(id, data);
+                                });
+                            }
+                        }).click();
                     }
 
                     function addTabBlueGreen(condition, routeId) {
@@ -366,18 +379,31 @@
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
                         initConditionGrid('gridBlueGreen', tabIndex, condition);
+                        let isFirst = true;
                         $('#' + btnReloadBlueGreenRoute).click(function () {
-                            admin.loading(function () {
-                                bindRouteSelect($(this).attr('tag'), routeId);
-                            });
-                        });
-                        bindRouteSelect($(this).attr('tag'), routeId);
+                            const id = $(this).attr('tag');
+                            if (isFirst) {
+                                bindRouteSelect(id, routeId);
+                                isFirst = false;
+                            } else {
+                                admin.loading(function () {
+                                    bindRouteSelect(id, routeId);
+                                });
+                            }
+                        }).click();
                     }
 
                     function addTabBasicGray(data) {
                         if (existBasicGray()) {
-                            element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
-                            admin.success('系统操作', '已存在灰度兜底策略');
+                            admin.error('系统操作', '已存在灰度兜底策略', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                            });
+                            return;
+                        }
+                        if (existBasicBlueGreen()) {
+                            admin.error('系统操作', '蓝绿兜底和灰度兜底只能同时存在一个', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
+                            });
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
@@ -389,6 +415,12 @@
                     }
 
                     function addTabGray(condition, rate) {
+                        if (existBasicBlueGreen()) {
+                            admin.error('系统操作', '添加失败, 当存在蓝绿兜底时, 灰度无法生效', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
+                            });
+                            return;
+                        }
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');

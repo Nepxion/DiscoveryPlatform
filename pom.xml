@@ -221,9 +221,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Nepxion/Discovery</url>
-        <connection>scm:git:https://github.com/Nepxion/Discovery.git</connection>
-        <developerConnection>scm:git:https://github.com/Nepxion/Discovery.git</developerConnection>
+        <url>https://github.com/Nepxion/DiscoveryPlatform</url>
+        <connection>scm:git:https://github.com/Nepxion/DiscoveryPlatform.git</connection>
+        <developerConnection>scm:git:https://github.com/Nepxion/DiscoveryPlatform.git</developerConnection>
         <tag>v${project.version}</tag>
     </scm>
 

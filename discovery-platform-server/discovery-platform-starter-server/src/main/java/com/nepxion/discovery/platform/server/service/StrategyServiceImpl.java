@@ -372,7 +372,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         return result;
     }
 
-    private static class ConditionAndRatePo {
+    public static class ConditionAndRatePo {
         private List<Map<String, String>> condition;
         private List<Map<String, String>> rate;
 
@@ -393,7 +393,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         }
     }
 
-    private static class ConditionAndRoutePo {
+    public static class ConditionAndRoutePo {
         private List<Map<String, String>> condition;
         private String routeId;
 

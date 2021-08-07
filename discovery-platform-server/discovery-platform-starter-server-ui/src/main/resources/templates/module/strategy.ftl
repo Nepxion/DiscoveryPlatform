@@ -346,7 +346,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
-                        $('#tabTitle').append('<li style="float:left;width:78px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;蓝绿兜底</span></li>');
+                        $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;蓝绿兜底</span></li>');
                         $('#tabContent').append('<div style="width:900px" id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
@@ -359,7 +359,7 @@
                     function addTabBlueGreen(condition, routeId) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
-                        $('#tabTitle').append('<li style="float:left;width:78px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_blue_green_64.png">&nbsp;蓝绿<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_blue_green_64.png">&nbsp;蓝绿<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
@@ -376,7 +376,7 @@
                             return;
                         }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
-                        $('#tabTitle').append('<li style="float:left;width:78px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
+                        $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
@@ -386,7 +386,7 @@
                     function addTabGray(condition, rate) {
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
-                        $('#tabTitle').append('<li style="float:left;width:78px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');
+                        $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);

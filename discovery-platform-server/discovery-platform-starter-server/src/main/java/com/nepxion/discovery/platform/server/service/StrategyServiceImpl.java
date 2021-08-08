@@ -36,6 +36,7 @@ import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyBlacklistEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionGrayEntity;
+import com.nepxion.discovery.common.entity.StrategyEntity;
 import com.nepxion.discovery.common.entity.StrategyHeaderEntity;
 import com.nepxion.discovery.common.entity.StrategyReleaseEntity;
 import com.nepxion.discovery.common.entity.StrategyRouteEntity;
@@ -97,13 +98,23 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             public void publishConfig(String portalName, List<Object> configList) throws Exception {
                 for (Object object : configList) {
                     StrategyDto strategyDto = (StrategyDto) object;
+                    Set<String> routeIdSet = new HashSet<>();
+
                     RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(strategyDto.getPortalName());
                     StrategyReleaseEntity strategyReleaseEntity = new StrategyReleaseEntity();
-                    strategyReleaseEntity.setStrategyConditionBlueGreenEntityList(generateConditionBlueGreen(strategyDto));
-                    strategyReleaseEntity.setStrategyConditionGrayEntityList(generateConditionGray(strategyDto));
-                    strategyReleaseEntity.setStrategyRouteEntityList(generateStrategyRoute(strategyDto));
+                    strategyReleaseEntity.setStrategyConditionBlueGreenEntityList(generateConditionBlueGreen(strategyDto, routeIdSet));
+                    strategyReleaseEntity.setStrategyConditionGrayEntityList(generateConditionGray(strategyDto, routeIdSet));
+                    strategyReleaseEntity.setStrategyRouteEntityList(generateStrategyRoute(strategyDto, routeIdSet));
                     strategyReleaseEntity.setStrategyHeaderEntity(generateHeader(strategyDto));
-                    ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
+
+
+                    if (strategyReleaseEntity.getStrategyConditionBlueGreenEntityList().size() > 0 ||
+                            strategyReleaseEntity.getStrategyConditionGrayEntityList().size() > 0 ||
+                            strategyReleaseEntity.getStrategyRouteEntityList().size() > 0 ||
+                            strategyReleaseEntity.getStrategyHeaderEntity().getHeaderMap().size() > 0) {
+                        ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
+                    }
+                    ruleEntity.setStrategyEntity(generateGlobalStrategy(strategyDto));
                     StrategyServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(strategyDto.getPortalType()), strategyDto.getPortalName(), ruleEntity);
                 }
             }
@@ -184,7 +195,26 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
     }
 
     @TransactionReader
-    public List<StrategyConditionBlueGreenEntity> generateConditionBlueGreen(StrategyDto strategyDto) {
+    public StrategyEntity generateGlobalStrategy(StrategyDto strategyDto) {
+        StrategyEntity strategyEntity = new StrategyEntity();
+        String basicGlobalStrategyRouteId = strategyDto.getBasicGlobalStrategyRouteId();
+        if (StringUtils.isNotEmpty(basicGlobalStrategyRouteId)) {
+            RouteArrangeDto.StrategyType strategyType = RouteArrangeDto.StrategyType.get(strategyDto.getStrategyType());
+            RouteArrangeDto routeArrangeDto = routeArrangeService.getByRouteId(basicGlobalStrategyRouteId);
+            switch (strategyType) {
+                case VERSION:
+                    strategyEntity.setVersionValue(generateRouteArrange(routeArrangeDto));
+                    break;
+                case REGION:
+                    strategyEntity.setRegionValue(generateRouteArrange(routeArrangeDto));
+                    break;
+            }
+        }
+        return strategyEntity;
+    }
+
+    @TransactionReader
+    public List<StrategyConditionBlueGreenEntity> generateConditionBlueGreen(StrategyDto strategyDto, Set<String> routeIdSet) {
         List<StrategyConditionBlueGreenEntity> strategyConditionBlueGreenEntityList = new ArrayList<>();
         RouteArrangeDto.StrategyType strategyType = RouteArrangeDto.StrategyType.get(strategyDto.getStrategyType());
         if (strategyType == null) {
@@ -212,6 +242,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
                 }
                 strategyConditionBlueGreenEntity.setId(id);
                 strategyConditionBlueGreenEntity.setExpression(expression);
+                routeIdSet.add(conditionAndRoutePo.getRouteId());
                 switch (strategyType) {
                     case VERSION:
                         strategyConditionBlueGreenEntity.setVersionId(conditionAndRoutePo.getRouteId());
@@ -228,7 +259,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             StrategyConditionBlueGreenEntity strategyConditionBlueGreenEntity = new StrategyConditionBlueGreenEntity();
             strategyConditionBlueGreenEntityList.add(strategyConditionBlueGreenEntity);
             strategyConditionBlueGreenEntity.setId(PlatformConstant.BASIC_CONDITION);
-
+            routeIdSet.add(basicBlueGreenStrategyRouteId);
             switch (strategyType) {
                 case VERSION:
                     strategyConditionBlueGreenEntity.setVersionId(basicBlueGreenStrategyRouteId);
@@ -238,11 +269,12 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
                     break;
             }
         }
+
         return strategyConditionBlueGreenEntityList;
     }
 
     @TransactionReader
-    public List<StrategyConditionGrayEntity> generateConditionGray(StrategyDto strategyDto) {
+    public List<StrategyConditionGrayEntity> generateConditionGray(StrategyDto strategyDto, Set<String> routeIdSet) {
         List<StrategyConditionGrayEntity> strategyConditionGrayEntityList = new ArrayList<>();
         RouteArrangeDto.StrategyType strategyType = RouteArrangeDto.StrategyType.get(strategyDto.getStrategyType());
         if (strategyType == null) {
@@ -270,7 +302,10 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
                 strategyConditionGrayEntity.setExpression(expression);
                 Map<String, Integer> weightEntity = new LinkedHashMap<>();
                 for (Map<String, String> rateMap : conditionAndRatePo.getRate()) {
-                    weightEntity.put(rateMap.get(PlatformConstant.ROUTE_ID), Integer.parseInt(rateMap.get(PlatformConstant.RATE)));
+                    String routeId = rateMap.get(PlatformConstant.ROUTE_ID);
+                    Integer rate = Integer.parseInt(rateMap.get(PlatformConstant.RATE));
+                    routeIdSet.add(routeId);
+                    weightEntity.put(routeId, rate);
                 }
                 switch (strategyType) {
                     case VERSION:
@@ -297,7 +332,10 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             strategyConditionGrayEntity.setId(PlatformConstant.BASIC_CONDITION);
             Map<String, Integer> weightEntity = new LinkedHashMap<>();
             for (Map<String, String> rateMap : routeIdRateMap) {
-                weightEntity.put(rateMap.get(PlatformConstant.ROUTE_ID), Integer.parseInt(rateMap.get(PlatformConstant.RATE)));
+                String routeId = rateMap.get(PlatformConstant.ROUTE_ID);
+                Integer rate = Integer.parseInt(rateMap.get(PlatformConstant.RATE));
+                routeIdSet.add(routeId);
+                weightEntity.put(routeId, rate);
             }
             switch (strategyType) {
                 case VERSION:
@@ -317,7 +355,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
     }
 
     @TransactionReader
-    public List<StrategyRouteEntity> generateStrategyRoute(StrategyDto strategyDto) {
+    public List<StrategyRouteEntity> generateStrategyRoute(StrategyDto strategyDto, Set<String> routeIdSet) {
         List<StrategyRouteEntity> strategyRouteEntityList = new ArrayList<>();
         RouteArrangeDto.StrategyType strategyType = RouteArrangeDto.StrategyType.get(strategyDto.getStrategyType());
         if (strategyType == null) {
@@ -326,6 +364,9 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         List<RouteStrategyDto> routeStrategyDtoList = routeStrategyService.getByPortalNameAndPortalType(strategyDto.getPortalName(), strategyDto.getPortalType());
 
         for (RouteStrategyDto routeStrategyDto : routeStrategyDtoList) {
+            if (!routeIdSet.contains(routeStrategyDto.getRouteId())) {
+                continue;
+            }
             RouteArrangeDto routeArrangeDto = routeArrangeService.getByRouteId(routeStrategyDto.getRouteId());
             StrategyRouteEntity strategyRouteEntity = new StrategyRouteEntity();
 
@@ -341,7 +382,6 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             strategyRouteEntity.setValue(generateRouteArrange(routeArrangeDto));
             strategyRouteEntityList.add(strategyRouteEntity);
         }
-
         return strategyRouteEntityList;
     }
 

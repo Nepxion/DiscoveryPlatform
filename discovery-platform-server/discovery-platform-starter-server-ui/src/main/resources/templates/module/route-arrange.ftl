@@ -80,6 +80,8 @@
         <div class="layui-form-item layui-hide">
             <input type="button" lay-submit lay-filter="btn_confirm" id="btn_confirm" value="确认">
         </div>
+
+        <input id="error" name="error" type="hidden">
     </div>
     <input id="callback" type="button" style="display: none"/>
 
@@ -257,7 +259,7 @@
 
             $('#callback').click(function () {
                 $('#serviceArrange').val('');
-
+                $('#error').val('');
                 const serviceArrange = [], set = new Set();
                 $.each(table.cache['grid'], function (index, item) {
                     if (item['serviceName'] != '' && item['serviceValue'] != '') {
@@ -267,11 +269,16 @@
                             const json = {};
                             json[item['serviceName']] = item['serviceValue'];
                             serviceArrange.push(json);
+                        } else {
+                            $('#error').val('在链路列表中发现有相同的配置, 请检查后重新输入');
+                            return false;
                         }
                     }
                 });
                 if (serviceArrange.length > 0) {
                     $('#serviceArrange').val(JSON.stringify(serviceArrange));
+                } else {
+                    $('#error').val('请在链路列表处填写完整的信息');
                 }
             });
         });

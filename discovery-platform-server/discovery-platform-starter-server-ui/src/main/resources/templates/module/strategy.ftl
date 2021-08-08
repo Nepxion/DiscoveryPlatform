@@ -539,9 +539,11 @@
                         const sel = $('#' + id);
                         sel.html('<option value="">请选择链路标识</option>');
                         $.each(routes, function (key, val) {
-                            let option;
+                            let option, v = val.routeId;
                             const k = val.routeId;
-                            const v = val.routeId + ' (' + val.description + ')';
+                            if (val.description != '') {
+                                v = v + ' (' + val.description + ')';
+                            }
                             if (basicStrategyRouteId == k) {
                                 option = $("<option>").attr('selected', 'selected').val(k).text(v);
                             } else {
@@ -821,6 +823,7 @@
                     }
 
                     function setButtonStatus() {
+                        return true;
                         if (existBasicGlobal() || existBasicBlueGreen() || existBasicGray()) {
                             admin.disableBtn('btnAddBasicGlobal');
                             admin.disableBtn('btnAddBasicBlueGreen');

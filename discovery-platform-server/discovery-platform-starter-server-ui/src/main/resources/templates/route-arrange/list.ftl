@@ -164,8 +164,13 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
                                 delete field['serviceName'];
                                 delete field['serviceValue'];
+                                delete field['error'];
                                 admin.post('do-update', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -196,8 +201,13 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
                                 delete field['serviceName'];
                                 delete field['serviceValue'];
+                                delete field['error'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);

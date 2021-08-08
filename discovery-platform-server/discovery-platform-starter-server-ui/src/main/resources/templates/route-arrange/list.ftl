@@ -146,9 +146,9 @@
                 if (obj.event === 'edit') {
                     let t = '';
                     if (data.strategyType === 1) {
-                        t = '编辑<b>版本</b>蓝绿';
+                        t = '编辑<b>版本</b>链路';
                     } else if (data.strategyType === 2) {
-                        t = '编辑<b>区域</b>蓝绿';
+                        t = '编辑<b>区域</b>链路';
                     }
                     layer.open({
                         type: 2,
@@ -233,11 +233,11 @@
                     }
                 } else if (obj.event === 'publish') {
                     if (!$("#btnPublish").hasClass('layui-btn-disabled')) {
-                        layer.confirm('确定要发布蓝绿灰度吗？', function (index) {
+                        layer.confirm('确定要发布链路吗？', function (index) {
                             admin.post('do-publish', {}, function () {
                                 $("#search").click();
                                 updateStatus(false);
-                                admin.success('系统提示', '蓝绿灰度发布成功, 已立即生效');
+                                admin.success('系统提示', '链路发布成功, 已立即生效');
                                 layer.close(index);
                             });
                         });

@@ -212,6 +212,11 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 - [平台登录](#平台登录)
 - [主页](#主页)
 - [服务发布](#服务发布)
+    - [链路编排](#链路编排)
+        - [新增链路](#新增链路)
+        - [发布链路](#发布链路)
+        - [删除链路](#删除链路)
+        - [编辑链路](#编辑链路)
     - [蓝绿发布](#蓝绿发布)
         - [新增蓝绿](#新增蓝绿)
         - [发布蓝绿](#发布蓝绿)
@@ -404,6 +409,46 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ## 主页
 
 ## 服务发布
+
+### 链路编排
+
+导航栏上选择〔服务发布〕/〔链路编排〕，进入链路编排界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
+
+链路编排，即在全链路蓝绿发布或者灰度发布的过程中，把若干个服务的实例按照版本/区域维度实现编排成N个逻辑链路。举个例子，根据生产环境上服务的版本新旧，编排成新版本链路和旧版本链路，供蓝绿发布进行条件驱动，或者供灰度发布进行百分比驱动
+
+链路编排功能引入，具有如下的意义
+- 蓝绿发布和灰度发布混合实施的时候，编排的链路可以供两种发布规则策略共享
+- 蓝绿发布和灰度发布结束后，使用者不需要删除发布的规则策略，而是`禁用`它，以便于下一轮发布，不再重复配置，只需要`开启`它，并`发布`即可
+- 蓝绿发布和灰度发布下一轮开始时，条件策略等未改变，只是改变链路中的服务列表，使用者只需要直接编辑`链路编排`中的相关链路，并`发布`即可
+
+蓝绿灰度混合灰度发布示例
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
+    </strategy>
+    <strategy-release>
+        <conditions type="blue-green">
+            <condition id="condition-0" expression="#H['a'] == '1'" version-id="route-0"/>
+            <condition id="condition-1" expression="#H['a'] == '2'" version-id="route-1"/>
+            <condition id="basic-condition" version-id="route-0"/>
+        </conditions>
+        <conditions type="gray">
+            <condition id="condition-0" expression="#H['a'] == '3'" version-id="route-0=10;route-1=90"/>
+            <condition id="condition-1" expression="#H['a'] == '4'" version-id="route-0=40;route-1=60"/>
+            <condition id="basic-condition" version-id="route-0=0;route-1=100"/>
+        </conditions>
+        <routes>
+            <route id="route-0" type="version">{"discovery-guide-service-a":"1.0","discovery-guide-service-b":"1.0"}</route>
+            <route id="route-1" type="version">{"discovery-guide-service-a":"1.1","discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-release>
+</rule>
+```
 
 ### 蓝绿发布
 

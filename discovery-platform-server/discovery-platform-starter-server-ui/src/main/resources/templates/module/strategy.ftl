@@ -398,7 +398,7 @@
                             return;
                         }
                         if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '已存在蓝绿兜底策略', function () {
+                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                             });
                             return;
@@ -432,6 +432,12 @@
                         if (existBasicBlueGreen()) {
                             admin.error('系统操作', '已存在蓝绿兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
+                            });
+                            return;
+                        }
+                        if (existBasicGlobal()) {
+                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
                             });
                             return;
                         }
@@ -486,6 +492,12 @@
                         if (existBasicGray()) {
                             admin.error('系统操作', '已存在灰度兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                            });
+                            return;
+                        }
+                        if (existBasicGlobal()) {
+                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
                             });
                             return;
                         }
@@ -830,7 +842,6 @@
                         } else {
                             admin.enableBtn('btnRemoveStrategy');
                         }
-
                     }
 
                     $('#callback').click(function () {

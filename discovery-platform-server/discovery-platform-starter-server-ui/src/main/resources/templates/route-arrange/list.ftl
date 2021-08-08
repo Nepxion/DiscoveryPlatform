@@ -113,7 +113,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#templateState', width: 80},
-                    {title: '链路名称', templet: '#tempRouteId', width: 250},
+                    {title: '链路标识', templet: '#tempRouteId', width: 250},
                     {
                         title: '策略类型', width: 230, templet: function (d) {
                             if (d.strategyType == 1) {

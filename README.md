@@ -423,6 +423,33 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 蓝绿发布和灰度发布结束后，使用者不需要删除发布的规则策略，而是`禁用`它，以便于下一轮发布，不再重复配置，只需要`开启`它，并`发布`即可
 - 蓝绿发布和灰度发布下一轮开始时，条件策略等未改变，只是改变链路中的服务列表，使用者只需要直接编辑`链路编排`中的相关链路，并`发布`即可
 
+蓝绿灰度混合灰度发布示例
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
+    </strategy>
+    <strategy-release>
+        <conditions type="blue-green">
+            <condition id="condition-0" expression="#H['a'] == '1'" version-id="route-0"/>
+            <condition id="condition-1" expression="#H['a'] == '2'" version-id="route-1"/>
+            <condition id="basic-condition" version-id="route-0"/>
+        </conditions>
+        <conditions type="gray">
+            <condition id="condition-0" expression="#H['a'] == '3'" version-id="route-0=10;route-1=90"/>
+            <condition id="condition-1" expression="#H['a'] == '4'" version-id="route-0=40;route-1=60"/>
+            <condition id="basic-condition" version-id="route-0=0;route-1=100"/>
+        </conditions>
+        <routes>
+            <route id="route-0" type="version">{"discovery-guide-service-a":"1.0","discovery-guide-service-b":"1.0"}</route>
+            <route id="route-1" type="version">{"discovery-guide-service-a":"1.1","discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-release>
+</rule>
+```
+
 ### 蓝绿发布
 
 导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面

@@ -483,7 +483,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 导航栏上选择〔服务发布〕/〔蓝绿灰度〕，进入蓝绿灰度发布界面
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-1.jpg)
 
 #### 新增蓝绿灰度
 

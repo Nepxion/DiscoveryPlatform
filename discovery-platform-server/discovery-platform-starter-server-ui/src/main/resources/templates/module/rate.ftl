@@ -8,7 +8,11 @@
             {{# layui.each(d.routeIdList, function(index, item){ }}
             <option value="{{ item.routeId }}" {{ d.routeId==item.routeId ?
             'selected="selected"' : '' }}>
-            {{ item.routeId }} ({{ item.description }})
+            {{# if(item.description == ''){ }}
+            {{ item.routeId }}
+            {{# } else { }}
+            {{ item.routeId }} ({{ item.description}})
+            {{# } }}
             </option>)
             {{# }); }}
         </select>

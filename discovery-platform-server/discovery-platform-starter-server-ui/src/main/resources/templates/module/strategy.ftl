@@ -187,7 +187,7 @@
                     const TAB_STRATEGY_BASIC_GLOBAL = TAB_STRATEGY_BLUE_GREEN + 'BasicGlobal';
                     const TAB_STRATEGY_BASIC_BLUE_GREEN = TAB_STRATEGY_BLUE_GREEN + 'BasicBlueGreen';
                     const TAB_STRATEGY_BASIC_GRAY = TAB_STRATEGY_GRAY + 'BasicGray';
-                    let routeIds = [];
+                    let routeIds = [], spels = new Set();
                     let portalType = 1, tabIndex = 0, tabSelectTitle = '', tabSelect, headerCount = 0;
                     let conditionCount = 0, rateCount = 0;
                     const basicGrayStrategy = ${((entity.basicGrayStrategy!'')?length>0)?string((entity.basicGrayStrategy!''),'[]')};
@@ -762,7 +762,7 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名', width: 348},
+                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '链路标识', width: 348},
                                 {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true, width: 348},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
@@ -835,6 +835,7 @@
 
                     $('#callback').click(function () {
                         routeIds = [];
+                        spels = new Set();
                         $('#error').val('');
                         if ($('#error').val() == '') {
                             collectBasicGlobalStrategy();
@@ -879,11 +880,17 @@
                     function collectBlueGreenStrategy() {
                         $('#blueGreenStrategy').val('');
                         const all = {}, spelSet = new Set();
-                        ;
                         $('#tabContent').find('.blueGreen.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             const gridBlueGreen = 'gridBlueGreen' + tabIndex;
                             const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
+
+                            if (spels.has(spelCondition)) {
+                                $('#error').val('条件设置已存在,请重新输入');
+                                return false;
+                            }
+                            spels.add(spelCondition);
+
                             if (tabIndex && spelCondition != undefined) {
                                 if (spelCondition == '') {
                                     $('#error').val('蓝绿' + tabIndex + '的条件设置不允许为空');
@@ -893,9 +900,17 @@
                                     return false;
                                 }
                                 spelSet.add(spelCondition);
-                                const _dataCondition = [], _setCondition = new Set();
+
+                                const _dataCondition = [], _setCondition = new Set(), spelSingleSet = new Set();
                                 $.each(table.cache[gridBlueGreen], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
+                                        const k = item.parameterName + item.operator + item.value + item.logic;
+                                        if (spelSingleSet.has(k)) {
+                                            $('#error').val('蓝绿' + tabIndex + '的条件设置存在重复情况, 请检查后重新输入');
+                                            return false;
+                                        }
+                                        spelSingleSet.add(k);
+
                                         const data = {
                                             'parameterName': item.parameterName,
                                             'operator': item.operator,
@@ -935,7 +950,7 @@
                     function collectBasicGrayStrategy() {
                         $('#basicGrayStrategy').val('');
                         if (existBasicGray()) {
-                            const all = [], set = new Set();
+                            const all = [], set = new Set(), routeIdSet = new Set();
                             let total = 0;
                             $.each(table.cache['gridBasicGrayRate'], function (index, item) {
                                 if (item.routeId == '' || item.rate == '') {
@@ -945,6 +960,13 @@
                                     $('#error').val('[' + item.rate + ']不是正整数, 请重新填写');
                                     return false;
                                 }
+
+                                if (routeIdSet.has(item.routeId)) {
+                                    $('#error').val('灰度兜底的链路标识存在重复, 请检查后重新选择');
+                                    return false;
+                                }
+                                routeIdSet.add(item.routeId);
+
                                 total = total + parseInt(item.rate);
                                 const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
                                 if (!set.has(key)) {
@@ -969,6 +991,11 @@
                             const tabIndex = $(this).attr('tag');
                             const gridGray = 'gridGray' + tabIndex, gridGrayRate = 'gridGrayRate' + tabIndex;
                             const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
+                            if (spels.has(spelCondition)) {
+                                $('#error').val('条件设置已存在,请重新输入');
+                                return false;
+                            }
+                            spels.add(spelCondition);
                             if (tabIndex && spelCondition != undefined) {
                                 if (spelCondition == '') {
                                     $('#error').val('灰度' + tabIndex + '的条件设置不允许为空');
@@ -979,9 +1006,16 @@
                                 }
                                 spelSet.add(spelCondition);
 
-                                const _dataCondition = [], _setCondition = new Set();
+                                const _dataCondition = [], _setCondition = new Set(), spelSingleSet = new Set();
                                 $.each(table.cache[gridGray], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
+                                        const k = item.parameterName + item.operator + item.value + item.logic;
+                                        if (spelSingleSet.has(k)) {
+                                            $('#error').val('灰度' + tabIndex + '的条件设置存在重复情况, 请检查后重新输入');
+                                            return false;
+                                        }
+                                        spelSingleSet.add(k);
+
                                         const data = {
                                             'parameterName': item.parameterName,
                                             'operator': item.operator,
@@ -1004,7 +1038,7 @@
                                     return false;
                                 }
 
-                                const _rates = [], _setRates = new Set();
+                                const _rates = [], _setRates = new Set(), routeIdSet = new Set();
                                 let total = 0;
                                 $.each(table.cache[gridGrayRate], function (index, item) {
                                     if (item.routeId == '' || item.rate == '') {
@@ -1014,6 +1048,12 @@
                                         $('#error').val('灰度' + tabIndex + '流量配比[' + item.rate + ']不是正整数, 请重新填写');
                                         return false;
                                     }
+                                    if (routeIdSet.has(item.routeId)) {
+                                        $('#error').val('灰度' + tabIndex + '的链路标识存在重复, 请检查后重新选择');
+                                        return false;
+                                    }
+                                    routeIdSet.add(item.routeId);
+
                                     total = total + parseInt(item.rate);
                                     const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
                                     routeIds.push(item.routeId);

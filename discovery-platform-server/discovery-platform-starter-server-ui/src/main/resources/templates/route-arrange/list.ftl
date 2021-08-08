@@ -113,7 +113,7 @@
                     {type: 'checkbox'},
                     {type: 'numbers', title: '序号', width: 50},
                     {title: '状态', align: 'center', templet: '#templateState', width: 80},
-                    {title: '链路名称', templet: '#tempRouteId', width: 250},
+                    {title: '链路标识', templet: '#tempRouteId', width: 250},
                     {
                         title: '策略类型', width: 230, templet: function (d) {
                             if (d.strategyType == 1) {
@@ -164,8 +164,13 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
                                 delete field['serviceName'];
                                 delete field['serviceValue'];
+                                delete field['error'];
                                 admin.post('do-update', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);
@@ -196,8 +201,13 @@
                             source.click();
                             iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                                 const field = data.field;
+                                if (field.error !== '') {
+                                    admin.error('系统提示', field.error);
+                                    return false;
+                                }
                                 delete field['serviceName'];
                                 delete field['serviceValue'];
+                                delete field['error'];
                                 admin.post('do-insert', field, function () {
                                     table.reload('grid');
                                     updateStatus(true);

@@ -54,6 +54,14 @@ public class RouteStrategyServiceImpl extends ServiceImpl<RouteStrategyMapper, R
         return true;
     }
 
+    @TransactionWriter
+    @Override
+    public void removeByNameAndType(String portalName, Integer portalType) {
+        remove(Wrappers.lambdaUpdate(RouteStrategyDto.class)
+                .eq(RouteStrategyDto::getPortalName, portalName)
+                .eq(RouteStrategyDto::getPortalType, portalType));
+    }
+
     @TransactionReader
     @Override
     public List<RouteStrategyDto> getByPortalNameAndPortalType(String portalName, Integer portalType) {

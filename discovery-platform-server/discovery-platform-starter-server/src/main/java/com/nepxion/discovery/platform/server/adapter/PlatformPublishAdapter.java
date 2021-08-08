@@ -143,7 +143,7 @@ public class PlatformPublishAdapter<M extends BaseMapper<T>, T extends BaseState
         }
 
         if (!CollectionUtils.isEmpty(toDeleteList)) {
-            removeByIds(toDeleteList.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
+            delete(toDeleteList.stream().map(BaseEntity::getId).collect(Collectors.toSet()));
         }
         if (!CollectionUtils.isEmpty(toUpdateList)) {
             for (T t : toUpdateList) {

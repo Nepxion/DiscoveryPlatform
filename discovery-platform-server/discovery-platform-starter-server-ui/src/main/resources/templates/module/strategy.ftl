@@ -22,9 +22,9 @@
                             </select>
                         </div>
                         <div class="layui-col-md1">
-                            <a id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                            <button id="btnRefreshPortal" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
                                 <i class="layui-icon">&#xe669;</i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -55,17 +55,21 @@
                 <label class="layui-form-label">策略配置&nbsp;<a href="http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg" target="_blank" title="蓝绿灰度混合发布执行逻辑"><i class="layui-icon layui-icon-about"></i></a></label>
                 <div class="layui-input-block">
                     <div class="layui-btn-group">
-                        <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿兜底策略</a>
-                        <a id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</a>
+                        <button id="btnAddBasicGlobal" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加全局兜底策略</button>
                     </div>
 
                     <div class="layui-btn-group">
-                        <a id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度兜底策略</a>
-                        <a id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度策略</a>
+                        <button id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿兜底策略</button>
+                        <button id="btnAddBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿策略</button>
                     </div>
 
                     <div class="layui-btn-group">
-                        <a id="btnRemoveStrategy" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</a>
+                        <button id="btnAddBasicGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度兜底策略</button>
+                        <button id="btnAddGray" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加灰度策略</button>
+                    </div>
+
+                    <div class="layui-btn-group">
+                        <button id="btnRemoveStrategy" class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon">&#xe640;</i>删除策略</button>
                     </div>
                 </div>
             </div>
@@ -90,10 +94,10 @@
                     <script type="text/html" id="grid-header-bar">
                         <@update>
                             <div class="layui-btn-group">
-                                <a class="layui-btn layui-btn-sm" lay-event="addHeader">
-                                    <i class="layui-icon">&#xe654;</i></a>
-                                <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeHeader">
-                                    <i class="layui-icon">&#xe67e;</i></a>
+                                <button class="layui-btn layui-btn-sm" lay-event="addHeader">
+                                    <i class="layui-icon">&#xe654;</i></button>
+                                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="removeHeader">
+                                    <i class="layui-icon">&#xe67e;</i></button>
                             </div>
                         </@update>
                     </script>
@@ -106,18 +110,34 @@
 
             <input id="callback" type="button" style="display: none"/>
 
+            <div id="basicGlobalTemplate" style="display: none;width: 900px">
+                <span class="layui-badge layui-bg-blue">链路选取</span>
+
+                <div class="layui-row" style="margin-top: 10px;margin-bottom: 10px;">
+                    <div class="layui-col-md11">
+                        <select id="basicGlobalRouteId" name="basicGlobalRouteId" lay-verify="required" class="layui-select" lay-search>
+                        </select>
+                    </div>
+                    <div class="layui-col-md1">
+                        <button id="btnRefreshGlobalRouteId" tag="basicGlobalRouteId" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                            <i class="layui-icon">&#xe669;</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div id="basicBlueGreenTemplate" style="display: none;width: 900px">
                 <span class="layui-badge layui-bg-blue">链路选取</span>
 
                 <div class="layui-row" style="margin-top: 10px;margin-bottom: 10px;">
                     <div class="layui-col-md11">
-                        <select id="basicBlueGreenRouteId" name="basicBlueGreenRouteId" autocomplete="off" class="layui-select" lay-search>
+                        <select id="basicBlueGreenRouteId" name="basicBlueGreenRouteId" lay-verify="required" class="layui-select" lay-search>
                         </select>
                     </div>
                     <div class="layui-col-md1">
-                        <a id="btnRefreshBlueGreenRouteId" tag="basicBlueGreenRouteId" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <button id="btnRefreshBlueGreenRouteId" tag="basicBlueGreenRouteId" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
                             <i class="layui-icon">&#xe669;</i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -128,13 +148,13 @@
 
                 <div class="layui-row" style="margin-top: 10px;margin-bottom: 10px;">
                     <div class="layui-col-md11">
-                        <select id="routeId$_INDEX_$" autocomplete="off" class="layui-select" lay-search>
+                        <select id="routeId$_INDEX_$" lay-verify="required" class="layui-select" lay-search>
                         </select>
                     </div>
                     <div class="layui-col-md1">
-                        <a id="btnReloadBlueGreenRoute$_INDEX_$" tag="routeId$_INDEX_$" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
+                        <button id="btnReloadBlueGreenRoute$_INDEX_$" tag="routeId$_INDEX_$" class="layui-btn layui-btn-sm" style="margin-left: 10px;width:60px;margin-top: 4px">
                             <i class="layui-icon">&#xe669;</i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -153,6 +173,7 @@
             <input type="hidden" id="error" name="error" value=""/>
             <input type="hidden" id="strategyType" name="strategyType" value="${strategyType}"/>
             <input type="hidden" id="routeIds" name="routeIds" value=""/>
+            <input type="hidden" id="basicGlobalStrategyRouteId" name="basicGlobalStrategyRouteId" value=""/>
             <input type="hidden" id="basicBlueGreenStrategyRouteId" name="basicBlueGreenStrategyRouteId" value=""/>
             <input type="hidden" id="blueGreenStrategy" name="blueGreenStrategy" value=""/>
             <input type="hidden" id="basicGrayStrategy" name="basicGrayStrategy" value=""/>
@@ -163,14 +184,16 @@
             layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'form'], function () {
                     const form = layui.form, admin = layui.admin, $ = layui.$, element = layui.element, table = layui.table;
                     const TAB = 'tab', TAB_STRATEGY_BLUE_GREEN = 'tabStrategyBlueGreen', TAB_STRATEGY_GRAY = 'tabStrategyGray';
+                    const TAB_STRATEGY_BASIC_GLOBAL = TAB_STRATEGY_BLUE_GREEN + 'BasicGlobal';
                     const TAB_STRATEGY_BASIC_BLUE_GREEN = TAB_STRATEGY_BLUE_GREEN + 'BasicBlueGreen';
-                    const TAB_STRATEGY_BASIC_GRAY = TAB_STRATEGY_GRAY + 'Gray';
-                    let routeIds = [];
+                    const TAB_STRATEGY_BASIC_GRAY = TAB_STRATEGY_GRAY + 'BasicGray';
+                    let routeIds = [], spels = new Set();
                     let portalType = 1, tabIndex = 0, tabSelectTitle = '', tabSelect, headerCount = 0;
                     let conditionCount = 0, rateCount = 0;
                     const basicGrayStrategy = ${((entity.basicGrayStrategy!'')?length>0)?string((entity.basicGrayStrategy!''),'[]')};
                     const grayStrategy = ${((entity.grayStrategy!'')?length>0)?string((entity.grayStrategy!''),'{}')};
                     const blueGreenStrategy = ${((entity.blueGreenStrategy!'')?length>0)?string((entity.blueGreenStrategy!''),'{}')};
+                    const basicGlobalStrategyRouteId = '${((entity.basicGlobalStrategyRouteId!'')?length>0)?string((entity.basicGlobalStrategyRouteId!''),'')}';
                     const basicBlueGreenStrategyRouteId = '${((entity.basicBlueGreenStrategyRouteId!'')?length>0)?string((entity.basicBlueGreenStrategyRouteId!''),'')}';
                     const header = ${((entity.header!'')?length>0)?string((entity.header!''),'[]')};
                     setTimeout(function () {
@@ -184,11 +207,18 @@
                         addTabBlueGreen();
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                         <#else>
-                        let hasBasicBlueGreen = false;
+                        let hasBasicGlobal = false, hasBasicBlueGreen = false, hasBasicGray = false;
+
+                        if (!isEmpty(basicGlobalStrategyRouteId)) {
+                            addTabBasicGlobal(basicGlobalStrategyRouteId);
+                            hasBasicGlobal = true;
+                        }
+
                         if (!isEmpty(basicBlueGreenStrategyRouteId)) {
                             addTabBasicBlueGreen(basicBlueGreenStrategyRouteId);
                             hasBasicBlueGreen = true;
                         }
+
                         for (const k in blueGreenStrategy) {
                             const condition = blueGreenStrategy[k].condition;
                             const routeId = blueGreenStrategy[k].routeId;
@@ -197,16 +227,22 @@
 
                         if (!isEmpty(basicGrayStrategy)) {
                             addTabBasicGray(basicGrayStrategy);
+                            hasBasicGray = true;
                         }
 
                         for (const k in grayStrategy) {
                             addTabGray(grayStrategy[k].condition, grayStrategy[k].rate);
                         }
 
-                        if (hasBasicBlueGreen)
+                        if (hasBasicGlobal) {
+                            element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
+                        } else if (hasBasicBlueGreen) {
                             element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                        else
-                            element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + 1);
+                        } else if (hasBasicGray) {
+                            element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
+                        } else {
+                            element.tabChange(TAB, $('#tabTitle>li:first').attr('lay-id'));
+                        }
                         </#if>
                     }, 100);
 
@@ -281,6 +317,13 @@
                         });
                     });
 
+                    $('#btnAddBasicGlobal').click(function () {
+                        addTabBasicGlobal();
+                        $(".layui-tab-bar").click();
+                        element.init();
+                        element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
+                    });
+
                     $('#btnAddBasicBlueGreen').click(function () {
                         addTabBasicBlueGreen();
                         $(".layui-tab-bar").click();
@@ -321,15 +364,16 @@
                         layer.confirm('确定要删除 [' + tabSelectTitle + '] 吗?', function (index) {
                             element.tabDelete(TAB, tabSelect);
                             layer.close(index);
-
-                            const layId = $('#tabTitle>li:last').attr('lay-id');
-                            element.tabChange(TAB, layId);
-
+                            element.tabChange(TAB, tabSelect);
                             if ($('#tabContent').find('.layui-tab-item').size() < 1) {
                                 tabSelectTitle = '';
                             }
                         });
                     });
+
+                    function existBasicGlobal() {
+                        return $('li[lay-id="' + TAB_STRATEGY_BASIC_GLOBAL + '"]').size() > 0;
+                    }
 
                     function existBasicBlueGreen() {
                         return $('li[lay-id="' + TAB_STRATEGY_BASIC_BLUE_GREEN + '"]').size() > 0;
@@ -339,6 +383,32 @@
                         return $('li[lay-id="' + TAB_STRATEGY_BASIC_GRAY + '"]').size() > 0;
                     }
 
+                    function addTabBasicGlobal(data) {
+                        if (existBasicGlobal()) {
+                            admin.error('系统操作', '已存在全局兜底策略', function () {
+                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
+                            });
+                            return;
+                        }
+                        const tabTitleId = TAB_STRATEGY_BASIC_GLOBAL, tabContentId = 'tabContentBasicGlobal';
+                        $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;全局兜底</span></li>');
+                        $('#tabContent').append('<div style="width:900px" id="' + tabContentId + '" tag="' + tabIndex + '" class="basicGlobal layui-tab-item"></div>');
+                        $('#' + tabContentId).append($('#basicGlobalTemplate').html());
+                        element.render(TAB);
+                        let isFirst = true;
+                        $('#btnRefreshGlobalRouteId').click(function () {
+                            const id = $(this).attr('tag');
+                            if (isFirst) {
+                                bindRouteSelect(id, data);
+                                isFirst = false;
+                            } else {
+                                admin.loading(function () {
+                                    bindRouteSelect(id, data);
+                                });
+                            }
+                        }).click();
+                    }
+
                     function addTabBasicBlueGreen(data) {
                         if (existBasicBlueGreen()) {
                             admin.error('系统操作', '已存在蓝绿兜底策略', function () {
@@ -346,15 +416,9 @@
                             });
                             return;
                         }
-                        if (existBasicGray()) {
-                            admin.error('系统操作', '蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
-                            });
-                            return;
-                        }
                         const tabTitleId = TAB_STRATEGY_BASIC_BLUE_GREEN, tabContentId = 'tabContentBasicBlueGreen';
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;蓝绿兜底</span></li>');
-                        $('#tabContent').append('<div style="width:900px" id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabContent').append('<div style="width:900px" id="' + tabContentId + '" tag="' + tabIndex + '" class="basicBlueGreen layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicBlueGreenTemplate').html());
                         element.render(TAB);
                         let isFirst = true;
@@ -375,7 +439,7 @@
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_BLUE_GREEN + tabIndex, tabContentId = 'tabContent' + tabIndex, gridBlueGreen = 'gridBlueGreen' + tabIndex, btnReloadBlueGreenRoute = 'btnReloadBlueGreenRoute' + tabIndex;
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_blue_green_64.png">&nbsp;蓝绿<b>' + tabIndex + '</b></span></li>');
-                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="blueGreen layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#blueGreenTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
                         initConditionGrid('gridBlueGreen', tabIndex, condition);
@@ -400,31 +464,19 @@
                             });
                             return;
                         }
-                        if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
-                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="basicGray layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#basicGrayTemplate').html().replaceAll('$_INDEX_$', ''));
                         element.render(TAB);
                         initRateGrid('gridBasicGrayRate', '', data);
                     }
 
                     function addTabGray(condition, rate) {
-                        if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '当蓝绿兜底策略存在时，任何灰度策略都不允许添加。如需添加，请先删除绿兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');
-                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="layui-tab-item"></div>');
+                        $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="gray layui-tab-item"></div>');
                         $('#' + tabContentId).append($('#grayTemplate').html().replaceAll('$_INDEX_$', tabIndex));
                         element.render(TAB);
                         initConditionGrid('gridGray', tabIndex, condition);
@@ -436,11 +488,13 @@
                         if (data) basicStrategyRouteId = data;
                         const routes = admin.getRoutes(${strategyType});
                         const sel = $('#' + id);
-                        sel.html('<option value="">请选择链路名称</option>');
+                        sel.html('<option value="">请选择链路标识</option>');
                         $.each(routes, function (key, val) {
-                            let option;
+                            let option, v = val.routeId;
                             const k = val.routeId;
-                            const v = val.routeId + ' (' + val.description + ')';
+                            if (val.description != '') {
+                                v = v + ' (' + val.description + ')';
+                            }
                             if (basicStrategyRouteId == k) {
                                 option = $("<option>").attr('selected', 'selected').val(k).text(v);
                             } else {
@@ -673,7 +727,7 @@
                             loading: false,
                             cols: [[
                                 {type: 'numbers', title: '序号', unresize: true, width: 50},
-                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '路由名', width: 348},
+                                {field: 'routeId', templet: '#templateRouteId' + tabIndex, unresize: true, title: '链路标识', width: 348},
                                 {field: 'rate', title: '流量配比 [输入0 ~ 100的数字]', edit: 'text', unresize: true, width: 348},
                                 {title: '操作', align: 'center', toolbar: '#grid-route-bar', unresize: true, width: 150}
                             ]],
@@ -721,17 +775,36 @@
 
                     $('#callback').click(function () {
                         routeIds = [];
-                        collectBasicBlueGreenStrategy();
-                        collectBlueGreenStrategy();
-                        collectBasicGrayStrategy();
-                        collectGrayStrategy();
-                        collectHeader();
-                        $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
-
-                        if ($('#basicBlueGreenStrategyRouteId').val() != '' && $('#basicGrayStrategy').val() != '') {
-                            $('#error').val('蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略');
+                        spels = new Set();
+                        $('#error').val('');
+                        if ($('#error').val() == '') {
+                            collectBasicGlobalStrategy();
                         }
+                        if ($('#error').val() == '') {
+                            collectBasicBlueGreenStrategy();
+                        }
+                        if ($('#error').val() == '') {
+                            collectBlueGreenStrategy();
+                        }
+                        if ($('#error').val() == '') {
+                            collectBasicGrayStrategy();
+                        }
+                        if ($('#error').val() == '') {
+                            collectGrayStrategy();
+                        }
+                        if ($('#error').val() == '') {
+                            collectHeader();
+                        }
+                        $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
                     });
+
+                    function collectBasicGlobalStrategy() {
+                        $('#basicGlobalStrategyRouteId').val('');
+                        if (existBasicGlobal()) {
+                            $('#basicGlobalStrategyRouteId').val($('#basicGlobalRouteId').val());
+                            routeIds.push($('#basicGlobalStrategyRouteId').val());
+                        }
+                    }
 
                     function collectBasicBlueGreenStrategy() {
                         $('#basicBlueGreenStrategyRouteId').val('');
@@ -743,15 +816,38 @@
 
                     function collectBlueGreenStrategy() {
                         $('#blueGreenStrategy').val('');
-                        const all = {};
-                        $('#tabContent').find('.layui-tab-item').each(function () {
+                        const all = {}, spelSet = new Set();
+                        $('#tabContent').find('.blueGreen.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             const gridBlueGreen = 'gridBlueGreen' + tabIndex;
                             const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
-                            if (tabIndex && spelCondition) {
-                                const _dataCondition = [], _setCondition = new Set();
+
+                            if (spels.has(spelCondition)) {
+                                $('#error').val('条件设置已存在,请重新输入');
+                                return false;
+                            }
+                            spels.add(spelCondition);
+
+                            if (tabIndex && spelCondition != undefined) {
+                                if (spelCondition == '') {
+                                    $('#error').val('蓝绿' + tabIndex + '的条件设置不允许为空');
+                                    return false;
+                                } else if (spelSet.has(spelCondition)) {
+                                    $('#error').val('蓝绿' + tabIndex + '的条件设置已存在,请重新输入');
+                                    return false;
+                                }
+                                spelSet.add(spelCondition);
+
+                                const _dataCondition = [], _setCondition = new Set(), spelSingleSet = new Set();
                                 $.each(table.cache[gridBlueGreen], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
+                                        const k = item.parameterName + item.operator + item.value + item.logic;
+                                        if (spelSingleSet.has(k)) {
+                                            $('#error').val('蓝绿' + tabIndex + '的条件设置存在重复情况, 请检查后重新输入');
+                                            return false;
+                                        }
+                                        spelSingleSet.add(k);
+
                                         const data = {
                                             'parameterName': item.parameterName,
                                             'operator': item.operator,
@@ -784,35 +880,79 @@
                                 }
                             }
                         });
+
                         $('#blueGreenStrategy').val(JSON.stringify(all));
                     }
 
                     function collectBasicGrayStrategy() {
                         $('#basicGrayStrategy').val('');
                         if (existBasicGray()) {
-                            const all = [], set = new Set();
+                            const all = [], set = new Set(), routeIdSet = new Set();
+                            let total = 0;
                             $.each(table.cache['gridBasicGrayRate'], function (index, item) {
+                                if (item.routeId == '' || item.rate == '') {
+                                    $('#error').val('灰度兜底的流量配比不允许为空');
+                                    return false;
+                                } else if (!admin.isInt(item.rate)) {
+                                    $('#error').val('[' + item.rate + ']不是正整数, 请重新填写');
+                                    return false;
+                                }
+
+                                if (routeIdSet.has(item.routeId)) {
+                                    $('#error').val('灰度兜底的链路标识存在重复, 请检查后重新选择');
+                                    return false;
+                                }
+                                routeIdSet.add(item.routeId);
+
+                                total = total + parseInt(item.rate);
                                 const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
                                 if (!set.has(key)) {
                                     set.add(key);
                                     all.push(json);
                                 }
                             });
+
+                            if (total != 100) {
+                                $('#error').val('灰度兜底的流量配比相加必须等于100, 请重新填写');
+                                return false;
+                            }
+
                             $('#basicGrayStrategy').val(JSON.stringify(all));
                         }
                     }
 
                     function collectGrayStrategy() {
                         $('#grayStrategy').val('');
-                        const all = {};
-                        $('#tabContent').find('.layui-tab-item').each(function () {
+                        const all = {}, spelSet = new Set();
+                        $('#tabContent').find('.gray.layui-tab-item').each(function () {
                             const tabIndex = $(this).attr('tag');
                             const gridGray = 'gridGray' + tabIndex, gridGrayRate = 'gridGrayRate' + tabIndex;
                             const spelCondition = $(this).find('#spelCondition' + tabIndex).val();
-                            if (tabIndex && spelCondition) {
-                                const _dataCondition = [], _setCondition = new Set();
+                            if (spels.has(spelCondition)) {
+                                $('#error').val('条件设置已存在,请重新输入');
+                                return false;
+                            }
+                            spels.add(spelCondition);
+                            if (tabIndex && spelCondition != undefined) {
+                                if (spelCondition == '') {
+                                    $('#error').val('灰度' + tabIndex + '的条件设置不允许为空');
+                                    return false;
+                                } else if (spelSet.has(spelCondition)) {
+                                    $('#error').val('灰度' + tabIndex + '的条件设置已存在,请重新输入');
+                                    return false;
+                                }
+                                spelSet.add(spelCondition);
+
+                                const _dataCondition = [], _setCondition = new Set(), spelSingleSet = new Set();
                                 $.each(table.cache[gridGray], function (index, item) {
                                     if (item.parameterName != '' && item.value != '') {
+                                        const k = item.parameterName + item.operator + item.value + item.logic;
+                                        if (spelSingleSet.has(k)) {
+                                            $('#error').val('灰度' + tabIndex + '的条件设置存在重复情况, 请检查后重新输入');
+                                            return false;
+                                        }
+                                        spelSingleSet.add(k);
+
                                         const data = {
                                             'parameterName': item.parameterName,
                                             'operator': item.operator,
@@ -834,8 +974,24 @@
                                 if ($('#error').val() !== '') {
                                     return false;
                                 }
-                                const _rates = [], _setRates = new Set();
+
+                                const _rates = [], _setRates = new Set(), routeIdSet = new Set();
+                                let total = 0;
                                 $.each(table.cache[gridGrayRate], function (index, item) {
+                                    if (item.routeId == '' || item.rate == '') {
+                                        $('#error').val('灰度' + tabIndex + '的流量配比不允许为空');
+                                        return false;
+                                    } else if (!admin.isInt(item.rate)) {
+                                        $('#error').val('灰度' + tabIndex + '流量配比[' + item.rate + ']不是正整数, 请重新填写');
+                                        return false;
+                                    }
+                                    if (routeIdSet.has(item.routeId)) {
+                                        $('#error').val('灰度' + tabIndex + '的链路标识存在重复, 请检查后重新选择');
+                                        return false;
+                                    }
+                                    routeIdSet.add(item.routeId);
+
+                                    total = total + parseInt(item.rate);
                                     const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
                                     routeIds.push(item.routeId);
                                     if (!_setRates.has(key)) {
@@ -843,6 +999,13 @@
                                         _rates.push(json);
                                     }
                                 });
+
+                                if ($('#error').val() == '') {
+                                    if (total != 100) {
+                                        $('#error').val('灰度' + tabIndex + '的流量配比相加必须等于100, 请重新填写');
+                                        return false;
+                                    }
+                                }
                                 if (_dataCondition.length > 0 || _rates.length > 0) {
                                     all['cr' + tabIndex] = {
                                         'condition': _dataCondition,
@@ -851,6 +1014,8 @@
                                 }
                             }
                         });
+
+
                         $('#grayStrategy').val(JSON.stringify(all));
                     }
 
@@ -872,6 +1037,8 @@
                             } else if (item.headerName + item.value != '') {
                                 $('#error').val('内置参数的请求头或值不允许为空');
                                 return false;
+                            } else {
+                                $('#error').val('');
                             }
                         });
                         $('#header').val(JSON.stringify(dataHeader));

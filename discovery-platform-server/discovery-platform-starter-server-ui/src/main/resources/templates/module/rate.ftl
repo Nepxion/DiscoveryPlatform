@@ -4,11 +4,15 @@
 
     <script type="text/html" id="templateRouteId$_INDEX_$">
         <select name='grayRouteId$_INDEX_$' lay-filter='grayRouteId$_INDEX_$' lay-search>
-            <option value="">请选择链路名称</option>
+            <option value="">请选择链路标识</option>
             {{# layui.each(d.routeIdList, function(index, item){ }}
             <option value="{{ item.routeId }}" {{ d.routeId==item.routeId ?
             'selected="selected"' : '' }}>
-            {{ item.routeId }} ({{ item.description }})
+            {{# if(item.description == ''){ }}
+            {{ item.routeId }}
+            {{# } else { }}
+            {{ item.routeId }} ({{ item.description}})
+            {{# } }}
             </option>)
             {{# }); }}
         </select>

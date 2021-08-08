@@ -453,6 +453,14 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 删除链路
 
+〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRouteArrange.jpg"> 按钮进行删除
+
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
+
+接下去执行[发布链路](#发布链路)
+
 #### 编辑链路
 
 #### 启用和禁用链路

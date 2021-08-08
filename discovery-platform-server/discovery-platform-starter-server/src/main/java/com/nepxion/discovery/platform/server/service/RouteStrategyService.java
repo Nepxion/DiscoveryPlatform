@@ -20,4 +20,6 @@ public interface RouteStrategyService {
     List<RouteStrategyDto> getByPortalNameAndPortalType(String portalName, Integer portalType);
 
     List<RouteStrategyDto> getByRouteId(String routeId);
+
+    void removeByNameAndType(String portalName, Integer portalType);
 }

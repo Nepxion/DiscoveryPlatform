@@ -11,6 +11,7 @@ package com.nepxion.discovery.platform.server.service;
  */
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -107,12 +108,13 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
                     strategyReleaseEntity.setStrategyRouteEntityList(generateStrategyRoute(strategyDto, routeIdSet));
                     strategyReleaseEntity.setStrategyHeaderEntity(generateHeader(strategyDto));
 
-
                     if (strategyReleaseEntity.getStrategyConditionBlueGreenEntityList().size() > 0 ||
                             strategyReleaseEntity.getStrategyConditionGrayEntityList().size() > 0 ||
                             strategyReleaseEntity.getStrategyRouteEntityList().size() > 0 ||
                             strategyReleaseEntity.getStrategyHeaderEntity().getHeaderMap().size() > 0) {
                         ruleEntity.setStrategyReleaseEntity(strategyReleaseEntity);
+                    } else {
+                        ruleEntity.setStrategyReleaseEntity(null);
                     }
                     ruleEntity.setStrategyEntity(generateGlobalStrategy(strategyDto));
                     StrategyServiceImpl.super.publishConfig(BaseStateEntity.PortalType.get(strategyDto.getPortalType()), strategyDto.getPortalName(), ruleEntity);
@@ -138,6 +140,20 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
     @Override
     public List<StrategyDto> getUnPublish() {
         return baseMapper.getUnPublish();
+    }
+
+    @TransactionWriter
+    @Override
+    public boolean delete(Collection<Long> ids) {
+        for (Long strategyId : ids) {
+            StrategyDto strategyDto = getById(strategyId);
+            if (strategyDto == null) {
+                continue;
+            }
+            removeById(strategyId);
+            routeStrategyService.removeByNameAndType(strategyDto.getPortalName(), strategyDto.getPortalType());
+        }
+        return true;
     }
 
     @TransactionWriter

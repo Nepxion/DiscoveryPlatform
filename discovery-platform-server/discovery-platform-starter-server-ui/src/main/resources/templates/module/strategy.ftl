@@ -244,7 +244,6 @@
                             element.tabChange(TAB, $('#tabTitle>li:first').attr('lay-id'));
                         }
                         </#if>
-                        setButtonStatus();
                     }, 100);
 
                     form.on('radio(portalType)', function (opt) {
@@ -323,7 +322,6 @@
                         $(".layui-tab-bar").click();
                         element.init();
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
-                        setButtonStatus();
                     });
 
                     $('#btnAddBasicBlueGreen').click(function () {
@@ -331,7 +329,6 @@
                         $(".layui-tab-bar").click();
                         element.init();
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                        setButtonStatus();
                     });
 
                     $('#btnAddBlueGreen').click(function () {
@@ -339,7 +336,6 @@
                         $(".layui-tab-bar").click();
                         element.init();
                         element.tabChange(TAB, TAB_STRATEGY_BLUE_GREEN + tabIndex);
-                        setButtonStatus();
                     });
 
                     $('#btnAddBasicGray').click(function () {
@@ -347,7 +343,6 @@
                         $(".layui-tab-bar").click();
                         element.init();
                         element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
-                        setButtonStatus();
                     });
 
                     $('#btnAddGray').click(function () {
@@ -355,7 +350,6 @@
                         $(".layui-tab-bar").click();
                         element.init();
                         element.tabChange(TAB, TAB_STRATEGY_GRAY + tabIndex);
-                        setButtonStatus();
                     });
 
                     $('#btnRemoveStrategy').click(function () {
@@ -374,7 +368,6 @@
                             if ($('#tabContent').find('.layui-tab-item').size() < 1) {
                                 tabSelectTitle = '';
                             }
-                            setButtonStatus();
                         });
                     });
 
@@ -394,18 +387,6 @@
                         if (existBasicGlobal()) {
                             admin.error('系统操作', '已存在全局兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
-                            });
-                            return;
-                        }
-                        if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
-                        if (existBasicGray()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
                             });
                             return;
                         }
@@ -432,18 +413,6 @@
                         if (existBasicBlueGreen()) {
                             admin.error('系统操作', '已存在蓝绿兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
-                        if (existBasicGlobal()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
-                            });
-                            return;
-                        }
-                        if (existBasicGray()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
                             });
                             return;
                         }
@@ -495,18 +464,6 @@
                             });
                             return;
                         }
-                        if (existBasicGlobal()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_GLOBAL);
-                            });
-                            return;
-                        }
-                        if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
                         const tabTitleId = TAB_STRATEGY_BASIC_GRAY, tabContentId = 'tabContentBasicGray';
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_yellow_64.png">&nbsp;灰度兜底</span></li>');
                         $('#tabContent').append('<div id="' + tabContentId + '" tag="' + tabIndex + '" class="basicGray layui-tab-item"></div>');
@@ -516,12 +473,6 @@
                     }
 
                     function addTabGray(condition, rate) {
-                        if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '当蓝绿兜底策略存在时，任何灰度策略都不允许添加。如需添加，请先删除绿兜底策略', function () {
-                                element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
-                            });
-                            return;
-                        }
                         tabIndex++;
                         const tabTitleId = TAB_STRATEGY_GRAY + tabIndex, tabContentId = 'tabContent' + tabIndex;
                         $('#tabTitle').append('<li style="float:left;width:70px" id="' + tabTitleId + '" lay-id="' + tabTitleId + '"><span style="color: black"><img width="18" height="18" src="${ctx}/images/graph/service_black_64.png">&nbsp;灰度<b>' + tabIndex + '</b></span></li>');
@@ -822,31 +773,6 @@
                         return val == undefined || val == '' || val == '{}' || val == '[]' || val == '[{}]';
                     }
 
-                    function setButtonStatus() {
-                        return true;
-                        if (existBasicGlobal() || existBasicBlueGreen() || existBasicGray()) {
-                            admin.disableBtn('btnAddBasicGlobal');
-                            admin.disableBtn('btnAddBasicBlueGreen');
-                            admin.disableBtn('btnAddBasicGray');
-                        } else {
-                            admin.enableBtn('btnAddBasicGlobal');
-                            admin.enableBtn('btnAddBasicBlueGreen');
-                            admin.enableBtn('btnAddBasicGray');
-                        }
-
-                        if (existBasicBlueGreen()) {
-                            admin.disableBtn('btnAddGray');
-                        } else {
-                            admin.enableBtn('btnAddGray');
-                        }
-
-                        if ($('#tabContent > div').size() < 1) {
-                            admin.disableBtn('btnRemoveStrategy');
-                        } else {
-                            admin.enableBtn('btnRemoveStrategy');
-                        }
-                    }
-
                     $('#callback').click(function () {
                         routeIds = [];
                         spels = new Set();
@@ -870,9 +796,6 @@
                             collectHeader();
                         }
                         $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
-                        if ($('#basicGlobalStrategyRouteId').val() != '' && $('#basicBlueGreenStrategyRouteId').val() != '' && $('#basicGrayStrategy').val() != '') {
-                            $('#error').val('兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略');
-                        }
                     });
 
                     function collectBasicGlobalStrategy() {

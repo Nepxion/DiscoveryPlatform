@@ -217,15 +217,14 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
         - [发布链路](#发布链路)
         - [删除链路](#删除链路)
         - [编辑链路](#编辑链路)
-    - [蓝绿发布](#蓝绿发布)
-        - [新增蓝绿](#新增蓝绿)
-        - [发布蓝绿](#发布蓝绿)
-        - [删除蓝绿](#删除蓝绿)
-        - [编辑蓝绿](#编辑蓝绿)
-        - [启用和禁用蓝绿](#启用和禁用蓝绿)
-        - [查看蓝绿拓扑图](#查看蓝绿拓扑图)
-        - [查看正在工作的蓝绿](#查看正在工作的蓝绿)
-    - [灰度发布](#灰度发布)
+    - [蓝绿灰度发布](#蓝绿灰度发布)
+        - [新增蓝绿灰度](#新增蓝绿灰度)
+        - [发布蓝绿灰度](#发布蓝绿灰度)
+        - [删除蓝绿灰度](#删除蓝绿灰度)
+        - [编辑蓝绿灰度](#编辑蓝绿灰度)
+        - [启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)
+        - [查看蓝绿灰度拓扑图](#查看蓝绿灰度拓扑图)
+        - [查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)
     - [流量侦测](#流量侦测)
 - [实例管理](#实例管理)
     - [实例信息](#实例信息)
@@ -412,10 +411,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ### 链路编排
 
-导航栏上选择〔服务发布〕/〔链路编排〕，进入链路编排界面
-
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
-
 链路编排，即在全链路蓝绿发布或者灰度发布的过程中，把若干个服务的实例按照版本/区域维度实现编排成N个逻辑链路。举个例子，根据生产环境上服务的版本新旧，编排成新版本链路和旧版本链路，供蓝绿发布进行条件驱动，或者供灰度发布进行百分比驱动
 
 链路编排功能引入，具有如下的意义
@@ -423,40 +418,50 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 蓝绿发布和灰度发布结束后，使用者不需要删除发布的规则策略，而是`禁用`它，以便于下一轮发布，不再重复配置，只需要`开启`它，并`发布`即可
 - 蓝绿发布和灰度发布下一轮开始时，条件策略等未改变，只是改变链路中的服务列表，使用者只需要直接编辑`链路编排`中的相关链路，并`发布`即可
 
-蓝绿灰度混合灰度发布示例
+导航栏上选择〔服务发布〕/〔链路编排〕，进入链路编排界面
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy>
-        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
-    </strategy>
-    <strategy-release>
-        <conditions type="blue-green">
-            <condition id="condition-0" expression="#H['a'] == '1'" version-id="route-0"/>
-            <condition id="condition-1" expression="#H['a'] == '2'" version-id="route-1"/>
-            <condition id="basic-condition" version-id="route-0"/>
-        </conditions>
-        <conditions type="gray">
-            <condition id="condition-0" expression="#H['a'] == '3'" version-id="route-0=10;route-1=90"/>
-            <condition id="condition-1" expression="#H['a'] == '4'" version-id="route-0=40;route-1=60"/>
-            <condition id="basic-condition" version-id="route-0=0;route-1=100"/>
-        </conditions>
-        <routes>
-            <route id="route-0" type="version">{"discovery-guide-service-a":"1.0","discovery-guide-service-b":"1.0"}</route>
-            <route id="route-1" type="version">{"discovery-guide-service-a":"1.1","discovery-guide-service-b":"1.1"}</route>
-        </routes>
-    </strategy-release>
-</rule>
-```
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteArrange-1.jpg)
 
-### 蓝绿发布
+#### 新增链路
 
-导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
+①〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRouteArrange.jpg"> 按钮，弹出相应的对话框
+
+② 产生〔链路标识〕
+
+链路标识由系统自动产生，格式为route-`序号`，全局唯一，它将作为蓝绿灰度发布时候被策略绑定的唯一标识
+
+③ 确定〔策略类型〕
+
+策略类型，包括`版本`和`区域`。如果选择`版本`，则按照`版本`维度进行链路编排；如果选择`区域`，则按照`区域`维度进行链路编排。下文以〔版本〕为例
+
+④ 编辑链路列表
+
+包括如下步骤
+- 选择〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 选择〔版本〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 刷新链路〔服务名〕和〔版本〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加链路，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除链路，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+⑤ 执行保存
+
+上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+
+#### 发布链路
+
+#### 删除链路
+
+#### 编辑链路
+
+#### 启用和禁用链路
+
+### 蓝绿灰度
+
+导航栏上选择〔服务发布〕/〔蓝绿灰度〕，进入蓝绿灰度发布界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
 
-#### 新增蓝绿
+#### 新增蓝绿灰度
 
 ①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
 
@@ -482,13 +487,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ④ 配置〔兜底策略〕
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
-
-兜底路由策略配置，包括如下步骤
-- 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
-- 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 ⑤ 配置〔蓝绿策略〕
 
@@ -523,7 +521,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
-#### 发布蓝绿
+#### 发布蓝绿灰度
 
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
@@ -533,7 +531,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
 
-#### 删除蓝绿
+#### 删除蓝绿灰度
 
 〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
 
@@ -543,7 +541,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-#### 编辑蓝绿
+#### 编辑蓝绿灰度
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
@@ -553,7 +551,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`
 
-#### 启用和禁用蓝绿
+#### 启用和禁用蓝绿灰度
 
 〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
@@ -563,11 +561,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-#### 查看蓝绿拓扑图
+#### 查看蓝绿灰度拓扑图
 
 待补充
 
-#### 查看正在工作的蓝绿
+#### 查看正在工作的蓝绿灰度
 
 〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
 
@@ -578,10 +576,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
-
-### 灰度发布
-
-待补充
 
 ### 流量侦测
 

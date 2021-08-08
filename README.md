@@ -451,6 +451,14 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布链路
 
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
+
+〔链路编排〕界面的工具栏上，点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRouteArrange.jpg"> 按钮进行发布
+
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
+
 #### 删除链路
 
 〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
@@ -461,6 +469,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行[发布链路](#发布链路)
 
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
+
 #### 编辑链路
 
 〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
@@ -468,8 +478,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行[发布链路](#发布链路)
-
-#### 启用和禁用链路
 
 ### 蓝绿灰度
 
@@ -541,7 +549,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
-上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要在〔蓝绿灰度〕界面的工具栏上，点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
 
 执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 

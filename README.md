@@ -535,13 +535,13 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 
 
-- 〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加兜底策略
+- 〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
 
 
-- 〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+- 〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
 
 
-- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
+- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
 
 
 ④ 配置〔兜底策略〕

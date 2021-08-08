@@ -499,15 +499,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ③ 添加和删除策略
 
-策略，包括`全局兜底策略`、`蓝绿兜底策略`、`蓝绿策略`、`灰度兜底策略`和`灰度策略`，平台默认给出一个`蓝绿兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除更多策略
+策略，包括`全局兜底策略`、`蓝绿兜底策略`、`蓝绿策略`、`灰度兜底策略`和`灰度策略`，平台默认给出一个`蓝绿兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
 > 兜底策略和非兜底策略的区别是，前者不带条件驱动，后者带条件驱动
-
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但每种最多只能一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个
-
-上述五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
-
-![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 
 为增加不同策略的辨识度，每个选项卡上前置图标用来区分，参考下表
 
@@ -517,10 +511,30 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 | <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
 | <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
 
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但最多只能一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个
+
+上述五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
+
+![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
+
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
-- 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+- 〔添加全局兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+
+
+- 〔添加蓝绿兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+
+
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+
+
+- 〔添加灰度兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
+
+
+- 〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+
+
 - 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
+
 
 ④ 配置〔兜底策略〕
 

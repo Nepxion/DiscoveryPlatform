@@ -33,14 +33,14 @@
 
                     <div class="layui-inline">入口名称</div>
                     <div class="layui-inline" style="width:350px">
-                        <select id="gatewayName" name="gatewayName" lay-filter="gatewayName" autocomplete="off"
+                        <select id="portalName" name="portalName" lay-filter="portalName" autocomplete="off"
                                 lay-verify="required" class="layui-select" lay-search>
                             <option value="">请选择网关 | 服务 | 组名称</option>
                         </select>
                     </div>
 
                     <div class="layui-inline" style="width:120px">
-                        <button id="btnRefreshGateway" class="layui-btn">
+                        <button id="btnRefreshPortal" class="layui-btn">
                             刷新入口列表
                         </button>
                     </div>
@@ -66,57 +66,57 @@
     <script>
         layui.config({base: '../../..${ctx}/layuiadmin/'}).extend({index: 'lib/index'}).use(['index', 'table'], function () {
             const form = layui.form, $ = layui.$, element = layui.element, admin = layui.admin;
-            let choosePortalType = '', chooseGatewayName = '', tabIndex = -1;
+            let choosePortalType = '', choosePortalName = '', tabIndex = -1;
 
             form.on('select(portalType)', function (data) {
                 $("#tabTitle").html('');
                 $("#tabContent").html('');
                 $("#tip").html('');
                 choosePortalType = data.value;
-                chooseGatewayName = '';
+                choosePortalName = '';
                 admin.post('do-list-portal-names', {'portalTypeStr': data.value, 'excludeDb': false}, function (result) {
                     data = result.data;
-                    const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="" selected="selected">请选择网关 | 服务 | 组名称</option>');
+                    const selPortalName = $("select[name=portalName]");
+                    selPortalName.html('<option value="" selected="selected">请选择网关 | 服务 | 组名称</option>');
                     $.each(data, function (key, val) {
                         let option = $("<option>").val(val).text(val);
-                        selGatewayName.append(option);
+                        selPortalName.append(option);
                     });
                     layui.form.render('select');
                 });
             });
 
-            form.on('select(gatewayName)', function (data) {
-                chooseGatewayName = data.value;
-                reloadBlueGreenContent();
+            form.on('select(portalName)', function (data) {
+                choosePortalName = data.value;
+                reloadStrategyContent();
             });
 
-            $("#btnRefreshGateway").click(function () {
+            $("#btnRefreshPortal").click(function () {
                 admin.post("do-list-portal-names", {'portalTypeStr': choosePortalType, 'excludeDb': false}, function (data) {
                     data = data.data;
-                    const selGatewayName = $("select[name=gatewayName]");
-                    selGatewayName.html('<option value="">请选择网关 | 服务 | 组名称</option>');
+                    const selPortalName = $("select[name=portalName]");
+                    selPortalName.html('<option value="">请选择网关 | 服务 | 组名称</option>');
                     $.each(data, function (key, val) {
                         let option;
-                        if (chooseGatewayName == val) {
+                        if (choosePortalName == val) {
                             option = $("<option>").attr('selected', 'selected').val(val).text(val);
-                            chooseGatewayName = val;
+                            choosePortalName = val;
                         } else {
                             option = $("<option>").val(val).text(val);
                         }
-                        selGatewayName.append(option);
+                        selPortalName.append(option);
                     });
 
                     layui.form.render('select');
-                    reloadBlueGreenContent();
+                    reloadStrategyContent();
                 });
             });
 
-            function reloadBlueGreenContent() {
+            function reloadStrategyContent() {
                 $("#tabTitle").html('');
                 $("#tabContent").html('');
 
-                admin.post('do-list-working', {'portalType': choosePortalType, 'gatewayName': chooseGatewayName}, function (result) {
+                admin.post('do-list-working', {'portalType': choosePortalType, 'portalName': choosePortalName}, function (result) {
                     const data = result.data, set = new Set();
                     let index = 0;
                     $.each(data, function (k, v) {
@@ -160,7 +160,7 @@
                     });
                     element.render();
 
-                    if (chooseGatewayName != '') {
+                    if (choosePortalName != '') {
                         if (set.size <= 1) {
                             $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有入口的蓝绿灰度一致&nbsp;</h3></span>');
                         } else {

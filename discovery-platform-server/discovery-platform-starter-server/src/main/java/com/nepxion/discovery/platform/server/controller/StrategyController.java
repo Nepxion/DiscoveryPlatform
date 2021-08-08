@@ -10,6 +10,11 @@ package com.nepxion.discovery.platform.server.controller;
  * @version 1.0
  */
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -37,9 +42,6 @@ import com.nepxion.discovery.platform.server.entity.po.StrategyPo;
 import com.nepxion.discovery.platform.server.entity.response.Result;
 import com.nepxion.discovery.platform.server.service.StrategyService;
 import com.nepxion.discovery.platform.server.tool.CommonTool;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 
 @Api("蓝绿灰度发布相关接口")
 @RestController
@@ -113,12 +115,16 @@ public class StrategyController {
     }
 
     @SuppressWarnings("unchecked")
-    @ApiOperation("获取Spring Cloud Gateway网关正在工作的蓝绿灰度信息")
-    @ApiImplicitParam(name = "gatewayName", value = "网关名称", required = true, dataType = "String")
+    @ApiOperation("获取正在工作的蓝绿灰度信息")
+    @ApiImplicitParam()
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "portalType", value = "入口类型", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "portalName", value = "入口名称", required = true, dataType = "String"),
+    })
     @PostMapping("do-list-working")
     public Result<Map<String, String>> doListWorking(@RequestParam(value = "portalType", required = true, defaultValue = StringUtils.EMPTY) String portalType,
-                                                     @RequestParam(value = "gatewayName", required = true, defaultValue = StringUtils.EMPTY) String gatewayName) throws Exception {
-        if (StringUtils.isEmpty(portalType) || StringUtils.isEmpty(gatewayName)) {
+                                                     @RequestParam(value = "portalName", required = true, defaultValue = StringUtils.EMPTY) String portalName) throws Exception {
+        if (StringUtils.isEmpty(portalType) || StringUtils.isEmpty(portalName)) {
             return Result.ok();
         }
 
@@ -128,7 +134,7 @@ public class StrategyController {
         switch (portalTypeEnum) {
             case GATEWAY:
             case SERVICE:
-                List<ResultEntity> resultEntityList = platformDiscoveryAdapter.viewConfig(gatewayName);
+                List<ResultEntity> resultEntityList = platformDiscoveryAdapter.viewConfig(portalName);
                 for (ResultEntity resultEntity : resultEntityList) {
                     String key = String.format("%s:%s", resultEntity.getHost(), resultEntity.getPort());
                     List<String> list = JsonUtil.fromJson(resultEntity.getResult(), List.class);
@@ -136,7 +142,7 @@ public class StrategyController {
                 }
                 break;
             case GROUP:
-                result.put("组", platformDiscoveryAdapter.viewConfigByGroupName(gatewayName));
+                result.put("group", platformDiscoveryAdapter.viewConfigByGroupName(portalName));
                 break;
         }
         return Result.ok(result);

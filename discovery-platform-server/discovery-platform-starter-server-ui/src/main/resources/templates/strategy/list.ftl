@@ -186,7 +186,7 @@
                         content: 'working',
                         shadeClose: true,
                         shade: 0.8,
-                        area: ['90%', '78%'],
+                        area: ['90%', '90%'],
                         btn: '关闭'
                     });
                 } else if (obj.event === 'del') {

@@ -52,7 +52,7 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">策略配置</label>
+                <label class="layui-form-label">策略配置&nbsp;<a href="http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg" target="_blank" title="蓝绿灰度混合发布执行逻辑"><i class="layui-icon layui-icon-about"></i></a></label>
                 <div class="layui-input-block">
                     <div class="layui-btn-group">
                         <a id="btnAddBasicBlueGreen" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i>添加蓝绿兜底策略</a>

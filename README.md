@@ -489,6 +489,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-2.jpg)
+
 ② 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
@@ -520,9 +522,15 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
 - 〔添加全局兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
 
+使用者只需要〔链路选取〕一条在[链路编排](#链路编排)中链路标识即可
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-3.jpg)
 
 - 〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-4.jpg)
+
+使用者只需要〔链路选取〕一条在[链路编排](#链路编排)中链路标识即可
 
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 
@@ -537,8 +545,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 
 ④ 配置〔兜底策略〕
-
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-2.jpg)
 
 ⑤ 配置〔蓝绿策略〕
 

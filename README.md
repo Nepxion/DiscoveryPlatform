@@ -487,7 +487,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 新增蓝绿灰度
 
-①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
 
 ② 确定〔入口类型〕和〔入口名称〕
 
@@ -510,7 +510,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ④ 配置〔兜底策略〕
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-2.jpg)
 
 ⑤ 配置〔蓝绿策略〕
 
@@ -557,9 +557,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 删除蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
+〔蓝绿灰度〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreen.jpg"> 按钮进行删除
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreenGray.jpg"> 按钮进行删除
 
 执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
 
@@ -567,7 +567,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 编辑蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
 
@@ -577,7 +577,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 启用和禁用蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
 
@@ -591,7 +591,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 查看正在工作的蓝绿灰度
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
 

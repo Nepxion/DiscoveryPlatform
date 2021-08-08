@@ -351,7 +351,7 @@
                             return;
                         }
                         if (existBasicGray()) {
-                            admin.error('系统操作', '蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略', function () {
+                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_GRAY);
                             });
                             return;
@@ -405,7 +405,7 @@
                             return;
                         }
                         if (existBasicBlueGreen()) {
-                            admin.error('系统操作', '蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略', function () {
+                            admin.error('系统操作', '兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略', function () {
                                 element.tabChange(TAB, TAB_STRATEGY_BASIC_BLUE_GREEN);
                             });
                             return;
@@ -733,7 +733,7 @@
                         $('#routeIds').val(JSON.stringify(admin.distinct(routeIds)));
 
                         if ($('#basicBlueGreenStrategyRouteId').val() != '' && $('#basicGrayStrategy').val() != '') {
-                            $('#error').val('蓝绿兜底策略和灰度兜底策略只能同时存在一个。如需添加，请先删除已存在的兜底策略');
+                            $('#error').val('兜底策略只允许存在一个。如需添加，请先删除已存在的兜底策略');
                         }
                     });
 

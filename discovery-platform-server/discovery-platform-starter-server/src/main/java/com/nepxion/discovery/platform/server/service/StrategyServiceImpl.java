@@ -138,6 +138,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         strategyDto.setPortalName(strategyPo.getPortalName());
         strategyDto.setPortalType(strategyPo.getPortalType());
         strategyDto.setStrategyType(strategyPo.getStrategyType());
+        strategyDto.setBasicGlobalStrategyRouteId(strategyPo.getBasicGlobalStrategyRouteId());
         strategyDto.setBasicBlueGreenStrategyRouteId(strategyPo.getBasicBlueGreenStrategyRouteId());
         strategyDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
         strategyDto.setBasicGrayStrategy(strategyPo.getBasicGrayStrategy());
@@ -156,6 +157,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         }
         routeStrategyService.save(strategyDto.getPortalName(), strategyDto.getPortalType(), JsonUtil.fromJson(strategyPo.getRouteIds(), new TypeReference<List<String>>() {
         }));
+        strategyDto.setBasicGlobalStrategyRouteId(strategyPo.getBasicGlobalStrategyRouteId());
         strategyDto.setBasicBlueGreenStrategyRouteId(strategyPo.getBasicBlueGreenStrategyRouteId());
         strategyDto.setBlueGreenStrategy(strategyPo.getBlueGreenStrategy());
         strategyDto.setBasicGrayStrategy(strategyPo.getBasicGrayStrategy());

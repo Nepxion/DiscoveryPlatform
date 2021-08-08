@@ -38,6 +38,9 @@ public class StrategyPo implements Serializable {
     @ApiModelProperty("涉及到的所有链路编排标识")
     private String routeIds;
 
+    @ApiModelProperty("用于全局兜底的链路编排标识")
+    private String basicGlobalStrategyRouteId;
+
     @ApiModelProperty("用于蓝绿兜底的链路编排标识")
     private String basicBlueGreenStrategyRouteId;
 
@@ -94,6 +97,14 @@ public class StrategyPo implements Serializable {
 
     public void setRouteIds(String routeIds) {
         this.routeIds = routeIds;
+    }
+
+    public String getBasicGlobalStrategyRouteId() {
+        return basicGlobalStrategyRouteId;
+    }
+
+    public void setBasicGlobalStrategyRouteId(String basicGlobalStrategyRouteId) {
+        this.basicGlobalStrategyRouteId = basicGlobalStrategyRouteId;
     }
 
     public String getBasicBlueGreenStrategyRouteId() {

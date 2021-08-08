@@ -32,6 +32,9 @@ public class StrategyDto extends BaseStateEntity {
     @TableField(value = "`strategy_type`")
     private Integer strategyType;
 
+    @TableField(value = "`basic_global_strategy_route_id`")
+    private String basicGlobalStrategyRouteId;
+
     @TableField(value = "`basic_blue_green_strategy_route_id`")
     private String basicBlueGreenStrategyRouteId;
 
@@ -72,6 +75,14 @@ public class StrategyDto extends BaseStateEntity {
 
     public void setPortalType(Integer portalType) {
         this.portalType = portalType;
+    }
+
+    public String getBasicGlobalStrategyRouteId() {
+        return basicGlobalStrategyRouteId;
+    }
+
+    public void setBasicGlobalStrategyRouteId(String basicGlobalStrategyRouteId) {
+        this.basicGlobalStrategyRouteId = basicGlobalStrategyRouteId;
     }
 
     public String getBasicBlueGreenStrategyRouteId() {

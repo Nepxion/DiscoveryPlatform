@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
     INDEX `idx_url` (`url`) USING BTREE
 ) COMMENT ='菜单配置';
 
-
 CREATE TABLE IF NOT EXISTS `sys_permission`
 (
     `id`                                        BIGINT UNSIGNED                     NOT NULL COMMENT '主键',
@@ -148,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `t_strategy`  (
     `portal_name`                               VARCHAR(128)                        NOT NULL COMMENT '网关/服务/组名称',
     `portal_type`                               INT(0) UNSIGNED                     NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
     `strategy_type`                             INT(0) UNSIGNED                     NOT NULL COMMENT '策略类型(1: 版本, 2: 区域)',
+    `basic_global_strategy_route_id`            VARCHAR(128)                        NOT NULL COMMENT '用于全局兜底的链路编排标识',
     `basic_blue_green_strategy_route_id`        VARCHAR(128)                        NOT NULL COMMENT '用于蓝绿兜底的链路编排标识',
     `blue_green_strategy`                       TEXT                                NOT NULL COMMENT '蓝绿策略信息',
     `basic_gray_strategy`                       TEXT                                NOT NULL COMMENT '灰度兜底信息',
@@ -163,25 +163,6 @@ CREATE TABLE IF NOT EXISTS `t_strategy`  (
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
 ) COMMENT = '蓝绿或灰度信息';
-
-CREATE TABLE IF NOT EXISTS `t_gray`  (
-    `id`                                        BIGINT(0) UNSIGNED                  NOT NULL COMMENT '主键',
-    `portal_name`                               VARCHAR(128)                        NOT NULL COMMENT '网关/服务/组名称',
-    `portal_type`                               INT(0) UNSIGNED                     NOT NULL COMMENT '入口类型(1: 网关, 2:服务, 3:组)',
-    `basic_strategy`                            TEXT                                NOT NULL COMMENT '灰度兜底信息',
-    `gray_strategy`                             TEXT                                NOT NULL COMMENT '灰度策略信息',
-    `route_service`                             TEXT                                NOT NULL COMMENT '灰度发布路由服务编排',
-    `header`                                    TEXT                                NOT NULL COMMENT '灰度发布header请求头编排',
-    `description`                               VARCHAR(128)                        NOT NULL COMMENT '描述信息',
-    `operation`                                 TINYINT(0) UNSIGNED                 NOT NULL COMMENT '最后一次执行的操作类型(1:INSERT, 2:UPDATE, 3:DELETE)',
-    `enable_flag`                               TINYINT(0) UNSIGNED                 NOT NULL COMMENT '是否启用',
-    `publish_flag`                              TINYINT(0) UNSIGNED                 NOT NULL DEFAULT 0 COMMENT '是否发布(0:未发布, 1:已发布)',
-    `delete_flag`                               TINYINT(0) UNSIGNED                 NOT NULL DEFAULT 0 COMMENT '是否删除(0:未删除, 1:已删除)',
-    `create_time`                               DATETIME(3)                         NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `update_time`                               DATETIME(3)                         NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE INDEX `idx_gateway_name`(`portal_name`) USING BTREE
-) COMMENT = '灰度发布信息';
 
 CREATE TABLE `t_route_arrange`  (
     `id`                                        BIGINT(0) UNSIGNED                  NOT NULL COMMENT '主键',

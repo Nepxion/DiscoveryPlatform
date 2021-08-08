@@ -380,5 +380,17 @@ layui.define(function (e) {
         return result;
     }
 
+    admin.enableBtn = function (btnId) {
+        $('#' + btnId).removeAttr('disabled').removeClass('layui-btn-disabled');
+    }
+
+    admin.disableBtn = function (btnId) {
+        $('#' + btnId).attr('disabled', 'disabled').addClass('layui-btn-disabled');
+    }
+
+    admin.isInt = function (val) {
+        return /^\d+$/.test(val);
+    }
+
     e("common", {});
 });

@@ -218,9 +218,15 @@
             table.on('tool(grid)', function (obj) {
                 const data = obj.data;
                 if (obj.event === 'edit') {
+                    let t = '';
+                    if (data.strategyType == 1) {
+                        t = '版本';
+                    } else if (data.strategyType == 2) {
+                        t = '区域';
+                    }
                     layer.open({
                         type: 2,
-                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑蓝绿灰度',
+                        title: '<i class="layui-icon layui-icon-edit" style="color: #1E9FFF;"></i>&nbsp;编辑<b>' + t + '</b>蓝绿灰度',
                         content: 'edit?id=' + data.id,
                         area: ['1095px', '98%'],
                         btn: admin.BUTTONS,

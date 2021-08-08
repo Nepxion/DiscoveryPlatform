@@ -509,6 +509,14 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 
+为增加不同策略的辨识度，每个选项卡上前置图标用来区分，参考下表
+
+| 图标 | 标识 |
+| --- | --- |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_yellow_64.png"> | 兜底策略 |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
+
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
 - 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
 - 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一

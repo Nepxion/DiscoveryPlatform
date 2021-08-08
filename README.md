@@ -447,7 +447,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑤ 执行保存
 
-上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布链路
 
@@ -521,7 +521,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑦ 执行保存
 
-上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布蓝绿灰度
 

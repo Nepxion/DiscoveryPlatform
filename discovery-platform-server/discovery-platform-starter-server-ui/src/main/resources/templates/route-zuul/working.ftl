@@ -166,7 +166,7 @@
                         if (set.size <= 1) {
                             $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的路由一致&nbsp;</h3></span>');
                         } else {
-                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的路由不一致, 请检查&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;存在网关的路由不一致, 请检查&nbsp;</h3></span>');
                         }
                     });
                 } else {

@@ -516,50 +516,46 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
-- 〔添加全局兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
-
-使用者只需要〔链路选取〕一条在[链路编排](#链路编排)中链路标识即可
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加全局兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-3.jpg)
 
-- 〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
+使用者只需要〔链路选取〕一条在[链路编排](#链路编排)中链路标识即可
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-4.jpg)
 
-使用者只需要〔链路选取〕一条在[链路编排](#链路编排)中链路标识即可
+操作模式和过程跟`〔添加全局兜底策略〕`一致
 
-- 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-5.jpg)
 
-- 〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
+蓝绿策略配置，包括`条件设置`和`链路选取`两部分
 
-
-- 〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
-
-
-- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
-
-
-④ 配置〔兜底策略〕
-
-⑤ 配置〔蓝绿策略〕
-
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
-
-蓝绿条件策略配置，包括如下步骤
+`条件设置`，包括如下步骤
 - 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
 - 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
-- 执行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
-- 执行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
+- 执行〔聚合〕条件，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="68" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 执行〔校验〕条件，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验〕功能进行校验，点击 <img width="68" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-4.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-6.jpg)
+
+`链路选取`，操作模式和过程跟`〔添加全局兜底策略〕`一致
 
 - 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-兜底路由策略配置，包括如下步骤
-- 操作模式和过程与兜底路由策略类似
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
+
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
+
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
+
 
 ⑥ 设置〔内置参数〕
 

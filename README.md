@@ -516,6 +516,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
+
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/information.png) 〔添加全局兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-3.jpg)

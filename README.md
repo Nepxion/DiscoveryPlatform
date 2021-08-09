@@ -503,9 +503,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 策略，包括`全局兜底策略`、`蓝绿兜底策略`、`蓝绿策略`、`灰度兜底策略`和`灰度策略`，平台默认给出一个`蓝绿兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
-> 兜底策略和非兜底策略的区别是，前者不带条件驱动，后者带条件驱动
-
-为增加不同策略的辨识度，每个选项卡上前置图标用来区分，参考下表
+兜底策略和非兜底策略的区别是，前者不带条件驱动，后者带条件驱动。为增加不同策略的辨识度，每个选项卡上前置图标用来区分，参考下表
 
 | 图标 | 标识 |
 | --- | --- |
@@ -513,9 +511,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 | <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
 | <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但最多只能一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个
-
-上述五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但只能生效一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个。这五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
 
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 

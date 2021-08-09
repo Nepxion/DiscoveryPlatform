@@ -373,11 +373,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 #### 云环境调用验证
-通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据user值的改变，观测返回的调用结果是否符合预期
+通过改变Http Parameter参数验证蓝绿灰度等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan)
-
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1)
 
 ### 本地环境搭建
 
@@ -662,23 +660,21 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 启用和禁用黑名单
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
-
-待补充
 
 ## 路由配置
 
@@ -704,23 +700,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Gateway网关路由
 
-操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Gateway网关路由
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
 
@@ -740,23 +736,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Zuul网关路由
 
-操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Zuul网关路由
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
 

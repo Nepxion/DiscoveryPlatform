@@ -144,9 +144,9 @@
                         element.render();
 
                         if (set.size <= 1) {
-                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有网关的黑名单一致&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-blue"><h3><b>一致性检查</b>:&nbsp;&nbsp;所有入口的黑名单一致&nbsp;</h3></span>');
                         } else {
-                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;有网关的黑名单不一致, 请检查&nbsp;</h3></span>');
+                            $("#tip").html('<span class="layui-badge layui-bg-orange"><h3><b>一致性检查</b>:&nbsp;&nbsp;存在入口的黑名单不一致, 请检查&nbsp;</h3></span>');
                         }
                     });
                 } else {

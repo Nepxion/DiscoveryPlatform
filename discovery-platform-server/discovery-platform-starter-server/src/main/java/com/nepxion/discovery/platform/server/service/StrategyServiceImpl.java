@@ -34,7 +34,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.nepxion.discovery.common.entity.RegionWeightEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
-import com.nepxion.discovery.common.entity.StrategyBlacklistEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionGrayEntity;
 import com.nepxion.discovery.common.entity.StrategyEntity;
@@ -81,7 +80,8 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
             @Override
             public void publishEmptyConfig(String portalName, List<StrategyDto> strategyDtoList) throws Exception {
                 RuleEntity ruleEntity = platformDiscoveryAdapter.getConfig(portalName);
-                ruleEntity.setStrategyBlacklistEntity(new StrategyBlacklistEntity());
+                ruleEntity.setStrategyReleaseEntity(null);
+                ruleEntity.setStrategyEntity(null);
                 if (CollectionUtils.isEmpty(strategyDtoList)) {
                     platformDiscoveryAdapter.publishConfig(portalName, ruleEntity);
                 } else {

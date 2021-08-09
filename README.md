@@ -494,8 +494,8 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ② 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
-- `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
-- `组`属于全局订阅模式，即把蓝绿发布的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
+- `网关`和`服务`属于局部订阅模式，即把蓝绿灰度的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
+- `组`属于全局订阅模式，即把蓝绿灰度的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
 
 入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
@@ -570,7 +570,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ⑥ 设置〔内置参数〕
 
-当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
+当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿灰度发布场景
 
 内置参数配置包括如下步骤
 - 输入〔请求头〕
@@ -590,7 +590,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
 
 #### 删除蓝绿灰度
 
@@ -600,17 +600,17 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 编辑蓝绿灰度
 
-〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿灰度](#新增蓝绿灰度)类似
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-9.jpg)
 
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 启用和禁用蓝绿灰度
 
@@ -620,7 +620,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
 #### 查看蓝绿灰度拓扑图
 
@@ -630,11 +630,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-10.jpg)
 
 ① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
 
-② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
+② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="229" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 

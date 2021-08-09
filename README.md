@@ -140,21 +140,17 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 - 支持Shiro和JWT的登录以及鉴权
 - 支持管理员/角色/权限配置
 - 支持页面配置，在线添加、删除、修改各类中间件主页或者业务系统主页的集成以及跳转
-- 支持蓝绿发布
-    - 支持蓝绿策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
-    - 支持蓝绿策略启用/禁用模式
-    - 支持蓝绿策略多实例动态路由一致性检查
+- 支持蓝绿灰度链路编排
+    - 支持链路单写数据，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持版本和区域维度链路编排
+- 支持蓝绿灰度混合发布
+    - 支持蓝绿灰度策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
+    - 支持版本和区域维度蓝绿灰度
+    - 支持蓝绿灰度策略启用/禁用模式
+    - 支持蓝绿灰度策略多实例动态路由一致性检查
     - 支持网关、服务、组为入口
-    - 支持无限级蓝绿策略和兜底策略编排
-    - 支持自定义蓝绿条件策略
-    - 支持蓝绿条件策略校验
-    - 支持内置Header
-- 支持灰度发布
-    - 支持灰度策略双写数据库和配置中心，采用类似Apollo版本控制模式，界面标识增/删/改标识，通过发布方式达到数据库和配置中心最终数据一致性
-    - 支持灰度策略启用/禁用模式
-    - 支持灰度策略多实例一致性检查
-    - 支持网关、服务、组为入口
-    - 支持无限级灰度策略编排
+    - 支持全局兜底、蓝绿兜底、灰度兜底策略编排
+    - 支持无限级蓝绿灰度策略编排
     - 支持自定义蓝绿条件策略
     - 支持蓝绿条件策略校验
     - 支持内置Header
@@ -183,6 +179,7 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 - 赵胜杰
 - 任学会
 - 肖龙
+- 伊安娜
 
 ### 请联系我
 微信、钉钉、公众号和文档
@@ -211,15 +208,19 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 - [平台登录](#平台登录)
 - [主页](#主页)
 - [服务发布](#服务发布)
-    - [蓝绿发布](#蓝绿发布)
-        - [新增蓝绿](#新增蓝绿)
-        - [发布蓝绿](#发布蓝绿)
-        - [删除蓝绿](#删除蓝绿)
-        - [编辑蓝绿](#编辑蓝绿)
-        - [启用和禁用蓝绿](#启用和禁用蓝绿)
-        - [查看蓝绿拓扑图](#查看蓝绿拓扑图)
-        - [查看正在工作的蓝绿](#查看正在工作的蓝绿)
-    - [灰度发布](#灰度发布)
+    - [链路编排](#链路编排)
+        - [新增链路](#新增链路)
+        - [发布链路](#发布链路)
+        - [删除链路](#删除链路)
+        - [编辑链路](#编辑链路)
+    - [蓝绿灰度发布](#蓝绿灰度发布)
+        - [新增蓝绿灰度](#新增蓝绿灰度)
+        - [发布蓝绿灰度](#发布蓝绿灰度)
+        - [删除蓝绿灰度](#删除蓝绿灰度)
+        - [编辑蓝绿灰度](#编辑蓝绿灰度)
+        - [启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)
+        - [查看蓝绿灰度拓扑图](#查看蓝绿灰度拓扑图)
+        - [查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)
     - [流量侦测](#流量侦测)
 - [实例管理](#实例管理)
     - [实例信息](#实例信息)
@@ -368,11 +369,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Login.jpg)
 
 #### 云环境调用验证
-通过改变Http Parameter参数验证灰度蓝绿等一系列功能，例如，在浏览器上输入如下地址，根据user值的改变，观测返回的调用结果是否符合预期
+通过改变Http Parameter参数验证蓝绿灰度等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
 
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=zhangsan)
-
-[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?user=lisi)
+[http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1](http://218.78.55.64:5001/discovery-guide-service-a/invoke/gateway?a=1)
 
 ### 本地环境搭建
 
@@ -404,138 +403,234 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ## 服务发布
 
-### 蓝绿发布
+### 链路编排
 
-导航栏上选择〔服务发布〕/〔蓝绿发布〕，进入蓝绿发布界面
+链路编排，即在全链路蓝绿发布或者灰度发布的过程中，把若干个服务的实例按照版本/区域维度实现编排成N个逻辑链路。举个例子，根据生产环境上服务的版本新旧，编排成新版本链路和旧版本链路，供蓝绿发布进行条件驱动，或者供灰度发布进行百分比驱动
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-1.jpg)
+链路编排功能引入，具有如下的意义
+- 蓝绿发布和灰度发布混合实施的时候，编排的链路可以供两种发布规则策略共享
+- 蓝绿发布和灰度发布结束后，使用者不需要删除发布的规则策略，而是`禁用`它，以便于下一轮发布，不再重复配置，只需要`开启`它，并`发布`即可
+- 蓝绿发布和灰度发布下一轮开始时，条件策略等未改变，只是改变链路中的服务列表，使用者只需要直接编辑`链路编排`中的相关链路，并`发布`即可
 
-#### 新增蓝绿
+导航栏上选择〔服务发布〕/〔链路编排〕，进入链路编排界面
 
-①〔蓝绿发布〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreen.jpg"> 或者 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreen.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿〕为例
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteArrange-1.jpg)
+
+#### 新增链路
+
+①〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRouteArrange.jpg"> 按钮，弹出相应的对话框
+
+② 产生〔链路标识〕
+
+链路标识由系统自动产生，格式为route-`序号`，全局唯一，它将作为蓝绿灰度发布时候被策略绑定的唯一标识
+
+③ 确定〔策略类型〕
+
+策略类型，包括`版本`和`区域`。如果选择`版本`，则按照`版本`维度进行链路编排；如果选择`区域`，则按照`区域`维度进行链路编排。下文以〔版本〕为例
+
+④ 编辑链路列表
+
+包括如下步骤
+- 选择〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 选择〔版本〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
+- 刷新链路〔服务名〕和〔版本〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加链路，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除链路，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteArrange-2.jpg)
+
+⑤ 执行保存
+
+上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+
+#### 发布链路
+
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
+
+〔链路编排〕界面的工具栏上，点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRouteArrange.jpg"> 按钮进行发布
+
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
+
+#### 删除链路
+
+〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
+
+〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRouteArrange.jpg"> 按钮进行删除
+
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
+
+接下去执行[发布链路](#发布链路)
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
+
+#### 编辑链路
+
+〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
+
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
+
+接下去执行[发布链路](#发布链路)
+
+### 蓝绿灰度
+
+导航栏上选择〔服务发布〕/〔蓝绿灰度〕，进入蓝绿灰度发布界面
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-1.jpg)
+
+#### 新增蓝绿灰度
+
+①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-2.jpg)
 
 ② 确定〔入口类型〕和〔入口名称〕
 
 入口类型，包括`网关`、`服务`和`组`，使用者在三个选项中选择一个，大多数场景会采用`网关`为入口类型
-- `网关`和`服务`属于局部订阅模式，即把蓝绿发布的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
-- `组`属于全局订阅模式，即把蓝绿发布的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
+- `网关`和`服务`属于局部订阅模式，即把蓝绿灰度的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
+- `组`属于全局订阅模式，即把蓝绿灰度的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
 
 入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
 ③ 添加和删除策略
 
-策略类型，包括`兜底策略`和`蓝绿策略`，平台默认给出一个`兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
+策略，包括`全局兜底策略`、`蓝绿兜底策略`、`蓝绿策略`、`灰度兜底策略`和`灰度策略`，平台默认给出一个`蓝绿兜底策略`和两个`蓝绿策略`的经典场景，使用者可以根据实际场景，增加和删除策略
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：`兜底策略`可以缺失，但最多只能一个；`蓝绿策略`可以缺失，但可以无数个。`兜底策略`和`蓝绿策略`必须存在至少一个，蓝绿发布才有意义
+兜底策略和非兜底策略的区别是，前者不带条件驱动，后者带条件驱动。为增加不同策略的辨识度，每个选项卡上前置图标用来区分，参考下表
+
+| 图标 | 标识 |
+| --- | --- |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_yellow_64.png"> | 兜底策略 |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
+| <img width="32" height="32" src="http://nepxion.gitee.io/discoveryplatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
+
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但只能生效一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个。这五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
+
+![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Strategy.jpg)
 
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
-- 〔添加兜底策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBasicStrategy.jpg"> 按钮，添加兜底策略。当使用者误删除兜底策略的时候，可以通过该方式添加回去
-- 〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
-- 〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的兜底策略或者蓝绿策略
 
-④ 配置〔兜底策略〕
+1.〔添加全局兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-2.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-3.jpg)
 
-兜底路由策略配置，包括如下步骤
-- 选择路由〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 选择路由〔版本号〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新路由〔服务名〕和〔版本号〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
-- 增加路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除路由项，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+〔链路选取〕在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-⑤ 配置〔蓝绿策略〕
+2.〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-3.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-4.jpg)
 
-蓝绿条件策略配置，包括如下步骤
+操作模式和过程跟`〔添加全局兜底策略〕`一致
+
+3.〔添加蓝绿策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-5.jpg)
+
+蓝绿策略配置，包括`条件设置`和`链路选取`两部分
+
+`条件设置`，包括如下步骤
 - 输入〔参数名〕，参数名即进行条件驱动的`Header`、`Parameter`、`Cookie`参数
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
 - 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
-- 执行〔聚合条件〕，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
-- 执行〔校验条件〕，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验条件〕功能进行校验，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
-
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-4.jpg)
-
+- 增加〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 执行〔聚合〕条件，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="68" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 执行〔校验〕条件，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验〕功能进行校验，点击 <img width="68" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
 - 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-兜底路由策略配置，包括如下步骤
-- 操作模式和过程与兜底路由策略类似
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-6.jpg)
+
+`链路选取`，操作模式和过程跟`〔添加全局兜底策略〕`一致
+
+4.〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-7.jpg)
+
+只需要〔流量配比〕若干条链路的百分比即可，包括如下步骤
+- 选取在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 〔流量配比〕所选择链路，配比值必须是0 ~ 100的整数，所有链路的配比值加起来必须等于100
+- 增加〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+
+5.〔添加灰度策略〕，点击 <img width="115" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
+
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-7.jpg)
+
+`条件设置`，操作模式和过程跟`〔添加蓝绿策略〕`一致；`流量配比`，操作模式和过程跟`〔添加灰度兜底策略〕`一致
+
+6.〔删除策略〕，点击 <img width="92" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
 
 ⑥ 设置〔内置参数〕
 
-当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿发布场景
+当前版本内置参数仅支持`Header`，但内置`Header`也具备代替`Parameter`、`Cookie`的作用。内置参数的应用场景多见于定时服务的蓝绿灰度发布场景
 
 内置参数配置包括如下步骤
 - 输入〔请求头〕
 - 输入〔值〕
-- 增加内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除内置参数，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 增加〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 ⑦ 执行保存
 
-上述结果执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
-#### 发布蓝绿
+#### 发布蓝绿灰度
 
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
-上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要使用者点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行推送
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要在〔蓝绿灰度〕界面的工具栏上，点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行推送
 
 执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿发布，最终都必须通过点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreen.jpg"> 按钮进行生效
+![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
 
-#### 删除蓝绿
+#### 删除蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，打勾选择需要删除的一项或者多项
+〔蓝绿灰度〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreen.jpg"> 按钮进行删除
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreenGray.jpg"> 按钮进行删除
 
 执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDelete.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
-#### 编辑蓝绿
+#### 编辑蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿](#新增蓝绿)类似
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿灰度](#新增蓝绿灰度)类似，但〔入口类型〕和〔入口名称〕不可修改
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-5.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-9.jpg)
 
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
-#### 启用和禁用蓝绿
+#### 启用和禁用蓝绿灰度
 
-〔蓝绿发布〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
 
 执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行 `⑦ 执行〔发布蓝绿〕`，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
-#### 查看蓝绿拓扑图
+#### 查看蓝绿灰度拓扑图
 
 待补充
 
-#### 查看正在工作的蓝绿
+#### 查看正在工作的蓝绿灰度
 
-〔蓝绿发布〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenList.jpg"> 按钮进行查看
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
 
-![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreen-6.jpg)
+![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-10.jpg)
 
 ① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
 
-② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="255" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenConsistency.jpg"> 的一致性提示，否则给出不一致性提示
+② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="229" height="16" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelBlueGreenGrayConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
-
-### 灰度发布
-
-待补充
 
 ### 流量侦测
 
@@ -561,23 +656,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 启用和禁用黑名单
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的黑名单
 
-〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
 
-待补充
+截图不对，待补充
 
 ## 路由配置
 
@@ -603,25 +698,27 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Gateway网关路由
 
-操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Gateway网关路由
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Gateway网关路由
 
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
+
+截图不对，待补充
 
 ### Zuul网关路由
 
@@ -639,23 +736,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 #### 发布Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿](#发布蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿](#删除蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Zuul网关路由
 
-操作模式和过程与[编辑蓝绿](#编辑蓝绿)类似
+操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Zuul网关路由
 
-操作模式和过程与[启用和禁用蓝绿](#启用和禁用蓝绿)类似
+操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Zuul网关路由
 
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿](#查看正在工作的蓝绿)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
 

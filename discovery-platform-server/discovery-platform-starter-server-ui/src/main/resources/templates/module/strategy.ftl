@@ -259,6 +259,7 @@
                     table.render({
                         elem: '#gridHeader',
                         cellMinWidth: 80,
+                        defaultToolbar: [],
                         page: false,
                         limit: 99999999,
                         limits: [99999999],
@@ -655,6 +656,7 @@
                         table.render({
                             elem: '#' + gridId,
                             cellMinWidth: 80,
+                            defaultToolbar: [],
                             page: false,
                             limit: 99999999,
                             limits: [99999999],
@@ -720,6 +722,7 @@
                         table.render({
                             elem: '#' + gridId,
                             cellMinWidth: 80,
+                            defaultToolbar: [],
                             page: false,
                             limit: 99999999,
                             limits: [99999999],

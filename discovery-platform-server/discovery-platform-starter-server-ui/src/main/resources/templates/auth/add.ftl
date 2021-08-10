@@ -67,6 +67,7 @@
                 url: 'listApis?appId=${appId}',
                 method: 'post',
                 cellMinWidth: 80,
+                defaultToolbar: [],
                 page: true,
                 limit: 15,
                 limits: [15],

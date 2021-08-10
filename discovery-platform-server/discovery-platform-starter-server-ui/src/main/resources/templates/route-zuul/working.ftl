@@ -118,6 +118,7 @@
                                 elem: '#' + gridId,
                                 cellMinWidth: 80,
                                 page: false,
+                                defaultToolbar: [],
                                 limit: 99999999,
                                 limits: [99999999],
                                 even: true,

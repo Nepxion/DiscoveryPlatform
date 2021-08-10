@@ -110,6 +110,7 @@
                 table.render({
                     elem: '#grid',
                     cellMinWidth: 80,
+                    defaultToolbar: [],
                     page: false,
                     limit: 99999999,
                     limits: [99999999],
@@ -155,7 +156,7 @@
             }
 
             function newRow() {
-                const serviceNames= admin.getServiceName();
+                const serviceNames = admin.getServiceName();
                 count++;
                 return {
                     'index': count,

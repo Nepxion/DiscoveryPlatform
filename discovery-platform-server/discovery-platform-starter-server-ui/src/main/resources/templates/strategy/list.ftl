@@ -142,6 +142,7 @@
                 elem: '#grid',
                 url: 'do-list',
                 toolbar: '#grid-toolbar',
+                defaultToolbar: [],
                 method: 'post',
                 cellMinWidth: 80,
                 page: false,

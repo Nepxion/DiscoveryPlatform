@@ -75,6 +75,7 @@
                 elem: '#grid',
                 url: 'list',
                 toolbar: '#grid-toolbar',
+                defaultToolbar: [],
                 method: 'post',
                 cellMinWidth: 80,
                 page: true,

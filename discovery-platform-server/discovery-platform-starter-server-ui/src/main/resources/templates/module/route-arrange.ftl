@@ -119,6 +119,7 @@
                 table.render({
                     elem: '#grid',
                     cellMinWidth: 80,
+                    defaultToolbar: [],
                     page: false,
                     limit: 99999999,
                     limits: [99999999],

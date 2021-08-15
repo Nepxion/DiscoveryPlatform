@@ -47,6 +47,14 @@
                 margin-left: 5px;
             }
         </style>
+        <style type="text/css">
+            div#topology{
+               margin-left: 50px;
+            }
+            div#topology img{
+               width:auto;height:auto;max-width: 100%;max-height: 100%;
+            }
+        </style>
     </head>
     <body>
 
@@ -356,8 +364,8 @@
         let graph = new G6.Graph({
             renderer: "svg",
             container: "topology",
-            width: 950,
-            height: 550,
+            width: 900,
+            height: 800,
             layout: {
                 type: "dagre",
                 nodesep: 100,
@@ -365,7 +373,7 @@
                     if (d.type === "begin") {
                         return 150;
                     }
-                    return 20;
+                    return 60;
                 },
                 controlPoints: true
             },

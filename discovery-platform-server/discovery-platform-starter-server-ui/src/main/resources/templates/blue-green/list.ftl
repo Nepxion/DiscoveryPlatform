@@ -196,7 +196,7 @@
                     }
                     var msg = '请先勾选要查看的项';
                     if (id.length > 1) {
-                        msg = '只能选择一项，您勾选了' + portalName.length +'个选项';
+                        msg = '只能选择一项，您勾选了' + id.length +'个选项';
                     }
                     admin.error(admin.SYSTEM_PROMPT, msg);
                 } else if (obj.event === 'addVersion') {

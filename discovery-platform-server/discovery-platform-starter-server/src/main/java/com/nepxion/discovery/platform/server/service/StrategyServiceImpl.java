@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +34,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.entity.RegionWeightEntity;
 import com.nepxion.discovery.common.entity.RuleEntity;
 import com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity;
@@ -217,7 +220,7 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
         if (StringUtils.isNotEmpty(basicGlobalStrategyRouteId)) {
             RouteArrangeDto.StrategyType strategyType = RouteArrangeDto.StrategyType.get(strategyDto.getStrategyType());
             RouteArrangeDto routeArrangeDto = routeArrangeService.getByRouteId(basicGlobalStrategyRouteId);
-            switch (strategyType) {
+            switch (Objects.requireNonNull(strategyType)) {
                 case VERSION:
                     strategyEntity.setVersionValue(generateRouteArrange(routeArrangeDto));
                     break;
@@ -411,9 +414,25 @@ public class StrategyServiceImpl extends PlatformPublishAdapter<StrategyMapper, 
     public static String generateRouteArrange(RouteArrangeDto routeArrangeDto) {
         List<Map<String, String>> mapList = JsonUtil.fromJson(routeArrangeDto.getServiceArrange(), new TypeReference<List<Map<String, String>>>() {
         });
-        Map<String, String> result = new LinkedHashMap<>();
+        Map<String, Set<String>> staging = new LinkedHashMap<>();
         for (Map<String, String> map : mapList) {
-            result.putAll(map);
+            Map.Entry<String, String> entry = map.entrySet().iterator().next();
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (staging.containsKey(key)) {
+                staging.get(key).add(value);
+            } else {
+                Set<String> valueList = new LinkedHashSet<>();
+                valueList.add(value);
+                staging.put(key, valueList);
+            }
+        }
+        Map<String, String> result = new LinkedHashMap<>();
+        for (Map.Entry<String, Set<String>> entry : staging.entrySet()) {
+            String key = entry.getKey();
+
+            String value = StringUtils.join(entry.getValue(), DiscoveryConstant.SEPARATE);
+            result.put(key, value);
         }
         return JsonUtil.toJson(result);
     }

@@ -47,14 +47,6 @@
                 margin-left: 5px;
             }
         </style>
-        <style type="text/css">
-            div#topology{
-               margin-left: 50px;
-            }
-            div#topology img{
-               width:auto;height:auto;max-width: 100%;max-height: 100%;
-            }
-        </style>
     </head>
     <body>
 
@@ -206,7 +198,7 @@
     <script src="${ctx}/js/g6/g6.min.js"></script>
     <script src="${ctx}/js/g6/build.g6.js"></script>
     <script src="${ctx}/js/g6/dagre.min.js"></script>
-
+    <script src="${ctx}/js/g6/build.plugins.js"></script>
     <!--拓扑图-->
     <script>
         /**
@@ -230,24 +222,24 @@
         G6.registerNode("node", {
             drawShape: function drawShape(cfg, group) {
                 if (cfg.type === 'begin') {
-                    return group.addShape('dom', {
+                    return group.addShape('image', {
                         attrs: {
                             x: -24,
                             y: 60,
                             width: 48,
                             height: 48,
-                            html: "<img src='${ctx}/images/graph/gateway_black_64.png'/>"
+                            img: "${ctx}/images/graph/gateway_black_64.png"
                         }
                     });
                 }
 
-                let rect = group.addShape('dom', {
+                let rect = group.addShape('image', {
                     attrs: {
                         x: -16,
                         y: 0,
                         width: 36,
                         height: 36,
-                        html: "<img src='${ctx}/images/graph/service_green_64.png'/>"
+                        img: "${ctx}/images/graph/service_green_64.png"
                     }
                 });
 
@@ -337,7 +329,7 @@
                         lineWidth: 1.6,
                         endArrow: {
                             path: "M -3,0 L 3,3 L 3,-3 Z",
-                            d: -14,
+                            d: -4,
                             lineWidth: 3,
                         }
                     }
@@ -351,7 +343,7 @@
                         id: "statusNode" + source + "-" + target,
                         r: 6,
                         x: centerPoint.x,
-                        y: centerPoint.y,
+                        y: centerPoint.y + (cfg.source === graph.beginId ? 55 : 35),
                         text: cfg.count ? 'count = ' + cfg.count : '',
                         fill: cfg.textColor ? cfg.textColor : '#AB83E4',
                     }
@@ -362,7 +354,6 @@
         });
 
         let graph = new G6.Graph({
-            renderer: "svg",
             container: "topology",
             width: 900,
             height: 800,
@@ -373,12 +364,12 @@
                     if (d.type === "begin") {
                         return 150;
                     }
-                    return 60;
+                    return 20;
                 },
                 controlPoints: true
             },
             modes: {
-                default: ['drag-canvas', 'zoom-canvas']
+                default: ['drag-canvas', 'zoom-canvas', 'drag-node']
             },
             defaultNode: {
                 shape: "node",
@@ -682,10 +673,18 @@
                 });
             });
 
+            var beginId;
             function renderGraph(data) {
+                for (var i = 0; i < data.nodes.length; i ++) {
+                    if (data.nodes[i].type === 'begin') graph.beginId = data.nodes[i].id;
+                }
+
                 graph.data(data);
                 graph.render();
-                graph.fitView();
+
+                setTimeout(function() {
+                    graph.fitView();
+                }, 100);
             }
         });
     </script>

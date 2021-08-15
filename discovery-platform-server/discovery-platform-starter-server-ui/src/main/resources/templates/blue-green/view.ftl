@@ -2,14 +2,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <style type="text/css">
-    div#mountNode{
-       margin-left: 50px;
-    }
-    div#mountNode img{
-       width:auto;height:auto;max-width: 100%;max-height: 100%;
-    }
-  </style>
   <#include "../common/layui.ftl">
 </head>
 <body>
@@ -18,6 +10,7 @@
 <script src="${ctx}/js/g6/g6.min.js"></script>
 <script src="${ctx}/js/g6/build.g6.js"></script>
 <script src="${ctx}/js/g6/dagre.min.js"></script>
+<script src="${ctx}/js/g6/build.plugins.js"></script>
 <script>
   /**
    * 本案例演示如何使用G6自定义流程图：
@@ -47,15 +40,16 @@
   G6.registerNode("node", {
     drawShape: function drawShape(cfg, group) {
       if (cfg.type === 'portal') {
-        return group.addShape('dom', {
+        var rect = group.addShape('image', {
           attrs: {
             x: -24,
-            y: 60,
+            y: -15,
             width: 48,
             height: 48,
-            html: "<img src='${ctx}/images/graph/gateway_black_64.png'/>"
+            img: "${ctx}/images/graph/gateway_black_64.png"
           }
         });
+        return rect;
       }
 
       var color = "green";
@@ -65,13 +59,13 @@
           color = "blue"
       }
 
-      var rect = group.addShape('dom', {
+      var rect = group.addShape('image', {
           attrs: {
-            x: -16,
+            x: -18,
             y: 0,
             width: 36,
             height: 36,
-            html: "<img src='${ctx}/images/graph/service_" + color +"_64.png'/>"
+            img: "${ctx}/images/graph/service_" + color +"_64.png"
           }
         });
 
@@ -191,7 +185,7 @@
           lineWidth: 1.6,
           endArrow: {
             path: "M -3,0 L 3,3 L 3,-3 Z",
-            d: -14,
+            d: -4,
             lineWidth: 3,
           }
         }
@@ -202,7 +196,6 @@
   });
 
   var graph = new G6.Graph({
-    renderer: "svg",
     container: "mountNode",
     width: 950,
     height: 550,
@@ -211,14 +204,14 @@
       nodesep: 100,
       ranksepFunc : (d) => {
         if (d.id === "portal") {
-          return 150;
+          return 80;
         }
         return 20;
       },
       controlPoints: true
     },
     modes: {
-      default: ['drag-canvas', 'zoom-canvas']
+      default: ['drag-canvas', 'zoom-canvas', 'drag-node']
     },
     defaultNode: {
       shape: "node",
@@ -263,7 +256,9 @@
   getBasicRoute(data);
   graph.data(data);
   graph.render();
-  graph.fitView();
+  setTimeout(function() {
+     graph.fitView();
+  }, 100);
   </script>
 </body>
 </html>

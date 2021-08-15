@@ -23,6 +23,7 @@ public class GraphEdgeDto implements Serializable {
     private String source;
     private String target;
     private String routeId;
+    private Integer count;
 
     public String getSource() {
         return source;
@@ -46,6 +47,14 @@ public class GraphEdgeDto implements Serializable {
 
     public void setRouteId(String routeId) {
         this.routeId = routeId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override

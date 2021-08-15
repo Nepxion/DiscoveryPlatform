@@ -26,6 +26,9 @@ public class GraphNodeDto implements Serializable {
     private String value;
     private String routeId;
     private boolean firstInRoute;
+    private Integer count;
+    private String dimension;
+    private String dimensionValue;
 
     public String getRouteId() {
         return routeId;
@@ -73,6 +76,30 @@ public class GraphNodeDto implements Serializable {
 
     public void setFirstInRoute(boolean firstInRoute) {
         this.firstInRoute = firstInRoute;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
+    }
+
+    public String getDimensionValue() {
+        return dimensionValue;
+    }
+
+    public void setDimensionValue(String dimensionValue) {
+        this.dimensionValue = dimensionValue;
     }
 
     @Override

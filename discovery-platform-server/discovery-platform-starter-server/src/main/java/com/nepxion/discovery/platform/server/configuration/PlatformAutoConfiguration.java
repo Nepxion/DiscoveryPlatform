@@ -39,6 +39,8 @@ import com.nepxion.discovery.platform.server.controller.GrayController;
 import com.nepxion.discovery.platform.server.controller.GrayPageController;
 import com.nepxion.discovery.platform.server.controller.IndexController;
 import com.nepxion.discovery.platform.server.controller.IndexPageController;
+import com.nepxion.discovery.platform.server.controller.InspectorController;
+import com.nepxion.discovery.platform.server.controller.InspectorPageController;
 import com.nepxion.discovery.platform.server.controller.MenuController;
 import com.nepxion.discovery.platform.server.controller.MenuPageController;
 import com.nepxion.discovery.platform.server.controller.PermissionController;
@@ -223,6 +225,16 @@ public class PlatformAutoConfiguration {
     @Bean
     public ConsoleController consoleController() {
         return new ConsoleController();
+    }
+
+    @Bean
+    public InspectorController inspectorController() {
+        return new InspectorController();
+    }
+
+    @Bean
+    public InspectorPageController inspectorPageController() {
+        return new InspectorPageController();
     }
 
     @Bean

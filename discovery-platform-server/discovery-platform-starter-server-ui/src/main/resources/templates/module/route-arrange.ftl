@@ -274,6 +274,9 @@
                             $('#error').val('在链路列表中发现有相同的配置, 请检查后重新输入');
                             return false;
                         }
+                    }else{
+                        $('#error').val('请在链路列表处填写完整的信息');
+                        return false;
                     }
                 });
                 if (serviceArrange.length > 0) {

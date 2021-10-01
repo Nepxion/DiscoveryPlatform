@@ -920,6 +920,10 @@
                                 return false;
                             }
 
+                            $.each(table.cache['gridBasicGrayRate'], function (index, item) {
+                                routeIds.push(item.routeId);
+                            });
+
                             $('#basicGrayStrategy').val(JSON.stringify(all));
                         }
                     }

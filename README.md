@@ -11,7 +11,9 @@
 
 如果您觉得本框架具有一定的参考价值和借鉴意义，请帮忙在页面右上角 [**Star**]
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/star1.png) 首席作者简介
+## 简介
+
+### 作者简介
 - Nepxion开源社区创始人
 - 2020年阿里巴巴中国云原生峰会出品人
 - 2020年被Nacos和Spring Cloud Alibaba纳入相关开源项目
@@ -24,7 +26,7 @@
 
 <img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardSCA1.jpg" width="28%">
 
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/star4.png) 商业化合作
+### 商业合作
 
 ① Discovery系列
 
@@ -53,18 +55,20 @@ Polaris为Discovery高级定制版，特色功能
 
 有商业版需求的企业和用户，请添加微信1394997，联系作者，洽谈合作事宜
 
+### 入门资料
+
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Logo64.png) Discovery【探索】企业级云原生微服务开源解决方案
 
-① 解决方案
+① 快速入门
+- [快速入门Github版](https://github.com/Nepxion/Discovery/wiki)
+- [快速入门Gitee版](https://gitee.com/Nepxion/Discovery/wikis/pages)
+
+② 解决方案
 - [解决方案WIKI版](http://nepxion.com/discovery)
 - [解决方案PPT版](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-ppt.html)
 
-② 平台界面
+③ 平台界面
 - [平台界面WIKI版](http://nepxion.com/discovery-platform)
-
-③ 快速入门
-- [快速入门Github版](https://github.com/Nepxion/Discovery/wiki)
-- [快速入门Gitee版](https://gitee.com/Nepxion/Discovery/wikis/pages)
 
 ④ 框架源码
 - [框架源码Github版](https://github.com/Nepxion/Discovery)
@@ -130,8 +134,6 @@ Polaris为Discovery高级定制版，特色功能
 ⑧ Discovery【探索】配置中心发布订阅图
 
 ![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Config.jpg)
-
-## 简介
 
 ### 功能概述
 Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，支持如下功能

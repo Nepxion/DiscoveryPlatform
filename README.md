@@ -27,7 +27,6 @@
 <img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardSCA1.jpg" width="28%">
 
 ### 商业合作
-
 ① Discovery系列
 
 | 框架名称 | 框架版本 | 支持Spring Cloud版本 | 使用许可 |
@@ -56,7 +55,6 @@ Polaris为Discovery高级定制版，特色功能
 有商业版需求的企业和用户，请添加微信1394997，联系作者，洽谈合作事宜
 
 ### 入门资料
-
 ![](http://nepxion.gitee.io/discovery/docs/discovery-doc/Logo64.png) Discovery【探索】企业级云原生微服务开源解决方案
 
 ① 快速入门
@@ -269,7 +267,6 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 ## 工程架构
 
 ### 工程清单
-
 | 工程名 | 描述 |
 | --- | --- |
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_south.png"> discovery-platform-server | 平台服务端模块目录 |
@@ -286,7 +283,6 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> discovery-platform-application | 平台服务端可执行应用 |
 
 ### 配置清单
-
 配置文件位于discovery-platform-application/目录下
 
 | 配置文件 | 描述 |
@@ -300,11 +296,9 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 | <img src="http://nepxion.gitee.io/discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
 
 ### 架构核心
-
 ![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Platform.jpg)
 
 ### 依赖引入
-
 ① 服务注册发现依赖引入
 
 服务注册发现中间件的四个插件，必须引入其中一个
@@ -361,7 +355,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ### 云环境体验
 
 #### 云环境服务注册发现和配置中心
-
 采用Nacos作为服务注册发现和配置中心
 
 [http://218.78.55.64:8848/nacos](http://218.78.55.64:8848/nacos)
@@ -409,7 +402,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ## 服务发布
 
 ### 链路编排
-
 链路编排，即在全链路蓝绿发布或者灰度发布的过程中，把若干个服务的实例按照版本/区域维度实现编排成N个逻辑链路。举个例子，根据生产环境上服务的版本新旧，编排成新版本链路和旧版本链路，供蓝绿发布进行条件驱动，或者供灰度发布进行百分比驱动
 
 链路编排功能引入，具有如下的意义
@@ -422,7 +414,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteArrange-1.jpg)
 
 #### 新增链路
-
 ①〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRouteArrange.jpg"> 按钮，弹出相应的对话框
 
 ② 产生〔链路标识〕
@@ -449,7 +440,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布链路
-
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
 〔链路编排〕界面的工具栏上，点击 <img width="97" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseRouteArrange.jpg"> 按钮进行发布
@@ -459,7 +449,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
 
 #### 删除链路
-
 〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
 
 〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRouteArrange.jpg"> 按钮进行删除
@@ -471,7 +460,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
 
 #### 编辑链路
-
 〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
 
 执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelModify.jpg">
@@ -479,13 +467,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 接下去执行[发布链路](#发布链路)
 
 ### 蓝绿灰度
-
 导航栏上选择〔服务发布〕/〔蓝绿灰度〕，进入蓝绿灰度发布界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-1.jpg)
 
 #### 新增蓝绿灰度
-
 ①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-2.jpg)
@@ -582,7 +568,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 上述操作执行完毕后，点击 <img width="59" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布蓝绿灰度
-
 执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelAdd.jpg">
 
 上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要在〔蓝绿灰度〕界面的工具栏上，点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行推送
@@ -592,7 +577,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
 
 #### 删除蓝绿灰度
-
 〔蓝绿灰度〕界面的表格上，打勾选择需要删除的一项或者多项
 
 〔蓝绿灰度〕界面的工具栏上，点击 <img width="118" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlueGreenGray.jpg"> 按钮进行删除
@@ -602,7 +586,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 编辑蓝绿灰度
-
 〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿灰度](#新增蓝绿灰度)类似，但〔入口类型〕和〔入口名称〕不可修改
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-9.jpg)
@@ -612,7 +595,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 启用和禁用蓝绿灰度
-
 〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
@@ -622,11 +604,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 接下去执行[发布蓝绿灰度](#发布蓝绿灰度)，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/LabelEnable.jpg">
 
 #### 查看蓝绿灰度拓扑图
-
 待补充
 
 #### 查看正在工作的蓝绿灰度
-
 〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/BlueGreenGray-10.jpg)
@@ -638,19 +618,16 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 
 ### 流量侦测
-
 待补充
 
 ## 实例管理
 
 ### 实例信息
-
 待补充
 
 ### 实例摘除
 
 #### 新增黑名单
-
 ① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-1.jpg)
@@ -660,31 +637,26 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-2.jpg)
 
 #### 发布黑名单
-
 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除黑名单
-
 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 启用和禁用黑名单
-
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的黑名单
-
 〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Blacklist-3.jpg)
 
-截图不对，待补充
+待补充
 
 ## 路由配置
 
 ### Gateway网关路由
 
 #### 新增Gateway网关路由
-
 ① 导航栏上选择〔路由配置〕/〔Gateway网关路由〕，进入Spring Cloud Gateway动态路由配置界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-1.jpg)
@@ -702,33 +674,27 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-3.jpg)
 
 #### 发布Gateway网关路由
-
 〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Gateway网关路由
-
 〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Gateway网关路由
-
 操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Gateway网关路由
-
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Gateway网关路由
-
 〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteGateway-4.jpg)
 
-截图不对，待补充
+待补充
 
 ### Zuul网关路由
 
 #### 新增Zuul网关路由
-
 ① 导航栏上选择〔路由配置〕/〔Zuul网关路由〕，进入Zuul动态路由配置界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-1.jpg)
@@ -740,29 +706,23 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-2.jpg)
 
 #### 发布Zuul网关路由
-
 〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Zuul网关路由
-
 〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Zuul网关路由
-
 操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
 
 #### 启用和禁用Zuul网关路由
-
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Zuul网关路由
-
 〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/RouteZuul-3.jpg)
 
 ## 基础应用
-
 基础应用，一般为企业的内部中间件聚合模块，通过平台的左侧菜单入口进行页面弹出方式的跳转
 
 新增、删除、修改基础应用外链，请参考[页面设置](#页面设置)
@@ -770,7 +730,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ## 系统设置
 
 ### 页面设置
-
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Page-1.jpg)
 
 待补充
@@ -780,7 +739,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ### 管理员配置
 
 #### 新增管理员
-
 ① 导航栏上选择〔授权配置〕/〔管理员配置〕，进入管理员配置界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-1.jpg)
@@ -792,13 +750,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-2.jpg)
 
 #### 删除管理员
-
 〔管理员配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
 
 #### 编辑管理员
-
 〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔编辑管理员〕
@@ -806,13 +762,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Admin-3.jpg)
 
 #### 重置管理员密码
-
 〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
 
 ### 角色配置
 
 #### 新增角色
-
 ① 导航栏上选择〔授权配置〕/〔角色配置〕，进入角色配置界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-1.jpg)
@@ -824,13 +778,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Role-2.jpg)
 
 #### 删除角色
-
 〔角色配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
 〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeleteRole.jpg"> 按钮进行删除
 
 #### 编辑角色
-
 〔角色配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔编辑角色〕
@@ -840,7 +792,6 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ### 权限配置
 
 #### 新增权限
-
 ① 导航栏上选择〔授权配置〕/〔权限配置〕，进入权限配置界面
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-1.jpg)
@@ -852,13 +803,11 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-2.jpg)
 
 #### 删除权限
-
 〔权限配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
 〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonDeletePermission.jpg"> 按钮进行删除
 
 #### 编辑权限
-
 〔权限配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="24" src="http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/ButtonHas.jpg"> 按钮，完成权限编辑
 
 ![](http://nepxion.gitee.io/discoveryplatform/docs/discovery-doc/Permission-3.jpg)

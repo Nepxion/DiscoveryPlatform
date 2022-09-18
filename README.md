@@ -99,41 +99,6 @@ Polaris为Discovery高级定制版，特色功能
 - Spring Cloud Finchley ~ Hoxton版本，参考[1.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/1.x.x)，分支为1.x.x
 - Spring Cloud 202x版本，参考[2.x.x ~ 3.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/master)，分支为master
 
-### 架构拓扑
-![](http://nepxion.gitee.io/discovery/docs/icon-doc/Logo64.png) Discovery【探索】和Polaris【北极星】架构体系
-
-① Discovery【探索】和Polaris【北极星】联合架构图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Architecture.jpg)
-
-② Discovery【探索】和Polaris【北极星】联合拓扑图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Topology.jpg)
-
-③ Polaris【北极星】分层架构图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Layer.jpg)
-
-④ Discovery【探索】实施方案图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/All.jpg)
-
-⑤ Discovery【探索】域网关实施图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/DomainEnable.jpg)
-
-⑥ Discovery【探索】非域网关实施图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/DomainDisable.jpg)
-
-⑦ Discovery【探索】全局订阅实施图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/GlobalSub.jpg)
-
-⑧ Discovery【探索】配置中心发布订阅图
-
-![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Config.jpg)
-
 ### 功能概述
 Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton版制作，也支持和兼容Spring Cloud Edgware版 ~ 202x版接入，支持如下功能
 
@@ -195,7 +160,6 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
     - [作者简介](#作者简介)
     - [商业合作](#商业合作)
     - [入门资料](#入门资料)
-    - [架构拓扑](#架构拓扑)
     - [功能概述](#功能概述)
     - [郑重致谢](#郑重致谢)
     - [请联系我](#请联系我)

@@ -31,7 +31,7 @@ import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.constant.DiscoverySwaggerConstant;
 
 @Configuration
-@ConditionalOnProperty(value = DiscoverySwaggerConstant.SWAGGER_SERVICE_ENABLED, matchIfMissing = true)
+@ConditionalOnProperty(value = DiscoverySwaggerConstant.SWAGGER_ENABLED, matchIfMissing = true)
 public class SwaggerAutoConfiguration {
     // Access Token Header全局授权
     @Bean

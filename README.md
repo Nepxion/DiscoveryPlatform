@@ -146,8 +146,6 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
     - 基于IP地址和端口黑名单
 - 支持界面显示所连的注册中心和配置中心
 
-请访问[https://github.com/Nepxion/DiscoveryPlatform](https://github.com/Nepxion/DiscoveryPlatform)获取源码和示例
-
 ### 郑重致谢
 感谢如下小伙伴参与本平台的开发、测试和部署。下面名单根据加入次序进行排序
 - 张宁

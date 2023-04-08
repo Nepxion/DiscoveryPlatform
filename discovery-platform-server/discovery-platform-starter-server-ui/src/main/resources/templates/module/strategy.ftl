@@ -909,6 +909,7 @@
 
                                 total = total + parseInt(item.rate);
                                 const json = {'routeId': item.routeId, 'rate': item.rate}, key = JSON.stringify(json);
+                                routeIds.push(item.routeId);
                                 if (!set.has(key)) {
                                     set.add(key);
                                     all.push(json);

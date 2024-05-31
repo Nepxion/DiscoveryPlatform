@@ -1,11 +1,11 @@
-![](https://nepxion.github.io/Discovery//docs/discovery-doc/Banner.png)
+![](https://nepxion.github.io/Discovery/docs/discovery-doc/Banner.png)
 
 # Discovery【探索】云原生微服务解决方案
 ![Total visits](https://visitor-badge.laobi.icu/badge?page_id=Nepxion&title=total%20visits)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/6.x.x/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework-starter.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework-starter)  [![Build Status](https://github.com/Nepxion/Discovery/workflows/build/badge.svg)](https://github.com/Nepxion/Discovery/actions)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c42eb719ef64def9cad773abd877e8b)](https://www.codacy.com/gh/Nepxion/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Discovery.svg?label=Stars&style=flat&logo=GitHub)](https://github.com/Nepxion/Discovery/stargazers)  [![Stars](https://gitee.com/Nepxion/Discovery/badge/star.svg?theme=gvp)](https://gitee.com/Nepxion/Discovery/stargazers)
 
-[![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=GitHub)](https://github.com/Nepxion/Discovery/wiki)  [![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=Gitee)](https://gitee.com/nepxion/Discovery/wikis/pages?sort_id=3993615&doc_id=1124387)  [![Discovery PPT](https://img.shields.io/badge/Discovery%20-ppt-brightgreen?logo=Microsoft%20PowerPoint)](https://nepxion.github.io/Discovery//docs/link-doc/discovery-ppt.html)  [![Discovery Page](https://img.shields.io/badge/Discovery%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/Discovery//)  [![Discovery Platform Page](https://img.shields.io/badge/Discovery%20Platform%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/DiscoveryPlatform)  [![Polaris Page](https://img.shields.io/badge/Polaris%20-page-brightgreen?logo=Microsoft%20Edge)](http://polaris-paas.gitee.io/polaris-sdk)
+[![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=GitHub)](https://github.com/Nepxion/Discovery/wiki)  [![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=Gitee)](https://gitee.com/nepxion/Discovery/wikis/pages?sort_id=3993615&doc_id=1124387)  [![Discovery PPT](https://img.shields.io/badge/Discovery%20-ppt-brightgreen?logo=Microsoft%20PowerPoint)](https://nepxion.github.io/Discovery/docs/link-doc/discovery-ppt.html)  [![Discovery Page](https://img.shields.io/badge/Discovery%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/Discovery/)  [![Discovery Platform Page](https://img.shields.io/badge/Discovery%20Platform%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/DiscoveryPlatform)  [![Polaris Page](https://img.shields.io/badge/Polaris%20-page-brightgreen?logo=Microsoft%20Edge)](https://polaris-paas.github.io/polaris-wiki)
 
-<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/email.png"></a>
+<a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery/docs/icon-doc/email.png"></a>
 
 如果您觉得本框架具有一定的参考价值和借鉴意义，请帮忙在页面右上角 [**Star**]
 
@@ -22,7 +22,7 @@
 - Spring Cloud Alibaba Steering Committer、Nacos Group Member
 - Spring Cloud Alibaba、Nacos、Sentinel、OpenTracing Committer & Contributor
 
-<img src="https://nepxion.github.io/Discovery//docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="https://nepxion.github.io/Discovery//docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="https://nepxion.github.io/Discovery//docs/discovery-doc/AwardSCA1.jpg" width="28%">
+<img src="https://nepxion.github.io/Discovery/docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="https://nepxion.github.io/Discovery/docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="https://nepxion.github.io/Discovery/docs/discovery-doc/AwardSCA1.jpg" width="28%">
 
 ### 商业合作
 ① Discovery系列
@@ -51,7 +51,7 @@ Polaris为Discovery高级定制版，特色功能
 有商业版需求的企业和用户，请添加微信1394997，联系作者，洽谈合作事宜
 
 ### 入门资料
-![](https://nepxion.github.io/Discovery//docs/discovery-doc/Logo64.png) Discovery【探索】企业级云原生微服务开源解决方案
+![](https://nepxion.github.io/Discovery/docs/discovery-doc/Logo64.png) Discovery【探索】企业级云原生微服务开源解决方案
 
 ① 快速入门
 - [快速入门Github版](https://github.com/Nepxion/Discovery/wiki)
@@ -59,10 +59,10 @@ Polaris为Discovery高级定制版，特色功能
 
 ② 解决方案
 - [解决方案WIKI版](http://nepxion.com/discovery)
-- [解决方案PPT版](https://nepxion.github.io/Discovery//docs/link-doc/discovery-ppt.html)
+- [解决方案PPT版](https://nepxion.github.io/Discovery/docs/link-doc/discovery-ppt.html)
 
 ③ 最佳实践
-- [最佳实践PPT版](https://nepxion.github.io/Discovery//docs/link-doc/discovery-ppt-1.html)
+- [最佳实践PPT版](https://nepxion.github.io/Discovery/docs/link-doc/discovery-ppt-1.html)
 
 ④ 平台界面
 - [平台界面WIKI版](http://nepxion.com/discovery-platform)
@@ -87,7 +87,7 @@ Polaris为Discovery高级定制版，特色功能
     - [极简版本地化指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master-simple-native)，分支为master-simple-native
     - [集成版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master)，分支为master
 
-![](https://nepxion.github.io/Discovery//docs/polaris-doc/Logo64.png) Polaris【北极星】企业级云原生微服务商业解决方案
+![](https://nepxion.github.io/Discovery/docs/polaris-doc/Logo64.png) Polaris【北极星】企业级云原生微服务商业解决方案
 
 ① 解决方案
 - [解决方案WIKI版](http://nepxion.com/polaris)
@@ -158,7 +158,7 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 ### 请联系我
 微信、钉钉、公众号和文档
 
-![](https://nepxion.github.io/Discovery//docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery//docs/contact-doc/document-1.jpg)
+![](https://nepxion.github.io/Discovery/docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/document-1.jpg)
 
 ## 目录
 - [简介](#简介)
@@ -243,34 +243,34 @@ Nepxion Discovery Platform基于Nepxion Discovery 6.x.x版和Spring Cloud Hoxton
 ### 工程清单
 | 工程名 | 描述 |
 | --- | --- |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_south.png"> discovery-platform-server | 平台服务端模块目录 |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-server | 平台服务端的Starter |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-server-mysql | 平台服务端数据库MySQL插件的Starter |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-server-h2 | 平台服务端H2插件的Starter|
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ldap | 平台服务端Ldap插件的Starter|
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ui | 平台服务端界面 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_south.png"> discovery-platform-client | 平台服务端模块目录 |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-client | 平台客户端的Starter |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_south.png"> discovery-platform-common | 平台通用模块目录 |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-common-dingding | 封装钉钉通用操作逻辑的Starter |
-| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-starter-common-mail | 封装邮件通用操作逻辑的Starter |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> discovery-platform-application | 平台服务端可执行应用 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_south.png"> discovery-platform-server | 平台服务端模块目录 |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server | 平台服务端的Starter |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-mysql | 平台服务端数据库MySQL插件的Starter |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-h2 | 平台服务端H2插件的Starter|
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ldap | 平台服务端Ldap插件的Starter|
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-server-ui | 平台服务端界面 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_south.png"> discovery-platform-client | 平台服务端模块目录 |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-client | 平台客户端的Starter |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_south.png"> discovery-platform-common | 平台通用模块目录 |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-dingding | 封装钉钉通用操作逻辑的Starter |
+| &nbsp;&nbsp;<img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-starter-common-mail | 封装邮件通用操作逻辑的Starter |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> discovery-platform-application | 平台服务端可执行应用 |
 
 ### 配置清单
 配置文件位于discovery-platform-application/目录下
 
 | 配置文件 | 描述 |
 | --- | --- |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> pom.xml | 切换注册中心、配置中心、数据库等依赖引入 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等跟微服务相关的配置 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/application-mysql.properties | 平台MySQL数据库、HikariCP连接池配置 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/application-h2.properties | 平台H2内存数据库、HikariCP链接池配置 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
-| <img src="https://nepxion.github.io/Discovery//docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> pom.xml | 切换注册中心、配置中心、数据库等依赖引入 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/bootstrap.properties | 平台微服务配置，例如：注册中心和配置中心等跟微服务相关的配置 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/application.properties | 平台通用配置，例如：JWT和Ldap等配置 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-mysql.properties | 平台MySQL数据库、HikariCP连接池配置 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/application-h2.properties | 平台H2内存数据库、HikariCP链接池配置 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-mysql.sql | 平台MySQL数据库创库脚本 |
+| <img src="https://nepxion.github.io/Discovery/docs/icon-doc/direction_west.png"> src/main/resources/META-INF/schema-h2.sql | 平台H2内存数据库创库脚本 |
 
 ### 架构核心
-![](https://nepxion.github.io/Discovery//docs/polaris-doc/Platform.jpg)
+![](https://nepxion.github.io/Discovery/docs/polaris-doc/Platform.jpg)
 
 ### 依赖引入
 ① 服务注册发现依赖引入
@@ -361,7 +361,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - PlatformMySqlApplication.java，基于MySql数据库的运行入口
 - PlatformH2Application.java，基于H2内存数据库的运行入口
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：基于H2内存数据库模式的平台，需要事先启动H2内存数据库服务器，从如下链接下载、安装并运行
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：基于H2内存数据库模式的平台，需要事先启动H2内存数据库服务器，从如下链接下载、安装并运行
 
 [http://h2database.com/html/download.html](http://h2database.com/html/download.html)
 
@@ -420,7 +420,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelEnable.jpg">
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
 
 #### 删除链路
 〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
@@ -431,7 +431,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 接下去执行[发布链路](#发布链路)
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
 
 #### 编辑链路
 〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
@@ -470,9 +470,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 | <img width="32" height="32" src="https://nepxion.github.io/DiscoveryPlatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
 | <img width="32" height="32" src="https://nepxion.github.io/DiscoveryPlatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但只能生效一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个。这五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但只能生效一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个。这五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
 
-![](https://nepxion.github.io/Discovery//docs/discovery-doc/Strategy.jpg)
+![](https://nepxion.github.io/Discovery/docs/discovery-doc/Strategy.jpg)
 
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
 
@@ -548,7 +548,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelEnable.jpg">
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
 
 #### 删除蓝绿灰度
 〔蓝绿灰度〕界面的表格上，打勾选择需要删除的一项或者多项
@@ -589,7 +589,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 ② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="229" height="16" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelBlueGreenGrayConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
+![](https://nepxion.github.io/Discovery/docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 
 ### 流量侦测
 待补充

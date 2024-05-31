@@ -3,7 +3,7 @@
 # Discovery【探索】云原生微服务解决方案
 ![Total visits](https://visitor-badge.laobi.icu/badge?page_id=Nepxion&title=total%20visits)  [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/6.x.x/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven)](https://search.maven.org/artifact/com.nepxion/discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework-starter.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework-starter)  [![Build Status](https://github.com/Nepxion/Discovery/workflows/build/badge.svg)](https://github.com/Nepxion/Discovery/actions)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5c42eb719ef64def9cad773abd877e8b)](https://www.codacy.com/gh/Nepxion/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade)  [![Stars](https://img.shields.io/github/stars/Nepxion/Discovery.svg?label=Stars&style=flat&logo=GitHub)](https://github.com/Nepxion/Discovery/stargazers)  [![Stars](https://gitee.com/Nepxion/Discovery/badge/star.svg?theme=gvp)](https://gitee.com/Nepxion/Discovery/stargazers)
 
-[![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=GitHub)](https://github.com/Nepxion/Discovery/wiki)  [![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=Gitee)](https://gitee.com/nepxion/Discovery/wikis/pages?sort_id=3993615&doc_id=1124387)  [![Discovery PPT](https://img.shields.io/badge/Discovery%20-ppt-brightgreen?logo=Microsoft%20PowerPoint)](https://nepxion.github.io/Discovery//docs/link-doc/discovery-ppt.html)  [![Discovery Page](https://img.shields.io/badge/Discovery%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/Discovery//)  [![Discovery Platform Page](https://img.shields.io/badge/Discovery%20Platform%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/Discovery/platform)  [![Polaris Page](https://img.shields.io/badge/Polaris%20-page-brightgreen?logo=Microsoft%20Edge)](http://polaris-paas.gitee.io/polaris-sdk)
+[![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=GitHub)](https://github.com/Nepxion/Discovery/wiki)  [![Wiki](https://badgen.net/badge/icon/wiki?icon=wiki&label=Gitee)](https://gitee.com/nepxion/Discovery/wikis/pages?sort_id=3993615&doc_id=1124387)  [![Discovery PPT](https://img.shields.io/badge/Discovery%20-ppt-brightgreen?logo=Microsoft%20PowerPoint)](https://nepxion.github.io/Discovery//docs/link-doc/discovery-ppt.html)  [![Discovery Page](https://img.shields.io/badge/Discovery%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/Discovery//)  [![Discovery Platform Page](https://img.shields.io/badge/Discovery%20Platform%20-page-brightgreen?logo=Microsoft%20Edge)](https://nepxion.github.io/DiscoveryPlatform)  [![Polaris Page](https://img.shields.io/badge/Polaris%20-page-brightgreen?logo=Microsoft%20Edge)](http://polaris-paas.gitee.io/polaris-sdk)
 
 <a href="https://github.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/github.png"></a>&nbsp;  <a href="https://gitee.com/Nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gitee.png"></a>&nbsp;  <a href="https://search.maven.org/search?q=g:com.nepxion" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/maven.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/wechat.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/wechat.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/dingding.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/dingding.png"></a>&nbsp;  <a href="https://nepxion.github.io/Discovery//docs/contact-doc/gongzhonghao.jpg" tppabs="#" target="_blank"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/gongzhonghao.png"></a>&nbsp;  <a href="mailto:1394997@qq.com" tppabs="#"><img width="25" height="25" src="https://nepxion.github.io/Discovery//docs/icon-doc/email.png"></a>
 
@@ -338,7 +338,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 登录页面底部为重要的链接以及快速联系我们的方式
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Login.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Login.jpg)
 
 #### 云环境调用验证
 通过改变Http Parameter参数验证蓝绿灰度等一系列功能，例如，在浏览器上输入如下地址，根据a值的改变，观测返回的调用结果是否符合预期
@@ -385,10 +385,10 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 导航栏上选择〔服务发布〕/〔链路编排〕，进入链路编排界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteArrange-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteArrange-1.jpg)
 
 #### 新增链路
-①〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddRouteArrange.jpg"> 按钮，弹出相应的对话框
+①〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddRouteArrange.jpg"> 按钮，弹出相应的对话框
 
 ② 产生〔链路标识〕
 
@@ -403,52 +403,52 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 包括如下步骤
 - 选择〔服务名〕，通过下拉的服务列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
 - 选择〔版本〕，通过下拉的版本号列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择
-- 刷新链路〔服务名〕和〔版本〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
-- 增加链路，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除链路，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 刷新链路〔服务名〕和〔版本〕下拉列表，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 增加链路，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除链路，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteArrange-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteArrange-2.jpg)
 
 ⑤ 执行保存
 
-上述操作执行完毕后，点击 <img width="59" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+上述操作执行完毕后，点击 <img width="59" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布链路
-执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelAdd.jpg">
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelAdd.jpg">
 
-〔链路编排〕界面的工具栏上，点击 <img width="97" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseRouteArrange.jpg"> 按钮进行发布
+〔链路编排〕界面的工具栏上，点击 <img width="97" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseRouteArrange.jpg"> 按钮进行发布
 
-执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelEnable.jpg">
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelEnable.jpg">
 
 ![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：一般情况下，新增链路不需要执行发布，当蓝绿灰度发布的时候，会连带执行链路发布。但是，当链路进行了修改的时候，可以通过链路发布自下而上进行蓝绿灰度发布
 
 #### 删除链路
 〔链路编排〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteRouteArrange.jpg"> 按钮进行删除
+〔链路编排〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteRouteArrange.jpg"> 按钮进行删除
 
-执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelDelete.jpg">
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔链路标识〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelDelete.jpg">
 
 接下去执行[发布链路](#发布链路)
 
 ![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：当链路被蓝绿灰度绑定的时候，不能执行删除
 
 #### 编辑链路
-〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
+〔链路编排〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增链路](#新增链路)类似
 
-执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelModify.jpg">
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行[发布链路](#发布链路)
 
 ### 蓝绿灰度
 导航栏上选择〔服务发布〕/〔蓝绿灰度〕，进入蓝绿灰度发布界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-1.jpg)
 
 #### 新增蓝绿灰度
-①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
+①〔蓝绿灰度〕界面的工具栏上，点击 <img width="141" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddVersionBlueGreenGray.jpg"> 或者 <img width="141" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddRegionBlueGreenGray.jpg"> 按钮，弹出相应的对话框。下文以〔版本蓝绿灰度〕为例
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-2.jpg)
 
 ② 确定〔入口类型〕和〔入口名称〕
 
@@ -456,7 +456,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - `网关`和`服务`属于局部订阅模式，即把蓝绿灰度的规则策略推送到指定的网关或者服务上，只有`入口名称`下拉框所选择的网关（或者服务）才能订阅该规则策略
 - `组`属于全局订阅模式，即把蓝绿灰度的规则策略推送到指定的组上，只有`入口名称`下拉框所选择的组下的所有网关和服务才能订阅该规则策略
 
-入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+入口名称，通过下拉的网关、服务或者组列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
 ③ 添加和删除策略
 
@@ -466,9 +466,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 | 图标 | 标识 |
 | --- | --- |
-| <img width="32" height="32" src="https://nepxion.github.io/Discovery/platform/docs/icon-doc/service_yellow_64.png"> | 兜底策略 |
-| <img width="32" height="32" src="https://nepxion.github.io/Discovery/platform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
-| <img width="32" height="32" src="https://nepxion.github.io/Discovery/platform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
+| <img width="32" height="32" src="https://nepxion.github.io/DiscoveryPlatform/docs/icon-doc/service_yellow_64.png"> | 兜底策略 |
+| <img width="32" height="32" src="https://nepxion.github.io/DiscoveryPlatform/docs/icon-doc/service_blue_green_64.png"> | 蓝绿策略 |
+| <img width="32" height="32" src="https://nepxion.github.io/DiscoveryPlatform/docs/icon-doc/service_black_64.png"> | 灰度策略 |
 
 ![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：所有`全局兜底策略`、`蓝绿兜底策略`和`灰度兜底策略`可以缺失，但只能生效一个；`蓝绿策略`和`灰度策略`可以缺失，但可以无数个。这五种策略的执行逻辑和优先级，参考如下的蓝绿灰度混合发布执行逻辑图
 
@@ -476,21 +476,21 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 
 〔策略配置〕工具栏上，点击如下按钮进行相关操作
 
-1.〔添加全局兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
+1.〔添加全局兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddGlobalBasicStrategy.jpg"> 按钮，添加全局兜底策略
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-3.jpg)
 
-〔链路选取〕在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+〔链路选取〕在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 
-2.〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
+2.〔添加蓝绿兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddBlueGreenBasicStrategy.jpg"> 按钮，添加蓝绿兜底策略
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-4.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-4.jpg)
 
 操作模式和过程跟`〔添加全局兜底策略〕`一致
 
-3.〔添加蓝绿策略〕，点击 <img width="115" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
+3.〔添加蓝绿策略〕，点击 <img width="115" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddBlueGreenStrategy.jpg"> 按钮，添加蓝绿策略。当使用者每添加一个蓝绿策略，选项卡会自动在蓝绿策略标题后数字加一
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-5.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-5.jpg)
 
 蓝绿策略配置，包括`条件设置`和`链路选取`两部分
 
@@ -499,33 +499,33 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 - 选择〔运算符〕，通过下拉的运算符列表进行选择，包括等于`=`、不等于`!=`、大于`>`、大于等于`>=`、小于`<`、小于等于`<=`、匹配`matches`七种运算符
 - 选择〔关系符〕，通过下拉的关系符进行选择，包括与`and`、或`or`两种关系符
 - 输入〔值〕，值即进行条件驱动的`Header`、`Parameter`、`Cookie`参数的值
-- 增加〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
-- 执行〔聚合〕条件，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="68" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
-- 执行〔校验〕条件，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验〕功能进行校验，点击 <img width="68" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
+- 增加〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔条件〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 执行〔聚合〕条件，条件文本框里的表达式会通过上述操作自动聚合，如果一旦鼠标键盘事件事件问题，使用者也可以点击 <img width="68" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAggregateCondition.jpg"> 按钮进行手工聚合
+- 执行〔校验〕条件，当表达式组合项很多，使用者难以确定组合表达式是否正确，可以通过〔校验〕功能进行校验，点击 <img width="68" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonValidateCondition.jpg"> 按钮弹出对话框，给参数赋值，看校验条件是否能通过
 - 执行〔自定义条件〕，当上述〔运算符〕和〔关系符〕仍旧无法满足使用者的需求，那么使用者可以自定义条件，在条件文本框输入符合`Spel`规范的表达式即可
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-6.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-6.jpg)
 
 `链路选取`，操作模式和过程跟`〔添加全局兜底策略〕`一致
 
-4.〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
+4.〔添加灰度兜底策略〕，点击 <img width="139" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddGrayBasicStrategy.jpg"> 按钮，添加灰度兜底策略
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-7.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-7.jpg)
 
 只需要〔流量配比〕若干条链路的百分比即可，包括如下步骤
-- 选取在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
+- 选取在[链路编排](#链路编排)中创建的链路标识，通过下拉的列表进行选择，使用者也可以通过手工输入自动匹配方式进行选择。使用者可以通过右边的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRefresh.jpg"> 按钮进行刷新
 - 〔流量配比〕所选择链路，配比值必须是0 ~ 100的整数，所有链路的配比值加起来必须等于100
-- 增加〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 增加〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔流量配比〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
-5.〔添加灰度策略〕，点击 <img width="115" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
+5.〔添加灰度策略〕，点击 <img width="115" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddGrayStrategy.jpg"> 按钮，添加灰度策略。当使用者每添加一个灰度策略，选项卡会自动在灰度策略标题后数字加一
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-7.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-7.jpg)
 
 `条件设置`，操作模式和过程跟`〔添加蓝绿策略〕`一致；`流量配比`，操作模式和过程跟`〔添加灰度兜底策略〕`一致
 
-6.〔删除策略〕，点击 <img width="92" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
+6.〔删除策略〕，点击 <img width="92" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteStrategy.jpg"> 按钮，删除当前选项卡上的策略
 
 ⑥ 设置〔内置参数〕
 
@@ -534,60 +534,60 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 内置参数配置包括如下步骤
 - 输入〔请求头〕
 - 输入〔值〕
-- 增加〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
-- 删除〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
+- 增加〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAdd.jpg"> 按钮进行增加
+- 删除〔内置参数〕，点击〔操作〕列下的 <img width="34" height="25" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRemove.jpg"> 按钮进行删除
 
 ⑦ 执行保存
 
-上述操作执行完毕后，点击 <img width="59" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
+上述操作执行完毕后，点击 <img width="59" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonConfirm.jpg"> 按钮进行保存
 
 #### 发布蓝绿灰度
-执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelAdd.jpg">
+执行保存后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelAdd.jpg">
 
-上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要在〔蓝绿灰度〕界面的工具栏上，点击 <img width="119" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行推送
+上述保存步骤，只是保存到数据库中，并未推送到配置中心，需要在〔蓝绿灰度〕界面的工具栏上，点击 <img width="119" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行推送
 
-执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelEnable.jpg">
+执行发布后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelEnable.jpg">
 
-![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
+![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：任何增、删、改蓝绿灰度，最终都必须通过点击 <img width="119" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseBlueGreenGray.jpg"> 按钮进行生效
 
 #### 删除蓝绿灰度
 〔蓝绿灰度〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔蓝绿灰度〕界面的工具栏上，点击 <img width="118" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteBlueGreenGray.jpg"> 按钮进行删除
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="118" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteBlueGreenGray.jpg"> 按钮进行删除
 
-执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelDelete.jpg">
+执行删除后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelDelete.jpg">
 
 接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 编辑蓝绿灰度
-〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿灰度](#新增蓝绿灰度)类似，但〔入口类型〕和〔入口名称〕不可修改
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮进行编辑，操作模式和过程与[新增蓝绿灰度](#新增蓝绿灰度)类似，但〔入口类型〕和〔入口名称〕不可修改
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-9.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-9.jpg)
 
-执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelModify.jpg">
+执行编辑后，主界面会把该条数据进行标识，〔状态〕列上显示 <img  width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelModify.jpg">
 
 接下去执行[发布蓝绿灰度](#发布蓝绿灰度)
 
 #### 启用和禁用蓝绿灰度
-〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
+〔蓝绿灰度〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDisable.jpg"> 或者 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEnable.jpg">  按钮进行禁用或者启用
 
 `禁用`只是清除配置中心对应的规则策略，并不删除数据库中的规则策略，以便下一次`启用`
 
-执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelModify.jpg">
+执行禁用或者启用后，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelNotRelease.jpg"> ，〔入口名称〕列上显示 <img width="25" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelModify.jpg">
 
-接下去执行[发布蓝绿灰度](#发布蓝绿灰度)，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelEnable.jpg">
+接下去执行[发布蓝绿灰度](#发布蓝绿灰度)，主界面会把该条数据进行标识，〔状态〕列上显示 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelDisable.jpg"> 或者 <img width="52" height="18" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelEnable.jpg">
 
 #### 查看蓝绿灰度拓扑图
 待补充
 
 #### 查看正在工作的蓝绿灰度
-〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
+〔蓝绿灰度〕界面的工具栏上，点击 <img width="178" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonViewBlueGreenGrayList.jpg"> 按钮进行查看
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/BlueGreenGray-10.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/BlueGreenGray-10.jpg)
 
-① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
+① 选择〔入口类型〕和〔入口名称〕。使用者可以通过右边的 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonRefreshPortalList.jpg"> 按钮进行刷新
 
-② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="229" height="16" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/LabelBlueGreenGrayConsistency.jpg"> 的一致性提示，否则给出不一致性提示
+② 界面自动给出符合所选择的〔入口类型〕和〔入口名称〕的服务实例列表，通过选项卡方式呈现出所属该服务实例的规则策略。如果所有服务实例的规则策略是一致的，那么会给出 <img width="229" height="16" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/LabelBlueGreenGrayConsistency.jpg"> 的一致性提示，否则给出不一致性提示
 
 ![](https://nepxion.github.io/Discovery//docs/icon-doc/tip.png) 提醒：一致性问题，可能是由于网络抖动、配置中心等多种原因，导致若干个服务实例订阅同一个配置，有些服务实例收到规则策略的更新，有些服务实例未收到规则策略的更新
 
@@ -604,25 +604,25 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 新增黑名单
 ① 导航栏上选择〔实例管理〕/〔实例摘除〕，进入实例摘除配置界面。通过把服务实例放置到黑名单的方式达到服务实例摘除的目的
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Blacklist-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Blacklist-1.jpg)
 
-② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框。黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
+② 〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddBlacklist.jpg"> 按钮，弹出相应的对话框。黑名单类型，包括`UUID`（全局唯一ID）和`IP地址和端口`，使用者根据实际应用场景来选择
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Blacklist-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Blacklist-2.jpg)
 
 #### 发布黑名单
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseBlacklist.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除黑名单
-〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteBlacklist.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 启用和禁用黑名单
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的黑名单
-〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
+〔实例摘除〕界面的工具栏上，点击 <img width="167" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonViewBlacklistList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Blacklist-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Blacklist-3.jpg)
 
 待补充
 
@@ -633,25 +633,25 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 新增Gateway网关路由
 ① 导航栏上选择〔路由配置〕/〔Gateway网关路由〕，进入Spring Cloud Gateway动态路由配置界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteGateway-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteGateway-1.jpg)
 
-② 〔Gateway网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+② 〔Gateway网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
 
 根据Spring Cloud Gateway网关的官方配置规范，结合如下界面进行配置。其中，断言器和过滤器包括内置和自定义两种模式
 
 内置断言器和过滤器模式是通过Spring Cloud Gateway网关内置相关类和解析模块来实现的，请参照界面提示进行配置
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteGateway-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteGateway-2.jpg)
 
 自定义断言器和过滤器是通过Spring Cloud Gateway网关使用者自定义和解析模块相关类来实现的，请参照界面提示进行配置
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteGateway-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteGateway-3.jpg)
 
 #### 发布Gateway网关路由
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="222" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseGatewayRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Gateway网关路由
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Gateway网关路由
 操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
@@ -660,9 +660,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Gateway网关路由
-〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
+〔Gateway网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteGateway-4.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteGateway-4.jpg)
 
 待补充
 
@@ -671,19 +671,19 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 新增Zuul网关路由
 ① 导航栏上选择〔路由配置〕/〔Zuul网关路由〕，进入Zuul动态路由配置界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteZuul-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteZuul-1.jpg)
 
-② 〔Zuul网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
+② 〔Zuul网关路由〕界面的工具栏上，点击 <img width="95" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddRoute.jpg"> 按钮，弹出相应的对话框
 
 根据Zuul网关的官方配置规范，结合如下界面进行配置
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteZuul-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteZuul-2.jpg)
 
 #### 发布Zuul网关路由
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="121" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonReleaseZuulRoute.jpg"> ，操作模式和过程与[发布蓝绿灰度](#发布蓝绿灰度)类似
 
 #### 删除Zuul网关路由
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteRoute.jpg"> ，操作模式和过程与[删除蓝绿灰度](#删除蓝绿灰度)类似
 
 #### 编辑Zuul网关路由
 操作模式和过程与[编辑蓝绿灰度](#编辑蓝绿灰度)类似
@@ -692,9 +692,9 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 操作模式和过程与[启用和禁用蓝绿灰度](#启用和禁用蓝绿灰度)类似
 
 #### 查看正在工作的Zuul网关路由
-〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
+〔Zuul网关路由〕界面的工具栏上，点击 <img width="155" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonViewRouteList.jpg"> ，操作模式和过程与[查看正在工作的蓝绿灰度](#查看正在工作的蓝绿灰度)类似
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/RouteZuul-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/RouteZuul-3.jpg)
 
 ## 基础应用
 基础应用，一般为企业的内部中间件聚合模块，通过平台的左侧菜单入口进行页面弹出方式的跳转
@@ -704,7 +704,7 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 ## 系统设置
 
 ### 页面设置
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Page-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Page-1.jpg)
 
 待补充
 
@@ -715,76 +715,76 @@ MySQL数据库和H2内存数据库，选择引入其中一个
 #### 新增管理员
 ① 导航栏上选择〔授权配置〕/〔管理员配置〕，进入管理员配置界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Admin-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Admin-1.jpg)
 
-② 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddAdmin.jpg"> 按钮，弹出相应的对话框
+② 〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddAdmin.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔新增管理员〕
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Admin-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Admin-2.jpg)
 
 #### 删除管理员
 〔管理员配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
+〔管理员配置〕界面的工具栏上，点击 <img width="107" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteAdmin.jpg"> 按钮进行删除
 
 #### 编辑管理员
-〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔编辑管理员〕
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Admin-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Admin-3.jpg)
 
 #### 重置管理员密码
-〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
+〔管理员配置〕界面的表格上，点击〔操作〕列下的 <img width="77" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonResetPassword.jpg"> 按钮进行重置
 
 ### 角色配置
 
 #### 新增角色
 ① 导航栏上选择〔授权配置〕/〔角色配置〕，进入角色配置界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Role-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Role-1.jpg)
 
-② 〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddRole.jpg"> 按钮，弹出相应的对话框
+② 〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddRole.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔新增角色〕
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Role-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Role-2.jpg)
 
 #### 删除角色
 〔角色配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeleteRole.jpg"> 按钮进行删除
+〔角色配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeleteRole.jpg"> 按钮进行删除
 
 #### 编辑角色
-〔角色配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
+〔角色配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="22" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonEdit.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔编辑角色〕
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Role-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Role-3.jpg)
 
 ### 权限配置
 
 #### 新增权限
 ① 导航栏上选择〔授权配置〕/〔权限配置〕，进入权限配置界面
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Permission-1.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Permission-1.jpg)
 
-② 〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonAddPermission.jpg"> 按钮，弹出相应的对话框
+② 〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonAddPermission.jpg"> 按钮，弹出相应的对话框
 
 输入相关信息完成〔新增权限〕
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Permission-2.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Permission-2.jpg)
 
 #### 删除权限
 〔权限配置〕界面的表格上，打勾选择需要删除的一项或者多项
 
-〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonDeletePermission.jpg"> 按钮进行删除
+〔权限配置〕界面的工具栏上，点击 <img width="96" height="30" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonDeletePermission.jpg"> 按钮进行删除
 
 #### 编辑权限
-〔权限配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="24" src="https://nepxion.github.io/Discovery/platform/docs/discovery-doc/ButtonHas.jpg"> 按钮，完成权限编辑
+〔权限配置〕界面的表格上，点击〔操作〕列下的 <img width="50" height="24" src="https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/ButtonHas.jpg"> 按钮，完成权限编辑
 
-![](https://nepxion.github.io/Discovery/platform/docs/discovery-doc/Permission-3.jpg)
+![](https://nepxion.github.io/DiscoveryPlatform/docs/discovery-doc/Permission-3.jpg)
 
 ## Star走势图
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)
